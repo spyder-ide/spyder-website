@@ -1,0 +1,51 @@
+<script>
+  import { base } from "$app/paths";
+
+  import { title, description, navigation } from "$lib/config";
+
+  import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
+  import Logo from "$lib/components/Logo.svelte";
+
+  let mobile = false;
+</script>
+
+<header class="flex items-center text-mine-shaft-500 dark:text-mine-shaft-300">
+  <div class="container flex items-center justify-between">
+    <!-- Logo -->
+    <a href="{base}/" class="title h-20 flex items-center">
+      <Logo compact={mobile} />
+      <span class="sr-only">{title} {description}</span>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="menu-container flex items-center gap-12">
+      {#each navigation as menu}
+        <ul class="menu flex items-center gap-6">
+          {#each menu as item}
+            <li class="menu-item">
+              <a
+                class="menu-link h-20 grid items-center uppercase text-sm tracking-wider before:h-1 before:hover:bg-red-berry-900"
+                href={item.href}
+                target={item.target}>{item.text}</a
+              >
+            </li>
+          {/each}
+        </ul>
+      {/each}
+
+      <!-- Theme switch (dark/light) -->
+      <ThemeSwitch />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .menu-link {
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .menu-link::before,
+  .menu-link::after {
+    content: "";
+  }
+</style>
