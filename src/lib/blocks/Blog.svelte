@@ -53,7 +53,7 @@
 </script>
 
 <div class="container">
-  <h1 class="text-6xl text-center font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-32">
+  <h1 class="text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-32">
     {blogTitle}
   </h1>
 

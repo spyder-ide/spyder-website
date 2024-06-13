@@ -12,6 +12,7 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
 
   // Create an array of posts
   const allPosts = iterablePostFiles.map(([path, module]) => {
+    // Get the metadata from the module
     const { metadata } = module;
 
     // Format the path to get the slug
@@ -85,7 +86,7 @@ export const getOS = () => {
   if (browser) {
     const userAgent = navigator.userAgent.toLowerCase();
     const os = {
-      mac: ["mac", "iphone", "ipad", "ipod"],
+      mac: ["mac"],
       windows: ["win"],
       linux: ["linux"],
     };

@@ -1,11 +1,9 @@
 import { fetchMarkdownPosts } from "$lib/utils";
 
-export const prerender = true;
+const pageNum = 1;
+const pageSize = 10;
 
-export async function load({ params }) {
-  const pageNum = parseInt(params.page, 10) || 1;
-  const pageSize = 10;
-
+export async function load() {
   const { posts, totalPages } = await fetchMarkdownPosts(pageNum, pageSize);
 
   // Fetch the posts dynamically
@@ -17,3 +15,5 @@ export async function load({ params }) {
     },
   };
 }
+
+export const prerender = true;

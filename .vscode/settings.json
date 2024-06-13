@@ -1,4 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "files.autoSaveWhenNoErrors": false
+  "files.autoSaveWhenNoErrors": false,
+  "liveServer.settings.multiRootWorkspaceName": "website-proposal"
 }

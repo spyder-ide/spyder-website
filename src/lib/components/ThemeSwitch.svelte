@@ -42,8 +42,14 @@
     id="theme-switch"
   />
   <label class="relative cursor-pointer p-2" for="theme-switch">
-    <Sun class="hidden dark:block" size=16 />
-    <Moon class="dark:hidden" size=16 />
+    <Sun class="hidden dark:block" size=20 />
+    <Moon class="dark:hidden" size=20 />
     <span class="sr-only">Switch to light / dark version</span>
   </label>
 </div>
+
+<style>
+  input + label {
+    margin-bottom: -0.2em;
+  }
+</style>

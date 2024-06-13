@@ -1,7 +1,4 @@
 <script>
-  import { base } from "$app/paths";
-  import { getOS } from "$lib/utils";
-
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
   import ImageCompare from "$lib/components/ImageCompare.svelte";

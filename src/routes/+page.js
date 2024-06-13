@@ -10,6 +10,18 @@ import Selections from "$lib/content/selections.md";
 import Ecosystem from "$lib/content/ecosystem.md";
 import Setup from "$lib/content/setup.md";
 
+// OS Detection
+const os = getOS();
+let downloadString = "";
+if (os === "windows") {
+  downloadString = "for Windows 10+";
+} else if (os === "mac") {
+  downloadString = "for Mac OS";
+} else if (os === "linux") {
+  downloadString = "for Ubuntu 18.04+";
+}
+
+// Load content and process blocks
 export function load() {
   return {
     props: {
@@ -24,7 +36,7 @@ export function load() {
         {
           highlight: true,
           icon: getOS(),
-          text: "Download",
+          text: `Download ${downloadString}`,
           href: `${base}/download/?os=${getOS()}`,
         },
       ],

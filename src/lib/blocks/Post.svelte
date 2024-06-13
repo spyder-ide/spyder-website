@@ -1,5 +1,6 @@
 <script>
   import { onMount, onDestroy } from "svelte";
+  import { base } from "$app/paths";
   import { metadata } from "$lib/store";
   import { title as siteTitle } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
@@ -30,14 +31,15 @@
   });
 </script>
 
+<!-- this is for syntax highlighting -->
 <svelte:head>
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/PrismJS/prism-themes/master/themes/prism-nord.css">
+  <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css">
 </svelte:head>
 
 <article class="container">
   <div class="my-32">
     <h1
-      class="text-6xl text-center font-extralight text-mine-shaft-600 dark:text-mine-shaft-200"
+      class="text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
     >
       {title}
     </h1>
