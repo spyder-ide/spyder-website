@@ -20,6 +20,7 @@ export default {
       },
       aspectRatio: {
         "4/3": "4 / 3",
+        "16/10": "16 / 10",
       },
       typography: (theme) => ({
         DEFAULT: {

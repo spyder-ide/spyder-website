@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
-  import { ChevronLeft, ChevronRight } from "lucide-svelte";
+
+  import { Icon } from "svelte-icons-pack";
+  import { LuChevronLeft, LuChevronRight } from "svelte-icons-pack/lu";
+
   import Loader from "./Loader.svelte";
 
   let imgObject, imgAfter, imgBefore;
@@ -58,18 +61,14 @@
   });
 </script>
 
-
 <svelte:window
-on:touchmove={move}
-on:touchend={end}
-on:mousemove={move}
-on:mouseup={end}
-on:resize={getImgDimensions}
+  on:touchmove={move}
+  on:touchend={end}
+  on:mousemove={move}
+  on:mouseup={end}
+  on:resize={getImgDimensions}
 />
 
-{#if !before || !after}
-  <Loader />
-{:else}
 <div
   role="button"
   tabindex="0"
@@ -78,16 +77,21 @@ on:resize={getImgDimensions}
   on:mousedown={start}
 >
   <button on:mousedown|preventDefault={start}>
-    <img
-      {alt}
-      bind:this={imgAfter}
-      on:load={getImgDimensions}
-      src={after}
-      class="block absolute inset-0 z-20 object-cover select-none w-full h-full"
-    />
+    {#if after}
+      <img
+        {alt}
+        bind:this={imgAfter}
+        on:load={getImgDimensions}
+        src={after}
+        class="block absolute inset-0 z-20 object-cover select-none w-full h-full"
+      />
+    {:else}
+      <Loader />
+    {/if}
   </button>
 
   <button on:mousedown|preventDefault={start}>
+    {#if before}
     <img
       {alt}
       bind:this={imgBefore}
@@ -95,19 +99,25 @@ on:resize={getImgDimensions}
       class="block absolute inset-0 z-20 object-cover select-none w-full h-full"
       style="clip:rect(0, {x}px, {h}px, 0);"
     />
+    {:else}
+      <Loader />
+    {/if}
   </button>
 
   <div
-    class="handle absolute z-30 w-10 h-10 cursor-pointer select-none rounded-full flex items-center justify-center gap-0 bg-white"
+    class="handle absolute z-30 w-10 h-10 cursor-pointer select-none rounded-full flex items-center justify-center gap-0 bg-spring-wood-50 dark:bg-mine-shaft-900"
     style="left: calc({offset * 100}% - 20px)"
   >
-    <ChevronLeft />
-    <ChevronRight />
+    <Icon src={LuChevronLeft} />
+    <Icon src={LuChevronRight} />
   </div>
 </div>
-{/if}
 
 <style>
+  button {
+    @apply w-full h-full;
+  }
+
   .handle {
     top: calc(50% - 15px);
   }
@@ -118,7 +128,7 @@ on:resize={getImgDimensions}
     height: 9999px;
     position: absolute;
     left: calc(50% - 2px);
-    border: 2px solid white;
+    @apply border-2 border-spring-wood-50 dark:border-mine-shaft-900
   }
 
   .handle:before {

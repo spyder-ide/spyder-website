@@ -2,7 +2,7 @@
   import { socials } from "$lib/config";
 
   import Divider from "$lib/components/Divider.svelte";
-  import IconLink from "$lib/components/Button.svelte";
+  import Button from "$lib/components/Button.svelte";
   import FooterContent from "$lib/content/footer-content.md";
 
   const socialIcons = new Map(Object.entries(socials));
@@ -26,7 +26,7 @@
     <h2 class="text-red-berry-900">Connect with us on</h2>
     <div class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4">
       {#each socialIcons as [icon, href]}
-        <IconLink {icon} {href} button={false} target="_blank" />
+        <Button {icon} {href} button={false} target="_blank" />
       {/each}
     </div>
     <div class="max-w-md mx-auto text-xs">

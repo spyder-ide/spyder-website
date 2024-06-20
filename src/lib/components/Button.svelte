@@ -1,10 +1,36 @@
 <script>
-  import { icons } from "./icons";
+  import { Icon } from "svelte-icons-pack";
+  import {
+    BsFacebook,
+    BsGithub,
+    BsInstagram,
+    BsMastodon,
+    BsTwitterX,
+    BsUbuntu,
+    BsWindows,
+    BsApple,
+    BsQuestionCircleFill,
+    BsDownload,
+  } from "svelte-icons-pack/bs";
+
+  let icons = {
+    facebook: BsFacebook,
+    github: BsGithub,
+    instagram: BsInstagram,
+    mastodon: BsMastodon,
+    twitter: BsTwitterX,
+    linux: BsUbuntu,
+    windows: BsWindows,
+    mac: BsApple,
+    unknown: BsQuestionCircleFill,
+    download: BsDownload,
+  };
 
   export let button = true;
   export let highlight = false;
   export let icon = "";
   export let href = "";
+  export let rel = "";
   export let text = "";
   export let title = text;
   export let target = "_parent";
@@ -20,6 +46,7 @@
 <a
   {href}
   {target}
+  {rel}
   {title}
   class:button
   class:icon-link={!button}
@@ -33,7 +60,7 @@
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"} class="flex flex-shrink-0">
-      {@html currentIcon}
+      <Icon src={currentIcon} size={20} />
     </span>
   {/if}
 
@@ -43,24 +70,21 @@
 
   {#if iconRight}
     <span class:icon-right={iconPosition === "right"} class="flex flex-shrink-0">
-      {@html currentIcon}
+      <Icon src={currentIcon} size={20} />
     </span>
   {/if}
 </a>
 
 <style>
+  .button {
+    @apply bg-gradient-to-b shadow-md;
+  }
   .button.highlight {
-    @apply bg-red-berry-900 text-white border-red-berry-950;
-    &:hover {
-      @apply bg-red-berry-800 border-red-berry-900;
-    }
+    @apply from-red-berry-900 to-red-berry-950 text-white border-red-berry-950;
   }
 
   .button.regular {
-    @apply bg-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
-    &:hover {
-      @apply bg-mine-shaft-50 text-neutral-500 border-mine-shaft-200;
-    }
+    @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
   }
 
   .button .icon-right {

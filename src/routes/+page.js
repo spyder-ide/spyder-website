@@ -10,9 +10,11 @@ import Selections from "$lib/content/selections.md";
 import Ecosystem from "$lib/content/ecosystem.md";
 import Setup from "$lib/content/setup.md";
 
+
 // OS Detection
 const os = getOS();
 let downloadString = "";
+
 if (os === "windows") {
   downloadString = "for Windows 10+";
 } else if (os === "mac") {
@@ -35,9 +37,9 @@ export function load() {
         },
         {
           highlight: true,
-          icon: getOS(),
+          icon: `${os}`,
           text: `Download ${downloadString}`,
-          href: `${base}/download/?os=${getOS()}`,
+          href: `${base}/download?os=${os}`,
         },
       ],
 
@@ -83,9 +85,9 @@ export function load() {
           video: false,
           button: true,
           content: Setup,
-          buttonText: "Download",
-          buttonIcon: getOS(),
-          buttonHref: `${base}/download/?os=${getOS()}`,
+          buttonText: `Download ${downloadString}`,
+          buttonIcon: `${os}`,
+          buttonHref: `${base}/download?os=${os}`,
           buttonHighlight: true,
         },
       ],

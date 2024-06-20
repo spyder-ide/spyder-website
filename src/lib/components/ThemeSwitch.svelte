@@ -1,12 +1,15 @@
 <script>
   import { browser } from '$app/environment';
-  import { Sun, Moon } from 'lucide-svelte';
   import { theme } from '$lib/store';
   import { get } from 'svelte/store';
 
-  let darkMode = get(theme) === 'dark';
+  import { Icon } from 'svelte-icons-pack';
+  import { LuSun, LuMoon } from "svelte-icons-pack/lu";
 
-  const handleSwitchMode = () => {
+  let darkMode = get(theme) === 'dark';
+  let switchString = "Switch to light / dark version"
+
+  const switchMode = () => {
     darkMode = !darkMode;
     theme.set(darkMode ? 'dark' : 'light');
   };
@@ -35,21 +38,14 @@
 
 <div class="inline-flex justify-center items-center">
   <input
-    on:click={handleSwitchMode}
+    on:click={switchMode}
     checked={darkMode}
     class="sr-only"
     type="checkbox"
     id="theme-switch"
   />
   <label class="relative cursor-pointer p-2" for="theme-switch">
-    <Sun class="hidden dark:block" size=20 />
-    <Moon class="dark:hidden" size=20 />
-    <span class="sr-only">Switch to light / dark version</span>
+    <Icon src={darkMode ? LuMoon : LuSun} size={24} title={switchString} />
+    <span class="sr-only">{switchString}</span>
   </label>
 </div>
-
-<style>
-  input + label {
-    margin-bottom: -0.2em;
-  }
-</style>

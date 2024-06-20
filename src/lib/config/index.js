@@ -2,14 +2,19 @@
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
 
+// Base URL
+export const url = dev
+  ? "http://localhost:5173/"
+  : "https://www.spyder-ide.org/";
+
 // Website metadata
 export const title = "Spyder IDE";
-
-export const author = "Spyder Website Contributors";
-
-export const description =
+export const subtitle =
   "The Python IDE that scientists and data analysts deserve";
-
+export const comment =
+  "Carefully designed by a dedicated team of scientists to meet our needs";
+export const author = "Spyder Website Contributors";
+export const description = `${subtitle}. ${comment}`;
 export const keywords = [
   "Python",
   "IDE",
@@ -23,14 +28,23 @@ export const keywords = [
   "Programming",
 ];
 
-export const url = dev
-  ? "http://localhost:5173/"
-  : "https://www.spyder-ide.org/";
-
+// Blog metadata
 export const blogTitle = "Welcome to Spyder's Blog";
 
 // Navigation
 export const navigation = [
+  [
+    {
+      text: "About",
+      href: `${base}/about/`,
+      target: "_self",
+    },
+    {
+      text: "Download",
+      href: `${base}/download/`,
+      target: "_self",
+    },
+  ],
   [
     {
       text: "Blog",
@@ -56,7 +70,38 @@ export const socials = {
 
 // Hero content
 export const heroContent = {
-  title: "The Python IDE that scientists and data analysts deserve",
-  description:
-    "Carefully designed by a dedicated team of scientists to meet our needs",
+  title: subtitle,
+  description: comment,
+};
+
+// Images in hero
+export const heroImages = {
+  dark: `${base}/assets/media/screenshot_dark.webp`,
+  light: `${base}/assets/media/screenshot_light.webp`,
+};
+
+// Download links
+export const releases = {
+  windows: {
+    x86_64: {
+      name: "Windows 10+",
+      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder_64bit_full.exe",
+    },
+  },
+  mac: {
+    x86_64: {
+      name: "MacOS (Intel)",
+      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder.dmg",
+    },
+    arm: {
+      name: "MacOS (Apple Silicon)",
+      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder_arm64.dmg",
+    },
+  },
+  linux: {
+    x86_64: {
+      name: "Ubuntu 18.04+",
+      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/EXPERIMENTAL-Spyder-5.5.5-Linux-x86_64.sh",
+    },
+  },
 };

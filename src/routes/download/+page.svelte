@@ -1,32 +1,59 @@
 <script>
   import { onMount } from "svelte";
   import Loader from "$lib/components/Loader.svelte";
+  import Button from "$lib/components/Button.svelte";
 
-  let os;
-  let osName;
-  let downloadStr;
+  import { releases } from "$lib/config";
 
-  onMount(() => {
+  let os, osName, downloadUrl;
+  let arch = "x86_64";
+
+  let loadFunction = () => {
     const params = new URLSearchParams(window.location.search);
-    os = params.get("os") || "unknown";
-    osName = os.charAt(0).toUpperCase() + os.slice(1);
-    downloadStr = os === 'unknown' ? 'OS' : 'Download';
-  });
+    os = params.get("os");
+    if (!os || !releases[os]) {
+      return;
+    }
+    osName = releases[os][arch].name;
+    downloadUrl = releases[os][arch].link;
+
+    // Start the download automatically on load
+    if (downloadUrl) {
+      window.location = downloadUrl;
+    }
+  };
+
+  onMount(loadFunction);
 </script>
 
-{#if os && osName}
-  <div class="download container max-w-[72ch] mt-32 text-center">
-    <h1 class="text-4xl font-extralight">{osName} {downloadStr}</h1>
-    {#if os === "linux"}
-      <p>Here are the download instructions for Linux.</p>
-    {:else if os === "windows"}
-      <p>Here are the download instructions for Windows.</p>
-    {:else if os === "mac"}
-      <p>Here are the download instructions for Mac.</p>
-    {:else}
-      <p>OS not recognized. Please select your operating system.</p>
-    {/if}
-  </div>
-{:else}
-  <Loader/>
-{/if}
+<div class="download container max-w-[72ch] mt-32 text-center">
+  {#if !os || !releases[os]}
+    <h1 class="text-4xl font-extralight">
+      Please select the package you want to download
+    </h1>
+  {:else if os !== "unknown"}
+    <h1 class="text-4xl font-extralight mb-16">Download started&hellip;</h1>
+    <h2 class="text-2xl font-light mb-4">
+      Detected <span class="text-red-berry-900">{osName}</span> or compatible
+    </h2>
+    <p class="text-sm text-neutral-500">
+      If the download does not start automatically, please click the button
+      below
+    </p>
+    <div class="block my-6">
+      <Button
+        highlight
+        text="Download for {osName}"
+        icon={os}
+        href={downloadUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      />
+    </div>
+    <p class="text-sm text-neutral-500">
+      Alternatively, you can manually select the package you want from the link below
+    </p>
+  {:else}
+    <Loader />
+  {/if}
+</div>
