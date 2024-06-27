@@ -26,8 +26,9 @@
     name = fetchedMetadata.name;
   });
 
+  // Resets the metadata when the component is destroyed
   onDestroy(() => {
-    metadata.reset(); // Resets the metadata when the component is destroyed
+    metadata.reset();
   });
 </script>
 

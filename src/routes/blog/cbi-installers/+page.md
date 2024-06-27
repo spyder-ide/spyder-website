@@ -19,17 +19,17 @@ Look for future announcements about these and other features!
 So, what will you see with these new installers?
 If you are a Windows user, you will continue to have a graphical interface guiding you through the installation process, and will likely not notice any difference from the previous experience.
 
-![Windows installer](/assets/media/windows.png)
+![Windows installer](windows.png)
 
 If you are a macOS user, you will now have a `.pkg` package installer instead of a `.dmg` disk image.
 Rather than drag-and-drop the application to the `Applications` folder, the `.pkg` installer provides a graphical interface that will guide you through the installation process with more flexibility.
 
-![macOS installer](/assets/media/macos.png)
+![macOS installer](macos.png)
 
 If you are a Linux user, you will have an interactive shell script guiding you through the installation process.
 This ensures it is compatible with as many distributions and desktop environments as possible.
 
-![Linux installer](/assets/media/linux.png)
+![Linux installer](linux.png)
 
 In all cases, you will not need to have Anaconda installed, nor do you need an existing Python environment; in fact, you don't even need a preexisting Python installation!
 These installers are completely self-contained.

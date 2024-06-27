@@ -11,7 +11,7 @@ summary: STX Next, one of Europe's largest Python development companies, has sha
 It is a pleasure for us on the Spyder team to work every day to improve the workflow of developers, scientists, engineers and data analysts.
 We are very glad to receive and share a STX Next testimonial about Spyder, along with an interview with one of their developers, [Michael Wiśniewski](https://github.com/Michael-Wisniewski), who has found Spyder very useful in his job.
 
-![Company Picture](/assets/media/stxnext.jpg)
+![Company Picture](stxnext.jpg)
 
 ## What Michael Wiśniewski says about Spyder
 
@@ -31,7 +31,7 @@ Want to run a single line of code or quickly check a chart update? IPython is on
 
 ## Michael Wiśniewski's interview
 
-<img src="/assets/media/profile.png" alt="Michael Wiśniewski" style="margin-top: 0.5em; width: 200px; margin-right: 1em; float: left;">
+<img src="profile.png" alt="Michael Wiśniewski" style="margin-top: 0.5em; width: 200px; margin-right: 1em; float: left;">
 
 *I’m Michael Wiśniewski and I’ve been working at STX Next as a full-stack developer for over a year.
 During this time, I was involved in various projects from many different areas—from typical web applications where I used Python and JavaScript to implementing ML solutions for image recognition on the nVidia Jetson platform.

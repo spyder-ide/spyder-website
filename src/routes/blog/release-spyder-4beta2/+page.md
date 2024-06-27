@@ -44,7 +44,7 @@ and is enabled by default in Spyder 4. You can still select the
 light theme under  ``Preferences > Appearance`` by either choosing a light-background
 syntax-highlighting scheme, or changing ``Interface theme`` to ``Light``.
 
-![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface](/assets/media/spyder-qdarkstyle.png)
+![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface](spyder-qdarkstyle.png)
 
 Pretty, right :-) ?
 
@@ -78,7 +78,7 @@ help generation, calltips, and real-time code/style analysis were rewritten to t
 architecture, and hover hints and docstring style analysis were added.
 Further LSP features, such as workspace functionality and on the fly completion, will come in future betas.
 
-![Hover hint and calltips](/assets/media/spyder-hover-hint-calltip.png)
+![Hover hint and calltips](spyder-hover-hint-calltip.png)
 
 Our current support is geared towards Python, using the great
 [Python-Language-Server](https://github.com/palantir/python-language-server)
@@ -88,14 +88,14 @@ package. This has allowed us to provide fine-grained configurability for
 betas we’ll also add the ability to use and configure code formatters like
 YAPF and autopep8.
 
-![Docstring style preferences](/assets/media/spyder-doc-prefs.png)
+![Docstring style preferences](spyder-doc-prefs.png)
 
 We support configuring LSP servers for additional, non-Python programming languages.
 In the future, we hope to include out-of-the-box LSP integration for
 some of the most popular languages in the scientific computing space,
 including Fortran, Julia and C/C++.
 
-![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia](/assets/media/spyder-preferences-lsp.png)
+![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia](spyder-preferences-lsp.png)
 
 ## Plots pane
 
@@ -104,7 +104,7 @@ Spyder now includes a Plots pane, allowing you to browse all figures created dur
 session. Beyond just viewing plots, you can also zoom, save/export, copy and remove
 them.
 
-![Spyder main window, showing a figure displayed in the plots pane](/assets/media/spyder-plots.png)
+![Spyder main window, showing a figure displayed in the plots pane](spyder-plots.png)
 
 ## But wait, there's more!
 

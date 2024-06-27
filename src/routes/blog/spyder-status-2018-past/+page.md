@@ -21,7 +21,7 @@ As Spyder was, is and always will be a community-developed and supported IDE, th
 Developer effort previously spent on our Spyder plugins, like [spyder-notebook](https://github.com/spyder-ide/spyder-notebook), [spyder-reports](https://github.com/spyder-ide/spyder-reports), and [spyder-terminal](https://github.com/spyder-ide/spyder-terminal), among others, was refocused on the Spyder core, and the development and release of Spyder 4 was put mostly on hold.
 To help make up for the loss of funding, we appealed to the community for support, asking users who found Spyder valuable to back our project on [OpenCollective](https://opencollective.com/spyder), in order to accelerate development and fund more features for Spyder 4.
 
-![Spyder OpenCollective, showing many donations and backers](/assets/media/spyder_opencollective.png)
+![Spyder OpenCollective, showing many donations and backers](spyder_opencollective.png)
 
 To our unending gratitude, you responded! In the few months since then, we've gone from zero to a budget of well over $4500 per year and rising at an increasing pace, thanks to the continuing contributions of over 80 (and counting!) individual and institutional backers.
 We also had several new core team members and community contributors pitch in to help carry the load, and we've got some more great news in the very next post on the funding front.
@@ -36,7 +36,7 @@ On the development side of the project, while our overall pace is modestly lower
 By the numbers, since mid-November, we've pushed approximately 1200 commits to ``master`` (Spyder 4), comprising over 37 000 lines added and 16 000 removed, and 900 commits to ``3.x`` (Spyder 3), with over 16 500 additions and 10 000 deletions.
 Users have opened over 1375 issues (bugs, feature requests and other feedback), of which we've managed to resolve more than 1330, or nearly 97%.
 
-![Github commit timeseries for Spyder, with high activity over the past few years](/assets/media/github_commit_history.png)
+![Github commit timeseries for Spyder, with high activity over the past few years](github_commit_history.png)
 
 Further, over 250 pull requests from almost two dozen unique contributors, some old, some new, have been submitted since that time—fixing bugs, adding new or enhanced functionality, or making other improvements—of which 226 have been merged to the main Spyder codebase.
 This work has coalesced into four separate official releases during that period, with another only days away.
@@ -60,7 +60,7 @@ You can now remove all user-defined variables with a GUI command, and changes in
 ``Cloudpickle`` is now used to serialize objects from the Console to the Variable Explorer, greatly improving the latter's capabilities (as discussed below).
 Finally, Cython files are now automatically run in dedicated Cython consoles, and you can now use the edit magic command from the Console to open any file right inside Spyder's Editor.
 
-![Variable Explorer, with a variety of array types displayed](/assets/media/varexp_array_display.png)
+![Variable Explorer, with a variety of array types displayed](varexp_array_display.png)
 
 The **Variable Explorer**, which many of you cite as Spyder's "killer feature", has greatly improved as well.
 Most notably, thanks to the aforementioned ``cloudpickle`` change, you now have access to rich, deep exploration of nearly any object, builtin or custom, and can traverse, view, and when possible even edit complex hierarchies of nested types with ease.
@@ -72,7 +72,7 @@ Rounding out the major changes, the **Find in Files** tool now allows you to rem
 Under the hood, we've made ``PyQt5`` a dependency for easier, one-command installation and added many more tests and better project infrastructure to help catch errors.
 To make things easier on you if something does go wrong, we've greatly improved the error reporting system, the UI/UX and the explanatory text to be more up to date, informative, and user friendly.
 
-![New Spyder error report dialog, with more helpful UI text](/assets/media/error_report_dialog.png)
+![New Spyder error report dialog, with more helpful UI text](error_report_dialog.png)
 
 All of the mentioned additions are included in the latest released version of Spyder, 3.2.8, which you can update to with ``conda update spyder`` (if using Anaconda), with your package manager/distribution (if installed that way) or with ``pip update spyder`` (otherwise).
 Even more are already implemented for our next release, due out in a week's time, and we'll have a preview of what to expect right here on the blog even sooner.
@@ -84,7 +84,7 @@ Outside the core Spyder IDE, while most plugins have been paused until the Spyde
 Since November, it has gotten improved ``pytest`` support with realtime test results and click-to-open, better UI/UX, a robust communications backend (ZeroMQ), and numerous bug fixes and minor improvements.
 [QtPy](https://github.com/spyder-ide/qtpy), another affiliated project which Spyder uses as its Qt GUI abstraction layer, has had three releases including one major, with new Qt classes, early support for ``PySide2``, better performance, and a number of bugfixes.
 
-![Spyder-unittest dialog, displaying test results](/assets/media/spyder_unittest.png)
+![Spyder-unittest dialog, displaying test results](spyder_unittest.png)
 
 Other projects under the Spyder umbrella are also making major progress. The [pywinpty](https://github.com/spyder-ide/pywinpty) pseudo-terminal library has seen six official releases (three major), with a new rich high level interface to create and track processes, new process wrappers, Python 2.7 support, major performance, stability and security improvements, and many bug fixes.
 Most importantly, we are proud to report that since this January Jupyter Notebook (in 5.3.0) and JupyterLab have both adopted it to create and manage system terminals on Windows!

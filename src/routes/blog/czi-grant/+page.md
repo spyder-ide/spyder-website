@@ -17,7 +17,7 @@ To address this situation, we will add and enhance support for local Spyder inst
 The first step in that direction is to enhance the existing remote code execution features in Spyder, as the current workflow is error-prone and quite cumbersome.
 It requires users to install the Spyder-Kernels package on the remote machine, manually start a kernel on it and provide the kernel connection file to the local machine.
 
-![Dialog to create a connection to a remote kernel](/assets/media/remote-kernel-connection.png)
+![Dialog to create a connection to a remote kernel](remote-kernel-connection.png)
 
 Since Spyder does not currently have a way to identify and store state changes, users currently have to repeat this costly setup process if there are any configuration modifications on the remote machine. Our plan is to fully automate this procedure so that Spyder can start and connect to a remote kernel automatically, with the user only needing to provide their SSH credentials and specify the Python environment they want to use.
 

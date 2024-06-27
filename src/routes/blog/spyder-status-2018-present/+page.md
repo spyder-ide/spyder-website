@@ -42,7 +42,7 @@ Meanwhile, on the development side of things, we've just finished the rollout of
 In brief, it has some significant under the hood revisions, cleaning house of some old end of life dependencies and legacy support (Python 3.3 and PyQt4 below 5.5), and separates the IPython Console kernel code into a new ``spyder-kernels`` package to make it easier for you to work with different Python environments and remote sessions, and easier for us to add exciting new features down the road.
 Additionally, it adds new preferences options for console plotting and autocompletion, improves the usability and performance of Variable Explorer object viewers, includes a new, fully automated error reporting feature to make submitting reports faster, easier and more helpful, and contains a number of other minor improvements and usability enhancements, along with numerous bug fixes.
 
-![A remote kernel running in a system console alongside Spyder's connect to kernel dialog](/assets/media/spyder-remote-kernel.png)
+![A remote kernel running in a system console alongside Spyder's connect to kernel dialog](spyder-remote-kernel.png)
 
 
 ## Spyder 4 Public Beta 1 on Deck
@@ -51,7 +51,7 @@ We'll also be releasing the first public beta of Spyder 4 in the very near futur
 There are far too many significant new features to list here, and they are more than worthy of their own full-length post, as there are many substantial changes to the Editor, Console, Variable Explorer, File Explorer, Outline Explorer, API and more.
 
 
-![Preview of the new Spyder 4 Editor, showing several of the mentioned features](/assets/media/spyder-4b1-preview-editor.png)
+![Preview of the new Spyder 4 Editor, showing several of the mentioned features](spyder-4b1-preview-editor.png)
 
 Some of the major highlights in the Editor include code folding, indentation guides, multiple line length indicators, a live class/method/function panel (*a la* Visual Studio), many more shortcut commands, better comment/uncomment, and more.
 The IPython Console gains the ability to start specialized Pylab, SymPy, and Cython consoles, and the Variable Explorer gets MultiIndex support, now natively handles all Pandas indexers, and can display sets in a dedicated GUI editor.
@@ -67,7 +67,7 @@ We've been working on a major overhaul of our documentation, which will saw its 
 Our [old docs](https://pythonhosted.org/spyder/) were hosted on PyPI/PythonHosted and, with the freezing of that service, couldn't be updated.
 Therefore, we've now moved to maintain them in a [new dedicated repo](https://github.com/spyder-ide/spyder-docs), build, deploy and host them ourselves with [Sphinx](https://www.sphinx-doc.org/en/master/), [doctr](https://drdoctr.github.io/doctr/) and [Github Pages](https://pages.github.com/) on a subdomain of our new site making them more convenient, responsive and accessible.
 
-![Preview of new Spyder documentation website, displaying a modern theme/layout and better screenshots](/assets/media/spyder-docs-preview.png)
+![Preview of new Spyder documentation website, displaying a modern theme/layout and better screenshots](spyder-docs-preview.png)
 
 Furthermore, we've taken the opportunity to perform a comprehensive overhaul from top to bottom, dramatically improving their usefulness to users.
 We've greatly expanded many pages and sections and adding new ones, updated outdated references, performed an exhaustive copyedit over nearly every line of the text, developed and implemented a consistent style guide, transitioned to a modern theme with our own custom CSS extensions, added or replaced many  dozens of high-resolution screenshots, modified the source code and infrastructure to be easier to develop, build and maintain, and much more.

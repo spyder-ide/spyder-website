@@ -31,7 +31,7 @@ We'll be running Python 3.6.4, Spyder 3.2.6, `spyder-unittest` 0.3.0 and `pytest
 ## Creating a project
 I'll be using separate files for the tests and the code to be tested, so let's start by creating a project which will contain these files. In the `Projects` menu, click on `New Project ...`. Enter a name for the project (in my example, `prime_example`), and under `Location`, select the directory in which to store it. Click `Create`.
 
-!['Create new project' window](/assets/media/new-project.png)
+!['Create new project' window](new-project.png)
 
 
 ## Writing code to be tested
@@ -66,7 +66,7 @@ One of the cool things about `pytest` is that it can find the tests automaticall
 
 In Spyder, the project now looks as follows:
 
-![Spyder window with code](/assets/media/code.png)
+![Spyder window with code](code.png)
 
 
 ## Running the tests
@@ -75,11 +75,11 @@ Now comes the fun part, where we actually get to use the plugin. In the `Run` me
 
 A window appears in which to configure the test run. One of the advantages of using a project is that it is automatically selected as the directory in which to find tests (another advantage is that Spyder will remember the testing configuration). So the only thing we need to do is select the test framework, which is `pytest`.
 
-!['Configure tests' window](/assets/media/test-config.png)
+!['Configure tests' window](test-config.png)
 
 Press the `OK` button to run the tests, and lo and behold, the results appear in a new pane called "Unit testing":
 
-![Test results in Spyder windows](/assets/media/test-results.png)
+![Test results in Spyder windows](test-results.png)
 
 As you can see, both tests pass. This means that our function correctly identifies `5` as prime and `4` as not prime.
 
@@ -94,7 +94,7 @@ def test_one_is_not_prime():
 
 Now, run the tests again by clicking on `Run unit tests` in the `Run` menu. Spyder remembers the configuration so you are not asked for it again. This time, the results are:
 
-![Test results in Spyder windows](/assets/media/test-results2.png)
+![Test results in Spyder windows](test-results2.png)
 
 Our new test fails. The details clarify that `is_prime(1)` returns `True`, while the assert in the test function claims that it should return `False`.
 

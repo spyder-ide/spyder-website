@@ -3,6 +3,7 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import figures from "rehype-figure";
 import classNames from "rehype-class-names";
+import { visit } from "unist-util-visit";
 
 const classNamesOptions = {
   h2: "section",
@@ -11,10 +12,25 @@ const classNamesOptions = {
   a: "link",
 };
 
+const customImagePlugin = () => {
+  return (tree, file) => {
+    visit(tree, "image", (node) => {
+      if (node.url.startsWith("./")) {
+        const route = file.filename
+          .split("routes")[1]
+          .split("/")
+          .slice(0, -1)
+          .join("/");
+        node.url = `${route}/${node.url.slice(2)}`;
+      }
+    });
+  };
+};
+
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
-  rehypePlugins: [figures, [classNames, classNamesOptions]],
+  rehypePlugins: [figures, [classNames, classNamesOptions], customImagePlugin],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
   },
