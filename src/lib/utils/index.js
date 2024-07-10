@@ -97,4 +97,50 @@ export const getOS = () => {
     }
     return "unknown";
   }
+  return "unknown";
+};
+
+export const getOSButtons = (base, os) => {
+  let osButtons = [{}];
+
+  if (os === "windows") {
+    const str = "for Windows 10+";
+    osButtons = [
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str}`,
+        href: `${base}/download?os=${os}`,
+      },
+    ];
+  } else if (os === "linux") {
+    const str = "for Ubuntu 18.04+";
+    osButtons = [
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str}`,
+        href: `${base}/download?os=${os}`,
+      },
+    ];
+  } else if (os === "mac") {
+    const str1 = "for macOS (Intel)";
+    const str2 = "for macOS (M1)";
+    osButtons = [
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str1}`,
+        href: `${base}/download?os=${os}`,
+      },
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str2}`,
+        href: `${base}/download?os=${os}`,
+      },
+    ];
+  }
+
+  return osButtons;
 };

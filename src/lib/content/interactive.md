@@ -1,5 +1,3 @@
-# Interactive programming everywhere
-
 ## The way scientists do programming, the main one we support
 
-Scientific programming requires fast iteration cycles. To support them we offer different execution modes (files, cells, selections) and provide a powerful debugger and profiler built around this paradigm.
+Data analysts, scientists and engineers require a lot of experimentation, quick feedback and short iteration cycles while programming. And Spyder was built from the ground up around that workflow.

@@ -10,19 +10,18 @@
 
 <!-- Footer -->
 <footer
-  class="relative
-    mt-28
-    pt-28
-    pb-14
-    text-sm
-    text-center
-  text-mine-shaft-500
-  dark:text-mine-shaft-300
-  bg-quill-gray-200
-  dark:bg-mine-shaft-900"
+class="relative
+mt-28
+pb-14
+text-sm
+text-center
+text-mine-shaft-500
+dark:text-mine-shaft-300
+bg-quill-gray-200
+dark:bg-mine-shaft-900"
 >
-  <div class="container">
-    <Divider />
+  <Divider />
+  <div class="container mt-14">
     <h2 class="text-red-berry-900">Connect with us on</h2>
     <div class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4">
       {#each socialIcons as [icon, href]}

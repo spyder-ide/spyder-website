@@ -1,0 +1,1 @@
+![Work with symbolic expressions and get results formatted in Latex](/assets/media/sympy.webp)

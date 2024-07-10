@@ -39,7 +39,7 @@
   <!-- End Header -->
 
 	<!-- Main content -->
-	<main class="grid grid-flow-row gap-20 lg:gap-40">
+	<main class="grid grid-flow-row gap-16 lg:gap-32">
 		<slot />
 	</main>
 	<!-- End Main content -->

@@ -1,9 +1,10 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
+import { visit } from "unist-util-visit";
 import figures from "rehype-figure";
 import classNames from "rehype-class-names";
-import { visit } from "unist-util-visit";
+import lazyLoadPlugin from "rehype-plugin-image-native-lazy-loading";
 
 const classNamesOptions = {
   h2: "section",
@@ -12,7 +13,11 @@ const classNamesOptions = {
   a: "link",
 };
 
-const customImagePlugin = () => {
+const figuresOptions = {
+  className: "figure",
+};
+
+const blogImages = () => {
   return (tree, file) => {
     visit(tree, "image", (node) => {
       if (node.url.startsWith("./")) {
@@ -30,7 +35,12 @@ const customImagePlugin = () => {
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
-  rehypePlugins: [figures, [classNames, classNamesOptions], customImagePlugin],
+  rehypePlugins: [
+    [figures, figuresOptions],
+    [classNames, classNamesOptions],
+    blogImages,
+    lazyLoadPlugin,
+  ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
   },

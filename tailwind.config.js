@@ -41,17 +41,15 @@ export default {
               },
             },
             figcaption: {
-              fontWeight: "300",
-              fontSize: "0.7em",
-              marginTop: "2em",
+              fontSize: theme("fontSize.sm"),
+              marginTop: theme("spacing.3"),
             },
           },
         },
         lg: {
           css: {
             figcaption: {
-              fontSize: "0.7em",
-              marginTop: "2em",
+              marginTop: theme("spacing.2"),
             },
           },
         },
@@ -102,6 +100,19 @@ export default {
           800: "#454545",
           900: "#3d3d3d",
           950: "#303030",
+        },
+        "outer-space": {
+          50: "#f2f9f9",
+          100: "#deeeef",
+          200: "#c0dde1",
+          300: "#94c4cc",
+          400: "#61a3af",
+          500: "#468794",
+          600: "#3d6f7d",
+          700: "#365c68",
+          800: "#334e57",
+          900: "#2a3d45",
+          950: "#1b2a31",
         },
         "red-berry": {
           50: "#ffeeee",

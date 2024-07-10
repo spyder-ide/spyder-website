@@ -11,21 +11,7 @@
 <Hero id="hero-section" {buttons} />
 
 {#each blocks as block (block.id)}
-  <ContentBlock
-    id={block.id}
-    border={block.border}
-    video={block.video}
-    videoId={block.videoId}
-    videoSources={block.videoSources}
-    videoPoster={block.videoPoster}
-    tabs={block.tabs}
-    button={block.button}
-    buttonText={block.buttonText}
-    buttonIcon={block.buttonIcon}
-    buttonHref={block.buttonHref}
-    buttonTarget={block.buttonTarget}
-    buttonHighlight={block.buttonHighlight}
-  >
+  <ContentBlock {...block}>
     <svelte:component this={block.content} />
   </ContentBlock>
 {/each}

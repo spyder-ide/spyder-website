@@ -1,3 +1,3 @@
-# The perfect fit to work with the PyData ecosystem
+## The perfect fit to work with the most important libraries for scientific programming
 
-Integrated with [Numpy](https://numpy.org/), [Scipy](https://scipy.org/), [Sympy](https://www.sympy.org/), [Pandas](https://pandas.pydata.org/) and [Matplotlib](https://matplotlib.org/)
+Spyder comes with out-of-the-box integration with [Matplotlib](https://matplotlib.org/), [Pandas](https://pandas.pydata.org/) and many other libraries to provide a pleasant experience when using them.

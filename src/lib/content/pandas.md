@@ -1,0 +1,1 @@
+![Explore the contents of your dataframes](/assets/media/pandas.webp)

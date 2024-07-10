@@ -1,5 +1,3 @@
-# No setup process
+## Install with a single click and be productive right away
 
-## Install it and start working with your favorite scientific libraries
-
-With Spyder you don't need to download additional plugins or changing complex config options. It also comes with a simple interface to get you productive right away
+The PyData ecosystem is known for being quite difficult to setup and easy to break. Spyder comes with its own set of installers to minimize the risk of facing those issues as much as possible.
