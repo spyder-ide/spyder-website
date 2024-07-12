@@ -19,8 +19,8 @@
     instagram: BsInstagram,
     mastodon: BsMastodon,
     twitter: BsTwitterX,
-    linux: BsUbuntu,
     windows: BsWindows,
+    linux: BsUbuntu,
     mac: BsApple,
     unknown: BsQuestionCircleFill,
     download: BsDownload,
@@ -44,10 +44,10 @@
 </script>
 
 <a
-  {href}
-  {target}
   {rel}
+  {href}
   {title}
+  {target}
   class:button
   class:icon-link={!button}
   class:hover:text-red-berry-950={!button}
@@ -59,17 +59,17 @@
   class="inline-flex items-center justify-center gap-3 text-sm"
 >
   {#if iconLeft}
-    <span class:icon-left={iconPosition === "left"} class="flex flex-shrink-0">
+    <span class:icon-left={iconPosition === "left"} class="flex">
       <Icon src={currentIcon} size={20} />
     </span>
   {/if}
 
   {#if text}
-    <span class="flex flex-shrink-0">{text}</span>
+    <span class="flex">{text}</span>
   {/if}
 
   {#if iconRight}
-    <span class:icon-right={iconPosition === "right"} class="flex flex-shrink-0">
+    <span class:icon-right={iconPosition === "right"} class="flex">
       <Icon src={currentIcon} size={20} />
     </span>
   {/if}
@@ -79,6 +79,7 @@
   .button {
     @apply bg-gradient-to-b shadow-md;
   }
+
   .button.highlight {
     @apply from-red-berry-900 to-red-berry-950 text-white border-red-berry-950;
   }

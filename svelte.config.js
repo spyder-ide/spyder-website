@@ -14,7 +14,7 @@ const classNamesOptions = {
 };
 
 const figuresOptions = {
-  className: "figure",
+  className: "figure text-center",
 };
 
 const blogImages = () => {

@@ -102,42 +102,39 @@ export const getOS = () => {
 
 export const getOSButtons = (base, os) => {
   let osButtons = [{}];
+  let str = "";
 
   if (os === "windows") {
-    const str = "for Windows 10+";
-    osButtons = [
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str}`,
-        href: `${base}/download?os=${os}`,
-      },
-    ];
+    str = "for Windows 10+";
   } else if (os === "linux") {
-    const str = "for Ubuntu 18.04+";
+    str = "for Ubuntu 18.04+";
+  } else if (os === "mac") {
+    str = "for macOS";
+    const intel = "(Intel)";
+    const m1 = "(M1)";
+    osButtons = [
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str} ${intel}`,
+        href: `${base}/download?os=${os}&arch=x64`,
+      },
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str} ${m1}`,
+        href: `${base}/download?os=${os}&arch=arm64`,
+      },
+    ];
+  }
+
+  if (os === "windows" || os === "linux") {
     osButtons = [
       {
         highlight: true,
         icon: `${os}`,
         text: `Download ${str}`,
-        href: `${base}/download?os=${os}`,
-      },
-    ];
-  } else if (os === "mac") {
-    const str1 = "for macOS (Intel)";
-    const str2 = "for macOS (M1)";
-    osButtons = [
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str1}`,
-        href: `${base}/download?os=${os}`,
-      },
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str2}`,
-        href: `${base}/download?os=${os}`,
+        href: `${base}/download?os=${os}&arch=x64`,
       },
     ];
   }

@@ -16,9 +16,9 @@ a:not(.menu-link):not(.icon-link):not(.button):hover {
 }
 
 .figure {
-  @apply py-4 w-fit mx-auto;
+  @apply w-fit mx-auto;
 
   & figcaption {
-    @apply text-neutral-600 dark:text-neutral-300 text-xs mt-2;
+    @apply text-neutral-600 dark:text-neutral-300 text-xs mt-3;
   }
 }

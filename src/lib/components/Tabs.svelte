@@ -22,7 +22,7 @@
   {#if !current.content}
     <Loader />
   {/if}
-  <div class="min-w-full min-h-80" in:fade="{{ duration: 200 }}">
+  <div class="mt-2" in:fade="{{ duration: 200 }}">
     <svelte:component this={current.content} />
   </div>
 {/key}

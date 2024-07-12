@@ -29,8 +29,8 @@ export default {
               border: "1px solid",
               backgroundColor: "rgba(0, 0, 0, 0.01)",
               borderColor: "rgba(0, 0, 0, 0.03)",
-              padding: "2em",
-              borderRadius: "0.5em",
+              padding: "2em 2em 1em 2em",
+              borderRadius: "0.6em",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -39,17 +39,6 @@ export default {
                   "rgba(0, 0, 0, 0.04) 0px 0.5em 2em 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
                 borderRadius: "0.6em",
               },
-            },
-            figcaption: {
-              fontSize: theme("fontSize.sm"),
-              marginTop: theme("spacing.3"),
-            },
-          },
-        },
-        lg: {
-          css: {
-            figcaption: {
-              marginTop: theme("spacing.2"),
             },
           },
         },

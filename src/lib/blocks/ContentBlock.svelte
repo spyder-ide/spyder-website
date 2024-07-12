@@ -17,26 +17,22 @@
   export let videoSources = undefined;
   export let videoPoster = undefined;
   export let imgSrc = undefined;
-  export let imgAlt = "";
   export let imgLink = "";
-  export let imgIcon = false;
   export let imgClasses = "";
+  export let imgIcon = false;
   export let caption = "";
   export let tabs = undefined;
-  export let button = false;
-  export let buttonText = "";
-  export let buttonIcon = "";
-  export let buttonHref = "";
-  export let buttonTarget = "";
-  export let buttonHighlight = false;
-  export let title = "";
+  export let buttons = false;
   export let boxed = false;
-  export let classes = "";
   export let divider = false;
-  export let background = false;
+  export let title = "";
+  export let classes = "";
+  export let background = "";
+
+  let style = background ? `class="bg-contain bg-no-repeat bg-origin-content bg-center" style="background-image: url(${background});"` : "";
 </script>
 
-<section {id}>
+<section {id} {style}>
   {#if title}
     <h1
       class="text-4xl
@@ -91,15 +87,16 @@
         <slot />
       </div>
 
-      {#if button}
-        <div class="mt-8" class:text-center={!columns}>
-          <Button
-            text={buttonText}
-            icon={buttonIcon}
-            href={buttonHref}
-            target={buttonTarget}
-            highlight={buttonHighlight}
-          />
+      {#if buttons}
+        <div class="flex gap-4 items-center mt-8" class:text-center={!columns}>
+          {#each buttons as button}
+            <Button
+              highlight={button.highlight}
+              icon={button.icon}
+              text={button.text}
+              href={button.href}
+            />
+          {/each}
         </div>
       {/if}
     </div>
@@ -115,7 +112,6 @@
             <a href={imgLink} target="_blank">
               <Image
                 {imgSrc}
-                {imgAlt}
                 {caption}
                 icon={imgIcon}
                 classes={imgClasses}
@@ -124,7 +120,6 @@
           {:else}
             <Image
               {imgSrc}
-              {imgAlt}
               {caption}
               icon={imgIcon}
               classes={imgClasses}
