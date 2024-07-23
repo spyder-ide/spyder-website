@@ -18,7 +18,7 @@ export default function copyImages() {
           const images = fs
             .readdirSync(fullDirPath)
             .filter((file) =>
-              /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file)
+              /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file),
             );
 
           for (const image of images) {

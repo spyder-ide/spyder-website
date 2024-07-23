@@ -1,0 +1,1 @@
+![Work on several coding endeavors at the same time](/assets/media/projects.webp)

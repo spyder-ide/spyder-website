@@ -2,16 +2,18 @@
 import { getOS, getOSButtons } from "$lib/utils";
 import { base } from "$app/paths";
 
-// Content
+// Content for blocks
 import Interactive from "$lib/content/interactive.md";
-import Selections from "$lib/content/selections.md";
 import LearnMore from "$lib/content/learn-more.md";
 import Ecosystem from "$lib/content/ecosystem.md";
 import WhatIs from "$lib/content/what-is.md";
 import Growth from "$lib/content/growth.md";
-import Files from "$lib/content/files.md";
-import Cells from "$lib/content/cells.md";
 import Setup from "$lib/content/setup.md";
+
+// Tabs Interactive programming
+import VariableExplorer from "$lib/content/variable-explorer.md";
+import Debugger from "$lib/content/debugger.md";
+import Editor from "$lib/content/editor.md";
 
 // Tabs integrations
 import Matplotlib from "$lib/content/matplotlib.md";
@@ -19,6 +21,12 @@ import Pandas from "$lib/content/pandas.md";
 import Conda from "$lib/content/conda.md";
 import Sympy from "$lib/content/sympy.md";
 import Numpy from "$lib/content/numpy.md";
+
+// Tabs growth
+import DeveloperTools from "$lib/content/developer-tools.md";
+import Projects from "$lib/content/projects.md";
+import CodeAnalysis from "$lib/content/code-analysis.md";
+import Search from "$lib/content/search.md";
 
 // OS buttons
 const os = getOS();
@@ -43,8 +51,7 @@ const frontPage = {
       {
         id: "what-is-spyder-section",
         imgSrc: `${base}/assets/media/banner.svg`,
-        imgBlur: false,
-        imgIcon: false,
+        background: `${base}/assets/media/bg.svg`,
         columns: false,
         divider: true,
         content: WhatIs,
@@ -57,16 +64,15 @@ const frontPage = {
         video: false,
         content: Interactive,
         tabs: [
-          { title: "Variable Explorer", content: Files },
-          { title: "Debugger", content: Cells },
-          { title: "Editor", content: Selections },
+          { title: "Variable Explorer", content: VariableExplorer },
+          { title: "Debugger", content: Debugger },
+          { title: "Editor", content: Editor },
         ],
       },
       {
         id: "pydata-section",
         title: "Seamless integration with the PyData ecosystem",
         divider: true,
-        border: false,
         content: Ecosystem,
         tabs: [
           { title: "Matplotlib", content: Matplotlib },
@@ -79,16 +85,18 @@ const frontPage = {
       {
         id: "growth-section",
         title: "It grows with you",
-        video: true,
-        videoId: "E2Dap5SfXkI",
         divider: true,
         content: Growth,
+        tabs: [
+          { title: "Developer tools", content: DeveloperTools },
+          { title: "Projects", content: Projects },
+          { title: "Code analysis", content: CodeAnalysis },
+          { title: "Search code", content: Search },
+        ],
       },
       {
         id: "setup-section",
         title: "Zero setup process",
-        border: false,
-        video: false,
         content: Setup,
         divider: true,
         imgSrc: `${base}/assets/media/${os}.webp`,

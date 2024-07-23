@@ -29,10 +29,10 @@
   export let classes = "";
   export let background = "";
 
-  let style = background ? `class="bg-contain bg-no-repeat bg-origin-content bg-center" style="background-image: url(${background});"` : "";
+  let style = background ? `background-image: url(${background})` : "";
 </script>
 
-<section {id} {style}>
+<section {id} class="bg-contain bg-no-repeat bg-origin-center bg-center" {style}>
   {#if title}
     <h1
       class="text-4xl

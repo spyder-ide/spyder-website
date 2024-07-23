@@ -1,0 +1,1 @@
+![Get in-depth analysis of your code thanks to Pylint](/assets/media/code_analysis.webp)

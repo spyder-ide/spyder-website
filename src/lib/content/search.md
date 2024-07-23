@@ -1,0 +1,1 @@
+![Quickly find the code you need to look at in big projects](/assets/media/search.webp)

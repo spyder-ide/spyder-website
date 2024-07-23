@@ -1,6 +1,6 @@
 <script>
   import { fade } from "svelte/transition";
-  import Loader from "./Loader.svelte";
+
   export let tabs = [];
 
   let current = tabs[0];
@@ -19,12 +19,13 @@
 </div>
 
 {#key current.content}
-  {#if !current.content}
-    <Loader />
+  {#if current.content}
+    <div class="tab-content" in:fade="{{ duration: 200 }}">
+      <svelte:component this={current.content} />
+    </div>
+  {:else}
+    <div class="tab-content bg-red-berry-900"></div>
   {/if}
-  <div class="mt-2" in:fade="{{ duration: 200 }}">
-    <svelte:component this={current.content} />
-  </div>
 {/key}
 
 <style>
@@ -32,5 +33,10 @@
     border-color: theme("colors.red-berry.500");
     color: theme("colors.neutral.900");
     @apply dark:text-quill-gray-200;
+  }
+  .tab-content {
+    @apply w-full;
+    min-height: 500px;
+    margin-top: 1em;
   }
 </style>

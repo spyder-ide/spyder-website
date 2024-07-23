@@ -71,9 +71,7 @@ export async function fetchAuthorMetadata(author) {
 
 // Sort posts by date
 export const sortPostsByDate = (posts) =>
-  posts.sort((a, b) => {
-    return new Date(b.meta.pub_date) - new Date(a.meta.pub_date);
-  });
+  posts.sort((a, b) => new Date(b.meta.pub_date) - new Date(a.meta.pub_date));
 
 // Generate random ID
 export const randomId = (length) =>
@@ -95,9 +93,7 @@ export const getOS = () => {
         return key;
       }
     }
-    return "unknown";
   }
-  return "unknown";
 };
 
 export const getOSButtons = (base, os) => {
@@ -110,20 +106,20 @@ export const getOSButtons = (base, os) => {
     str = "for Ubuntu 18.04+";
   } else if (os === "mac") {
     str = "for macOS";
-    const intel = "(Intel)";
     const m1 = "(M1)";
+    const intel = "(Intel)";
     osButtons = [
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str} ${intel}`,
-        href: `${base}/download?os=${os}&arch=x64`,
-      },
       {
         highlight: true,
         icon: `${os}`,
         text: `Download ${str} ${m1}`,
         href: `${base}/download?os=${os}&arch=arm64`,
+      },
+      {
+        highlight: true,
+        icon: `${os}`,
+        text: `Download ${str} ${intel}`,
+        href: `${base}/download?os=${os}&arch=x64`,
       },
     ];
   }
