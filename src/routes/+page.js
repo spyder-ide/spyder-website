@@ -11,9 +11,7 @@ import Growth from "$lib/content/growth.md";
 import Setup from "$lib/content/setup.md";
 
 // Tabs Interactive programming
-import VariableExplorer from "$lib/content/variable-explorer.md";
 import Debugger from "$lib/content/debugger.md";
-import Editor from "$lib/content/editor.md";
 
 // Tabs integrations
 import Matplotlib from "$lib/content/matplotlib.md";
@@ -64,9 +62,31 @@ const frontPage = {
         video: false,
         content: Interactive,
         tabs: [
-          { title: "Variable Explorer", content: VariableExplorer },
+          {
+            title: "Variable Explorer",
+            isVideo: true,
+            content: {
+              videoSources: [
+                {
+                  src: "/assets/media/variable_explorer.mp4",
+                  type: "video/mp4",
+                },
+              ],
+            },
+          },
           { title: "Debugger", content: Debugger },
-          { title: "Editor", content: Editor },
+          {
+            title: "Editor",
+            isVideo: true,
+            content: {
+              videoSources: [
+                {
+                  src: "/assets/media/editor.mp4",
+                  type: "video/mp4",
+                },
+              ],
+            },
+          },
         ],
       },
       {

@@ -1,9 +1,18 @@
 <script>
   import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
 
   export let tabs = [];
 
   let current = tabs[0];
+  let VideoPlayer;
+
+  onMount(async () => {
+    const module = await import("./VideoPlayer.svelte");
+    VideoPlayer = module.default;
+  });
+
+  $: currentKey = current.isVideo ? JSON.stringify(current.content) : current.content;
 </script>
 
 <div class="flex gap-8 justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 -mt-8">
@@ -18,13 +27,22 @@
   {/each}
 </div>
 
-{#key current.content}
-  {#if current.content}
+{#key currentKey}
+  {#if current.isVideo === true}
+    <div class="tab-content" in:fade="{{ duration: 200 }}">
+      {#if VideoPlayer}
+        <svelte:component
+          this={VideoPlayer}
+          videoSources={current.content.videoSources}
+          poster={current.content.videoPoster}
+          info={false}
+        />
+      {/if}
+    </div>
+  {:else}
     <div class="tab-content" in:fade="{{ duration: 200 }}">
       <svelte:component this={current.content} />
     </div>
-  {:else}
-    <div class="tab-content bg-red-berry-900"></div>
   {/if}
 {/key}
 

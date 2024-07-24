@@ -1,21 +1,23 @@
 <script>
   import { onMount } from "svelte";
-  import { theme } from "$lib/store";
+  import { browser } from "$app/environment";
+  import { colourScheme } from "$lib/store";
   import { get } from "svelte/store";
 
   let vantaInstance;
   let vantaContainer;
 
-  const getBackgroundColor = (theme) => themeColors[theme] || themeColors.light;
+  const getBackgroundColor = (colourScheme) =>
+    colourSchemeColors[colourScheme] || colourSchemeColors.light;
 
-  const themeColors = {
+  const colourSchemeColors = {
     light: 0xf7f7f2,
     dark: 0x303030,
   };
 
   const vantaOptions = {
     color: 0x8c0000,
-    backgroundColor: getBackgroundColor(get(theme)),
+    backgroundColor: getBackgroundColor(get(colourScheme)),
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
@@ -27,7 +29,7 @@
   };
 
   onMount(() => {
-    if (vantaContainer) {
+    if (vantaContainer && browser) {
       try {
         vantaInstance = window.VANTA.DOTS({
           ...vantaOptions,
@@ -36,16 +38,15 @@
         console.log("Vanta initialized successfully");
       } catch (error) {
         console.error("Vanta initialization error:", error);
-
       }
     } else {
-      console.error("vantaContainer is not defined");
+      console.error("vantaContainer is not defined or the browser environment is not supported");
     }
 
-    const unsubscribe = theme.subscribe((currentTheme) => {
+    const unsubscribe = colourScheme.subscribe((currentColorScheme) => {
       if (vantaInstance) {
         vantaInstance.setOptions({
-          backgroundColor: getBackgroundColor(currentTheme),
+          backgroundColor: getBackgroundColor(currentColorScheme),
         });
       }
     });
@@ -57,10 +58,4 @@
   });
 </script>
 
-<div bind:this={vantaContainer} class="vanta-container"></div>
-
-<style>
-  .vanta-container {
-    @apply absolute inset-0 -z-10
-  }
-</style>
+<div bind:this={vantaContainer} class="vanta-container absolute inset-0 -z-10"></div>

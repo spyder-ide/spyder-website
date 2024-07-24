@@ -1,39 +1,49 @@
 <script>
-  import { browser } from '$app/environment';
-  import { theme } from '$lib/store';
-  import { get } from 'svelte/store';
+  import { browser } from "$app/environment";
+  import { colourScheme } from "$lib/store";
+  import { get } from "svelte/store";
 
-  import { Icon } from 'svelte-icons-pack';
+  import { Icon } from "svelte-icons-pack";
   import { LuSun, LuMoon } from "svelte-icons-pack/lu";
 
-  let darkMode = get(theme) === 'dark';
-  let switchString = "Switch to light / dark version"
+  let darkMode = get(colourScheme) === "dark";
+  let switchString = "Switch to light / dark version";
 
   const switchMode = () => {
     darkMode = !darkMode;
-    theme.set(darkMode ? 'dark' : 'light');
+    colourScheme.set(darkMode ? "dark" : "light");
+  };
+
+  const getColourScheme = () =>
+    document.documentElement.dataset.colourScheme ||
+    localStorage.getItem("colourScheme");
+
+  const setColourScheme = (colourScheme = getColourScheme()) => {
+    document.documentElement.dataset.colourScheme = colourScheme;
+    localStorage.setItem("colourScheme", colourScheme);
   };
 
   if (browser) {
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark' || (!currentTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      theme.set('dark');
+    const currentTheme = getColourScheme();
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if (currentTheme === "dark" || prefersDark.matches) {
       darkMode = true;
+      setColourScheme("dark");
     } else {
-      theme.set('light');
       darkMode = false;
+      setColourScheme("light");
     }
-    // Subscribe to theme changes
-    theme.subscribe(value => {
-      if (value === 'dark') {
-        document.documentElement.classList.add('dark');
+
+    // Subscribe to colourScheme changes
+    colourScheme.subscribe((value) => {
+      if (value === "dark") {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
-      darkMode = value === 'dark';
     });
   }
-
 </script>
 
 <div class="inline-flex justify-center items-center">
@@ -42,9 +52,9 @@
     checked={darkMode}
     class="sr-only"
     type="checkbox"
-    id="theme-switch"
+    id="colourScheme-switch"
   />
-  <label class="relative cursor-pointer p-2" for="theme-switch">
+  <label class="relative cursor-pointer p-2" for="colourScheme-switch">
     <Icon src={darkMode ? LuMoon : LuSun} size={24} title={switchString} />
     <span class="sr-only">{switchString}</span>
   </label>

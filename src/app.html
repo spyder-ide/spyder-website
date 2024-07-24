@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Check & apply theme here to avoid FOUC -->
+    <!-- Check & apply colourScheme here to avoid FOUC -->
     <script>
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
+      localStorage.colourScheme === "dark" ||
+      (!("colourScheme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
         ? document.documentElement.classList.add("dark")
         : document.documentElement.classList.remove("dark");

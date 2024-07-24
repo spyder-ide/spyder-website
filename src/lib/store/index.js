@@ -1,15 +1,15 @@
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 
-const storedTheme = browser
-  ? localStorage.getItem("theme") || "light"
+const storedColourScheme = browser
+  ? localStorage.getItem("colourScheme") || "light"
   : "light";
 
-export const theme = writable(storedTheme);
+export const colourScheme = writable(storedColourScheme);
 
 if (browser) {
-  theme.subscribe((value) => {
-    localStorage.setItem("theme", value);
+  colourScheme.subscribe((value) => {
+    localStorage.setItem("colourScheme", value);
   });
 }
 
