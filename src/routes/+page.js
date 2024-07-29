@@ -1,6 +1,7 @@
 // OS Detection
-import { getOS, getOSButtons } from "$lib/utils";
 import { base } from "$app/paths";
+import { browser } from "$app/environment";
+import { getOS, getOSButtons } from "$lib/utils";
 
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
@@ -9,9 +10,6 @@ import Ecosystem from "$lib/content/ecosystem.md";
 import WhatIs from "$lib/content/what-is.md";
 import Growth from "$lib/content/growth.md";
 import Setup from "$lib/content/setup.md";
-
-// Tabs Interactive programming
-import Debugger from "$lib/content/debugger.md";
 
 // Tabs integrations
 import Matplotlib from "$lib/content/matplotlib.md";
@@ -26,12 +24,18 @@ import Projects from "$lib/content/projects.md";
 import CodeAnalysis from "$lib/content/code-analysis.md";
 import Search from "$lib/content/search.md";
 
+let frontPage = {},
+  os = "",
+  osButtons = [];
+
 // OS buttons
-const os = getOS();
-const osButtons = getOSButtons(base, os);
+if (browser) {
+  os = getOS();
+  osButtons = getOSButtons(base, os);
+}
 
 // Content blocks
-const frontPage = {
+frontPage = {
   props: {
     // Hero section buttons
     buttons: [
@@ -48,8 +52,8 @@ const frontPage = {
     blocks: [
       {
         id: "what-is-spyder-section",
-        imgSrc: `${base}/assets/media/banner.svg`,
-        background: `${base}/assets/media/bg.svg`,
+        imgSrc: "/assets/media/banner.svg",
+        background: "/assets/media/bg.svg",
         columns: false,
         divider: true,
         content: WhatIs,
@@ -69,12 +73,12 @@ const frontPage = {
               videoSources: [
                 {
                   src: "/assets/media/variable_explorer.mp4",
-                  type: "video/mp4",
                 },
               ],
+              videoCaption: "Explore variables after execution",
             },
           },
-          { title: "Debugger", content: Debugger },
+          //{ title: "Debugger", content: Debugger },
           {
             title: "Editor",
             isVideo: true,
@@ -82,7 +86,6 @@ const frontPage = {
               videoSources: [
                 {
                   src: "/assets/media/editor.mp4",
-                  type: "video/mp4",
                 },
               ],
             },
@@ -119,13 +122,13 @@ const frontPage = {
         title: "Zero setup process",
         content: Setup,
         divider: true,
-        imgSrc: `${base}/assets/media/${os}.webp`,
+        imgSrc: `/assets/media/${os}.webp`,
         buttons: osButtons,
       },
       {
         id: "learn-more-section",
         columns: false,
-        imgSrc: `${base}/assets/media/yt.svg`,
+        imgSrc: "/assets/media/yt.svg",
         imgAlt: "Visit our Youtube channel",
         imgIcon: false,
         imgLink: "https://www.youtube.com/c/spyderide",

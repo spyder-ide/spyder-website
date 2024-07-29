@@ -1,1 +1,0 @@
-![](/assets/media/windows.webp)

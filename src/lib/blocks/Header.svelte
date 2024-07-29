@@ -3,7 +3,7 @@
 
   import { title, description, navigation } from "$lib/config";
 
-  import ThemeSwitch from "$lib/components/ThemeSwitch.svelte";
+  import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
 
   let mobile = false;
@@ -34,7 +34,7 @@
       {/each}
 
       <!-- Theme switch (dark/light) -->
-      <ThemeSwitch />
+      <ColourSwitch />
     </nav>
   </div>
 </header>

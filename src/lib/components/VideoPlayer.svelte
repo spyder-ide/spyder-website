@@ -32,10 +32,11 @@
     } else {
       if (videoElement && !paused) {
         videoElement.pause();
-        // We don't set userPaused here because this pause is automatic, not user-initiated
+        // We don't set userPaused here because
+        // this pause is automatic, not user-initiated
       }
     }
-  }
+  };
 
   function handleMove(e) {
     // Make the controls visible, but fade out after
@@ -56,7 +57,7 @@
   // after a drag — we have to listen for clicks ourselves
   const handleMousedown = (e) => {
     lastMouseDown = new Date();
-  }
+  };
 
   const handleMouseup = (e) => {
     if (new Date() - lastMouseDown < 300) {
@@ -68,7 +69,7 @@
         userPaused = true;
       }
     }
-  }
+  };
 
   // format time as `01:23` or `01:23:45` and so on
   const format = (seconds) => {
@@ -79,7 +80,7 @@
     if (seconds < 10) seconds = "0" + seconds;
 
     return `${minutes}:${seconds}`;
-  }
+  };
 
   // Observe the video element and pause it
   // when it's no longer in the viewport
@@ -103,7 +104,7 @@
   });
 </script>
 
-<div class="relative">
+<div class="video-container relative">
   <video
     bind:this={videoElement}
     {autoplay}
@@ -115,7 +116,9 @@
     on:touchmove|preventDefault={handleMove}
     on:mousedown={handleMousedown}
     on:mouseup={handleMouseup}
-    on:ended={() => { userPaused = false; }}
+    on:ended={() => {
+      userPaused = false;
+    }}
     bind:currentTime={time}
     bind:duration
     bind:paused
@@ -132,11 +135,7 @@
     {/if}
   </video>
 
-  <div
-    class="controls text-right"
-    style="opacity: {duration && showControls ? 1 : 0}"
-  >
-
+  <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
     <button
       class="p-4"
       on:click={() => {
@@ -173,11 +172,11 @@
 <style>
   .controls {
     position: absolute;
-    top: 0;
-    height: 100%;
+    bottom: 0;
     width: 100%;
     pointer-events: none;
     transition: opacity 1s;
+    cursor: pointer;
   }
 
   span {

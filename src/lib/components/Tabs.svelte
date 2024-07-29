@@ -18,7 +18,7 @@
 <div class="flex gap-8 justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 -mt-8">
   {#each tabs as tab}
     <button
-      class="pb-2 border-b-2 border-red-berry-900 dark:border-red-berry-800 text-neutral-500"
+      class="pb-2 border-b-2 border-neutral-500 text-neutral-500"
       class:selected={current === tab}
       on:click={() => (current = tab)}
     >
@@ -37,6 +37,9 @@
           poster={current.content.videoPoster}
           info={false}
         />
+        <p class="text-xs text-center mt-3">
+          {current.content.videoCaption}
+        </p>
       {/if}
     </div>
   {:else}
