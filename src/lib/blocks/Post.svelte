@@ -32,8 +32,8 @@
   });
 </script>
 
-<!-- this is for syntax highlighting -->
 <svelte:head>
+  <!-- Load Prism for syntax highlighting -->
   <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css">
 </svelte:head>
 

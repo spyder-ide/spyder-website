@@ -74,9 +74,9 @@
         {#if content}
           <div
             class="prose
-          prose-headings:font-light
-          prose-headings:tracking-tight
-          prose-headings:dark:text-neutral-400"
+              prose-headings:font-light
+              prose-headings:tracking-tight
+            prose-headings:dark:text-neutral-400"
             class:max-w-full={columns}
             class:text-center={!columns}
             class:max-w-2xl={!columns}

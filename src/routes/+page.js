@@ -5,7 +5,7 @@ import { getOS, getOSButtons } from "$lib/utils";
 
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
-import LearnMore from "$lib/content/learn-more.md";
+//import LearnMore from "$lib/content/learn-more.md";
 import Ecosystem from "$lib/content/ecosystem.md";
 import WhatIs from "$lib/content/what-is.md";
 import Growth from "$lib/content/growth.md";
@@ -47,7 +47,6 @@ frontPage = {
       },
       ...osButtons,
     ],
-
     // Content blocks
     blocks: [
       {
