@@ -146,7 +146,7 @@
       <Icon
         src={paused ? BsPlayCircleFill : BsPauseCircleFill}
         size="1.5em"
-        color="#8c0000"
+        color="#fff"
         class="cursor-pointer"
       />
     </button>
