@@ -153,7 +153,7 @@ frontPage = {
           {
             title: "Donations",
             content: "Show your support",
-            icon: "BsPiggyBank",
+            icon: "BsHeartFill",
             link: "https://opencollective.com/spyder",
           },
         ],

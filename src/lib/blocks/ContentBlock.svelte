@@ -46,9 +46,9 @@
         tracking-tight
         max-w-2xl
         mx-auto
-        text-center"
+        text-center
+        text-red-berry-900"
       class:dark:text-neutral-400={!boxed}
-      class:text-red-berry-900={!boxed}
       class:mb-24={!boxed}
     >
       {@html title}
@@ -76,7 +76,10 @@
             class="prose
               prose-headings:font-light
               prose-headings:tracking-tight
-            prose-headings:dark:text-neutral-400"
+              prose-p:font-light
+              prose-p:text-neutral-500
+              prose-headings:text-neutral-500
+              prose-headings:dark:text-neutral-400"
             class:max-w-full={columns}
             class:text-center={!columns}
             class:max-w-2xl={!columns}

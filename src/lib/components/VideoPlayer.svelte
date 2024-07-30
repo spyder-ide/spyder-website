@@ -198,14 +198,14 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 3px;
+    height: 5px;
     -webkit-appearance: none;
     appearance: none;
   }
 
   progress::-webkit-progress-bar,
   progress::-moz-progress-bar {
-    background-color: rgb(140, 0, 0);
+    background-color: rgb(200, 0, 0);
   }
 
   progress::-webkit-progress-value,
