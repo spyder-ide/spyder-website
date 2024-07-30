@@ -25,7 +25,7 @@ import CodeAnalysis from "$lib/content/code-analysis.md";
 import Search from "$lib/content/search.md";
 
 let frontPage = {},
-  os = "windows",
+  os = "linux",
   osButtons = [];
 
 // OS buttons
