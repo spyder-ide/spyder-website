@@ -3,20 +3,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Check & apply colourScheme here to avoid FOUC -->
-    <script>
-      localStorage.colourScheme === "dark" ||
-      (!("colourScheme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ? document.documentElement.classList.add("dark")
-        : document.documentElement.classList.remove("dark");
-    </script>
-
-    <!-- Background effect -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.dots.min.js"></script>
-
     %sveltekit.head%
   </head>
   <body

@@ -37,9 +37,11 @@
           poster={current.content.videoPoster}
           info={false}
         />
-        <p class="text-xs text-center mt-3">
-          {current.content.videoCaption}
-        </p>
+        {#if current.content.videoCaption}
+          <p class="text-neutral-600 dark:text-neutral-300 text-xs mt-3 text-center">
+            {current.content.videoCaption}
+          </p>
+        {/if}
       {/if}
     </div>
   {:else}

@@ -36,6 +36,17 @@
 
 </script>
 
+<svelte:head>
+  <!-- Check & apply colourScheme in the head to avoid FOUC -->
+  <script>
+    localStorage.colourScheme === "dark" ||
+    (!("colourScheme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ? document.documentElement.classList.add("dark")
+      : document.documentElement.classList.remove("dark");
+  </script>
+</svelte:head>
+
 <div class="inline-flex justify-center items-center">
   <input
     on:click={switchMode}

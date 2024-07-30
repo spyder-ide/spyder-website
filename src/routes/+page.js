@@ -25,7 +25,7 @@ import CodeAnalysis from "$lib/content/code-analysis.md";
 import Search from "$lib/content/search.md";
 
 let frontPage = {},
-  os = "",
+  os = "windows",
   osButtons = [];
 
 // OS buttons
@@ -88,6 +88,7 @@ frontPage = {
                   src: "/assets/media/editor.mp4",
                 },
               ],
+              videoCaption: `Run code in sections called "cells"`,
             },
           },
         ],
@@ -128,12 +129,35 @@ frontPage = {
       {
         id: "learn-more-section",
         columns: false,
-        imgSrc: "/assets/media/yt.svg",
-        imgAlt: "Visit our Youtube channel",
-        imgIcon: false,
-        imgLink: "https://www.youtube.com/c/spyderide",
-        imgClasses: "w-full h-full",
-        content: LearnMore,
+        boxed: true,
+        //content: LearnMore,
+        background: "/assets/media/bg_more.svg",
+        innerColumns: [
+          {
+            title: "YouTube Channel",
+            content: "Learn more about Spyder",
+            icon: "BsYoutube",
+            link: "https://www.youtube.com/c/spyderide",
+          },
+          {
+            title: "Documentation",
+            content: "Read the docs",
+            icon: "BsBookHalf",
+            link: "https://docs.spyder-ide.org",
+          },
+          {
+            title: "GitHub",
+            content: "Check out the source",
+            icon: "BsGithub",
+            link: "https://github.com/spyder-ide/spyder",
+          },
+          {
+            title: "Donations",
+            content: "Show your support",
+            icon: "BsPiggyBank",
+            link: "https://opencollective.com/spyder",
+          },
+        ],
       },
     ],
   },

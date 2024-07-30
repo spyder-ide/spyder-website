@@ -25,7 +25,7 @@
       loading="lazy"
     />
     {#if caption}
-      <figcaption class="text-xs mt-2">{caption}</figcaption>
+      <figcaption>{caption}</figcaption>
     {/if}
   </figure>
 {:else}

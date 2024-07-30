@@ -58,4 +58,9 @@
   });
 </script>
 
+<svelte:head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.dots.min.js"></script>
+</svelte:head>
+
 <div bind:this={vantaContainer} class="vanta-container absolute inset-0 -z-10"></div>

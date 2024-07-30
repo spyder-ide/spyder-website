@@ -137,3 +137,14 @@ export const getOSButtons = (base, os) => {
 
   return osButtons;
 };
+
+// Load an icon dynamically
+export async function getIcon(iconName) {
+  try {
+    const module = await import("svelte-icons-pack/bs");
+    return module[iconName];
+  } catch (error) {
+    console.error(`Failed to load icon: ${iconName}`, error);
+    return null;
+  }
+}
