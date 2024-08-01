@@ -25,6 +25,7 @@ import Search from "$lib/content/search.md";
 
 // Sponsors
 import Sponsors from "$lib/content/sponsors.md";
+import Donations from "$lib/content/donations.md";
 
 let frontPage = {},
   os = "linux",
@@ -58,7 +59,7 @@ frontPage = {
         background: "/assets/media/bg.svg",
         columns: false,
         divider: true,
-        content: WhatIs,
+        extraContent: WhatIs,
       },
       // Interactive
       {
@@ -136,12 +137,10 @@ frontPage = {
       {
         id: "sponsors-section",
         title: "Sponsors",
-        content: Setup,
+        content: Sponsors,
         divider: true,
         columns: false,
         boxed: true,
-        extraContent: Sponsors,
-        innerColumnGap: 8,
         innerColumns: [
           {
             imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
@@ -154,6 +153,10 @@ frontPage = {
             aspect: "",
           },
         ],
+        extraContent: Donations,
+        extraImage: "/assets/media/sponsors.svg",
+        extraImageAlt: "Sponsors",
+        extraImageLink: "https://opencollective.com/spyder#support",
       },
       // Learn more
       {

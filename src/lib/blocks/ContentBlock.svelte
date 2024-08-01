@@ -12,9 +12,6 @@
 
   export let id = randomId();
   export let columns = true;
-  export let innerColumnCount = 2;
-  export let innerColumnGap = 16;
-  export let innerColumns = false;
   export let border = false;
   export let videoId = "";
   export let videoSources = undefined;
@@ -33,6 +30,13 @@
   export let background = "";
   export let content = "";
   export let extraContent = "";
+  export let extraImage = "";
+  export let extraImageAlt = "";
+  export let extraImageLink = "";
+  export let innerColumns = false;
+  export let innerColumnCount = 2;
+  export let innerColumnGap = 16;
+  export let innerColumnsClasses = `grid grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
 
   let style = background ? `background-image: url(${background})` : "";
 </script>
@@ -59,7 +63,7 @@
   {/if}
 
   <div
-    class="mx-auto grid grid-cols-1 gap-y-8 {classes}"
+    class="mx-auto grid grid-cols-10 gap-y-8 {classes}"
     class:py-8={!boxed}
     class:max-w-screen-xl={!boxed}
     class:max-w-screen-md={boxed}
@@ -70,7 +74,7 @@
     class:dark:border-mine-shaft-800={border}
   >
     {#if content || buttons}
-      <div class:lg:col-span-4={columns} class:order-last={!columns}>
+      <div class:lg:col-span-4={columns} class:col-span-10={columns}>
         {#if content}
           <div
             class="prose
@@ -82,6 +86,7 @@
               prose-headings:text-neutral-500
               prose-headings:dark:text-neutral-400"
             class:max-w-full={columns}
+            class:mt-4={!columns}
             class:text-center={!columns}
             class:max-w-2xl={!columns}
             class:mx-auto={!columns}
@@ -124,44 +129,81 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div class="grid grid-cols-{innerColumnCount} gap-{innerColumnGap}">
+          <div class={innerColumnsClasses}>
             {#each innerColumns as innerColumn}
               {#if innerColumn.link}
-              <a href={innerColumn.link} target="_blank" class="grid w-full h-full items-center">
-                <Card {innerColumn} aspect={innerColumn.aspect} />
-              </a>
+                <a
+                  href={innerColumn.link}
+                  target="_blank"
+                  class="grid w-full h-full items-center"
+                >
+                  <Card
+                    {innerColumn}
+                    aspect={innerColumn.aspect}
+                    classes="max-w-60"
+                  />
+                </a>
               {:else}
-                <Card {innerColumn} aspect={innerColumn.aspect} />
+                <Card
+                  {innerColumn}
+                  aspect={innerColumn.aspect}
+                  classes="max-w-60"
+                />
               {/if}
             {/each}
           </div>
         {/if}
       </div>
     {/if}
-
-    {#if $$slots.extraContent || extraContent}
-      <div
-        class="col-span-10 text-center mt-4 prose
-                prose-headings:font-light
-                prose-headings:tracking-tight
-                prose-p:font-light
-                prose-p:text-neutral-500
-                prose-headings:text-neutral-500
-                prose-headings:dark:text-neutral-400"
-        class:order-first={!columns}
-        class:max-w-full={columns}
-        class:text-center={!columns}
-        class:max-w-2xl={!columns}
-        class:mx-auto={!columns}
-      >
-        {#if $$slots.extraContent}
-          <slot name="extraContent" />
-        {:else}
-          <svelte:component this={extraContent} />
-        {/if}
-      </div>
-    {/if}
   </div>
+
+  {#if $$slots.extraContent || extraContent}
+    <div
+      class="col-span-10 text-center mt-8 prose
+              prose-headings:font-light
+              prose-headings:tracking-tight
+              prose-p:font-light
+              prose-p:text-neutral-500
+              prose-headings:text-neutral-500
+              prose-headings:dark:text-neutral-400"
+      class:order-first={!columns}
+      class:max-w-full={columns}
+      class:text-center={!columns}
+      class:max-w-2xl={!columns}
+      class:mx-auto={!columns}
+    >
+      {#if $$slots.extraContent}
+        <slot name="extraContent" />
+      {:else}
+        <svelte:component this={extraContent} />
+      {/if}
+    </div>
+  {/if}
+
+  {#if extraImage}
+    <div
+      class="col-span-10 text-center mt-8 prose
+            prose-headings:font-light
+            prose-headings:tracking-tight
+            prose-p:font-light
+            prose-p:text-neutral-500
+            prose-headings:text-neutral-500
+            prose-headings:dark:text-neutral-400"
+      class:order-first={!columns}
+      class:max-w-full={columns}
+      class:text-center={!columns}
+      class:max-w-2xl={!columns}
+      class:mx-auto={!columns}
+    >
+      {#if extraImageLink}
+      <a href={extraImageLink} target="_blank">
+        <img src={extraImage} alt={extraImageAlt} />
+      </a>
+      {:else}
+      <img src={extraImage} alt={extraImageAlt} />
+      {/if}
+    </div>
+  {/if}
 
   {#if divider}
     <Divider stroke={true} />

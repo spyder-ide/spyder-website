@@ -1,5 +1,6 @@
 <script>
   import { base } from "$app/paths";
+  import { browser } from "$app/environment";
 
   import { title, description, navigation } from "$lib/config";
 
@@ -7,10 +8,15 @@
   import Logo from "$lib/components/Logo.svelte";
 
   let mobile = false;
+
+  if (browser) {
+    mobile = window.innerWidth <= 768;
+  }
 </script>
 
 <header class="flex items-center text-mine-shaft-500 dark:text-mine-shaft-300">
   <div class="container flex items-center justify-between">
+
     <!-- Logo -->
     <a href="{base}/" class="title h-20 flex items-center">
       <Logo compact={mobile} />
@@ -18,9 +24,9 @@
     </a>
 
     <!-- Navigation -->
-    <nav class="menu-container flex items-center gap-12">
+    <nav class="menu-container flex items-center gap-2 lg:gap-12">
       {#each navigation as menu}
-        <ul class="menu flex items-center gap-6">
+        <ul class="menu flex items-center gap-2 lg:gap-6">
           {#each menu as item}
             <li class="menu-item">
               <a
@@ -36,6 +42,7 @@
       <!-- Theme switch (dark/light) -->
       <ColourSwitch />
     </nav>
+
   </div>
 </header>
 

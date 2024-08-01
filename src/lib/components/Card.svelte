@@ -4,6 +4,7 @@
 
   export let aspect = "aspect-square";
   export let innerColumn;
+  export let classes = "";
 </script>
 
 <div
@@ -12,7 +13,7 @@
   {#if innerColumn.icon}
     <DynamicIcon icon={innerColumn.icon} size="48" />
   {:else if innerColumn.imgSrc}
-    <Image imgSrc={innerColumn.imgSrc} contain={true} />
+    <Image imgSrc={innerColumn.imgSrc} contain={true} {classes} />
   {/if}
   {#if innerColumn.title}
     <h2 class="text-3xl">{innerColumn.title}</h2>
