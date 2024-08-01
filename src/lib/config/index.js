@@ -39,11 +39,6 @@ export const blogTitle = "Welcome to Spyder's Blog";
 export const navigation = [
   [
     {
-      text: "About",
-      href: `${base}/about/`,
-      target: "_self",
-    },
-    {
       text: "Download",
       href: `${base}/download/`,
       target: "_self",
@@ -67,9 +62,9 @@ export const navigation = [
 export const socials = {
   github: "https://github.com/spyder-ide/spyder",
   twitter: "https://twitter.com/spyder_ide",
+  facebook: "https://www.facebook.com/SpyderIDE/",
   mastodon: "https://fosstodon.org/@Spyder",
   instagram: "https://instagram.com/spyderide",
-  facebook: "https://www.facebook.com/SpyderIDE/",
 };
 
 // Hero content

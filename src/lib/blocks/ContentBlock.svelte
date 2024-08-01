@@ -3,15 +3,17 @@
 
   import { randomId } from "$lib/utils";
 
+  import Card from "$lib/components/Card.svelte";
   import Button from "$lib/components/Button.svelte";
   import Tabs from "$lib/components/Tabs.svelte";
   import VideoPlayer from "$lib/components/VideoPlayer.svelte";
   import Image from "$lib/components/Image.svelte";
   import Divider from "$lib/components/Divider.svelte";
-  import DynamicIcon from "$lib/components/DynamicIcon.svelte";
 
   export let id = randomId();
   export let columns = true;
+  export let innerColumnCount = 2;
+  export let innerColumnGap = 16;
   export let innerColumns = false;
   export let border = false;
   export let videoId = "";
@@ -30,6 +32,7 @@
   export let classes = "";
   export let background = "";
   export let content = "";
+  export let extraContent = "";
 
   let style = background ? `background-image: url(${background})` : "";
 </script>
@@ -49,11 +52,12 @@
         text-center
         text-red-berry-900"
       class:dark:text-neutral-400={!boxed}
-      class:mb-24={!boxed}
+      class:mb-24={!boxed && columns}
     >
       {@html title}
     </h1>
   {/if}
+
   <div
     class="mx-auto grid grid-cols-1 gap-y-8 {classes}"
     class:py-8={!boxed}
@@ -66,17 +70,14 @@
     class:dark:border-mine-shaft-800={border}
   >
     {#if content || buttons}
-      <div
-        class="col-span-10"
-        class:lg:col-span-4={columns}
-        class:order-last={!columns}
-      >
+      <div class:lg:col-span-4={columns} class:order-last={!columns}>
         {#if content}
           <div
             class="prose
               prose-headings:font-light
               prose-headings:tracking-tight
               prose-p:font-light
+              prose-a:no-underline
               prose-p:text-neutral-500
               prose-headings:text-neutral-500
               prose-headings:dark:text-neutral-400"
@@ -123,23 +124,40 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div
-            class="grid grid-cols-2 grid-rows-2 gap-16"
-            class:mb-32={content}
-            class:-my-16={!content}
-          >
+          <div class="grid grid-cols-{innerColumnCount} gap-{innerColumnGap}">
             {#each innerColumns as innerColumn}
-              <a href={innerColumn.link} target="_blank">
-                <div
-                  class="text-red-berry-900 aspect-square flex flex-col items-center justify-center text-center"
-                >
-                  <DynamicIcon icon={innerColumn.icon} size="48" />
-                  <h2 class="text-3xl">{innerColumn.title}</h2>
-                  <p class="text-neutral-500">{@html innerColumn.content}</p>
-                </div>
+              {#if innerColumn.link}
+              <a href={innerColumn.link} target="_blank" class="grid w-full h-full items-center">
+                <Card {innerColumn} aspect={innerColumn.aspect} />
               </a>
+              {:else}
+                <Card {innerColumn} aspect={innerColumn.aspect} />
+              {/if}
             {/each}
           </div>
+        {/if}
+      </div>
+    {/if}
+
+    {#if $$slots.extraContent || extraContent}
+      <div
+        class="col-span-10 text-center mt-4 prose
+                prose-headings:font-light
+                prose-headings:tracking-tight
+                prose-p:font-light
+                prose-p:text-neutral-500
+                prose-headings:text-neutral-500
+                prose-headings:dark:text-neutral-400"
+        class:order-first={!columns}
+        class:max-w-full={columns}
+        class:text-center={!columns}
+        class:max-w-2xl={!columns}
+        class:mx-auto={!columns}
+      >
+        {#if $$slots.extraContent}
+          <slot name="extraContent" />
+        {:else}
+          <svelte:component this={extraContent} />
         {/if}
       </div>
     {/if}

@@ -5,7 +5,6 @@ import { getOS, getOSButtons } from "$lib/utils";
 
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
-//import LearnMore from "$lib/content/learn-more.md";
 import Ecosystem from "$lib/content/ecosystem.md";
 import WhatIs from "$lib/content/what-is.md";
 import Growth from "$lib/content/growth.md";
@@ -23,6 +22,9 @@ import DeveloperTools from "$lib/content/developer-tools.md";
 import Projects from "$lib/content/projects.md";
 import CodeAnalysis from "$lib/content/code-analysis.md";
 import Search from "$lib/content/search.md";
+
+// Sponsors
+import Sponsors from "$lib/content/sponsors.md";
 
 let frontPage = {},
   os = "linux",
@@ -49,6 +51,7 @@ frontPage = {
     ],
     // Content blocks
     blocks: [
+      // What is Spyder
       {
         id: "what-is-spyder-section",
         imgSrc: "/assets/media/banner.svg",
@@ -57,6 +60,7 @@ frontPage = {
         divider: true,
         content: WhatIs,
       },
+      // Interactive
       {
         id: "interactive-section",
         title: "Interactive programming everywhere",
@@ -92,6 +96,7 @@ frontPage = {
           },
         ],
       },
+      // Ecosystem
       {
         id: "pydata-section",
         title: "Seamless integration with the PyData ecosystem",
@@ -105,6 +110,7 @@ frontPage = {
           { title: "Sympy", content: Sympy },
         ],
       },
+      // Growth
       {
         id: "growth-section",
         title: "It grows with you",
@@ -117,6 +123,7 @@ frontPage = {
           { title: "Search code", content: Search },
         ],
       },
+      // Setup
       {
         id: "setup-section",
         title: "Zero setup process",
@@ -125,11 +132,34 @@ frontPage = {
         imgSrc: `/assets/media/${os}.webp`,
         buttons: osButtons,
       },
+      // Sponsors
+      {
+        id: "sponsors-section",
+        title: "Sponsors",
+        content: Setup,
+        divider: true,
+        columns: false,
+        boxed: true,
+        extraContent: Sponsors,
+        innerColumnGap: 8,
+        innerColumns: [
+          {
+            imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
+            link: "https://chanzuckerberg.com/",
+            aspect: "",
+          },
+          {
+            imgSrc: "/assets/media/numfocus_lrg.png",
+            link: "https://numfocus.org/",
+            aspect: "",
+          },
+        ],
+      },
+      // Learn more
       {
         id: "learn-more-section",
         columns: false,
         boxed: true,
-        //content: LearnMore,
         background: "/assets/media/bg_more.svg",
         innerColumns: [
           {

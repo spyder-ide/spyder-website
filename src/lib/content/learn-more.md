@@ -1,1 +1,0 @@
-## Learn more about Spyder in our<br/>[Youtube channel](https://www.youtube.com/c/spyderide)

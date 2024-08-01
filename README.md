@@ -100,15 +100,6 @@ The deploy script instructs `gh-pages` to do the following:
 
 ---
 
-## Quick start
-
-Use [degit](https://github.com/Rich-Harris/degit) to quickly scaffold a new project from this repository:
-
-```sh
-npx degit metonym/sveltekit-gh-pages my-app
-cd my-app && npm install
-```
-
 ## Deploying to GitHub Pages
 
 First, build the app by running `npm run build`.

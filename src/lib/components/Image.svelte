@@ -11,7 +11,7 @@
 </script>
 
 {#if imgSrc}
-  <figure class="relative grid justify-center">
+  <figure class="grid justify-center items-center">
     <img
       src={imgSrc}
       class:rounded-md={rounded}
