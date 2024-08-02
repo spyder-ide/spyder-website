@@ -80,7 +80,7 @@
 
 <style>
   .button {
-    @apply bg-gradient-to-b shadow-md;
+    @apply bg-gradient-to-b shadow-md min-h-12;
   }
 
   .button.highlight {
