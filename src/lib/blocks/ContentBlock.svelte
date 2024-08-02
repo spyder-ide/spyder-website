@@ -75,7 +75,7 @@
     <h1
       class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900
         ${!boxed ? 'dark:text-neutral-400' : ''}
-        ${!boxed && columns ? 'xl:mb-24' : ''}`}
+        ${!boxed ? 'xl:mb-24' : ''}`}
     >
       {@html title}
     </h1>
@@ -83,7 +83,7 @@
 
   <div
     class={`mx-auto grid gap-8 px-8 ${classes}
-      ${!boxed ? 'py-8 2xl:max-w-screen-lg' : 'max-w-screen-sm'}
+      ${!boxed ? 'py-8 2xl:max-w-screen-xl' : 'max-w-screen-sm'}
       ${columns ? 'gap-x-8 xl:gap-x-32 xl:grid-cols-10' : ''}
       ${border ? 'border border-mine-shaft-200 dark:border-mine-shaft-800' : ''}`}
   >
@@ -174,12 +174,7 @@
   {/if}
 
   {#if extraImage}
-    <div
-      class={`col-span-10 text-center mt-8 prose prose-headings:font-light
-        prose-headings:tracking-tight prose-p:font-light prose-p:text-neutral-500
-        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
-        ${!columns ? 'order-first max-w-2xl mx-auto' : 'max-w-full'}`}
-    >
+    <div class={`col-span-10 text-center my-8 ${!columns ? 'max-w-2xl mx-auto' : 'max-w-full'}`}>
       {#if extraImageLink}
         <a href={extraImageLink} target="_blank" rel="noopener noreferrer">
           <Image figure={false} imgSrc={extraImage} imgAlt={extraImageAlt} />
