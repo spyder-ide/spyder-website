@@ -1,8 +1,8 @@
 <script>
   import Loader from "./Loader.svelte";
 
-  export let imgSrc;
-  export let imgAlt;
+  export let imgSrc = "";
+  export let imgAlt = "";
   export let title = "";
   export let blur = false;
   export let shadow = false;

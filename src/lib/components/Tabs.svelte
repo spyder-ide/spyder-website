@@ -34,7 +34,7 @@
         <svelte:component
           this={VideoPlayer}
           videoSources={current.content.videoSources}
-          poster={current.content.videoPoster}
+          videoPoster={current.content.videoPoster}
           info={false}
         />
         {#if current.content.videoCaption}

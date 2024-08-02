@@ -68,7 +68,6 @@ frontPage = {
         title: "Interactive programming everywhere",
         divider: true,
         border: false,
-        video: false,
         content: Interactive,
         tabs: [
           {

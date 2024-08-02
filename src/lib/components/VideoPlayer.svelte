@@ -147,7 +147,6 @@
         src={paused ? BsPlayCircleFill : BsPauseCircleFill}
         size="1.5em"
         color="#fff"
-        class="cursor-pointer"
       />
     </button>
 

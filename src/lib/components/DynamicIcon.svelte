@@ -5,6 +5,7 @@
   import Loader from "./Loader.svelte";
 
   export let icon;
+  export let size = "4rem";
 
   let iconPromise = getIcon(icon);
 </script>
@@ -13,7 +14,7 @@
   <Loader />
 {:then IconComponent}
   {#if IconComponent}
-    <Icon src={IconComponent} size="4rem" />
+    <Icon src={IconComponent} {size} />
   {:else}
     <!-- Fallback for when the icon couldn't be loaded -->
     <small>Icon not found</small>
