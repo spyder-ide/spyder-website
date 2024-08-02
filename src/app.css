@@ -16,7 +16,13 @@ a:not(.menu-link):not(.icon-link):not(.button):hover {
 }
 
 .figure {
-  @apply w-fit mx-auto;
+  @apply w-full mx-auto;
+
+  & img {
+    @media screen and (max-width: 1279px) {
+      @apply w-full;
+    }
+  }
 
   & figcaption {
     @apply text-neutral-600 dark:text-neutral-300 text-xs mt-3;

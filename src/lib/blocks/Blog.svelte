@@ -53,7 +53,7 @@
 </script>
 
 <div class="container">
-  <h1 class="text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-32">
+  <h1 class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-32">
     {blogTitle}
   </h1>
 
@@ -62,7 +62,7 @@
       <div class="grid grid-flow-row gap-24">
         {#each posts as post}
           <article>
-            <h2 class="text-3xl font-light">
+            <h2 class="text-2xl xl:text-3xl font-light">
               <a href="{base}/{route}/{post.path}" title={post.meta.title}>
                 {post.meta.title}
               </a>

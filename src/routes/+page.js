@@ -61,6 +61,7 @@ frontPage = {
         divider: true,
         extraContent: WhatIs,
       },
+
       // Interactive
       {
         id: "interactive-section",
@@ -97,6 +98,7 @@ frontPage = {
           },
         ],
       },
+
       // Ecosystem
       {
         id: "pydata-section",
@@ -111,6 +113,7 @@ frontPage = {
           { title: "Sympy", content: Sympy },
         ],
       },
+
       // Growth
       {
         id: "growth-section",
@@ -124,6 +127,7 @@ frontPage = {
           { title: "Search code", content: Search },
         ],
       },
+
       // Setup
       {
         id: "setup-section",
@@ -133,6 +137,7 @@ frontPage = {
         imgSrc: `/assets/media/${os}.webp`,
         buttons: osButtons,
       },
+
       // Sponsors
       {
         id: "sponsors-section",
@@ -141,23 +146,24 @@ frontPage = {
         divider: true,
         columns: false,
         boxed: true,
+        extraContent: Donations,
+        extraImage: "/assets/media/sponsors.svg",
+        extraImageAlt: "Donate to our project",
+        extraImageLink: "https://opencollective.com/spyder#support",
+        innerColumnsClasses:
+          "flex flex-col xl:flex-row items-center gap-8 xl:gap-16 max-w-xl mx-auto",
         innerColumns: [
           {
             imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
             link: "https://chanzuckerberg.com/",
-            aspect: "",
           },
           {
             imgSrc: "/assets/media/numfocus_lrg.png",
             link: "https://numfocus.org/",
-            aspect: "",
           },
         ],
-        extraContent: Donations,
-        extraImage: "/assets/media/sponsors.svg",
-        extraImageAlt: "Sponsors",
-        extraImageLink: "https://opencollective.com/spyder#support",
       },
+
       // Learn more
       {
         id: "learn-more-section",
@@ -170,24 +176,28 @@ frontPage = {
             content: "Learn more about Spyder",
             icon: "BsYoutube",
             link: "https://www.youtube.com/c/spyderide",
+            aspect: "xl:aspect-square",
           },
           {
             title: "Documentation",
             content: "Read the docs",
             icon: "BsBookHalf",
             link: "https://docs.spyder-ide.org",
+            aspect: "xl:aspect-square",
           },
           {
             title: "GitHub",
             content: "Check out the source",
             icon: "BsGithub",
             link: "https://github.com/spyder-ide/spyder",
+            aspect: "xl:aspect-square",
           },
           {
             title: "Donations",
             content: "Show your support",
             icon: "BsHeartFill",
             link: "https://opencollective.com/spyder",
+            aspect: "xl:aspect-square",
           },
         ],
       },

@@ -35,6 +35,7 @@
   export let title = text;
   export let target = "_parent";
   export let iconPosition = "right";
+  export let fullwidth = false;
 
   let currentIcon = icons[icon];
 
@@ -49,6 +50,7 @@
   {title}
   {target}
   class:button
+  class:w-full={fullwidth}
   class:icon-link={!button}
   class:hover:text-red-berry-950={!button}
   class:highlight={button && highlight}

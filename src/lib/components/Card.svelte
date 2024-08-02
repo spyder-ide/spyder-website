@@ -2,7 +2,7 @@
   import DynamicIcon from "$lib/components/DynamicIcon.svelte";
   import Image from "$lib/components/Image.svelte";
 
-  export let aspect = "aspect-square";
+  export let aspect = "";
   export let innerColumn;
   export let classes = "";
 </script>
@@ -13,10 +13,10 @@
   {#if innerColumn.icon}
     <DynamicIcon icon={innerColumn.icon} size="48" />
   {:else if innerColumn.imgSrc}
-    <Image imgSrc={innerColumn.imgSrc} contain={true} {classes} />
+    <Image figure={false} imgSrc={innerColumn.imgSrc} contain={true} {classes} />
   {/if}
   {#if innerColumn.title}
-    <h2 class="text-3xl">{innerColumn.title}</h2>
+    <h2 class="text-3xl mt-4">{innerColumn.title}</h2>
   {/if}
   {#if innerColumn.content}
     <p class="text-neutral-500">

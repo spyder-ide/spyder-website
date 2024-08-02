@@ -1,6 +1,8 @@
 <script>
   import Youtube from "svelte-youtube-embed";
 
+  import { onMount } from "svelte";
+
   import { randomId } from "$lib/utils";
 
   import Card from "$lib/components/Card.svelte";
@@ -36,13 +38,29 @@
   export let innerColumns = false;
   export let innerColumnCount = 2;
   export let innerColumnGap = 16;
-  export let innerColumnsClasses = `grid grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
+  export let innerColumnsClasses = `grid xl:grid-flow-row xl:grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
 
-  let style = background ? `background-image: url(${background})` : "";
+  let style = "";
+
+  let mobile = false;
+
+  onMount(() => {
+    const handleResize = () => {
+      mobile = window.innerWidth < 1280;
+      if (!mobile) {
+        style = background ? `background-image: url(${background});` : "";
+      } else {
+        style = "";
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  });
 </script>
 
 <section
-  class="bg-contain bg-no-repeat bg-origin-center bg-center"
+  class="xl:bg-contain xl:bg-no-repeat xl:bg-origin-center xl:bg-center"
   {id}
   {style}
 >
@@ -56,25 +74,26 @@
         text-center
         text-red-berry-900"
       class:dark:text-neutral-400={!boxed}
-      class:mb-24={!boxed && columns}
+      class:xl:mb-24={!boxed && columns}
     >
       {@html title}
     </h1>
   {/if}
 
   <div
-    class="mx-auto grid grid-cols-10 gap-y-8 {classes}"
+    class="mx-auto grid gap-8 px-8 {classes}"
     class:py-8={!boxed}
-    class:max-w-screen-xl={!boxed}
-    class:max-w-screen-md={boxed}
-    class:gap-x-32={columns}
-    class:lg:grid-cols-10={columns}
+    class:2xl:max-w-screen-lg={!boxed}
+    class:max-w-screen-sm={boxed}
+    class:gap-x-8={columns}
+    class:xl:gap-x-32={columns}
+    class:xl:grid-cols-10={columns}
     class:border
     class:border-mine-shaft-200={border}
     class:dark:border-mine-shaft-800={border}
   >
     {#if content || buttons}
-      <div class:lg:col-span-4={columns} class:col-span-10={columns}>
+      <div class:xl:col-span-4={columns}>
         {#if content}
           <div
             class="prose
@@ -96,7 +115,7 @@
         {/if}
         {#if buttons}
           <div
-            class="flex gap-4 items-center mt-8"
+            class="flex flex-col xl:flex-row gap-4 items-center mt-8"
             class:text-center={!columns}
           >
             {#each buttons as button}
@@ -113,7 +132,7 @@
     {/if}
 
     {#if videoId || videoSources || tabs || imgSrc || innerColumns}
-      <div class="col-span-10" class:lg:col-span-6={columns}>
+      <div class:xl:col-span-6={columns}>
         {#if videoId}
           <Youtube id={videoId} altThumb={true} --title-font-family="Silka" />
         {:else if videoSources}
@@ -140,14 +159,14 @@
                   <Card
                     {innerColumn}
                     aspect={innerColumn.aspect}
-                    classes="max-w-60"
+                    classes="w-48 h-48 xl:h-24"
                   />
                 </a>
               {:else}
                 <Card
                   {innerColumn}
                   aspect={innerColumn.aspect}
-                  classes="max-w-60"
+                  classes="w-48 h-48 xl:h-24"
                 />
               {/if}
             {/each}
@@ -159,7 +178,7 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class="col-span-10 text-center mt-8 prose
+      class="mt-8 prose
               prose-headings:font-light
               prose-headings:tracking-tight
               prose-p:font-light
@@ -167,7 +186,6 @@
               prose-headings:text-neutral-500
               prose-headings:dark:text-neutral-400"
       class:order-first={!columns}
-      class:max-w-full={columns}
       class:text-center={!columns}
       class:max-w-2xl={!columns}
       class:mx-auto={!columns}
@@ -191,16 +209,15 @@
             prose-headings:dark:text-neutral-400"
       class:order-first={!columns}
       class:max-w-full={columns}
-      class:text-center={!columns}
       class:max-w-2xl={!columns}
       class:mx-auto={!columns}
     >
       {#if extraImageLink}
-      <a href={extraImageLink} target="_blank">
-        <img src={extraImage} alt={extraImageAlt} />
-      </a>
+        <a href={extraImageLink} target="_blank">
+          <Image figure={false} imgSrc={extraImage} imgAlt={extraImageAlt} />
+        </a>
       {:else}
-      <img src={extraImage} alt={extraImageAlt} />
+        <Image figure={false} imgSrc={extraImage} imgAlt={extraImageAlt} />
       {/if}
     </div>
   {/if}

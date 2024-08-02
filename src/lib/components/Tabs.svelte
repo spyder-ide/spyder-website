@@ -15,10 +15,10 @@
   $: currentKey = current.isVideo ? JSON.stringify(current.content) : current.content;
 </script>
 
-<div class="flex gap-8 justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 -mt-8">
+<div class="flex gap-2 xl:gap-8 justify-evenly xl:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 xl:-mt-8">
   {#each tabs as tab}
     <button
-      class="pb-2 border-b-2 border-neutral-500 text-neutral-500"
+      class="pb-2 border-b-2 border-neutral-500 text-neutral-500 text-xs xl:text-base"
       class:selected={current === tab}
       on:click={() => (current = tab)}
     >
@@ -59,7 +59,10 @@
   }
   .tab-content {
     @apply w-full;
-    min-height: 500px;
     margin-top: 1em;
+    min-height: 200px;
+    @media screen and (min-width: 1024px) {
+      min-height: 500px;
+    };
   }
 </style>

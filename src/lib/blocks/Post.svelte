@@ -6,10 +6,17 @@
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   // svelte-ignore unused-export-let
-  export let data, form;
+  export let data;
+  // svelte-ignore unused-export-let
+  export let form;
 
   // Props from markdown
-  export let title, pub_date, author, tags, category, summary;
+  export let title;
+  export let pub_date;
+  export let author;
+  export let tags;
+  export let category;
+  export let summary;
   export let src = "";
   export let name = "";
 
@@ -38,13 +45,13 @@
 </svelte:head>
 
 <article class="container">
-  <div class="my-32">
+  <div class="my-10 xl:my-32">
     <h1
-      class="text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
+      class="text-2xl xl:tracking-tight xl:text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
     >
       {title}
     </h1>
-    <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 my-32">
+    <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 my-10 xl:my-32">
       <img class="w-24 h-24 rounded-full object-cover" {src} alt={author} />
       <div class="font-light text-center">
         {name}

@@ -113,7 +113,7 @@
         Available for
       </div>
       <div
-        class="mx-auto max-w-md mt-4 mb-5 grid grid-cols-1 lg:grid-cols-2 items-center justify-center gap-4"
+        class="mx-auto max-w-md mt-4 mb-5 grid grid-cols-1 xl:grid-cols-2 items-center justify-center gap-4"
       >
         {#each osButtons as button}
           <Button

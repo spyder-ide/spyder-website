@@ -21,25 +21,26 @@
     items-center
     gap-8
     px-8
-    max-w-4xl
+    xl:max-w-4xl
     mx-auto
     hero-content-container"
   >
     <h1
       class="tracking-tight
-      text-5xl
-      md:text-7xl
+      text-4xl
+      md:text-5xl
+      xl:text-7xl
       font-extralight
       text-mine-shaft-400
       text-center"
     >
       {heroContent.title}
     </h1>
-    <p class="font-light md:text-lg lg:text-xl text-center">
+    <p class="font-light md:text-lg xl:text-xl text-center">
       {heroContent.description}
     </p>
     {#if buttons.length > 0}
-      <div class="flex gap-4 items-center">
+      <div class="flex flex-col xl:flex-row gap-4 items-center">
         {#each buttons as button}
           <Button
             highlight={button.highlight}
@@ -58,14 +59,12 @@
 </section>
 
 <style>
-  .hero-content-container {
-    height: calc(100dvh - 5rem);
-  }
+  @media screen and (min-width: 1024px) {
+    .hero-content-container {
+      height: calc(100dvh - 5rem);
+    }
 
-  .hero-image {
-    margin-block-start: -45dvh;
-
-    @media screen and (min-width: 1024px) {
+    .hero-image {
       margin-block-start: -40dvh;
     }
   }
