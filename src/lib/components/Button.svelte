@@ -92,10 +92,10 @@
   }
 
   .button .icon-right {
-    margin-right: -0.4em;
+    margin-right: -0.2em;
   }
 
   .button .icon-left {
-    margin-left: -0.4em;
+    margin-left: -0.2em;
   }
 </style>
