@@ -104,3 +104,5 @@ export const releases = {
     },
   },
 };
+
+export const footerTitle = "Connect with us on";

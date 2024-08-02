@@ -1,11 +1,12 @@
 <script>
-  import { socials } from "$lib/config";
+  import { socials, footerTitle } from "$lib/config";
 
   import Divider from "$lib/components/Divider.svelte";
   import Button from "$lib/components/Button.svelte";
   import FooterContent from "$lib/content/footer-content.md";
 
   const socialIcons = new Map(Object.entries(socials));
+
 </script>
 
 <!-- Footer -->
@@ -22,7 +23,7 @@ dark:bg-mine-shaft-900"
 >
   <Divider />
   <div class="container mt-14">
-    <h2 class="text-red-berry-900">Connect with us on</h2>
+    <h2 class="text-red-berry-900 dark:text-neutral-400">{footerTitle}</h2>
     <div class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4">
       {#each socialIcons as [icon, href]}
         <Button {icon} {href} button={false} target="_blank" />

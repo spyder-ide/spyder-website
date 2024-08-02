@@ -39,7 +39,7 @@
   let style = "";
   let mobile = false;
 
-  $: innerColumnsClasses = `grid xl:grid-flow-row xl:grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
+  innerColumnsClasses = `grid xl:grid-flow-row xl:grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
 
   const debounce = (func, wait) => {
     let timeout;
@@ -73,8 +73,7 @@
 >
   {#if title}
     <h1
-      class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900
-        ${!boxed ? 'dark:text-neutral-400' : ''}
+      class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900 dark:text-neutral-400
         ${!boxed ? 'xl:mb-24' : ''}`}
     >
       {@html title}
@@ -92,8 +91,8 @@
         {#if content}
           <div
             class={`prose prose-headings:font-light prose-headings:tracking-tight
-              prose-p:font-light prose-a:no-underline prose-p:text-neutral-500
-              prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
+              prose-p:font-light prose-a:no-underline prose-p:text-neutral-500 prose-p:dark:text-neutral-400
+              prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
               ${columns ? 'max-w-full' : 'mt-4 text-center max-w-2xl mx-auto'}`}
           >
             <slot />
@@ -161,8 +160,8 @@
   {#if $$slots.extraContent || extraContent}
     <div
       class={`mt-8 prose prose-headings:font-light prose-headings:tracking-tight
-        prose-p:font-light prose-p:text-neutral-500 prose-headings:text-neutral-500
-        prose-headings:dark:text-neutral-400
+        prose-p:font-light prose-p:text-neutral-500 prose-p:dark:text-neutral-400
+        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
         ${!columns ? 'order-first text-center max-w-2xl mx-auto' : ''}`}
     >
       {#if $$slots.extraContent}
