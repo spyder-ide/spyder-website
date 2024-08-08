@@ -65,6 +65,7 @@
 *.rss       text
 *.sass      text
 *.scss      text
+*.svelte    text
 *.xht       text
 *.xhtml     text
 
