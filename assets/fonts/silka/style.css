@@ -1,0 +1,91 @@
+/* Silka fonts from Atipo Foundry (https://www.atipofoundry.com/fonts/silka/) */
+
+/* Black-900 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/silka/silka-black-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: 900;
+  src: url("/assets/fonts/silka/silka-blackitalic-webfont.ttf") format("truetype");
+}
+
+/* Bold-600 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: 600;
+  src: url("/assets/fonts/silka/silka-bold-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: 600;
+  src: url("/assets/fonts/silka/silka-bolditalic-webfont.ttf") format("truetype");
+}
+
+/* Regular-400 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/silka/silka-regular-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: normal;
+  src: url("/assets/fonts/silka/silka-regularitalic-webfont.ttf") format("truetype");
+}
+
+/* Light-300 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/silka/silka-light-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: 300;
+  src: url("/assets/fonts/silka/silka-lightitalic-webfont.ttf") format("truetype");
+}
+
+/* Extralight-200 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: 200;
+  src: url("/assets/fonts/silka/silka-extralight-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: 200;
+  src: url("/assets/fonts/silka/silka-extralightitalic-webfont.ttf") format("truetype");
+}
+
+/* Thin-100 */
+@font-face {
+  font-family: silka;
+  font-style: normal;
+  font-weight: 100;
+  src: url("/assets/fonts/silka/silka-thin-webfont.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: silka;
+  font-style: italic;
+  font-weight: 100;
+  src: url("/assets/fonts/silka/silka-thinitalic-webfont.ttf") format("truetype");
+}
