@@ -21,7 +21,7 @@
     items-center
     gap-8
     px-8
-    xl:max-w-4xl
+    xl:max-w-6xl
     mx-auto
     hero-content-container"
   >
@@ -40,7 +40,7 @@
       {heroContent.description}
     </p>
     {#if buttons.length > 0}
-      <div class="flex flex-col xl:flex-row gap-4 items-center">
+      <div class="flex flex-col lg:flex-row gap-4 items-center">
         {#each buttons as button}
           <Button
             highlight={button.highlight}
@@ -59,13 +59,7 @@
 </section>
 
 <style>
-  @media screen and (min-width: 1024px) {
-    .hero-content-container {
-      height: calc(100dvh - 5rem);
-    }
-
-    .hero-image {
-      margin-block-start: -40dvh;
-    }
+  .hero-image {
+    margin-top: 4rem;
   }
 </style>

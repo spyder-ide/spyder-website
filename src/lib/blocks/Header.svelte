@@ -11,7 +11,7 @@
 
   onMount(() => {
     const handleResize = () => {
-      mobile = window.innerWidth < 1280;
+      mobile = window.innerWidth < 1024;
     };
 
     window.addEventListener('resize', handleResize);
