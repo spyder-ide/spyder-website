@@ -6,12 +6,13 @@
     BsInstagram,
     BsMastodon,
     BsTwitterX,
-    BsUbuntu,
     BsWindows,
     BsApple,
     BsQuestionCircleFill,
     BsDownload,
   } from "svelte-icons-pack/bs";
+
+  import { VscTerminalLinux } from "svelte-icons-pack/vsc";
 
   let icons = {
     facebook: BsFacebook,
@@ -20,7 +21,7 @@
     mastodon: BsMastodon,
     twitter: BsTwitterX,
     windows: BsWindows,
-    linux: BsUbuntu,
+    linux: VscTerminalLinux,
     mac: BsApple,
     unknown: BsQuestionCircleFill,
     download: BsDownload,

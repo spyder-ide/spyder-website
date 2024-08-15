@@ -83,7 +83,7 @@ export const heroImages = {
 export const releases = {
   linux: {
     x64: {
-      name: "Ubuntu 18.04+",
+      name: "Linux",
       link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/EXPERIMENTAL-Spyder-5.5.5-Linux-x86_64.sh",
     },
   },

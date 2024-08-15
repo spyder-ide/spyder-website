@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-
+  import { browser } from "$app/environment";
   import { releases } from "$lib/config";
 
   import Loader from "$lib/components/Loader.svelte";
@@ -34,6 +34,10 @@
   // and start the download automatically on load
   // if the URL contains a download parameter
   let getOSValues = () => {
+    if (!browser) {
+      return;
+    }
+
     const params = new URLSearchParams(window.location.search);
 
     if (!params) {
@@ -59,6 +63,7 @@
 
   onMount(() => {
     getOSValues();
+    console.log(osName, downloadUrl);
     osButtons = generateDownloadButtons(releases);
   });
 </script>

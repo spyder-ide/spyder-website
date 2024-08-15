@@ -86,8 +86,8 @@
         {#if content}
           <div
             class={`prose prose-headings:font-light prose-headings:tracking-tight
-              prose-p:font-light prose-a:no-underline prose-p:text-neutral-500 prose-p:dark:text-neutral-400
               prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
+              prose-p:font-light prose-p:text-lg prose-p:dark:text-gray-300
               ${columns ? 'max-w-full' : 'mt-4 text-center max-w-2xl mx-auto'}`}
           >
             <slot />

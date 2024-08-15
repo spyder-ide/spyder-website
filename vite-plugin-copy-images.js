@@ -15,17 +15,17 @@ export default function copyImages() {
           const dirName = path.dirname(file.fileName);
           const fullDirPath = path.join(blogDir, dirName.split("blog/")[1]);
 
-          const images = fs
+          const media = fs
             .readdirSync(fullDirPath)
             .filter((file) =>
               /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file),
             );
 
-          for (const image of images) {
-            const content = fs.readFileSync(path.join(fullDirPath, image));
+          for (const medium of media) {
+            const content = fs.readFileSync(path.join(fullDirPath, medium));
             this.emitFile({
               type: "asset",
-              fileName: path.join(dirName, image),
+              fileName: path.join(dirName, medium),
               source: content,
             });
           }

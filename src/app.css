@@ -25,6 +25,7 @@ a:not(.menu-link):not(.icon-link):not(.button):hover {
   }
 
   & figcaption {
-    @apply text-neutral-600 dark:text-neutral-300 text-xs mt-3;
+    @apply text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3;
   }
 }
+
