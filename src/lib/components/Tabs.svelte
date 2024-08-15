@@ -15,10 +15,10 @@
   $: currentKey = current.isVideo ? JSON.stringify(current.content) : current.content;
 </script>
 
-<div class="flex gap-2 xl:gap-8 justify-evenly xl:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 xl:-mt-8">
+<div class="flex gap-4 xl:gap-8 justify-evenly lg:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 lg:-mt-8">
   {#each tabs as tab}
     <button
-      class="pb-2 border-b-2 border-neutral-500 text-neutral-500 text-xs xl:text-base"
+      class="pb-2 border-b-2 border-neutral-500 text-neutral-500 text-sm lg:text-base"
       class:selected={current === tab}
       on:click={() => (current = tab)}
     >
@@ -38,7 +38,7 @@
           info={false}
         />
         {#if current.content.videoCaption}
-          <p class="text-neutral-600 dark:text-neutral-300 text-xs mt-3 text-center">
+          <p class="text-neutral-600 dark:text-neutral-300 text-sm mt-3 text-center">
             {current.content.videoCaption}
           </p>
         {/if}

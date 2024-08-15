@@ -17,7 +17,7 @@
 
   const fgColors = {
     light: 0x8c0000,
-    dark: 0xf7f7f2,
+    dark: 0xa39b6c,
   };
 
   $: vantaOptions = {
@@ -33,7 +33,7 @@
     showLines: false,
   };
 
-  function initVanta() {
+  const initVanta = () => {
     if (vantaContainer && browser && window.VANTA) {
       if (vantaInstance) {
         vantaInstance.destroy();
