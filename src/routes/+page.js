@@ -149,8 +149,6 @@ frontPage = {
         extraImage: "/assets/media/sponsors.svg",
         extraImageAlt: "Donate to our project",
         extraImageLink: "https://opencollective.com/spyder#support",
-        innerColumnsClasses:
-          "flex flex-col xl:flex-row items-center gap-8 xl:gap-16 max-w-xl mx-auto",
         innerColumns: [
           {
             imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
@@ -171,7 +169,7 @@ frontPage = {
         background: "/assets/media/bg_more.svg",
         innerColumns: [
           {
-            title: "YouTube Channel",
+            title: "YouTube",
             content: "Learn more about Spyder",
             icon: "BsYoutube",
             link: "https://www.youtube.com/c/spyderide",

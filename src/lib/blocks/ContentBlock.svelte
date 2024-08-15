@@ -32,18 +32,13 @@
   export let extraImageAlt = "";
   export let extraImageLink = "";
   export let innerColumns = false;
-  export let innerColumnCount = 2;
-  export let innerColumnGap = 16;
-  export let innerColumnsClasses = "";
 
   let style = "";
   let mobile = false;
 
-  innerColumnsClasses = `grid xl:grid-flow-row xl:grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
-
   const debounce = (func, wait) => {
     let timeout;
-    return function executedFunction(...args) {
+    return function(...args) {
       const later = () => {
         clearTimeout(timeout);
         func(...args);
@@ -55,7 +50,7 @@
 
   onMount(() => {
     const handleResize = debounce(() => {
-      mobile = window.innerWidth < 1280;
+      mobile = window.innerWidth < 768;
       style = mobile ? "" : background ? `background-image: url(${background});` : "";
     }, 250);
 
@@ -67,14 +62,14 @@
 </script>
 
 <section
-  class="xl:bg-contain xl:bg-no-repeat xl:bg-origin-center xl:bg-center"
+  class="md:bg-contain md:bg-no-repeat md:bg-origin-center md:bg-center"
   {id}
   {style}
 >
   {#if title}
     <h1
       class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900 dark:text-neutral-400
-        ${!boxed ? 'xl:mb-24' : ''}`}
+        ${!boxed ? 'lg:mb-24' : ''}`}
     >
       {@html title}
     </h1>
@@ -82,12 +77,12 @@
 
   <div
     class={`mx-auto grid gap-8 px-8 ${classes}
-      ${!boxed ? 'py-8 2xl:max-w-screen-xl' : 'max-w-screen-sm'}
-      ${columns ? 'gap-x-8 xl:gap-x-32 xl:grid-cols-10' : ''}
+      ${!boxed ? 'py-8 max-w-screen-lg 2xl:max-w-screen-xl' : 'max-w-screen-sm'}
+      ${columns ? 'gap-x-8 lg:gap-x-16 xl:gap-x-32 lg:grid-cols-10' : ''}
       ${border ? 'border border-mine-shaft-200 dark:border-mine-shaft-800' : ''}`}
   >
     {#if content || buttons}
-      <div class={columns ? 'xl:col-span-4' : ''}>
+      <div class={columns ? 'lg:col-span-4' : ''}>
         {#if content}
           <div
             class={`prose prose-headings:font-light prose-headings:tracking-tight
@@ -100,7 +95,7 @@
         {/if}
         {#if buttons}
           <div
-            class={`flex flex-col xl:flex-row gap-4 items-center mt-8
+            class={`flex flex-col lg:flex-row gap-4 items-center mt-8
               ${!columns ? 'text-center' : ''}`}
           >
             {#each buttons as button}
@@ -112,7 +107,7 @@
     {/if}
 
     {#if videoId || videoSources || tabs || imgSrc || innerColumns}
-      <div class={columns ? 'xl:col-span-6' : ''}>
+      <div class={columns ? 'col-span-full lg:col-span-6' : 'col-span-full'}>
         {#if videoId}
           <Youtube id={videoId} altThumb={true} --title-font-family="Silka" />
         {:else if videoSources}
@@ -128,7 +123,7 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div class={innerColumnsClasses}>
+          <div class="grid gap-8 md:grid-flow-row md:grid-cols-2 md:gap-32">
             {#each innerColumns as innerColumn}
               {#if innerColumn.link}
                 <a
@@ -140,14 +135,14 @@
                   <Card
                     {innerColumn}
                     aspect={innerColumn.aspect}
-                    classes="w-48 h-48 xl:h-24"
+                    classes="w-48 h-48 lg:h-24"
                   />
                 </a>
               {:else}
                 <Card
                   {innerColumn}
                   aspect={innerColumn.aspect}
-                  classes="w-48 h-48 xl:h-24"
+                  classes="w-48 h-48 lg:h-24"
                 />
               {/if}
             {/each}
