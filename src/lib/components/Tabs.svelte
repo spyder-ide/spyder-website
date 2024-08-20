@@ -40,10 +40,10 @@
   }
 </script>
 
-<div class="flex gap-4 xl:gap-8 justify-evenly lg:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm h-8 lg:-mt-8">
+<div class="flex gap-4 xl:gap-8 justify-evenly lg:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm text-gray-700 h-8 lg:-mt-8">
   {#each tabs as tab}
     <button
-      class="pb-2 border-b-2 border-neutral-500 text-neutral-500 text-sm lg:text-base"
+      class="pb-2 border-b-2 border-neutral-500 text-gray-500 text-sm lg:text-base font-light"
       class:selected={current === tab}
       on:click={() => handleTabClick(tab)}
     >
@@ -69,7 +69,7 @@
               info={false}
             />
             {#if current.content.videoCaption}
-              <p class="text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3 text-center">
+              <p class="text-gray-700 dark:text-neutral-300 text-[0.95rem] mt-3 text-center">
                 {current.content.videoCaption}
               </p>
             {/if}
@@ -87,8 +87,8 @@
 <style>
   .selected {
     border-color: theme("colors.red-berry.500");
-    color: theme("colors.neutral.900");
-    @apply dark:text-quill-gray-200;
+    color: theme("colors.gray.700");
+    @apply dark:text-neutral-300;
   }
   .tab-content {
     @apply w-full h-full relative;
@@ -106,8 +106,8 @@
   }
   .skeleton-image {
     width: 100%;
-    height: 60%;
-    background: linear-gradient(90deg, #f7f7f2 25%, #efefe5 75%);
+    height: 80%;
+    @apply bg-gradient-to-r from-spring-wood-50 dark:from-mine-shaft-950 from-25% to-spring-wood-100 dark:to-mine-shaft-900 to-75%;
     background-size: 200% 100%;
     animation: loading 1.5s infinite;
   }

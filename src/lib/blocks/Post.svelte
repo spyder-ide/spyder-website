@@ -45,13 +45,13 @@
 </svelte:head>
 
 <article class="container">
-  <div class="my-10 xl:my-32">
+  <div class="my-20 xl:mt-32 xl:mb-20">
     <h1
-      class="text-2xl xl:tracking-tight xl:text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
+      class="text-4xl lg:tracking-tight xl:text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
     >
       {title}
     </h1>
-    <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 my-10 xl:my-32">
+    <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
       <img class="w-24 h-24 rounded-full object-cover" {src} alt={author} />
       <div class="font-light text-center">
         {name}

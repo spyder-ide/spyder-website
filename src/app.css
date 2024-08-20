@@ -7,12 +7,12 @@
 @tailwind utilities;
 
 /* General styling */
-a:not(.menu-link):not(.icon-link):not(.button) {
-  @apply text-red-berry-950 dark:text-quill-gray-500
+a:not(.menu-link):not(.icon-link):not(.button):not(.post-link) {
+  @apply text-red-berry-900 dark:text-quill-gray-500 underline underline-offset-2
 }
 
-a:not(.menu-link):not(.icon-link):not(.button):hover {
-  @apply text-mine-shaft-950 dark:text-quill-gray-400
+a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):hover {
+  @apply text-mine-shaft-900 dark:text-quill-gray-400
 }
 
 .figure {

@@ -63,7 +63,7 @@
         {#each posts as post}
           <article>
             <h2 class="text-2xl xl:text-3xl font-light">
-              <a href="{base}/{route}/{post.path}" title={post.meta.title}>
+              <a class="post-link text-red-berry-950 dark:text-spring-wood-200" href="{base}/{route}/{post.path}" title={post.meta.title}>
                 {post.meta.title}
               </a>
             </h2>
@@ -82,7 +82,7 @@
                 </div>
               </div>
             {/if}
-            <p>{post.meta.summary}</p>
+            <p class="text-gray-700 dark:text-gray-300 font-light">{post.meta.summary}</p>
             <a
               class="block text-right mt-4"
               href="{base}/{route}/{post.path}"

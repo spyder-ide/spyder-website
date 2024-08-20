@@ -16,7 +16,7 @@ export const title = "Spyder IDE";
 export const subtitle =
   "The Python IDE that scientists and data analysts deserve";
 export const comment =
-  "Carefully designed by a dedicated team of scientists to meet our needs";
+  "Designed by the community, for the community";
 export const author = "Spyder Website Contributors";
 export const description = `${subtitle}. ${comment}`;
 export const keywords = [
@@ -94,13 +94,13 @@ export const releases = {
     },
   },
   mac: {
-    x64: {
-      name: "MacOS (Intel)",
-      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder.dmg",
-    },
     arm64: {
       name: "MacOS (M1)",
       link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder_arm64.dmg",
+    },
+    x64: {
+      name: "MacOS (Intel)",
+      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder.dmg",
     },
   },
 };

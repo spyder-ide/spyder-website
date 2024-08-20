@@ -1,2 +1,2 @@
-Spyder is funded thanks to the generous support of
+## Spyder is funded thanks to the generous support of
 

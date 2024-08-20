@@ -30,6 +30,7 @@
   export let button = true;
   export let highlight = false;
   export let icon = "";
+  export let iconSize = 20;
   export let href = "";
   export let rel = "";
   export let text = "";
@@ -60,11 +61,11 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="inline-flex items-center justify-center gap-3 text-sm"
+  class="inline-flex items-center justify-center gap-2 text-sm"
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"} class="flex">
-      <Icon src={currentIcon} size={20} />
+      <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
 
@@ -74,7 +75,7 @@
 
   {#if iconRight}
     <span class:icon-right={iconPosition === "right"} class="flex">
-      <Icon src={currentIcon} size={20} />
+      <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
 </a>
@@ -93,10 +94,10 @@
   }
 
   .button .icon-right {
-    margin-right: -0.2em;
+    margin-right: -0.4em;
   }
 
   .button .icon-left {
-    margin-left: -0.2em;
+    margin-left: -0.4em;
   }
 </style>

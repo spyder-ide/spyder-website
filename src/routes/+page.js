@@ -42,13 +42,13 @@ frontPage = {
   props: {
     // Hero section buttons
     buttons: [
+      ...osButtons,
       {
         highlight: false,
         icon: "github",
         text: "Checkout on GitHub",
         href: "https://github.com/",
       },
-      ...osButtons,
     ],
     // Content blocks
     blocks: [
@@ -65,7 +65,7 @@ frontPage = {
       // Interactive
       {
         id: "interactive-section",
-        title: "Interactive programming everywhere",
+        title: "Interactive programming built in",
         divider: true,
         border: false,
         content: Interactive,
@@ -82,7 +82,7 @@ frontPage = {
               videoCaption: "Explore variables after execution",
             },
           },
-          //{ title: "Debugger", content: Debugger },
+          { title: "Help", content: "" },
           {
             title: "Editor",
             isVideo: true,
@@ -92,7 +92,7 @@ frontPage = {
                   src: "/assets/media/editor.mp4",
                 },
               ],
-              videoCaption: `Run code in sections called "cells"`,
+              videoCaption: `Run code in line by line or in sections called "cells"`,
             },
           },
         ],
@@ -116,21 +116,21 @@ frontPage = {
       // Growth
       {
         id: "growth-section",
-        title: "It grows with you",
+        title: "Ready to take you to the next level",
         divider: true,
         content: Growth,
         tabs: [
           { title: "Developer tools", content: DeveloperTools },
           { title: "Projects", content: Projects },
           { title: "Code analysis", content: CodeAnalysis },
-          { title: "Search code", content: Search },
+          { title: "Code search", content: Search },
         ],
       },
 
       // Setup
       {
         id: "setup-section",
-        title: "Zero setup process",
+        title: "Simple install and update process",
         content: Setup,
         divider: true,
         imgSrc: `/assets/media/${os}.webp`,
@@ -170,7 +170,7 @@ frontPage = {
         innerColumns: [
           {
             title: "YouTube",
-            content: "Learn more about Spyder",
+            content: "Learn more",
             icon: "BsYoutube",
             link: "https://www.youtube.com/c/spyderide",
             aspect: "xl:aspect-square",

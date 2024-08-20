@@ -34,9 +34,9 @@
     </a>
 
     <!-- Navigation -->
-    <nav class="menu-container flex items-center gap-2 xl:gap-12">
+    <nav class="menu-container flex items-center gap-2 lg:gap-8 xl:gap-12">
       {#each navigation as menu}
-        <ul class="menu flex items-center gap-2 xl:gap-6">
+        <ul class="menu flex items-center gap-2 lg:gap-4 xl:gap-6">
           {#each menu as item}
             <li class="menu-item">
               <a

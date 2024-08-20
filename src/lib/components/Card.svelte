@@ -19,7 +19,7 @@
     <h2 class="text-3xl mt-4">{innerColumn.title}</h2>
   {/if}
   {#if innerColumn.content}
-    <p class="text-neutral-500">
+    <p class="text-neutral-500 text-xl">
       {@html innerColumn.content}
     </p>
   {/if}

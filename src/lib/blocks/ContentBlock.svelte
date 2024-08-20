@@ -77,25 +77,25 @@
 
   <div
     class={`mx-auto grid gap-8 px-8 ${classes}
-      ${!boxed ? 'py-8 max-w-screen-lg 2xl:max-w-screen-xl' : 'max-w-screen-sm'}
+      ${!boxed ? 'py-8 max-w-screen-lg 2xl:max-w-screen-xl' : 'max-w-screen-md'}
       ${columns ? 'gap-x-8 lg:gap-x-16 xl:gap-x-32 lg:grid-cols-10' : ''}
       ${border ? 'border border-mine-shaft-200 dark:border-mine-shaft-800' : ''}`}
   >
     {#if content || buttons}
-      <div class={columns ? 'lg:col-span-4' : ''}>
+      <div class={columns ? 'col-span-full lg:col-span-4' : 'col-span-full'}>
         {#if content}
           <div
             class={`prose prose-headings:font-light prose-headings:tracking-tight
               prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
-              prose-p:font-light prose-p:text-lg prose-p:dark:text-gray-300
-              ${columns ? 'max-w-full' : 'mt-4 text-center max-w-2xl mx-auto'}`}
+              prose-p:font-light prose-p:text-lg prose-p:text-gray-700 prose-p:dark:text-gray-300
+              ${columns ? 'max-w-full' : 'mt-24 text-center max-w-2xl mx-auto'}`}
           >
             <slot />
           </div>
         {/if}
         {#if buttons}
           <div
-            class={`flex flex-col lg:flex-row gap-4 items-center mt-8
+            class={`grid grid-flow-row lg:grid-flow-col gap-4 items-center mt-8
               ${!columns ? 'text-center' : ''}`}
           >
             {#each buttons as button}
@@ -123,26 +123,26 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div class="grid gap-8 md:grid-flow-row md:grid-cols-2 md:gap-32">
+          <div class="max-w-lg mx-auto flex flex-col mt-8 gap-16 md:mt-0 md:grid md:grid-cols-2">
             {#each innerColumns as innerColumn}
               {#if innerColumn.link}
                 <a
                   href={innerColumn.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="grid w-full h-full items-center"
+                  class="md:grid w-full h-full items-center"
                 >
                   <Card
                     {innerColumn}
                     aspect={innerColumn.aspect}
-                    classes="w-48 h-48 lg:h-24"
+                    classes="w-52 md:h-32"
                   />
                 </a>
               {:else}
                 <Card
                   {innerColumn}
                   aspect={innerColumn.aspect}
-                  classes="w-48 h-48 lg:h-24"
+                  classes="w-52 md:h-32"
                 />
               {/if}
             {/each}
@@ -154,10 +154,10 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class={`mt-8 prose prose-headings:font-light prose-headings:tracking-tight
+      class={`mt-16 prose prose-headings:font-light prose-headings:tracking-tight
         prose-p:font-light prose-p:text-neutral-500 prose-p:dark:text-neutral-400
-        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
-        ${!columns ? 'order-first text-center max-w-2xl mx-auto' : ''}`}
+        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400 text-center max-w-2xl mx-auto
+        ${columns ? 'order-first' : ''}`}
     >
       {#if $$slots.extraContent}
         <slot name="extraContent" />
@@ -168,7 +168,7 @@
   {/if}
 
   {#if extraImage}
-    <div class={`col-span-10 text-center my-8 ${!columns ? 'max-w-2xl mx-auto' : 'max-w-full'}`}>
+    <div class={`col-span-10 text-center px-8 mt-8 mb-16 ${!columns ? 'max-w-2xl mx-auto' : 'max-w-full'}`}>
       {#if extraImageLink}
         <a href={extraImageLink} target="_blank" rel="noopener noreferrer">
           <Image figure={false} imgSrc={extraImage} imgAlt={extraImageAlt} />

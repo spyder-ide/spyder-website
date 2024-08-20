@@ -1,1 +1,1 @@
-![Work with symbolic expressions and get results formatted in Latex](/assets/media/sympy.webp)
+![View rich symbolic expressions rendered with LaTeX](/assets/media/sympy.webp)

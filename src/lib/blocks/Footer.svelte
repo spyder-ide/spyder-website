@@ -14,7 +14,7 @@
 class="relative
 mt-28
 pb-14
-text-sm
+text-md
 text-center
 text-mine-shaft-500
 dark:text-mine-shaft-300
@@ -26,10 +26,10 @@ dark:bg-mine-shaft-900"
     <h2 class="text-red-berry-900 dark:text-neutral-400">{footerTitle}</h2>
     <div class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4">
       {#each socialIcons as [icon, href]}
-        <Button {icon} {href} button={false} target="_blank" />
+        <Button {icon} {href} button={false} target="_blank" iconSize={24} />
       {/each}
     </div>
-    <div class="max-w-md mx-auto text-xs">
+    <div class="max-w-md mx-auto text-sm">
       <FooterContent />
     </div>
   </div>

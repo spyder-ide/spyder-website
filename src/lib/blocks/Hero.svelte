@@ -31,7 +31,8 @@
       md:text-5xl
       xl:text-7xl
       font-extralight
-      text-mine-shaft-400
+      text-gray-700
+      dark:text-mine-shaft-300
       text-center"
     >
       {heroContent.title}

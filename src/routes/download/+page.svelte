@@ -6,7 +6,11 @@
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
 
-  let arch, os, osName, downloadUrl, osButtons;
+  let arch = "unknown";
+  let os = "unknown";
+  let osName = "unknown";
+  let downloadUrl = "";
+  let osButtons = [];
 
   // Generate download buttons even if we don't have
   // a download parameter in the URL
@@ -47,13 +51,13 @@
     os = params.get("os");
     arch = params.get("arch");
 
-    if (!os || !releases[os] || !releases[os][arch]) {
+    if (!os || !arch || !releases[os] || !releases[os][arch]) {
       return;
     }
 
     if (releases[os][arch]) {
-      osName = releases[os][arch].name;
-      downloadUrl = releases[os][arch].link;
+      osName = releases[os][arch].name; // This line
+      downloadUrl = releases[os][arch].link; // And this line
     }
 
     if (downloadUrl) {
@@ -61,15 +65,17 @@
     }
   };
 
+  $: osName = releases[os]?.[arch]?.name ?? "unknown";
+  $: downloadUrl = releases[os]?.[arch]?.link ?? "";
+
   onMount(() => {
     getOSValues();
-    console.log(osName, downloadUrl);
     osButtons = generateDownloadButtons(releases);
   });
 </script>
 
 <div class="download container max-w-2xl mt-32">
-  {#if !os || !releases[os]}
+  {#if os === "unknown"}
     <h1 class="text-4xl font-extralight text-center">
       Please select the package you want from the links below
     </h1>
@@ -83,7 +89,8 @@
       Download started&hellip;
     </h1>
     <h2 class="text-center text-2xl font-light mb-4">
-      Detected <span class="text-red-berry-900">{osName}</span> or compatible
+      Detected <span class="text-red-berry-900">{osName}</span>
+      or compatible
     </h2>
     <p class="text-sm text-neutral-500 text-center">
       If the download does not start automatically, please click the button
@@ -118,7 +125,7 @@
         Available for
       </div>
       <div
-        class="mx-auto max-w-md mt-4 mb-5 grid grid-cols-1 xl:grid-cols-2 items-center justify-center gap-4"
+        class="mx-auto max-w-md mt-4 mb-5 grid grid-cols-1 lg:grid-cols-2 items-center justify-center gap-4"
       >
         {#each osButtons as button}
           <Button
