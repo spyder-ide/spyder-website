@@ -1,26 +1,10 @@
 <script>
   import { base } from "$app/paths";
-  import { onMount } from 'svelte';
 
   import { title, description, navigation } from "$lib/config";
 
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
-
-  let mobile = false;
-
-  onMount(() => {
-    const handleResize = () => {
-      mobile = window.innerWidth < 1024;
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
 
 </script>
 
@@ -29,7 +13,7 @@
 
     <!-- Logo -->
     <a href="{base}/" class="title h-20 flex items-center">
-      <Logo compact={mobile} />
+      <Logo />
       <span class="sr-only">{title} {description}</span>
     </a>
 
