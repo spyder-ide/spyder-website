@@ -1,7 +1,9 @@
 <script>
+  import { colourScheme } from '$lib/store';
   import Loader from "./Loader.svelte";
 
   export let imgSrc = "";
+  export let imgSrcDark = "";
   export let imgAlt = "";
   export let title = "";
   export let blur = false;
@@ -11,13 +13,15 @@
   export let figure = true;
   export let classes = "";
   export let caption = "";
+
+  $: currentImgSrc = $colourScheme === 'dark' && imgSrcDark ? imgSrcDark : imgSrc;
 </script>
 
-{#if imgSrc}
+{#if currentImgSrc}
   {#if figure}
     <figure class="grid grid-flow-col justify-center items-center">
       <img
-        src={imgSrc}
+        src={currentImgSrc}
         class:rounded-md={rounded}
         class:shadow-lg={shadow}
         class:blur-md={blur}
@@ -34,7 +38,7 @@
     </figure>
   {:else}
     <img
-      src={imgSrc}
+      src={currentImgSrc}
       class:rounded-md={rounded}
       class:shadow-lg={shadow}
       class:blur-md={blur}

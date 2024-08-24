@@ -47,7 +47,7 @@
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
     <h1
-      class="text-4xl lg:tracking-tight xl:text-6xl text-center font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
+      class="text-2xl md:text-4xl lg:tracking-tight xl:text-6xl text-center font-light md:font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
     >
       {title}
     </h1>

@@ -13,12 +13,12 @@
     VideoPlayer = module.default;
 
     // Preload video sources
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
       if (tab.isVideo && tab.content.videoSources) {
-        tab.content.videoSources.forEach(source => {
-          const link = document.createElement('link');
-          link.rel = 'preload';
-          link.as = 'video';
+        tab.content.videoSources.forEach((source) => {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "video";
           link.href = source.src;
           document.head.appendChild(link);
         });
@@ -28,7 +28,9 @@
     isLoading = false;
   });
 
-  $: currentKey = current.isVideo ? JSON.stringify(current.content) : current.content;
+  $: currentKey = current.isVideo
+    ? JSON.stringify(current.content)
+    : current.content;
 
   function handleTabClick(tab) {
     isLoading = true;
@@ -40,10 +42,15 @@
   }
 </script>
 
-<div class="flex gap-4 xl:gap-8 justify-evenly lg:justify-end border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm text-gray-700 h-8 lg:-mt-8">
+<div
+  class="flex gap-1 sm:gap-2 lg:gap-4 xl:gap-8 justify-evenly lg:justify-end
+         border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm
+         text-gray-700 lg:h-8 lg:-mt-8"
+>
   {#each tabs as tab}
     <button
-      class="pb-2 border-b-2 border-neutral-500 text-gray-500 text-sm lg:text-base font-light"
+      class="pb-2 border-b-2 border-neutral-500 text-gray-500
+             text-xs sm:text-sm lg:text-base font-light"
       class:selected={current === tab}
       on:click={() => handleTabClick(tab)}
     >
@@ -54,13 +61,17 @@
 
 <div class="tab-content">
   {#if isLoading}
-    <div class="skeleton-loader" in:fade="{{ duration: 200 }}" out:fade="{{ duration: 200 }}">
+    <div
+      class="skeleton-loader"
+      in:fade={{ duration: 200 }}
+      out:fade={{ duration: 200 }}
+    >
       <div class="skeleton-image"></div>
     </div>
   {:else}
     {#key currentKey}
       {#if current.isVideo === true}
-        <div in:fade="{{ duration: 200 }}">
+        <div in:fade={{ duration: 200 }}>
           {#if VideoPlayer}
             <svelte:component
               this={VideoPlayer}
@@ -69,14 +80,16 @@
               info={false}
             />
             {#if current.content.videoCaption}
-              <p class="text-gray-700 dark:text-neutral-300 text-[0.95rem] mt-3 text-center">
+              <p
+                class="text-gray-700 dark:text-neutral-300 text-[0.95rem] mt-3 text-center"
+              >
                 {current.content.videoCaption}
               </p>
             {/if}
           {/if}
         </div>
       {:else}
-        <div in:fade="{{ duration: 200 }}">
+        <div in:fade={{ duration: 200 }}>
           <svelte:component this={current.content} />
         </div>
       {/if}
@@ -90,6 +103,7 @@
     color: theme("colors.gray.700");
     @apply dark:text-neutral-300;
   }
+
   .tab-content {
     @apply w-full h-full relative;
     margin-top: 1em;
@@ -98,12 +112,14 @@
       min-height: 500px;
     }
   }
+
   .skeleton-loader {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: -1;
   }
+
   .skeleton-image {
     width: 100%;
     height: 80%;
@@ -111,6 +127,7 @@
     background-size: 200% 100%;
     animation: loading 1.5s infinite;
   }
+
   @keyframes loading {
     0% {
       background-position: 200% 0;

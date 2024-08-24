@@ -10,6 +10,7 @@ export const colourScheme = writable(storedColourScheme);
 if (browser) {
   colourScheme.subscribe((value) => {
     localStorage.setItem("colourScheme", value);
+    console.log("Colour scheme set to", value);
   });
 }
 

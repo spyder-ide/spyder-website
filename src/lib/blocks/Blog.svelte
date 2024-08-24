@@ -53,16 +53,16 @@
 </script>
 
 <div class="container">
-  <h1 class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-32">
+  <h1 class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32">
     {blogTitle}
   </h1>
 
-  <section class="container max-w-3xl">
+  <section class="max-w-3xl mx-auto">
     {#if posts.length !== 0}
       <div class="grid grid-flow-row gap-24">
         {#each posts as post}
           <article>
-            <h2 class="text-2xl xl:text-3xl font-light">
+            <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
               <a class="post-link text-red-berry-950 dark:text-spring-wood-200" href="{base}/{route}/{post.path}" title={post.meta.title}>
                 {post.meta.title}
               </a>

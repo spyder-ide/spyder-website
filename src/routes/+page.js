@@ -82,7 +82,18 @@ frontPage = {
               videoCaption: "Explore variables after execution",
             },
           },
-          { title: "Help", content: "" },
+          {
+            title: "Help",
+            isVideo: true,
+            content: {
+              videoSources: [
+                {
+                  src: "/assets/media/help.mp4",
+                },
+              ],
+              videoCaption: "Find documentation directly on the command line",
+            }
+          },
           {
             title: "Editor",
             isVideo: true,
@@ -151,7 +162,8 @@ frontPage = {
         extraImageLink: "https://opencollective.com/spyder#support",
         innerColumns: [
           {
-            imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
+            imgSrc: "/assets/media/czi_light.svg",
+            imgSrcDark: "/assets/media/czi_dark.svg",
             link: "https://chanzuckerberg.com/",
           },
           {

@@ -13,7 +13,13 @@
   {#if innerColumn.icon}
     <DynamicIcon icon={innerColumn.icon} size="48" />
   {:else if innerColumn.imgSrc}
-    <Image figure={false} imgSrc={innerColumn.imgSrc} contain={true} {classes} />
+    <Image
+      figure={false}
+      imgSrc={innerColumn.imgSrc}
+      imgSrcDark={innerColumn.imgSrcDark}
+      contain={true}
+      {classes}
+    />
   {/if}
   {#if innerColumn.title}
     <h2 class="text-3xl mt-4">{innerColumn.title}</h2>

@@ -68,7 +68,7 @@
 >
   {#if title}
     <h1
-      class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900 dark:text-neutral-400
+      class={`text-4xl font-semibold tracking-tight max-w-2xl px-8 mx-auto text-center text-red-berry-900 dark:text-neutral-400
         ${!boxed ? 'lg:mb-24' : ''}`}
     >
       {@html title}
@@ -88,14 +88,14 @@
             class={`prose prose-headings:font-light prose-headings:tracking-tight
               prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
               prose-p:font-light prose-p:text-lg prose-p:text-gray-700 prose-p:dark:text-gray-300
-              ${columns ? 'max-w-full' : 'mt-24 text-center max-w-2xl mx-auto'}`}
+              ${columns ? 'max-w-full' : 'mt-8 md:mt-24 text-center max-w-2xl mx-auto'}`}
           >
             <slot />
           </div>
         {/if}
         {#if buttons}
           <div
-            class={`grid grid-flow-row lg:grid-flow-col gap-4 items-center mt-8
+            class={`grid grid-cols-1 md:grid-cols-2 gap-4 items-center mt-8
               ${!columns ? 'text-center' : ''}`}
           >
             {#each buttons as button}
@@ -123,14 +123,14 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div class="max-w-lg mx-auto flex flex-col mt-8 gap-16 md:mt-0 md:grid md:grid-cols-2">
+          <div class="max-w-2xl mx-auto flex flex-col gap-8 md:gap-16 mt-2 md:mt-0 md:grid md:grid-cols-2">
             {#each innerColumns as innerColumn}
               {#if innerColumn.link}
                 <a
                   href={innerColumn.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="md:grid w-full h-full items-center"
+                  class="card-link md:grid w-full h-full items-center"
                 >
                   <Card
                     {innerColumn}
@@ -154,9 +154,9 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class={`mt-16 prose prose-headings:font-light prose-headings:tracking-tight
+      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-headings:font-light prose-headings:tracking-tight
         prose-p:font-light prose-p:text-neutral-500 prose-p:dark:text-neutral-400
-        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400 text-center max-w-2xl mx-auto
+        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
         ${columns ? 'order-first' : ''}`}
     >
       {#if $$slots.extraContent}
