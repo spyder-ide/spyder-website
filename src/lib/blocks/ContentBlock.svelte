@@ -91,7 +91,7 @@
         {#if content}
           <div
             class={`prose prose-h2:text-lg prose-h1:text-xl prose-headings:font-light prose-headings:tracking-tight
-              prose-headings:text-neutral-700 prose-headings:dark:text-neutral-300
+              prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? 'max-w-full' : 'mt-8 md:mt-24 text-center max-w-2xl mx-auto'}`}
           >
