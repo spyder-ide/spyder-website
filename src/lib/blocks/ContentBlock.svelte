@@ -1,7 +1,9 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import Youtube from "svelte-youtube-embed";
   import { randomId } from "$lib/utils";
+  import { colourScheme } from '$lib/store';
+
   import Card from "$lib/components/Card.svelte";
   import Button from "$lib/components/Button.svelte";
   import Tabs from "$lib/components/Tabs.svelte";
@@ -26,12 +28,15 @@
   export let title = "";
   export let classes = "";
   export let background = "";
+  export let backgroundDark = "";
   export let content = "";
   export let extraContent = "";
   export let extraImage = "";
   export let extraImageAlt = "";
   export let extraImageLink = "";
   export let innerColumns = false;
+
+  $: currentBg = $colourScheme === 'dark' && backgroundDark ? backgroundDark : background;
 
   let style = "";
   let mobile = false;
@@ -51,7 +56,7 @@
   onMount(() => {
     const handleResize = debounce(() => {
       mobile = window.innerWidth < 768;
-      style = mobile ? "" : background ? `background-image: url(${background});` : "";
+      style = mobile ? "" : currentBg ? `background-image: url(${currentBg});` : "";
     }, 250);
 
     window.addEventListener('resize', handleResize);
@@ -85,9 +90,9 @@
       <div class={columns ? 'col-span-full lg:col-span-4' : 'col-span-full'}>
         {#if content}
           <div
-            class={`prose prose-headings:font-light prose-headings:tracking-tight
-              prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
-              prose-p:font-light prose-p:text-lg prose-p:text-gray-700 prose-p:dark:text-gray-300
+            class={`prose prose-h2:text-lg prose-h1:text-xl prose-headings:font-light prose-headings:tracking-tight
+              prose-headings:text-neutral-700 prose-headings:dark:text-neutral-300
+              prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? 'max-w-full' : 'mt-8 md:mt-24 text-center max-w-2xl mx-auto'}`}
           >
             <slot />
@@ -154,9 +159,9 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-headings:font-light prose-headings:tracking-tight
-        prose-p:font-light prose-p:text-neutral-500 prose-p:dark:text-neutral-400
-        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
+      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light prose-headings:tracking-tight
+              prose-headings:text-neutral-700 prose-headings:dark:text-neutral-300
+              prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
         ${columns ? 'order-first' : ''}`}
     >
       {#if $$slots.extraContent}

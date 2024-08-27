@@ -8,7 +8,7 @@
 
 /* General styling */
 a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):not(.card-link) {
-  @apply text-red-berry-900 dark:text-quill-gray-500 underline underline-offset-2
+  @apply text-red-berry-900 dark:text-white underline underline-offset-2
 }
 
 a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):not(.card-link):hover {
@@ -27,8 +27,4 @@ a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):not(.card-link):h
   & figcaption {
     @apply text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3;
   }
-}
-
-img {
-  image-rendering: optimizequality;
 }

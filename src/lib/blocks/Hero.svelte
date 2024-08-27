@@ -31,7 +31,7 @@
       md:text-5xl
       xl:text-7xl
       font-extralight
-      text-gray-700
+      text-gray-500
       dark:text-mine-shaft-300
       text-center"
     >

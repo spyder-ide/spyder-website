@@ -179,6 +179,7 @@ frontPage = {
         columns: false,
         boxed: true,
         background: "/assets/media/bg_more.svg",
+        backgroundDark: "/assets/media/bg_more_dark.svg",
         innerColumns: [
           {
             title: "YouTube",

@@ -39,11 +39,14 @@
   };
 
   function handleMove(e) {
-    // Make the controls visible, but fade out after
-    // 2 seconds of inactivity
-    clearTimeout(showControlsTimeout);
-    showControlsTimeout = setTimeout(() => (showControls = false), 2000);
+    // Make the controls visible
     showControls = true;
+
+    // Only set the timeout to hide controls if the video is playing
+    if (!paused) {
+      clearTimeout(showControlsTimeout);
+      showControlsTimeout = setTimeout(() => (showControls = false), 2000);
+    }
 
     if (!duration) return; // video not loaded yet
     if (e.type !== "touchmove" && !(e.buttons & 1)) return; // mouse not down
@@ -102,6 +105,13 @@
       observer.disconnect();
     }
   });
+
+  $: {
+    if (paused) {
+      showControls = true;
+      clearTimeout(showControlsTimeout);
+    }
+  }
 </script>
 
 <div class="video-container relative">
@@ -141,6 +151,7 @@
       on:click={() => {
         paused = !paused;
         userPaused = paused;
+        showControls = true; // Ensure controls are shown when toggling play/pause
       }}
     >
       <Icon
