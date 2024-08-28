@@ -1,8 +1,9 @@
 <script>
   import { onMount } from "svelte";
   import Youtube from "svelte-youtube-embed";
+
   import { randomId } from "$lib/utils";
-  import { colourScheme } from '$lib/store';
+  import { colourScheme, osStore } from '$lib/store';
 
   import Card from "$lib/components/Card.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -22,7 +23,7 @@
   export let imgClasses = "";
   export let caption = "";
   export let tabs = undefined;
-  export let buttons = false;
+  export let buttons = undefined;
   export let boxed = false;
   export let divider = false;
   export let title = "";
@@ -35,8 +36,6 @@
   export let extraImageAlt = "";
   export let extraImageLink = "";
   export let innerColumns = false;
-
-  $: currentBg = $colourScheme === 'dark' && backgroundDark ? backgroundDark : background;
 
   let style = "";
   let mobile = false;
@@ -53,6 +52,8 @@
     };
   };
 
+  $: currentBg = $colourScheme === 'dark' && backgroundDark ? backgroundDark : background;
+
   onMount(() => {
     const handleResize = debounce(() => {
       mobile = window.innerWidth < 768;
@@ -63,6 +64,15 @@
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
+  });
+
+  $: style = mobile ? "" : currentBg ? `background-image: url(${currentBg});` : "";
+
+  osStore.subscribe(data => {
+    if (!data.loading && buttons && imgSrc) {
+      buttons = [...data.osButtons];
+      imgSrc = `/assets/media/${data.os}.webp`
+    }
   });
 </script>
 

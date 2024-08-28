@@ -1,8 +1,3 @@
-// OS Detection
-import { base } from "$app/paths";
-import { browser } from "$app/environment";
-import { getOS, getOSButtons } from "$lib/utils";
-
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
 import Ecosystem from "$lib/content/ecosystem.md";
@@ -31,25 +26,11 @@ let frontPage = {},
   os = "linux",
   osButtons = [];
 
-// OS buttons
-if (browser) {
-  os = getOS();
-  osButtons = getOSButtons(base, os);
-}
-
 // Content blocks
 frontPage = {
   props: {
     // Hero section buttons
-    buttons: [
-      ...osButtons,
-      {
-        highlight: false,
-        icon: "github",
-        text: "Checkout on GitHub",
-        href: "https://github.com/",
-      },
-    ],
+    buttons: [],
     // Content blocks
     blocks: [
       // What is Spyder
@@ -91,7 +72,7 @@ frontPage = {
                   src: "/assets/media/help.mp4",
                 },
               ],
-              videoCaption: "Find documentation directly on the command line",
+              videoCaption: "Get help for code you're working on with one click",
             }
           },
           {

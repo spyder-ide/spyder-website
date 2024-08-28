@@ -94,8 +94,8 @@
     <h1 class="text-center text-4xl font-extralight mb-16">
       Download started&hellip;
     </h1>
-    <h2 class="text-center text-2xl font-light mb-4">
-      Selected <span class="text-red-berry-900">{osName}</span>
+    <h2 class="text-center dark:text-neutral-200 text-2xl font-light mb-4">
+      Selected <span class="text-red-berry-900 dark:text-white font-semibold">{osName}</span>
       or compatible
     </h2>
     <p class="text-sm text-neutral-500 text-center">

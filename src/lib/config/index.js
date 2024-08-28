@@ -79,28 +79,36 @@ export const heroImages = {
   light: `${base}/assets/media/screenshot_light.webp`,
 };
 
+// Github button
+export const githubButton = {
+  highlight: false,
+  icon: "github",
+  text: "Checkout on GitHub",
+  href: "https://github.com/spyder-ide/spyder/",
+}
+
 // Download links
 export const releases = {
   linux: {
     x64: {
       name: "Linux",
-      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/EXPERIMENTAL-Spyder-5.5.5-Linux-x86_64.sh",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh",
     },
   },
   windows: {
     x64: {
       name: "Windows 10+",
-      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder_64bit_full.exe",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_64bit_full.exe",
     },
   },
   mac: {
     arm64: {
       name: "macOS (M1)",
-      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder_arm64.dmg",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_arm64.dmg",
     },
     x64: {
       name: "macOS (Intel)",
-      link: "https://github.com/spyder-ide/spyder/releases/download/v5.5.5/Spyder.dmg",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder.dmg",
     },
   },
 };

@@ -1,15 +1,23 @@
 <script>
+  import { osStore } from "$lib/store";
+  import { heroContent, heroImages, githubButton } from "$lib/config";
+
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
   import ImageCompare from "$lib/components/ImageCompare.svelte";
-
-  import { heroContent, heroImages } from "$lib/config";
 
   export let id = "";
   export let classes = "";
 
   // Hero section buttons
   export let buttons = [];
+
+  // Subscribe to osStore
+  osStore.subscribe((data) => {
+    if (!data.loading) {
+      buttons = [...data.osButtons, githubButton];
+    }
+  });
 </script>
 
 <section {id} class="mt-20 {classes}">
