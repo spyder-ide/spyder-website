@@ -13,7 +13,7 @@
     {#if stroke}
       <path
         d="m0 0 598.97 114.72L1200 0" stroke-width="2"
-        class="dark:stroke-mine-shaft-900 stroke-mine-shaft-200 fill-none"
+        class="dark:stroke-mine-shaft-700 stroke-mine-shaft-200 fill-none"
       ></path>
     {:else}
       <path

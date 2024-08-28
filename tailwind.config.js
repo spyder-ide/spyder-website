@@ -29,7 +29,7 @@ export default {
               border: "1px solid",
               backgroundColor: "rgba(0, 0, 0, 0.01)",
               borderColor: "rgba(0, 0, 0, 0.03)",
-              padding: "2em 2em 1em 2em",
+              padding: "1em",
               borderRadius: "0.6em",
               display: "flex",
               flexDirection: "column",
@@ -41,6 +41,13 @@ export default {
               },
             },
           },
+        },
+        md: {
+          css: {
+            figure: {
+              padding: "2em 2em 1em 2em",
+            }
+          }
         },
         invert: {
           css: {

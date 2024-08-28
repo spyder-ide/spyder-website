@@ -1,1 +1,1 @@
-![View all your plots per console in a single place](/assets/media/matplotlib.webp)
+![Browse all your plots in a single place](/assets/media/matplotlib.webp)

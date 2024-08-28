@@ -1,4 +1,3 @@
-## The better you're at programming, the more impactful your research will be
+## Make a bigger impact with reusable research
 
-New scientific discoveries critically depend on software these days. Spyder helps you to move swiftly from simple scripts to structured programming endeavors without losing interactivity. It also allows you to use professional software development tools when you're ready for them.
-
+The software you write is critical for new scientific discoveries and engineering solutions. Spyder helps you move from single scripts to structured, reusable modules and packages without losing interactivity. It also includes powerful software development tools whenever you’re ready for them.

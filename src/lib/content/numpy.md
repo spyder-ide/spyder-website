@@ -1,1 +1,1 @@
-![Explore the contents of two and three dimensional arrays](/assets/media/numpy.webp)
+![Explore and edit multi-dimensional arrays](/assets/media/numpy.webp)

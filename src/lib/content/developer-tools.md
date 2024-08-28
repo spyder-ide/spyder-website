@@ -1,1 +1,1 @@
-![Make use of advanced developer tools (e.g. Black) to write better code](/assets/media/developer_tools.webp)
+![Take advantage of real-time hints and help to improve your code](/assets/media/developer_tools.webp)

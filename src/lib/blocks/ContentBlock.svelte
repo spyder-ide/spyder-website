@@ -1,13 +1,16 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import Youtube from "svelte-youtube-embed";
+
   import { randomId } from "$lib/utils";
+  import { colourScheme, osStore } from '$lib/store';
+
   import Card from "$lib/components/Card.svelte";
-  import Button from "$lib/components/Button.svelte";
   import Tabs from "$lib/components/Tabs.svelte";
-  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
   import Image from "$lib/components/Image.svelte";
+  import Button from "$lib/components/Button.svelte";
   import Divider from "$lib/components/Divider.svelte";
+  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
 
   export let id = randomId();
   export let columns = true;
@@ -20,30 +23,26 @@
   export let imgClasses = "";
   export let caption = "";
   export let tabs = undefined;
-  export let buttons = false;
+  export let buttons = undefined;
   export let boxed = false;
   export let divider = false;
   export let title = "";
   export let classes = "";
   export let background = "";
+  export let backgroundDark = "";
   export let content = "";
   export let extraContent = "";
   export let extraImage = "";
   export let extraImageAlt = "";
   export let extraImageLink = "";
   export let innerColumns = false;
-  export let innerColumnCount = 2;
-  export let innerColumnGap = 16;
-  export let innerColumnsClasses = "";
 
   let style = "";
   let mobile = false;
 
-  innerColumnsClasses = `grid xl:grid-flow-row xl:grid-cols-${innerColumnCount} gap-${innerColumnGap}`;
-
   const debounce = (func, wait) => {
     let timeout;
-    return function executedFunction(...args) {
+    return function(...args) {
       const later = () => {
         clearTimeout(timeout);
         func(...args);
@@ -53,10 +52,12 @@
     };
   };
 
+  $: currentBg = $colourScheme === 'dark' && backgroundDark ? backgroundDark : background;
+
   onMount(() => {
     const handleResize = debounce(() => {
-      mobile = window.innerWidth < 1280;
-      style = mobile ? "" : background ? `background-image: url(${background});` : "";
+      mobile = window.innerWidth < 768;
+      style = mobile ? "" : currentBg ? `background-image: url(${currentBg});` : "";
     }, 250);
 
     window.addEventListener('resize', handleResize);
@@ -64,17 +65,26 @@
 
     return () => window.removeEventListener('resize', handleResize);
   });
+
+  $: style = mobile ? "" : currentBg ? `background-image: url(${currentBg});` : "";
+
+  osStore.subscribe(data => {
+    if (!data.loading && buttons && imgSrc) {
+      buttons = [...data.osButtons];
+      imgSrc = `/assets/media/${data.os}.webp`
+    }
+  });
 </script>
 
 <section
-  class="xl:bg-contain xl:bg-no-repeat xl:bg-origin-center xl:bg-center"
+  class="md:bg-contain md:bg-no-repeat md:bg-origin-center md:bg-center"
   {id}
   {style}
 >
   {#if title}
     <h1
-      class={`text-4xl font-semibold tracking-tight max-w-2xl mx-auto text-center text-red-berry-900 dark:text-neutral-400
-        ${!boxed ? 'xl:mb-24' : ''}`}
+      class={`text-4xl font-semibold tracking-tight max-w-2xl px-8 mx-auto text-center text-red-berry-900 dark:text-neutral-400
+        ${!boxed ? 'lg:mb-24' : ''}`}
     >
       {@html title}
     </h1>
@@ -82,25 +92,25 @@
 
   <div
     class={`mx-auto grid gap-8 px-8 ${classes}
-      ${!boxed ? 'py-8 2xl:max-w-screen-xl' : 'max-w-screen-sm'}
-      ${columns ? 'gap-x-8 xl:gap-x-32 xl:grid-cols-10' : ''}
+      ${!boxed ? 'py-8 max-w-screen-lg 2xl:max-w-screen-xl' : 'max-w-screen-md'}
+      ${columns ? 'gap-x-8 lg:gap-x-16 xl:gap-x-32 lg:grid-cols-10' : ''}
       ${border ? 'border border-mine-shaft-200 dark:border-mine-shaft-800' : ''}`}
   >
     {#if content || buttons}
-      <div class={columns ? 'xl:col-span-4' : ''}>
+      <div class={columns ? 'col-span-full lg:col-span-4' : 'col-span-full'}>
         {#if content}
           <div
-            class={`prose prose-headings:font-light prose-headings:tracking-tight
-              prose-p:font-light prose-a:no-underline prose-p:text-neutral-500 prose-p:dark:text-neutral-400
-              prose-headings:text-neutral-500 prose-headings:dark:text-neutral-300
-              ${columns ? 'max-w-full' : 'mt-4 text-center max-w-2xl mx-auto'}`}
+            class={`prose prose-h2:text-lg prose-h1:text-xl prose-headings:font-light prose-headings:tracking-tight
+              prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
+              prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
+              ${columns ? 'max-w-full' : 'mt-8 md:mt-24 text-center max-w-2xl mx-auto'}`}
           >
             <slot />
           </div>
         {/if}
         {#if buttons}
           <div
-            class={`flex flex-col xl:flex-row gap-4 items-center mt-8
+            class={`grid grid-cols-1 md:grid-cols-2 gap-4 items-center mt-8
               ${!columns ? 'text-center' : ''}`}
           >
             {#each buttons as button}
@@ -112,7 +122,7 @@
     {/if}
 
     {#if videoId || videoSources || tabs || imgSrc || innerColumns}
-      <div class={columns ? 'xl:col-span-6' : ''}>
+      <div class={columns ? 'col-span-full lg:col-span-6' : 'col-span-full'}>
         {#if videoId}
           <Youtube id={videoId} altThumb={true} --title-font-family="Silka" />
         {:else if videoSources}
@@ -128,26 +138,26 @@
         {:else if tabs}
           <Tabs {tabs} />
         {:else if innerColumns}
-          <div class={innerColumnsClasses}>
+          <div class="max-w-2xl mx-auto flex flex-col gap-8 md:gap-16 mt-2 md:mt-0 md:grid md:grid-cols-2">
             {#each innerColumns as innerColumn}
               {#if innerColumn.link}
                 <a
                   href={innerColumn.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="grid w-full h-full items-center"
+                  class="card-link md:grid w-full h-full items-center"
                 >
                   <Card
                     {innerColumn}
                     aspect={innerColumn.aspect}
-                    classes="w-48 h-48 xl:h-24"
+                    classes="w-52 md:h-32"
                   />
                 </a>
               {:else}
                 <Card
                   {innerColumn}
                   aspect={innerColumn.aspect}
-                  classes="w-48 h-48 xl:h-24"
+                  classes="w-52 md:h-32"
                 />
               {/if}
             {/each}
@@ -159,10 +169,10 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class={`mt-8 prose prose-headings:font-light prose-headings:tracking-tight
-        prose-p:font-light prose-p:text-neutral-500 prose-p:dark:text-neutral-400
-        prose-headings:text-neutral-500 prose-headings:dark:text-neutral-400
-        ${!columns ? 'order-first text-center max-w-2xl mx-auto' : ''}`}
+      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light prose-headings:tracking-tight
+              prose-headings:text-neutral-700 prose-headings:dark:text-neutral-300
+              prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
+        ${columns ? 'order-first' : ''}`}
     >
       {#if $$slots.extraContent}
         <slot name="extraContent" />
@@ -173,7 +183,7 @@
   {/if}
 
   {#if extraImage}
-    <div class={`col-span-10 text-center my-8 ${!columns ? 'max-w-2xl mx-auto' : 'max-w-full'}`}>
+    <div class={`col-span-10 text-center px-8 mt-8 mb-16 ${!columns ? 'max-w-2xl mx-auto' : 'max-w-full'}`}>
       {#if extraImageLink}
         <a href={extraImageLink} target="_blank" rel="noopener noreferrer">
           <Image figure={false} imgSrc={extraImage} imgAlt={extraImageAlt} />

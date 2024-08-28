@@ -4,7 +4,7 @@ import { mdsvex } from "mdsvex";
 import { visit } from "unist-util-visit";
 import figures from "rehype-figure";
 import classNames from "rehype-class-names";
-import lazyLoadPlugin from "rehype-plugin-image-native-lazy-loading";
+//import lazyLoadPlugin from "rehype-plugin-image-native-lazy-loading";
 
 const classNamesOptions = {
   h2: "section",
@@ -39,7 +39,7 @@ const mdsvexOptions = {
     [figures, figuresOptions],
     [classNames, classNamesOptions],
     blogImages,
-    lazyLoadPlugin,
+    //lazyLoadPlugin,
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",

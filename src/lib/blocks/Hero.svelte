@@ -1,15 +1,23 @@
 <script>
+  import { osStore } from "$lib/store";
+  import { heroContent, heroImages, githubButton } from "$lib/config";
+
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
   import ImageCompare from "$lib/components/ImageCompare.svelte";
-
-  import { heroContent, heroImages } from "$lib/config";
 
   export let id = "";
   export let classes = "";
 
   // Hero section buttons
   export let buttons = [];
+
+  // Subscribe to osStore
+  osStore.subscribe((data) => {
+    if (!data.loading) {
+      buttons = [...data.osButtons, githubButton];
+    }
+  });
 </script>
 
 <section {id} class="mt-20 {classes}">
@@ -21,7 +29,7 @@
     items-center
     gap-8
     px-8
-    xl:max-w-4xl
+    xl:max-w-6xl
     mx-auto
     hero-content-container"
   >
@@ -31,7 +39,8 @@
       md:text-5xl
       xl:text-7xl
       font-extralight
-      text-mine-shaft-400
+      text-gray-500
+      dark:text-mine-shaft-300
       text-center"
     >
       {heroContent.title}
@@ -40,7 +49,7 @@
       {heroContent.description}
     </p>
     {#if buttons.length > 0}
-      <div class="flex flex-col xl:flex-row gap-4 items-center">
+      <div class="flex flex-col lg:flex-row gap-4 items-center">
         {#each buttons as button}
           <Button
             highlight={button.highlight}
@@ -59,13 +68,7 @@
 </section>
 
 <style>
-  @media screen and (min-width: 1024px) {
-    .hero-content-container {
-      height: calc(100dvh - 5rem);
-    }
-
-    .hero-image {
-      margin-block-start: -40dvh;
-    }
+  .hero-image {
+    margin-top: 4rem;
   }
 </style>

@@ -1,8 +1,3 @@
-// OS Detection
-import { base } from "$app/paths";
-import { browser } from "$app/environment";
-import { getOS, getOSButtons } from "$lib/utils";
-
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
 import Ecosystem from "$lib/content/ecosystem.md";
@@ -31,25 +26,11 @@ let frontPage = {},
   os = "linux",
   osButtons = [];
 
-// OS buttons
-if (browser) {
-  os = getOS();
-  osButtons = getOSButtons(base, os);
-}
-
 // Content blocks
 frontPage = {
   props: {
     // Hero section buttons
-    buttons: [
-      {
-        highlight: false,
-        icon: "github",
-        text: "Checkout on GitHub",
-        href: "https://github.com/",
-      },
-      ...osButtons,
-    ],
+    buttons: [],
     // Content blocks
     blocks: [
       // What is Spyder
@@ -65,7 +46,7 @@ frontPage = {
       // Interactive
       {
         id: "interactive-section",
-        title: "Interactive programming everywhere",
+        title: "Interactive programming built in",
         divider: true,
         border: false,
         content: Interactive,
@@ -82,7 +63,18 @@ frontPage = {
               videoCaption: "Explore variables after execution",
             },
           },
-          //{ title: "Debugger", content: Debugger },
+          {
+            title: "Help",
+            isVideo: true,
+            content: {
+              videoSources: [
+                {
+                  src: "/assets/media/help.mp4",
+                },
+              ],
+              videoCaption: "Get help for code you're working on with one click",
+            }
+          },
           {
             title: "Editor",
             isVideo: true,
@@ -92,7 +84,7 @@ frontPage = {
                   src: "/assets/media/editor.mp4",
                 },
               ],
-              videoCaption: `Run code in sections called "cells"`,
+              videoCaption: `Run code in line by line or in sections called "cells"`,
             },
           },
         ],
@@ -116,21 +108,21 @@ frontPage = {
       // Growth
       {
         id: "growth-section",
-        title: "It grows with you",
+        title: "Ready to take you to the next level",
         divider: true,
         content: Growth,
         tabs: [
           { title: "Developer tools", content: DeveloperTools },
           { title: "Projects", content: Projects },
           { title: "Code analysis", content: CodeAnalysis },
-          { title: "Search code", content: Search },
+          { title: "Code search", content: Search },
         ],
       },
 
       // Setup
       {
         id: "setup-section",
-        title: "Zero setup process",
+        title: "Simple install and update process",
         content: Setup,
         divider: true,
         imgSrc: `/assets/media/${os}.webp`,
@@ -149,11 +141,10 @@ frontPage = {
         extraImage: "/assets/media/sponsors.svg",
         extraImageAlt: "Donate to our project",
         extraImageLink: "https://opencollective.com/spyder#support",
-        innerColumnsClasses:
-          "flex flex-col xl:flex-row items-center gap-8 xl:gap-16 max-w-xl mx-auto",
         innerColumns: [
           {
-            imgSrc: "/assets/media/Chan_Zuckerberg_Initiative.svg",
+            imgSrc: "/assets/media/czi_light.svg",
+            imgSrcDark: "/assets/media/czi_dark.svg",
             link: "https://chanzuckerberg.com/",
           },
           {
@@ -169,10 +160,11 @@ frontPage = {
         columns: false,
         boxed: true,
         background: "/assets/media/bg_more.svg",
+        backgroundDark: "/assets/media/bg_more_dark.svg",
         innerColumns: [
           {
-            title: "YouTube Channel",
-            content: "Learn more about Spyder",
+            title: "YouTube",
+            content: "Learn more",
             icon: "BsYoutube",
             link: "https://www.youtube.com/c/spyderide",
             aspect: "xl:aspect-square",

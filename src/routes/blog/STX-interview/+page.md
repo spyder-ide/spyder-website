@@ -11,7 +11,7 @@ summary: STX Next, one of Europe's largest Python development companies, has sha
 It is a pleasure for us on the Spyder team to work every day to improve the workflow of developers, scientists, engineers and data analysts.
 We are very glad to receive and share a STX Next testimonial about Spyder, along with an interview with one of their developers, [Michael Wiśniewski](https://github.com/Michael-Wisniewski), who has found Spyder very useful in his job.
 
-![Company Picture](stxnext.jpg)
+![The Company](stxnext.jpg)
 
 ## What Michael Wiśniewski says about Spyder
 

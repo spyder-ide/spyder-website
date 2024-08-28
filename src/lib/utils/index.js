@@ -103,7 +103,7 @@ export const getOSButtons = (base, os) => {
   if (os === "windows") {
     str = "for Windows 10+";
   } else if (os === "linux") {
-    str = "for Ubuntu 18.04+";
+    str = "for Linux";
   } else if (os === "mac") {
     str = "for macOS";
     const m1 = "(M1)";

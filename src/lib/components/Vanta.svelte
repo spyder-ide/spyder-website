@@ -1,23 +1,28 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, afterUpdate } from "svelte";
   import { browser } from "$app/environment";
   import { colourScheme } from "$lib/store";
-  import { get } from "svelte/store";
 
   let vantaInstance;
   let vantaContainer;
+  let currentScheme;
 
-  const getBackgroundColor = (colourScheme) =>
-    colourSchemeColors[colourScheme] || colourSchemeColors.light;
+  const getColor = (colors, colourScheme) =>
+    colors[colourScheme] || colors.light;
 
-  const colourSchemeColors = {
+  const bgColors = {
     light: 0xf7f7f2,
     dark: 0x303030,
   };
 
-  const vantaOptions = {
-    color: 0x8c0000,
-    backgroundColor: getBackgroundColor(get(colourScheme)),
+  const fgColors = {
+    light: 0x8c0000,
+    dark: 0xa39b6c,
+  };
+
+  $: vantaOptions = {
+    color: getColor(fgColors, $colourScheme),
+    backgroundColor: getColor(bgColors, $colourScheme),
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
@@ -28,39 +33,43 @@
     showLines: false,
   };
 
-  onMount(() => {
-    if (vantaContainer && browser) {
+  const initVanta = () => {
+    if (vantaContainer && browser && window.VANTA) {
+      if (vantaInstance) {
+        vantaInstance.destroy();
+      }
       try {
         vantaInstance = window.VANTA.DOTS({
           ...vantaOptions,
           el: vantaContainer,
         });
-        console.log("Vanta initialized successfully");
+        currentScheme = $colourScheme;
+        console.log("Vanta initialized successfully with scheme:", currentScheme);
       } catch (error) {
         console.error("Vanta initialization error:", error);
       }
     } else {
-      console.error("vantaContainer is not defined or the browser environment is not supported");
+      console.error("Cannot initialize Vanta");
     }
+  }
 
-    const unsubscribe = colourScheme.subscribe((currentColorScheme) => {
-      if (vantaInstance) {
-        vantaInstance.setOptions({
-          backgroundColor: getBackgroundColor(currentColorScheme),
-        });
-      }
-    });
+  $: if (browser && vantaInstance && $colourScheme !== currentScheme) {
+    console.log("Color scheme changed, reinitializing Vanta");
+    initVanta();
+  }
 
-    return () => {
-      if (vantaInstance) vantaInstance.destroy();
-      unsubscribe();
-    };
+  onMount(() => {
+    if (browser) {
+      initVanta();
+    }
+  });
+
+  afterUpdate(() => {
+    if (browser && vantaInstance && $colourScheme !== currentScheme) {
+      console.log("After update: Color scheme changed, reinitializing Vanta");
+      initVanta();
+    }
   });
 </script>
-
-<svelte:head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.dots.min.js"></script>
-</svelte:head>
 
 <div bind:this={vantaContainer} class="vanta-container absolute inset-0 -z-10"></div>
