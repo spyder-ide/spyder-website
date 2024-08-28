@@ -114,70 +114,69 @@
   }
 </script>
 
-<div class="video-container relative">
-  <video
-    bind:this={videoElement}
-    {autoplay}
-    loop
-    muted
-    playsinline
-    poster={videoPoster}
-    on:mousemove={handleMove}
-    on:touchmove|preventDefault={handleMove}
-    on:mousedown={handleMousedown}
-    on:mouseup={handleMouseup}
-    on:ended={() => {
-      userPaused = false;
-    }}
-    bind:currentTime={time}
-    bind:duration
-    bind:paused
-  >
-    {#each videoSources as source}
-      {#if source.src !== undefined}
-        <source src={source.src} type={source.type || "video/mp4"} />
-      {/if}
-    {/each}
-    <track kind="captions" />
-    {#if videoSources[0] !== undefined}
-      Your browser does not support the video tag. Download the
-      <a href={videoSources[0].src} download>video file</a> instead.
-    {/if}
-  </video>
-
-  <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
-    <button
-      class="p-4"
-      on:click={() => {
-        paused = !paused;
-        userPaused = paused;
-        showControls = true; // Ensure controls are shown when toggling play/pause
+{#if videoSources.length > 0}
+  <div class="video-container relative">
+    <video
+      bind:this={videoElement}
+      {autoplay}
+      loop
+      muted
+      playsinline
+      poster={videoPoster}
+      on:mousemove={handleMove}
+      on:touchmove|preventDefault={handleMove}
+      on:mousedown={handleMousedown}
+      on:mouseup={handleMouseup}
+      on:ended={() => {
+        userPaused = false;
       }}
+      bind:currentTime={time}
+      bind:duration
+      bind:paused
     >
-      <Icon
-        src={paused ? BsPlayCircleFill : BsPauseCircleFill}
-        size="1.5em"
-        color="#fff"
-      />
-    </button>
+      {#each videoSources as source}
+        {#if source.src !== undefined}
+          <source src={source.src} type={source.type || "video/mp4"} />
+        {/if}
+      {/each}
+    </video>
 
-    {#if info}
-      <div class="info flex justify-between">
-        <span>click anywhere to {paused ? "play" : "pause"} / drag to seek</span
-        >
-        <div>
-          <span class="time">{format(time)}</span>
-          <span>/</span>
-          <span class="time">{format(duration)}</span>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
+      <button
+        class="p-4"
+        on:click={() => {
+          paused = !paused;
+          userPaused = paused;
+          showControls = true; // Ensure controls are shown when toggling play/pause
+        }}
+      >
+        <Icon
+          src={paused ? BsPlayCircleFill : BsPauseCircleFill}
+          size="1.5em"
+          color="#fff"
+        />
+      </button>
+
+      {#if info}
+        <div class="info flex justify-between">
+          <span
+            >click anywhere to {paused ? "play" : "pause"} / drag to seek</span
+          >
+          <div>
+            <span class="time">{format(time)}</span>
+            <span>/</span>
+            <span class="time">{format(duration)}</span>
+          </div>
         </div>
-      </div>
-    {/if}
+      {/if}
 
-    {#if progress}
-      <progress value={time / duration || 0} />
-    {/if}
+      {#if progress}
+        <progress value={time / duration || 0} />
+      {/if}
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .controls {

@@ -6,11 +6,11 @@
   import { colourScheme, osStore } from '$lib/store';
 
   import Card from "$lib/components/Card.svelte";
-  import Button from "$lib/components/Button.svelte";
   import Tabs from "$lib/components/Tabs.svelte";
-  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
   import Image from "$lib/components/Image.svelte";
+  import Button from "$lib/components/Button.svelte";
   import Divider from "$lib/components/Divider.svelte";
+  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
 
   export let id = randomId();
   export let columns = true;
