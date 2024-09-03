@@ -98,7 +98,7 @@ export const releases = {
   windows: {
     x64: {
       name: "Windows 10+",
-      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_64bit_full.exe",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe",
     },
   },
   mac: {
