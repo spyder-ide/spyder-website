@@ -20,10 +20,6 @@
             author: siteAuthor,
         });
     });
-
-    onDestroy(() => {
-        metadata.reset();
-    });
 </script>
 
 <svelte:head>

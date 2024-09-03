@@ -106,11 +106,9 @@
     }
   });
 
-  $: {
-    if (paused) {
-      showControls = true;
-      clearTimeout(showControlsTimeout);
-    }
+  $: if (userPaused) {
+    showControls = true;
+    clearTimeout(showControlsTimeout);
   }
 </script>
 

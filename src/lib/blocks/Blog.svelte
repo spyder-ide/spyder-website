@@ -45,10 +45,6 @@
     });
   });
 
-  onDestroy(() => {
-    metadata.reset();
-  });
-
   $: if (pageNum) loadPosts();
 </script>
 
