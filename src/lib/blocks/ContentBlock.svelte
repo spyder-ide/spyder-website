@@ -169,10 +169,10 @@
 
   {#if $$slots.extraContent || extraContent}
     <div
-      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light prose-headings:tracking-tight
-              prose-headings:text-neutral-700 prose-headings:dark:text-neutral-300
+      class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light
+              prose-headings:tracking-tight prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
-        ${columns ? 'order-first' : ''}`}
+              ${columns ? 'order-first' : ''}`}
     >
       {#if $$slots.extraContent}
         <slot name="extraContent" />
