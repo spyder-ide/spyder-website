@@ -18,7 +18,7 @@ export const subtitle =
 export const comment =
   "Designed by the community, for the community";
 export const author = "Spyder Website Contributors";
-export const description = `${subtitle}. ${comment}`;
+export const description = subtitle;
 export const keywords = [
   "Python",
   "IDE",
