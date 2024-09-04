@@ -104,11 +104,11 @@ export const releases = {
   mac: {
     arm64: {
       name: "macOS (M1)",
-      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_arm64.dmg",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg",
     },
     x64: {
       name: "macOS (Intel)",
-      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder.dmg",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg",
     },
   },
 };
