@@ -1,3 +1,6 @@
+import { metadata } from "$lib/store";
+import { siteUrl, title, description, keywords, author } from "$lib/config";
+
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
 import Ecosystem from "$lib/content/ecosystem.md";
@@ -198,5 +201,15 @@ frontPage = {
 
 // Load content and process blocks
 export function load() {
+  // Set metadata for the home page
+  metadata.setMetadata({
+    title: `${title} | ${description}`,
+    description,
+    keywords: keywords.join(", "),
+    author,
+    url: siteUrl,
+    image: `${siteUrl}/assets/media/website_screenshot.png`
+  });
+
   return frontPage;
 }

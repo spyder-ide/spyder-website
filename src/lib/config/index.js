@@ -7,7 +7,7 @@ import { base } from "$app/paths";
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const url = dev
+export const siteUrl = dev
   ? "http://localhost:5173/"
   : "https://www.spyder-ide.org/";
 
@@ -89,25 +89,25 @@ export const githubButton = {
 
 // Download links
 export const releases = {
-  linux: {
-    x64: {
-      name: "Linux",
-      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh",
-    },
-  },
   windows: {
     x64: {
       name: "Windows 10+",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_64bit_full.exe",
     },
   },
+  linux: {
+    x64: {
+      name: "Linux",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh",
+    },
+  },
   mac: {
     arm64: {
-      name: "macOS (M1)",
+      name: "macOS 14.0+ (M1)",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder_arm64.dmg",
     },
     x64: {
-      name: "macOS (Intel)",
+      name: "macOS 12.0+ (Intel)",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder.dmg",
     },
   },

@@ -1,25 +1,35 @@
 <script>
-    import { onMount, onDestroy } from "svelte";
     import { metadata } from "$lib/store";
 
+    import Header from "$lib/blocks/Header.svelte";
+    import Footer from "$lib/blocks/Footer.svelte";
+
+    import "../app.css";
+
     import {
+        siteUrl,
         title as siteTitle,
         author as siteAuthor,
         description as siteDescription,
         keywords as siteKeywords,
     } from "$lib/config";
 
-    import Header from "$lib/blocks/Header.svelte";
-    import Footer from "$lib/blocks/Footer.svelte";
-    import "../app.css";
+    // Allow pages to override default metadata
+    export let data = {};
 
-    onMount(() => {
-        metadata.setMetadata({
-            title: `${siteTitle} | ${siteDescription}`,
-            description: siteDescription,
-            keywords: siteKeywords.join(", "),
-            author: siteAuthor,
-        });
+    $: title = data.title || `${siteTitle} | ${siteDescription}`;
+    $: description = data.description || siteDescription;
+    $: keywords = data.keywords || siteKeywords.join(", ");
+    $: image = data.image || "assets/media/website_screenshot.png";
+    $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+
+    $: metadata.setMetadata({
+        title,
+        description,
+        keywords,
+        author: siteAuthor,
+        url: siteUrl,
+        image: fullImageUrl
     });
 </script>
 
@@ -28,32 +38,31 @@
     <meta name="description" content={$metadata.description} />
     <meta name="keywords" content={$metadata.keywords} />
     <meta name="author" content={$metadata.author} />
-    <meta name="og:locale" property="og:locale" content="en_US">
-    <meta name="og:site_name" property="og:site_name" content={siteTitle}>
-    <meta name="og:title" property="og:title" content={$metadata.title}>
-    <meta name="og:updated_time" property="og:updated_time" content="1714338554">
-    <meta name="og:type" property="og:type" content="website">
-    <meta name="og:image" property="og:image" content="https://www.spyder-ide.org/assets/media/website_screenshot.webp">
-    <meta name="og:image:width" property="og:image:width" content="1920">
-    <meta name="og:image:height" property="og:image:height" content="995">
-    <meta name="og:url" property="og:url" content="https://www.spyder-ide.org/">
-    <meta name="og:description" property="og:description" content={$metadata.description}>
+    <link rel="canonical" href={$metadata.url} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={$metadata.url} />
+    <meta property="og:title" content={$metadata.title} />
+    <meta property="og:description" content={$metadata.description} />
+    <meta property="og:image" content={$metadata.image} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content={siteTitle} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={$metadata.url} />
+    <meta property="twitter:title" content={$metadata.title} />
+    <meta property="twitter:description" content={$metadata.description} />
+    <meta property="twitter:image" content={$metadata.image} />
 </svelte:head>
 
 <div class="layout grid h-full">
-    <!-- Header -->
     <Header />
-    <!-- End Header -->
-
-    <!-- Main content -->
     <main class="grid grid-flow-row gap-16 xl:gap-32">
         <slot />
     </main>
-    <!-- End Main content -->
-
-    <!-- Footer -->
     <Footer />
-    <!-- End Footer -->
 </div>
 
 <style>

@@ -1,8 +1,9 @@
 <script>
   import { onMount, onDestroy } from "svelte";
   import { base } from "$app/paths";
+  import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { title as siteTitle } from "$lib/config";
+  import { siteUrl, title as siteTitle } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   // svelte-ignore unused-export-let
@@ -17,31 +18,33 @@
   export let tags;
   export let category;
   export let summary;
-  export let src = "";
-  export let name = "";
 
-  // Fetch the author's metadata dynamically
+  let authorMetadata = { src: "", name: "" };
+
   onMount(async () => {
-    const fetchedMetadata = await fetchAuthorMetadata(author);
+    if (typeof window !== 'undefined') {
+      authorMetadata = await fetchAuthorMetadata(author);
+      updateMetadata();
+    }
+  });
+
+  $: url = $page.url.href;
+
+  function updateMetadata() {
     metadata.setMetadata({
       title: `${siteTitle} | ${title}`,
       description: summary,
       keywords: `${tags}, ${category}`,
-      author: fetchedMetadata ? fetchedMetadata.name : "",
+      author: authorMetadata.name || author,
+      url,
+      image: `${siteUrl}/assets/media/blog_screenshot.png`
     });
-    src = fetchedMetadata.src;
-    name = fetchedMetadata.name;
-  });
-
-  // Resets the metadata when the component is destroyed
-  onDestroy(() => {
-    metadata.reset();
-  });
+  }
 </script>
 
 <svelte:head>
-  <!-- Load Prism for syntax highlighting -->
   <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css">
+  <link rel="canonical" href={url} />
 </svelte:head>
 
 <article class="container">
@@ -52,9 +55,11 @@
       {title}
     </h1>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
-      <img class="w-24 h-24 rounded-full object-cover" {src} alt={author} />
+      {#if authorMetadata.src}
+        <img class="w-24 h-24 rounded-full object-cover" src={authorMetadata.src} alt={author} />
+      {/if}
       <div class="font-light text-center">
-        {name}
+        {authorMetadata.name || author}
         <div class="text-neutral-500 text-xs font-medium">
           {formattedPubDate(pub_date)}
         </div>
