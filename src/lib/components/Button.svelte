@@ -38,6 +38,7 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
+  export let size = "sm";
 
   let currentIcon = icons[icon];
 
@@ -57,24 +58,28 @@
   class:hover:text-red-berry-950={!button}
   class:dark:hover:text-neutral-100={!button}
   class:highlight={button && highlight}
-  class:py-3={button}
+  class:py-4={button}
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="flex items-center justify-between gap-1 text-sm"
+  class:text-sm={size === "sm"}
+  class:text-base={size === "md"}
+  class:text-lg={size === "lg"}
+  class:xl:text-xs={size === "sm" || size === "md" || size === "lg"}
+  class="flex items-center justify-between gap-3"
 >
   {#if iconLeft}
-    <span class:icon-left={iconPosition === "left"} class="flex">
+    <span class:icon-left={iconPosition === "left"}>
       <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
 
   {#if text}
-    <span class="flex">{text}</span>
+    <span>{text}</span>
   {/if}
 
   {#if iconRight}
-    <span class:icon-right={iconPosition === "right"} class="flex">
+    <span class:icon-right={iconPosition === "right"}>
       <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
