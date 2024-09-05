@@ -38,7 +38,6 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
-  export let size = "sm";
 
   let currentIcon = icons[icon];
 
@@ -62,11 +61,7 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class:text-sm={size === "sm"}
-  class:text-base={size === "md"}
-  class:text-lg={size === "lg"}
-  class:xl:text-xs={size === "sm" || size === "md" || size === "lg"}
-  class="flex items-center justify-between gap-3"
+  class="flex items-center justify-between gap-3 text-sm lg:text-xs"
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"}>
