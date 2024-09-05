@@ -61,7 +61,7 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="inline-flex items-center justify-center gap-2 text-sm"
+  class="flex items-center justify-between gap-1 text-sm"
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"} class="flex">

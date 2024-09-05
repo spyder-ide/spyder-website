@@ -12,7 +12,7 @@ export const siteUrl = dev
   : "https://www.spyder-ide.org/";
 
 // Website metadata
-export const title = "Spyder IDE";
+export const title = "Spyder";
 export const subtitle =
   "The Python IDE that scientists and data analysts deserve";
 export const comment =
