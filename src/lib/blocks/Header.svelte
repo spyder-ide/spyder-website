@@ -27,7 +27,7 @@
     <!-- Navigation (desktop) -->
     <div class="flex items-center md:gap-12 justify-end">
       <!-- Navigation (links) -->
-      <nav class="hidden md:flex items-center gap-8 xl:gap-12">
+      <nav class="hidden md:flex items-center gap-4 xl:gap-6">
         {#each navigation as menu}
           <ul class="menu flex items-center gap-4 xl:gap-6">
             {#each menu as item}

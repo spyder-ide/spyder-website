@@ -58,6 +58,7 @@ function processContributors(current, all) {
     // Just some random contributors to show as examples in the "past contributors" section
     // TODO: Remove this after we have the past contributors from GitHub
     const pastContributors = remainingContributors.sort(() => 0.5 - Math.random()).slice(0, 12);
+    pastContributors.forEach(element => { element.role = "Lorem Ipsum" });
 
     // Return the updated current contributors, past contributors, and remaining contributors
     return { updatedCurrent, pastContributors, remainingContributors };
