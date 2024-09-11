@@ -1,21 +1,48 @@
 <script>
   export let contributor;
+  export let size = "medium";
 </script>
 
-<div class="flex items-center justify-center">
+<div
+  class="flex items-center gap-2"
+  class:flex-col={size === "large"}
+  class:gap-4={size === "large" || size === "medium"}
+>
   <a href={contributor.html_url} target="_blank" rel="noopener noreferrer">
     <img
       src={contributor.avatar_url}
       alt={contributor.login}
-      class="w-16 h-16 rounded-full mr-4"
+      class="rounded-full border border-neutral-300 dark:border-neutral-800"
+      class:w-8={size === "small"}
+      class:h-8={size === "small"}
+      class:w-16={size === "medium"}
+      class:h-16={size === "medium"}
+      class:w-32={size === "large"}
+      class:h-32={size === "large"}
     />
   </a>
-  <div>
-    <a href={contributor.html_url} target="_blank" rel="noopener noreferrer"
-      >{contributor.login}</a
+  {#if size !== "small"}
+    <div
+      class:text-center={size === "large"}
+      class:text-left={size !== "large"}
     >
-    <p class="text-gray-400 text-sm">
-      {contributor.contributions} contributions
-    </p>
-  </div>
+      <a
+        href={contributor.html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class:text-xl={size === "large"}
+        class:text-base={size !== "large"}
+      >
+        {contributor.name || contributor.login}
+      </a>
+      {#if contributor.role}
+        <p class="text-gray-600 text-sm">
+          {contributor.role}
+        </p>
+      {/if}
+      <p class="text-gray-400 text-xs">
+        {contributor.contributions} contributions
+      </p>
+    </div>
+  {/if}
 </div>
