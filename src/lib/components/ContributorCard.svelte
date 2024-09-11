@@ -40,9 +40,6 @@
           {contributor.role}
         </p>
       {/if}
-      <p class="text-gray-400 text-xs">
-        {contributor.contributions} contributions
-      </p>
     </div>
   {/if}
 </div>
