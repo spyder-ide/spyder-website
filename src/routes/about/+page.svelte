@@ -4,23 +4,14 @@
 
   export let data;
 
-  let pageTitle = "About Spyder IDE";
+  let pageTitle = "Who We Are";
   let pageIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
       eligendi dolorem optio adipisci voluptatem inventore eius recusandae
       reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
       aliquid qui distinctio.`;
 
-  let currentTitle = "Current Contributors";
-  let currentIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-      eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-      reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-      aliquid qui distinctio.`;
-
-  let pastTitle = "Past Contributors";
-  let pastIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-      eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-      reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-      aliquid qui distinctio.`;
+  let currentTitle = "Team Members";
+  let pastTitle = "Former Team Members";
 
   let remainingTitle = "We are an open source project";
   let remainingIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
@@ -46,7 +37,6 @@
     {#if data.currentContributors && data.currentContributors.length > 0}
       <ContributorBlock
         title={currentTitle}
-        intro={currentIntro}
         contributors={data.currentContributors}
         size={"large"}
       />
@@ -56,7 +46,6 @@
     {#if data.pastContributors && data.pastContributors.length > 0}
       <ContributorBlock
         title={pastTitle}
-        intro={pastIntro}
         contributors={data.pastContributors}
         size={"medium"}
       />

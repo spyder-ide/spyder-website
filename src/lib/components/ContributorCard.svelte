@@ -4,7 +4,7 @@
 </script>
 
 <div
-  class="flex items-center gap-2"
+  class="flex items-center"
   class:flex-col={size === "large"}
   class:gap-4={size === "large" || size === "medium"}
 >
@@ -30,6 +30,7 @@
         href={contributor.html_url}
         target="_blank"
         rel="noopener noreferrer"
+        class="break-all"
         class:text-xl={size === "large"}
         class:text-base={size !== "large"}
       >

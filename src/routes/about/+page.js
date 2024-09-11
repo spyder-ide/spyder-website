@@ -60,8 +60,13 @@ function processContributors(current, all) {
     const pastContributors = remainingContributors.sort(() => 0.5 - Math.random()).slice(0, 12);
     pastContributors.forEach(element => { element.role = "Lorem Ipsum" });
 
+    // Remove pastContributors elements from remainingContributors
+    const remainingContributorsFiltered = remainingContributors.filter(contributor =>
+        !pastContributors.some(pastContributor => pastContributor.id === contributor.id)
+    );
+
     // Return the updated current contributors, past contributors, and remaining contributors
-    return { updatedCurrent, pastContributors, remainingContributors };
+    return { updatedCurrent, pastContributors, remainingContributors: remainingContributorsFiltered };
 }
 
 export async function load({ fetch }) {
