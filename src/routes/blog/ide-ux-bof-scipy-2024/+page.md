@@ -1,11 +1,13 @@
 ---
 title: "Scientific IDE UX Birds of a Feather session at SciPy 2024"
 author: camgerlach
-pub_date: 2024-09-05
+pub_date: 2024-09-18
 category: News
 tags: community, outreach, media, team
 summary: The Spyder team hosted a Birds of a Feather session at SciPy 2024, this time on the topic of users' experiences (good and bad) with the UI/UX of scientific interfaces and IDEs, and how their developers can better serve users. Here, we share what we learned from the session, as well as a link to the full detailed community notes.
 ---
+
+![Photo of the Spyder BoF, showing a room full of attendees engaging with a moderator](scipy-2024-bof-ide-ui-ux.jpg)
 
 The Spyder team hosted a Birds of a Feather (BoF) session, [What do you want to see from your scientific IDE?](https://cfp.scipy.org/2024/talk/VWMV7B/), at [SciPy 2024](https://www.scipy2024.scipy.org/).
 The focus was on users' experiences, both positive and negative, with IDEs and other scientific interfaces, and how their developers (like us) can make them better for everyone.
