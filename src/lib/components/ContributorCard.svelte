@@ -30,14 +30,13 @@
         href={contributor.html_url}
         target="_blank"
         rel="noopener noreferrer"
-        class="break-all"
         class:text-xl={size === "large"}
         class:text-base={size !== "large"}
       >
         {contributor.name || contributor.login}
       </a>
       {#if contributor.role}
-        <p class="text-gray-600 text-sm">
+        <p class="text-gray-600 dark:text-gray-400 text-sm">
           {contributor.role}
         </p>
       {/if}

@@ -28,7 +28,7 @@ const currentContributors = [
     },
     {
         id: 5204788,
-        name: "Hendrik Louzada",
+        name: "Hendrik D. Louzada",
         role: "Remote development"
     },
     {
@@ -43,30 +43,78 @@ const currentContributors = [
     }
 ];
 
-function processContributors(current, all) {
+const pastContributors = [
+    {
+        id: 1311787,
+        name: "Pierre Raybaut",
+        role: "Spyder Creator"
+    },
+    {
+        id: 1878982,
+        name: "Edgar Andrés Margffoy Tuay",
+        role: "LSP Support"
+    },
+    {
+        id: 50221806,
+        name: "Isabela Presedo-Floyd",
+        role: "UX/UI Redesign"
+    },
+    {
+        id: 3627835,
+        name: "Gonzalo Peña-Castellanos",
+        role: "API Redesign"
+    },
+    {
+        id: 18587879,
+        name: "Juanita Gómez",
+        role: "Docs & Social Media"
+    },
+    {
+        id: 10170372,
+        name: "Jean-Sébastien Gosselin",
+        role: "Plots pane"
+    },
+    {
+        id: 20992645,
+        name: "Stephannie Jimenez Gacha",
+        role: "Spyder-terminal maintainer"
+    },
+    {
+        id: 2397974,
+        name: "Sylvain Corlay",
+        role: "New Icon Theme"
+    },
+    {
+        id: 2024217,
+        name: "Rafael Laverde",
+        role: "Editor improvements"
+    },
+    {
+        id: 10513354,
+        name: "Brian Olsen",
+        role: "Console improvements"
+    },
+];
+
+function processContributors(current, past, all) {
     // Update current contributors with the latest data from GitHub
     const updatedCurrent = current.map(contributor => {
         const match = all.find(c => c.id === contributor.id);
         return match ? { ...contributor, ...match } : contributor;
     });
 
+    const updatedPast = past.map(contributor => {
+        const match = all.find(c => c.id === contributor.id);
+        return match ? { ...contributor, ...match } : contributor;
+    });
+
     // Get the remaining contributors that are not in the current list
     const remainingContributors = all.filter(contributor =>
-        !current.some(c => c.id === contributor.id)
-    );
-
-    // Just some random contributors to show as examples in the "past contributors" section
-    // TODO: Remove this after we have the past contributors from GitHub
-    const pastContributors = remainingContributors.sort(() => 0.5 - Math.random()).slice(0, 12);
-    pastContributors.forEach(element => { element.role = "Lorem Ipsum" });
-
-    // Remove pastContributors elements from remainingContributors
-    const remainingContributorsFiltered = remainingContributors.filter(contributor =>
-        !pastContributors.some(pastContributor => pastContributor.id === contributor.id)
+        !current.some(c => c.id === contributor.id) && !past.some(p => p.id === contributor.id)
     );
 
     // Return the updated current contributors, past contributors, and remaining contributors
-    return { updatedCurrent, pastContributors, remainingContributors: remainingContributorsFiltered };
+    return { updatedCurrent, updatedPast, remainingContributors };
 }
 
 export async function load({ fetch }) {
@@ -76,9 +124,9 @@ export async function load({ fetch }) {
         const contributors = await response.json();
 
         // Process the contributors and get the updated current contributors, past contributors, and remaining contributors
-        const { updatedCurrent, pastContributors, remainingContributors } = processContributors(currentContributors, contributors);
+        const { updatedCurrent, updatedPast, remainingContributors } = processContributors(currentContributors, pastContributors, contributors);
 
-        return { currentContributors: updatedCurrent, pastContributors, remainingContributors };
+        return { currentContributors: updatedCurrent, pastContributors: updatedPast, remainingContributors };
     } catch (error) {
         console.error("Failed to fetch contributors:", error);
         return { currentContributors, pastContributors: [], remainingContributors: [], error: error.message };
