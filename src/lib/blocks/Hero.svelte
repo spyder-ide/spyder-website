@@ -49,7 +49,7 @@
       {heroContent.description}
     </p>
     {#if buttons.length > 0}
-      <div class="flex flex-col lg:flex-row gap-4 items-center">
+      <div class="grid grid-flow-row md:grid-flow-col gap-4 items-center">
         {#each buttons as button}
           <Button
             highlight={button.highlight}
