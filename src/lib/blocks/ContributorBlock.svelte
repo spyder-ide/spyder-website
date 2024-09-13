@@ -9,17 +9,17 @@
 
 <div
   class="flex flex-col items-center mx-auto"
-  class:max-w-4xl={size === "medium"}
-  class:max-w-6xl={size === "large"}
+  class:max-w-6xl={size === "medium"}
+  class:max-w-full={size === "large"}
 >
   {#if title}
-    <h1 class="text-4xl font-extralight text-red-berry-900 mt-24 mb-16">
+    <h1 class="text-4xl font-extralight text-red-berry-900 dark:text-neutral-400 mt-32 mb-16">
       {title}
     </h1>
   {/if}
   {#if intro}
     <h2
-      class="text-center dark:text-neutral-200 font-light mb-16 mx-auto"
+      class="text-center dark:text-neutral-200 font-light mb-24 mx-auto"
       class:max-w-4xl={size === "medium" || size === "small"}
       class:max-w-6xl={size === "large"}
       class:text-md={size === "small"}
