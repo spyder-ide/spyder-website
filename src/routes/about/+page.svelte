@@ -1,23 +1,28 @@
 <script>
   import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
+  import DonutGraph from "$lib/components/DonutGraph.svelte";
 
   export let data;
 
-  let pageTitle = "Who We Are";
-  let pageIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-      eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-      reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-      aliquid qui distinctio.`;
+  let currentContributors = data.currentContributors;
+  let pastContributors = data.pastContributors;
+  let remainingContributors = data.remainingContributors;
+  let pageIntro = data.textData.pageIntro;
+  let pageTitle = data.textData.pageTitle;
+  let currentTitle = data.textData.currentTitle;
+  let pastTitle = data.textData.pastTitle;
+  let remainingTitle = data.textData.remainingTitle;
+  let remainingIntro = data.textData.remainingIntro;
 
-  let currentTitle = "Team Members";
-  let pastTitle = "Former Team Members";
+  let totalContributors = data.totalContributors;
+  let percentageLatinos = data.percentageLatinos;
+  let percentageFemales = data.percentageFemales;
+  let diversityTitle = data.textData.diversityTitle;
+  let diversityIntro = data.textData.diversityIntro;
 
-  let remainingTitle = "We are an open source project";
-  let remainingIntro = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-      eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-      reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-      aliquid qui distinctio.`;
+  let error = data.error;
+  let loading = data.loading;
 </script>
 
 <div class="container">
@@ -29,38 +34,49 @@
   <h2 class="text-center dark:text-neutral-200 text-2xl font-light mb-4">
     {pageIntro}
   </h2>
-  {#if data.error}
-    <p>Error: {data.error}</p>
-  {:else if data.loading}
+  {#if error}
+    <p>Error: {error}</p>
+  {:else if loading}
     <Loader />
   {:else}
-    {#if data.currentContributors && data.currentContributors.length > 0}
+    {#if currentContributors && currentContributors.length > 0}
       <ContributorBlock
         title={currentTitle}
-        contributors={data.currentContributors}
+        contributors={currentContributors}
         size={"large"}
       />
     {:else}
       <Loader />
     {/if}
-    {#if data.pastContributors && data.pastContributors.length > 0}
+    {#if pastContributors && pastContributors.length > 0}
       <ContributorBlock
         title={pastTitle}
-        contributors={data.pastContributors}
+        contributors={pastContributors}
         size={"medium"}
       />
     {:else}
       <Loader />
     {/if}
-    {#if data.remainingContributors && data.remainingContributors.length > 0}
+    {#if remainingContributors && remainingContributors.length > 0}
       <ContributorBlock
         title={remainingTitle}
         intro={remainingIntro}
-        contributors={data.remainingContributors}
+        contributors={remainingContributors}
         size={"small"}
       />
     {:else}
       <Loader />
     {/if}
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-extralight text-red-berry-900 dark:text-neutral-400 mt-32 mb-16 text-center">{diversityTitle}</h2>
+      <div class="lg:grid lg:grid-cols-5 lg:gap-8 lg:items-center">
+        <div class="lg:col-span-3">
+          <p class="dark:text-neutral-200 font-light mb-16">{diversityIntro}</p>
+        </div>
+        <div class="lg:col-span-2">
+          <DonutGraph {totalContributors} {percentageLatinos} {percentageFemales} />
+        </div>
+      </div>
+    </div>
   {/if}
 </div>
