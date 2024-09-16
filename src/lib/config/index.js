@@ -7,18 +7,18 @@ import { base } from "$app/paths";
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const url = dev
+export const siteUrl = dev
   ? "http://localhost:5173/"
   : "https://www.spyder-ide.org/";
 
 // Website metadata
-export const title = "Spyder IDE";
+export const title = "Spyder";
 export const subtitle =
   "The Python IDE that scientists and data analysts deserve";
 export const comment =
   "Designed by the community, for the community";
 export const author = "Spyder Website Contributors";
-export const description = `${subtitle}. ${comment}`;
+export const description = subtitle;
 export const keywords = [
   "Python",
   "IDE",
@@ -92,25 +92,25 @@ export const githubButton = {
 
 // Download links
 export const releases = {
-  linux: {
-    x64: {
-      name: "Linux",
-      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh",
-    },
-  },
   windows: {
     x64: {
       name: "Windows 10+",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe",
     },
   },
+  linux: {
+    x64: {
+      name: "Linux",
+      link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh",
+    },
+  },
   mac: {
     arm64: {
-      name: "macOS (M1)",
+      name: "macOS 14.0+ (M1)",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg",
     },
     x64: {
-      name: "macOS (Intel)",
+      name: "macOS 12.0+ (Intel)",
       link: "https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg",
     },
   },

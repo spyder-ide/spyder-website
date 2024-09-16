@@ -106,8 +106,8 @@ export const getOSButtons = (base, os) => {
     str = "for Linux";
   } else if (os === "mac") {
     str = "for macOS";
-    const m1 = "(M1)";
-    const intel = "(Intel)";
+    const m1 = "14.0+ (M1)";
+    const intel = "12.0+ (Intel)";
     osButtons = [
       {
         highlight: true,

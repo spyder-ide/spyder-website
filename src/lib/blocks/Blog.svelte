@@ -1,10 +1,11 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
   import { base } from "$app/paths";
+  import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   import {
+    siteUrl,
     title as siteTitle,
     author as siteAuthor,
     blogTitle,
@@ -15,38 +16,39 @@
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
 
-  export let data = {};
-  export let pageNum = 0;
-  export let totalPages = 1;
+  export let data, pageNum, totalPages;
 
-  let posts = [];
-  let route = "blog"
+  $: ({ posts, pageNum, totalPages } = data.props);
+  $: route = "blog";
 
-  async function loadPosts() {
-    const postPromises = data.props.posts.map(async (post) => {
-      let authorMetadata = {};
+  let postsWithAuthor = [];
+
+  $: if (posts) {
+    postsWithAuthor = Promise.all(posts.map(async (post) => {
       if (typeof window !== "undefined") {
-        authorMetadata = await fetchAuthorMetadata(post.meta.author);
+        const authorMetadata = await fetchAuthorMetadata(post.meta.author);
+        return { ...post, authorMetadata };
       }
-      return { ...post, authorMetadata };
-    });
-
-    posts = await Promise.all(postPromises);
-    pageNum = data.props.pageNum;
-    totalPages = data.props.totalPages;
+      return post;
+    }));
   }
 
-  onMount(() => {
-    metadata.setMetadata({
-      title: `${siteTitle} | ${blogTitle}`,
-      description: blogDescription,
-      keywords: blogKeywords.join(", "),
-      author: siteAuthor,
-    });
-  });
+  $: url = $page.url.href;
+  $: fullImageUrl = `${siteUrl}/assets/media/blog_screenshot.png`;
 
-  $: if (pageNum) loadPosts();
+  $: metadata.setMetadata({
+    title: `${siteTitle} | ${blogTitle}`,
+    description: blogDescription,
+    keywords: blogKeywords.join(", "),
+    author: siteAuthor,
+    url,
+    image: fullImageUrl
+  });
 </script>
+
+<svelte:head>
+  <link rel="canonical" href={url} />
+</svelte:head>
 
 <div class="container">
   <h1 class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32">
@@ -54,9 +56,11 @@
   </h1>
 
   <section class="max-w-3xl mx-auto">
-    {#if posts.length !== 0}
+    {#await postsWithAuthor}
+      <Loader classes="fill-black dark:fill-white" />
+    {:then loadedPosts}
       <div class="grid grid-flow-row gap-24">
-        {#each posts as post}
+        {#each loadedPosts as post}
           <article>
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
               <a class="post-link" href="{base}/{route}/{post.path}" title={post.meta.title}>
@@ -90,9 +94,8 @@
         {/each}
       </div>
       <Pagination {pageNum} {totalPages} {route} />
-    {:else}
-      <Loader classes="fill-black dark:fill-white" />
-    {/if}
+    {:catch error}
+      <p>Error loading posts: {error.message}</p>
+    {/await}
   </section>
-
 </div>
