@@ -1,1 +1,1 @@
-![View rich symbolic expressions rendered with LaTeX](/assets/media/sympy.webp)
+![View rich symbolic expressions rendered with LaTeX](/assets/media/sympy.webp "View rich symbolic expressions rendered with LaTeX")

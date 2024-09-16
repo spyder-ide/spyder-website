@@ -1,1 +1,1 @@
-![Easily switch between projects and browse their files](/assets/media/projects.webp)
+![Easily switch between projects and browse their files](/assets/media/projects.webp "Easily switch between projects and browse their files")

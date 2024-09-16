@@ -1,1 +1,1 @@
-![Explore and edit multi-dimensional arrays](/assets/media/numpy.webp)
+![Explore and edit multi-dimensional arrays](/assets/media/numpy.webp "Explore and edit multi-dimensional arrays")

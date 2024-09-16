@@ -1,1 +1,1 @@
-![Quickly find uses of a variable or word across files](/assets/media/search.webp)
+![Quickly find uses of a variable or word across files](/assets/media/search.webp "Quickly find uses of a variable or word across files")
