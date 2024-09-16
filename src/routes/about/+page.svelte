@@ -73,7 +73,7 @@
         <div class="lg:col-span-3">
           <p class="dark:text-neutral-200 font-light mb-16">{diversityIntro}</p>
         </div>
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2 flex justify-center items-center">
           <DonutGraph {totalContributors} {percentageLatinos} {percentageFemales} />
         </div>
       </div>
