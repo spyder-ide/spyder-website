@@ -3,7 +3,6 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import { visit } from "unist-util-visit";
 import rehypeTitleFigure from 'rehype-title-figure'
-import rehypeSanitize from 'rehype-sanitize'
 import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
 
@@ -43,15 +42,14 @@ const escapeQuotes = () => {
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
-  rehypePlugins: [
-    blogImages,
-    rehypeSanitize,
-    rehypeTitleFigure,
-    [classNames, classNamesOptions],
-  ],
   remarkPlugins: [
     smartypants,
     escapeQuotes
+  ],
+  rehypePlugins: [
+    blogImages,
+    rehypeTitleFigure,
+    [classNames, classNamesOptions],
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
