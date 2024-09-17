@@ -1,1 +1,1 @@
-![Explore and edit multi-dimensional arrays](/assets/media/numpy.webp "Explore and edit multi-dimensional arrays")
+![Spyder Variable Explorer pane displaying a three-dimensional NumPy in a "spreadsheet" style view, with cell colors forming a heatmap of values and options to adjust the axis and index of the array slice](/assets/media/numpy.webp "Explore and edit multi-dimensional arrays")
