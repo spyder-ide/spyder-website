@@ -3,6 +3,8 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import { visit } from "unist-util-visit";
 import rehypeTitleFigure from 'rehype-title-figure'
+import rehypeSanitize from 'rehype-sanitize'
+import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
 
 const classNamesOptions = {
@@ -28,13 +30,28 @@ const blogImages = () => {
   };
 };
 
+const escapeQuotes = () => {
+  return (tree) => {
+    visit(tree, 'image', (node) => {
+      if (node.alt) {
+        node.alt = node.alt.replace(/"/g, '&quot;');
+      }
+    });
+  };
+}
+
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
   rehypePlugins: [
-    [rehypeTitleFigure],
-    [classNames, classNamesOptions],
     blogImages,
+    rehypeSanitize,
+    rehypeTitleFigure,
+    [classNames, classNamesOptions],
+  ],
+  remarkPlugins: [
+    smartypants,
+    escapeQuotes
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",

@@ -25,9 +25,10 @@
   },
   "dependencies": {
     "rehype-class-names": "^2.0.0",
-    "rehype-plugin-image-native-lazy-loading": "^1.2.0",
     "rehype-rewrite": "^4.0.2",
+    "rehype-sanitize": "^6.0.0",
     "rehype-title-figure": "^0.1.2",
+    "remark-smartypants": "^3.0.2",
     "svelte-icons-pack": "^3.1.3"
   }
 }
