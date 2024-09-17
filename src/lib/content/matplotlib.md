@@ -1,1 +1,1 @@
-![Browse all your plots in a single place](/assets/media/matplotlib.webp "Browse all your plots in a single place")
+![Spyder plots pane displaying a 3D visualization in the main panel, with options above for saving, zooming or removing it, and a right panel with thumbnails of other previous plots](/assets/media/matplotlib.webp "Browse all your plots in a single place")
