@@ -1,1 +1,1 @@
-![View rich symbolic expressions rendered with LaTeX](/assets/media/sympy.webp "View rich symbolic expressions rendered with LaTeX")
+![Spyder's IPython Console pane, showing individual lines of code constructing SymPy expressions, and several complex symbolic formulas rendered inline in publication-style rich mathematical notation](/assets/media/sympy.webp "View rich symbolic expressions rendered with LaTeX")
