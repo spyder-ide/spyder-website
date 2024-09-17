@@ -1,1 +1,1 @@
-![Take advantage of real-time hints and help to improve your code](/assets/media/developer_tools.webp "Take advantage of real-time hints and help to improve your code")
+![Spyder Editor pane, with several real-time code analysis warnings shown on different lines and the affected code underlined. A hovered-over warning is showing its associated message, while the Source menu is open to the left showing the "Underline errors and warnings" option enabled](/assets/media/developer_tools.webp "Take advantage of real-time hints and help to improve your code")
