@@ -90,7 +90,18 @@
         </div>
       {:else}
         <div in:fade={{ duration: 200 }}>
-          <svelte:component this={current.content} />
+          {#if typeof current.content !== "object"}
+            <svelte:component this={current.content} />
+          {:else}
+            {#if current.content.imgSrc}
+              <figure class="figure text-center">
+                <img src={current.content.imgSrc} alt={current.content.imgAlt}>
+                {#if current.content.text}
+                  <figcaption>{@html current.content.text}</figcaption>
+                {/if}
+              </figure>
+            {/if}
+          {/if}
         </div>
       {/if}
     {/key}

@@ -43,7 +43,10 @@ frontPage = {
         background: "/assets/media/bg.svg",
         columns: false,
         divider: true,
-        extraContent: WhatIs,
+        extraContent: {
+          title: `Get the ease of use of Jupyter along with many advanced features
+                  found in PyCharm and VSCode in a single programming environment`,
+        },
       },
 
       // Interactive
@@ -52,7 +55,13 @@ frontPage = {
         title: "Interactive programming built in",
         divider: true,
         border: false,
-        content: Interactive,
+        content: {
+          title: "Works the way scientists do",
+          text: `<p>Data analysts, scientists and engineers require a lot of
+                experimentation, quick feedback and short iteration cycles
+                while programming. Spyder was built from the ground up
+                around that workflow.</p>`
+        },
         tabs: [
           {
             title: "Variable Explorer",
@@ -98,13 +107,54 @@ frontPage = {
         id: "pydata-section",
         title: "Seamless integration with the PyData ecosystem",
         divider: true,
-        content: Ecosystem,
+        content: {
+          title: `A perfect fit with the most popular scientific libraries`,
+          text: `<p>Spyder includes out of the box integration with
+                <a href="https://matplotlib.org/">Matplotlib</a>,
+                <a href="https://pandas.pydata.org/">Pandas</a>
+                and many other libraries to help you work more efficiently with them.</p>`
+        },
         tabs: [
-          { title: "Matplotlib", content: Matplotlib },
-          { title: "Pandas", content: Pandas },
-          { title: "Numpy", content: Numpy },
-          { title: "Conda", content: Conda },
-          { title: "Sympy", content: Sympy },
+          {
+            title: "Matplotlib",
+            content: {
+              text: "Browse all your plots in a single place",
+              imgSrc: "/assets/media/matplotlib.webp",
+              imgAlt: "Spyder Plots Pane showing a 3D graphic from matplotlib"
+            }
+          },
+          {
+            title: "Pandas",
+            content: {
+              text: "Interact with the contents of your dataframes",
+              imgSrc: "/assets/media/pandas.webp",
+              imgAlt: "Spyder Array Explorer showing the contents of a dataframe"
+            }
+          },
+          {
+            title: "Numpy",
+            content: {
+              text: `Explore and edit multi-dimensional arrays`,
+              imgSrc: "/assets/media/numpy.webp",
+              imgAlt: "Spyder Array Explorer showing a multi-dimensional array"
+            }
+          },
+          {
+            title: "Conda",
+            content: {
+              text: `Work with multiple environments at once`,
+              imgSrc: "/assets/media/conda.webp",
+              imgAlt: "Spyder UI displaying the Consoles menu item and the New Console Environment sub item with a list of saved environments"
+            }
+          },
+          {
+            title: "Sympy",
+            content: {
+              text: `View rich symbolic expressions rendered with LaTeX`,
+              imgSrc: "/assets/media/sympy.webp",
+              imgAlt: "Spyder IPython Console displaying several LaTeX equations"
+            }
+          },
         ],
       },
 
@@ -113,12 +163,43 @@ frontPage = {
         id: "growth-section",
         title: "Ready to take you to the next level",
         divider: true,
-        content: Growth,
+        content: {
+          title: `Make a bigger impact with reusable research`,
+          text: `<p>The software you write is critical for new scientific discoveries and engineering solutions. Spyder helps you move from single scripts to structured, reusable modules and packages without losing interactivity. It also includes powerful software development tools whenever you’re ready for them.</p>`
+        },
         tabs: [
-          { title: "Developer tools", content: DeveloperTools },
-          { title: "Projects", content: Projects },
-          { title: "Code analysis", content: CodeAnalysis },
-          { title: "Code search", content: Search },
+          {
+            title: "Developer tools",
+            content: {
+              text: `Take advantage of real-time hints and help to improve your code`,
+              imgSrc: "/assets/media/developer_tools.webp",
+              imgAlt: "Spyder UI displaying the Source menu item, the cursor is selecting the 'Underline errors and warnings' item"
+            }
+          },
+          {
+            title: "Projects",
+            content: {
+              text: `Easily switch between projects and browse their files`,
+              imgSrc: "/assets/media/projects.webp",
+              imgAlt: "Spyder UI displaying the Project explorer"
+            }
+          },
+          {
+            title: "Code analysis",
+            content: {
+              text: `Get in-depth insight on issues and improvements with your code`,
+              imgSrc: "/assets/media/code_analysis.webp",
+              imgAlt: "Spyder UI displaying the Code Analysuis Pane"
+            }
+          },
+          {
+            title: "Code search",
+            content: {
+              text: `Quickly find uses of a variable or word across files`,
+              imgSrc: "/assets/media/search.webp",
+              imgAlt: "Spyder UI displaying the Code Analysuis Pane"
+            }
+          },
         ],
       },
 
@@ -126,7 +207,10 @@ frontPage = {
       {
         id: "setup-section",
         title: "Simple install and update process",
-        content: Setup,
+        content: {
+          title: `Install with a single click and be productive right away`,
+          text: `<p>Spyder offers standalone installers to make it as easy and reliable as possible to get started and keep it up to date.</p>`
+        },
         divider: true,
         imgSrc: `/assets/media/${os}.webp`,
         buttons: osButtons,
@@ -136,11 +220,16 @@ frontPage = {
       {
         id: "sponsors-section",
         title: "Sponsors",
-        content: Sponsors,
+        content: {
+          title: `Spyder is funded thanks to the generous support of`,
+          titleTag: 'h1'
+        },
         divider: true,
         columns: false,
         boxed: true,
-        extraContent: Donations,
+        extraContent: {
+          title: "and the donations we have received from our users around the world through Open Collective:"
+        },
         extraImage: "/assets/media/sponsors.svg",
         extraImageAlt: "Donate to our project",
         extraImageLink: "https://opencollective.com/spyder#support",
@@ -148,11 +237,13 @@ frontPage = {
           {
             imgSrc: "/assets/media/czi_light.svg",
             imgSrcDark: "/assets/media/czi_dark.svg",
+            imgAlt: "Chan Zuckerberg Initiative logo",
             link: "https://chanzuckerberg.com/",
           },
           {
             imgSrc: "/assets/media/numfocus_lrg.png",
             link: "https://numfocus.org/",
+            imgAlt: "NumFocus logo"
           },
         ],
       },

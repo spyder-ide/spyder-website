@@ -21,6 +21,7 @@
   export let imgSrc = undefined;
   export let imgLink = "";
   export let imgClasses = "";
+  export let imgAlt = "";
   export let caption = "";
   export let tabs = undefined;
   export let buttons = undefined;
@@ -105,7 +106,22 @@
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? 'max-w-full' : 'mt-8 md:mt-24 text-center max-w-2xl mx-auto'}`}
           >
-            <slot />
+              {#if typeof content !== 'object'}
+                <slot />
+              {:else}
+                {#if content.title}
+                  {#if content.titleTag}
+                    <svelte:element this={content.titleTag}>
+                      {content.title}
+                    </svelte:element>
+                  {:else}
+                    <h2>{content.title}</h2>
+                  {/if}
+                {/if}
+                {#if content.text}
+                  {@html content.text}
+                {/if}
+              {/if}
           </div>
         {/if}
         {#if buttons}
@@ -130,10 +146,10 @@
         {:else if imgSrc}
           {#if imgLink}
             <a href={imgLink} target="_blank" rel="noopener noreferrer">
-              <Image {imgSrc} {caption} classes={imgClasses} />
+              <Image {imgSrc} {caption} classes={imgClasses} alt={imgAlt} />
             </a>
           {:else}
-            <Image {imgSrc} {caption} classes={imgClasses} />
+            <Image {imgSrc} {caption} classes={imgClasses} alt={imgAlt} />
           {/if}
         {:else if tabs}
           <Tabs {tabs} />
@@ -177,7 +193,22 @@
       {#if $$slots.extraContent}
         <slot name="extraContent" />
       {:else}
-        <svelte:component this={extraContent} />
+        {#if typeof extraContent !== 'object'}
+          <svelte:component this={extraContent} />
+        {:else}
+          {#if extraContent.title}
+            {#if extraContent.titleTag}
+              <svelte:element this={extraContent.titleTag}>
+                {extraContent.title}
+              </svelte:element>
+            {:else}
+              <h2>{extraContent.title}</h2>
+            {/if}
+          {/if}
+          {#if extraContent.text}
+            {@html extraContent.text}
+          {/if}
+        {/if}
       {/if}
     </div>
   {/if}

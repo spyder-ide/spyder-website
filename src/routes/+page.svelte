@@ -10,6 +10,8 @@
 
 {#each blocks as block (block.id)}
   <ContentBlock {...block} >
-    <svelte:component this={block.content} />
+    {#if typeof block.content !== 'object'}
+      <svelte:component this={block.content} />
+    {/if}
   </ContentBlock>
 {/each}
