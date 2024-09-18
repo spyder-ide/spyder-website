@@ -118,10 +118,11 @@ const textData = {
   remainingIntro: `Spyder is made possible by a collective of developers, testers, translators and donors, hailing from all around the globe!
     We exist by and for our worldwide community, and even the smallest contribution makes a world of different for us all.`,
   diversityTitle: `Diversity and Inclusion`,
-  diversityIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-        eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-        reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-        aliquid qui distinctio.`,
+  diversityIntro: `We're proud of our highly diverse core devs contributors and user community, 
+    bringing numerous distinct backgrounds and perspectives to the table.
+    The Spyder team is led by, majority-composed-of, and recruits heavily from countries, languages, ethnicities and gender identities historically underrepresented in science and open source software, particularly in Latin America.
+    Our contributors come from every inhabited continent on Earth and dozens of countries all around the world, each bringing unique needs and perspectives to the table.
+    What's more, we help translate Spyder into almost a dozen languages for our user community across the globe, and we welcome you to join us!`,
 };
 
 function processContributors(current, past, all) {
