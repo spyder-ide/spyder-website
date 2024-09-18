@@ -38,12 +38,14 @@ export default {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              "& img": {
-                boxShadow:
-                  "rgba(0, 0, 0, 0.04) 0px 0.5em 2em 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-                borderRadius: "0.6em",
-              },
             },
+            img: {
+              boxShadow:
+                "rgba(0, 0, 0, 0.04) 0px 0.5em 2em 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+              borderRadius: "0.6em",
+              marginLeft: "auto",
+              marginRight: "auto"
+            }
           },
         },
         md: {

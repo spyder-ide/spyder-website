@@ -26,10 +26,10 @@
   "dependencies": {
     "chart.js": "^4.4.4",
     "rehype-class-names": "^2.0.0",
-    "rehype-figure": "^1.0.1",
-    "rehype-plugin-image-native-lazy-loading": "^1.2.0",
     "rehype-rewrite": "^4.0.2",
     "svelte-chartjs": "^3.1.5",
+    "rehype-title-figure": "^0.1.2",
+    "remark-smartypants": "^3.0.2",
     "svelte-icons-pack": "^3.1.3"
   }
 }
