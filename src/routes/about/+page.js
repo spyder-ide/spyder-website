@@ -16,6 +16,7 @@ const currentContributors = [
     id: 17051931,
     name: "C.A.M. Gerlach",
     role: "Documentation and technical writing",
+    avatar_url: "/assets/authors/camgerlach/pic.webp"
   },
   {
     id: 9618975,
@@ -128,16 +129,14 @@ const textData = {
 };
 
 function processContributors(current, past, all) {
-  // Update current contributors with the latest data from GitHub
-  const updatedCurrent = current.map((contributor) => {
-    const match = all.find((c) => c.id === contributor.id);
-    return match ? { ...contributor, ...match } : contributor;
-  });
+  // Update current contributors from GitHub with custom data
+  const updateContributor = (contributor, allContributors) => {
+    const match = allContributors.find((c) => c.id === contributor.id);
+    return match ? { ...match, ...contributor } : contributor;
+  };
 
-  const updatedPast = past.map((contributor) => {
-    const match = all.find((c) => c.id === contributor.id);
-    return match ? { ...contributor, ...match } : contributor;
-  });
+  const updatedCurrent = current.map((contributor) => updateContributor(contributor, all));
+  const updatedPast = past.map((contributor) => updateContributor(contributor, all));
 
   // Get the remaining contributors that are not in the current list
   const remainingContributors = all.filter(
