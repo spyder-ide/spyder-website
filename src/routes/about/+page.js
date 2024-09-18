@@ -114,8 +114,8 @@ const textData = {
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
         reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
         aliquid qui distinctio.`,
-  currentTitle: "Team Members",
-  pastTitle: "Former Team Members",
+  currentTitle: "Core team",
+  pastTitle: "Past team members",
   remainingTitle: "We are an open source project",
   remainingIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
