@@ -116,7 +116,7 @@ const textData = {
         aliquid qui distinctio.`,
   currentTitle: "Core team",
   pastTitle: "Past team members",
-  remainingTitle: "We are an open source project",
+  remainingTitle: "Contributor community",
   remainingIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
         reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
