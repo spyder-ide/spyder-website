@@ -15,7 +15,7 @@ const currentContributors = [
   {
     id: 17051931,
     name: "C.A.M. Gerlach",
-    role: "Documentation and technical writing",
+    role: "Docs & tech writing",
     avatar_url: "/assets/authors/camgerlach/pic.webp"
   },
   {
@@ -43,7 +43,7 @@ const currentContributors = [
   {
     id: 5027583,
     name: "Andrés Montoya",
-    role: "UI/UX Designer and Social Media",
+    role: "UI/UX Design & Social Media",
     latino: true,
   },
 ];
@@ -86,7 +86,7 @@ const pastContributors = [
   {
     id: 20992645,
     name: "Stephannie Jimenez",
-    role: "Spyder-terminal maintainer",
+    role: "Spyder-Terminal maintainer",
     latino: true,
     female: true,
   },
