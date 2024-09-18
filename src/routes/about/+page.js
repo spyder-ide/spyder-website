@@ -121,7 +121,7 @@ const textData = {
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
         reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
         aliquid qui distinctio.`,
-  diversityTitle: `Diversity in Our Core Contributors`,
+  diversityTitle: `Diversity and Inclusion`,
   diversityIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
         reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
