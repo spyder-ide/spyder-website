@@ -27,7 +27,15 @@
 
 <div class="container">
   <h1
-    class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32"
+    class="text-4xl
+      xl:tracking-tight
+      xl:text-6xl
+      text-center
+      tracking-tight
+      font-extralight
+      text-mine-shaft-600
+      dark:text-mine-shaft-200 m
+      y-16 md:my-32"
   >
     {pageTitle}
   </h1>
@@ -68,13 +76,25 @@
       <Loader />
     {/if}
     <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-extralight text-red-berry-900 dark:text-neutral-400 mt-32 mb-16 text-center">{diversityTitle}</h2>
+      <h2
+        class="text-4xl
+          font-extralight
+          text-red-berry-900
+          dark:text-neutral-400
+          mt-32 mb-16 text-center"
+      >
+        {diversityTitle}
+      </h2>
       <div class="lg:grid lg:grid-cols-5 lg:gap-8 lg:items-center">
         <div class="lg:col-span-3">
           <p class="dark:text-neutral-200 font-light mb-16">{diversityIntro}</p>
         </div>
         <div class="lg:col-span-2 flex justify-center items-center">
-          <DonutGraph {totalContributors} {percentageLatinos} {percentageFemales} />
+          <DonutGraph
+            {totalContributors}
+            {percentageLatinos}
+            {percentageFemales}
+          />
         </div>
       </div>
     </div>
