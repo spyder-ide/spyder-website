@@ -115,10 +115,8 @@ const textData = {
   currentTitle: "Core team",
   pastTitle: "Past team members",
   remainingTitle: "Contributor community",
-  remainingIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-        eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-        reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-        aliquid qui distinctio.`,
+  remainingIntro: `Spyder is made possible by a collective of developers, testers, translators and donors, hailing from all around the globe!
+    We exist by and for our worldwide community, and even the smallest contribution makes a world of different for us all.`,
   diversityTitle: `Diversity and Inclusion`,
   diversityIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
         eligendi dolorem optio adipisci voluptatem inventore eius recusandae
