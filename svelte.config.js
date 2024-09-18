@@ -2,19 +2,16 @@ import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import { visit } from "unist-util-visit";
-import figures from "rehype-figure";
+import rehypeTitleFigure from 'rehype-title-figure'
+import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
-//import lazyLoadPlugin from "rehype-plugin-image-native-lazy-loading";
 
 const classNamesOptions = {
   h2: "section",
   h3: "subsection",
   h4: "subsubsection",
   a: "link",
-};
-
-const figuresOptions = {
-  className: "figure text-center",
+  figure: "figure"
 };
 
 const blogImages = () => {
@@ -32,14 +29,27 @@ const blogImages = () => {
   };
 };
 
+const escapeQuotes = () => {
+  return (tree) => {
+    visit(tree, 'image', (node) => {
+      if (node.alt) {
+        node.alt = node.alt.replace(/"/g, '&quot;');
+      }
+    });
+  };
+}
+
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
+  remarkPlugins: [
+    smartypants,
+    escapeQuotes
+  ],
   rehypePlugins: [
-    [figures, figuresOptions],
-    [classNames, classNamesOptions],
     blogImages,
-    //lazyLoadPlugin,
+    rehypeTitleFigure,
+    [classNames, classNamesOptions],
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",

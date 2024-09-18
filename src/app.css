@@ -25,6 +25,6 @@ a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):not(.card-link):h
   }
 
   & figcaption {
-    @apply text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3;
+    @apply text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3 text-center;
   }
 }

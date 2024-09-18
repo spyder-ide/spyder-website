@@ -1,1 +1,1 @@
-![Easily switch between projects and browse their files](/assets/media/projects.webp)
+![Spyder Editor pane showing the Projects pane to its left, listing the files and directories of a project in a tree-style layout](/assets/media/projects.webp "Easily switch between projects and browse their files")
