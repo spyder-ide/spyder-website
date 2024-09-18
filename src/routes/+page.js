@@ -1,36 +1,8 @@
 import { metadata } from "$lib/store";
 import { siteUrl, title, description, keywords, author } from "$lib/config";
 
-// Content for blocks
-import Interactive from "$lib/content/interactive.md";
-import Ecosystem from "$lib/content/ecosystem.md";
-import WhatIs from "$lib/content/what-is.md";
-import Growth from "$lib/content/growth.md";
-import Setup from "$lib/content/setup.md";
-
-// Tabs integrations
-import Matplotlib from "$lib/content/matplotlib.md";
-import Pandas from "$lib/content/pandas.md";
-import Conda from "$lib/content/conda.md";
-import Sympy from "$lib/content/sympy.md";
-import Numpy from "$lib/content/numpy.md";
-
-// Tabs growth
-import DeveloperTools from "$lib/content/developer-tools.md";
-import Projects from "$lib/content/projects.md";
-import CodeAnalysis from "$lib/content/code-analysis.md";
-import Search from "$lib/content/search.md";
-
-// Sponsors
-import Sponsors from "$lib/content/sponsors.md";
-import Donations from "$lib/content/donations.md";
-
-let frontPage = {},
-  os = "linux",
-  osButtons = [];
-
 // Content blocks
-frontPage = {
+let frontPage = {
   props: {
     // Hero section buttons
     buttons: [],
@@ -120,7 +92,7 @@ frontPage = {
             content: {
               text: "Browse all your plots in a single place",
               imgSrc: "/assets/media/matplotlib.webp",
-              imgAlt: "Spyder Plots Pane showing a 3D graphic from matplotlib"
+              imgAlt: `Spyder plots pane displaying a 3D visualization in the main panel, with options above for saving, zooming or removing it, and a right panel with thumbnails of other previous plots`
             }
           },
           {
@@ -128,7 +100,7 @@ frontPage = {
             content: {
               text: "Interact with the contents of your dataframes",
               imgSrc: "/assets/media/pandas.webp",
-              imgAlt: "Spyder Array Explorer showing the contents of a dataframe"
+              imgAlt: `Spyder Variable Explorer pane showing a pandas dataframe containing weather observations in a "spreadsheet" style view, with multi-level index columns, per-column heatmaps and toolbar options for displaying and editing the data`
             }
           },
           {
@@ -136,7 +108,7 @@ frontPage = {
             content: {
               text: `Explore and edit multi-dimensional arrays`,
               imgSrc: "/assets/media/numpy.webp",
-              imgAlt: "Spyder Array Explorer showing a multi-dimensional array"
+              imgAlt: `Spyder Variable Explorer pane displaying a three-dimensional NumPy in a "spreadsheet" style view, with cell colors forming a heatmap of values and options to adjust the axis and index of the array slice`
             }
           },
           {
@@ -144,7 +116,7 @@ frontPage = {
             content: {
               text: `Work with multiple environments at once`,
               imgSrc: "/assets/media/conda.webp",
-              imgAlt: "Spyder UI displaying the Consoles menu item and the New Console Environment sub item with a list of saved environments"
+              imgAlt: `Spyder Consoles menu with the "New console in environment" submenu selected, showing a listing of Conda environments by name, type and Python version`
             }
           },
           {
@@ -152,7 +124,7 @@ frontPage = {
             content: {
               text: `View rich symbolic expressions rendered with LaTeX`,
               imgSrc: "/assets/media/sympy.webp",
-              imgAlt: "Spyder IPython Console displaying several LaTeX equations"
+              imgAlt: `Spyder's IPython Console pane, showing individual lines of code constructing SymPy expressions, and several complex symbolic formulas rendered inline in publication-style rich mathematical notation`
             }
           },
         ],
@@ -173,7 +145,7 @@ frontPage = {
             content: {
               text: `Take advantage of real-time hints and help to improve your code`,
               imgSrc: "/assets/media/developer_tools.webp",
-              imgAlt: "Spyder UI displaying the Source menu item, the cursor is selecting the 'Underline errors and warnings' item"
+              imgAlt: `Spyder Editor pane, with several real-time code analysis warnings shown on different lines and the affected code underlined. A hovered-over warning is showing its associated message, while the Source menu is open to the left showing the "Underline errors and warnings" option enabled`
             }
           },
           {
@@ -181,7 +153,7 @@ frontPage = {
             content: {
               text: `Easily switch between projects and browse their files`,
               imgSrc: "/assets/media/projects.webp",
-              imgAlt: "Spyder UI displaying the Project explorer"
+              imgAlt: `Spyder Editor pane showing the Projects pane to its left, listing the files and directories of a project in a tree-style layout`
             }
           },
           {
@@ -189,7 +161,7 @@ frontPage = {
             content: {
               text: `Get in-depth insight on issues and improvements with your code`,
               imgSrc: "/assets/media/code_analysis.webp",
-              imgAlt: "Spyder UI displaying the Code Analysuis Pane"
+              imgAlt: `Spyder Code Analysis pane showing the results for a file, including an overall score and a listing of errors, warnings, refactoring and convention issues; each has a name, code, line number and message`
             }
           },
           {
@@ -197,7 +169,7 @@ frontPage = {
             content: {
               text: `Quickly find uses of a variable or word across files`,
               imgSrc: "/assets/media/search.webp",
-              imgAlt: "Spyder UI displaying the Code Analysuis Pane"
+              imgAlt: `Spyder Find pane, showing an example search for a method name, buttons toggling search options, an exclude field listing various file extensions, a dropdown for search location and a count and list of results per-file, including the file name and path and the line, column and context for each result`
             }
           },
         ],
@@ -212,8 +184,8 @@ frontPage = {
           text: `<p>Spyder offers standalone installers to make it as easy and reliable as possible to get started and keep it up to date.</p>`
         },
         divider: true,
-        imgSrc: `/assets/media/${os}.webp`,
-        buttons: osButtons,
+        imgSrc: `/assets/media/windows.webp`,
+        buttons: [],
       },
 
       // Sponsors

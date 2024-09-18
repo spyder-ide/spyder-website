@@ -1,1 +1,0 @@
-![Browse all your plots in a single place](/assets/media/matplotlib.webp)

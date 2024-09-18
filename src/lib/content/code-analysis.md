@@ -1,1 +1,0 @@
-![Get in-depth insight on issues and improvements with your code](/assets/media/code_analysis.webp)

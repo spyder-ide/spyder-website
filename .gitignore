@@ -40,7 +40,7 @@ develop-eggs/
 dist/
 downloads/
 eggs/
-lib/
+#lib/
 lib64/
 MANIFEST
 parts/

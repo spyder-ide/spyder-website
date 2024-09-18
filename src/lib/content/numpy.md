@@ -1,1 +1,0 @@
-![Explore and edit multi-dimensional arrays](/assets/media/numpy.webp)

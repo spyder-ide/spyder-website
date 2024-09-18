@@ -3,7 +3,7 @@
 
   import Divider from "$lib/components/Divider.svelte";
   import Button from "$lib/components/Button.svelte";
-  import FooterContent from "$lib/content/footer-content.md";
+  import FooterContent from "$lib/data/footer-content.md";
 
   const socialIcons = new Map(Object.entries(socials));
 

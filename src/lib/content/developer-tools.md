@@ -1,1 +1,0 @@
-![Take advantage of real-time hints and help to improve your code](/assets/media/developer_tools.webp)
