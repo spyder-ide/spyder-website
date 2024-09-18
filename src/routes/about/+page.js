@@ -110,10 +110,8 @@ const pastContributors = [
 
 const textData = {
   pageTitle: "Who We Are",
-  pageIntro: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo debitis
-        eligendi dolorem optio adipisci voluptatem inventore eius recusandae
-        reiciendis nisi aspernatur quas exercitationem nihil dolorum aliquam, ex
-        aliquid qui distinctio.`,
+  pageIntro: `Spyder is an open source, community-developed scientific environment and IDE written in Python, for Python.
+    As scientists, engineers and analysts just like you, we built it to combine the power of a comprehensive development tool with the speed of an interactive data exploration package, all in one easy-to-use interface.`,
   currentTitle: "Core team",
   pastTitle: "Past team members",
   remainingTitle: "Contributor community",
