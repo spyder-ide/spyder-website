@@ -30,7 +30,7 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
   // Sort posts
   const sortedPosts = sortPostsByDate(allPosts);
 
-  // If we don'provide a page number/page size, return the full list
+  // If we don't provide a page number/page size, return the full list
   if (!hasValue(pageNum) || !hasValue(pageSize)) return sortedPosts;
 
   // Calculate start and end indices for the desired page
