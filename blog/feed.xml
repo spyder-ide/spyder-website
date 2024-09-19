@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <title>Welcome to Spyder's Blog</title>
+        <link>https://www.spyder-ide.org/blog</link>
+        <description>The Python IDE that scientists and data analysts deserve | Designed by the community, for the community</description>
+        <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
+        
+    <item>
+      <title>Scientific IDE UX Birds of a Feather session at SciPy 2024</title>
+      <link>https://www.spyder-ide.org/blog/ide-ux-bof-scipy-2024</link>
+      <description>The Spyder team hosted a Birds of a Feather session at SciPy 2024, this time on the topic of users' experiences (good and bad) with the UI/UX of scientific interfaces and IDEs, and how their developers can better serve users. Here, we share what we learned from the session, as well as a link to the full detailed community notes.</description>
+      <category>News</category>
+      <pubDate>Wed, 18 Sep 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder 6 will get a new installer for all platforms and a standalone application for Linux!</title>
+      <link>https://www.spyder-ide.org/blog/cbi-installers</link>
+      <description>Spyder 6 will introduce new conda-based installers for Windows, macOS, and Linux. While Windows and macOS have had installers for some time, this new development will provide a more consistent and reliable user experience across all platforms, including Linux. Additionally, the new installers lay the foundation for several exciting new Spyder features.</description>
+      <category>Announcement</category>
+      <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Reusable research Birds of a Feather session at Scipy 2023: Solutions and tools</title>
+      <link>https://www.spyder-ide.org/blog/reusable-research-bof-scipy-2023-part-2</link>
+      <description>The Spyder team and collaborators hosted a Birds of a Feather session at SciPy 2023, focused on moving beyond just scripts and notebooks toward truly reproducible, reusable research. Here, we share the tips, tools, platforms and strategies that participants offered to help achieve these goals.</description>
+      <category>News</category>
+      <pubDate>Thu, 14 Mar 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Reusable research Birds of a Feather session at Scipy 2023: Goals and challenges</title>
+      <link>https://www.spyder-ide.org/blog/reusable-research-bof-scipy-2023</link>
+      <description>The Spyder team and collaborators hosted a Birds of a Feather session at SciPy 2023, focused on moving beyond just scripts and notebooks toward truly reproducible, reusable research. Here’s a recap of the goals of the session and the shared challenges that participants brought up in achieving them.</description>
+      <category>News</category>
+      <pubDate>Tue, 19 Dec 2023 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder gets CZI grant to add remote development features, and a new job opening!</title>
+      <link>https://www.spyder-ide.org/blog/czi-grant</link>
+      <description>Spyder has received a two-year grant from the Chan Zuckerberg Initiative to add remote development capabilities to our beloved IDE. This means you'll be able to easily take advantage of the vast resources offered by HPC clusters or the cloud to execute your code, while working from the comfort of your personal computer. And if you're interested in helping us implement that, we may have just the job opportunity for you!</description>
+      <category>Announcement</category>
+      <pubDate>Thu, 08 Jun 2023 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Improvements to the Spyder IDE installation experience</title>
+      <link>https://www.spyder-ide.org/blog/installer-improvements</link>
+      <description>Spyder 5.4.0 was released recently, featuring some major enhancements to the Windows and macOS standalone installers. You'll now get more detailed feedback when new versions are available, and you can download and start the update to them from right within Spyder, instead of having to install them manually. Read on to learn how these new update features work and how to use them.</description>
+      <category>Announcement</category>
+      <pubDate>Wed, 30 Nov 2022 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Introducing the Spyder-Watchlist plugin</title>
+      <link>https://www.spyder-ide.org/blog/introducing-watchlist-plugin</link>
+      <description>The third-party Spyder-Watchlist plugin is introduced, which can display and continually update the values of arbitrary, user-defined expressions while the debugger is active, and it's shown how to use this powerful tool for quickly exploring and debugging your code.</description>
+      <category></category>
+      <pubDate>Fri, 18 Nov 2022 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>New 2022 roadmap and grant funding</title>
+      <link>https://www.spyder-ide.org/blog/spyder-roadmap-proposals-2022</link>
+      <description>We'd like to share our brand new roadmap for the rest of 2022, powered by the feedback of users like you. We're also excited to announce two new grants we've been awarded, which fund significant improvements to Spyder's Windows installers and user/developer documentation.</description>
+      <category>News</category>
+      <pubDate>Mon, 25 Jul 2022 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>New features in Spyder 4's new debugger!</title>
+      <link>https://www.spyder-ide.org/blog/spyder-debugger</link>
+      <description>IPython is a great improvement over the standard Python interpreter, bringing many enhancements such as autocompletion and "magic" commands. When debugging, however, many of these features become inaccessible. With Spyder, we aim to bring back these capabilities and more for a truly premium debugging experience! (And believe me, I use this debugger a lot, and not only because I write code that might contain bugs :p).</description>
+      <category>News</category>
+      <pubDate>Thu, 05 Nov 2020 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>STX Next, Python development company, uses Spyder to improve their workflow</title>
+      <link>https://www.spyder-ide.org/blog/STX-interview</link>
+      <description>STX Next, one of Europe's largest Python development companies, has shared with us how Spyder has been a powerful tool for them when performing data analysis. It is a pleasure for us on the Spyder team to work every day to improve the workflow of developers, scientists, engineers and data analysts. We are very glad to receive and share a STX Next testimonial about Spyder, along with an interview with one of their developers, Michael Wiśniewski, who has found Spyder very useful in his job.</description>
+      <category>Spyder</category>
+      <pubDate>Sat, 25 Jul 2020 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Writing docs is not just writing docs</title>
+      <link>https://www.spyder-ide.org/blog/tutorial-docs</link>
+      <description>I joined the Spyder team almost two years ago, and I never thought I was going to end up working on docs. Six months ago I started a project with CAM Gerlach and Carlos Cordoba to improve Spyder’s documentation. At first, I didn’t actually understand how important docs are for software, especially for open source projects. However, during all this time I’ve learned how documentation has a huge impact on the open-source community and I’ve been thankful to have been able to do this. But, from the beginning, I asked myself “why am I the ‘right person’ for this?”</description>
+      <category>Documentation</category>
+      <pubDate>Wed, 08 Jul 2020 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Thanking the people behind Spyder 4</title>
+      <link>https://www.spyder-ide.org/blog/release-spyder-4</link>
+      <description>After more than three years in development and more than 5000 commits from 60 authors around the world, Spyder 4 finally saw the light on December 5, 2019! I decided to wait until now to write a blogpost about it because shortly after the initial release, we found several critical performance issues and some regressions with respect to Spyder 3, most of which are fixed now in version 4.1.3, released on May 8th 2020.</description>
+      <category>Releases</category>
+      <pubDate>Fri, 12 Jun 2020 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Creating the ultimate terminal experience in Spyder 4 with Spyder-Terminal</title>
+      <link>https://www.spyder-ide.org/blog/spyder-terminal-030</link>
+      <description>The Spyder-Terminal project is revitalized! The new 0.3.0 version adds numerous features that improve the user experience, and enhances compatibility with the latest Spyder 4 release, in part thanks to the improvements made in the xterm.js project.</description>
+      <category>News</category>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Variable Explorer improvements in Spyder 4</title>
+      <link>https://www.spyder-ide.org/blog/spyder-variable-explorer</link>
+      <description>Spyder 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.</description>
+      <category>News</category>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>File management improvements in Spyder 4</title>
+      <link>https://www.spyder-ide.org/blog/spyder-files-improvements</link>
+      <description>Version 4.0 of Spyder is almost ready! It has been in the making for well over three years, and it contains lots of interesting new features. We will focus on the Files pane in this post, where we've made several improvements to the interface and file management tools. Some of this include the simplification of the interface by hiding size and kind columns by default, the possibility to custom file associations and open files externally with specific programs associated from Spyder, the functions to copy the absolute and relative paths of the files from the editor and the incorporation of icons depending on the file type which are displayed along with the file's name.</description>
+      <category>News</category>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder 4.0: Kite integration is here</title>
+      <link>https://www.spyder-ide.org/blog/spyder-kite-funding</link>
+      <description>As part of our next release, we are proud to announce an additional completion client for Spyder, Kite. Kite is a novel completion client that uses Machine Learning techniques to find and predict the best autocompletion for a given text. Additionally, it collects improved documentation for compiled packages, e.g. Matplotlib, NumPy and SciPy, that cannot be obtained easily by using traditional code analysis packages such as Jedi.</description>
+      <category>News</category>
+      <pubDate>Fri, 16 Aug 2019 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>TDK-Micronas partners with Quansight to sponsor Spyder</title>
+      <link>https://www.spyder-ide.org/blog/tdk-micronas-partners-with-quansight-labs</link>
+      <description>TDK-Micronas is sponsoring Spyder development efforts through Quansight Labs. This will enable the development of some features that have been requested by our users, as well as new features that will help TDK develop custom Spyder plugins in order to complement their Automatic Test Equipment (ATE’s) in the development of their Application Specific Integrated Circuits (ASIC’s).</description>
+      <category>News</category>
+      <pubDate>Sun, 02 Jun 2019 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder 4.0 takes a big step closer with the release of Beta 2!</title>
+      <link>https://www.spyder-ide.org/blog/release-spyder-4beta2</link>
+      <description>We're excited to announce the release of the milestone Beta 2, which represents nearly a year of intense work on Spyder's completion/introspection/help/analysis architecture, dark theme, plot pane, autosave, and much more. This is the first of a new series of blog posts chronicling our final push toward the Spyder 4.0 release, and the new features we've implemented along the way,</description>
+      <category>Releases</category>
+      <pubDate>Mon, 20 May 2019 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>QtConsole 4.4 Released!</title>
+      <link>https://www.spyder-ide.org/blog/release-qtconsole-440</link>
+      <description>We're pleased to highlight the release of QtConsole 4.4, which powers Spyder's IPython Console GUI. The latest version, developed in collaboration with the Jupyter team, adds several key features, enhancements and usability improvements, along with dozens of bug fixes and other changes—many requested and implemented by Spyder users like you.</description>
+      <category>Releases</category>
+      <pubDate>Fri, 21 Sep 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder 3.3.0 and 3.3.1 released!</title>
+      <link>https://www.spyder-ide.org/blog/release-spyder-330</link>
+      <description>We're excited to announce the release of Spyder 3.3.0 and 3.3.1, with several new features and enhancements, usability improvements, significant under the hood modifications and over 40 bug fixes. We'll go over the key changes and explain what they mean for you as a user, and discuss a few additional important notes about this release and what's coming next.</description>
+      <category>Releases</category>
+      <pubDate>Tue, 14 Aug 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Spyder featured on Episode 1 of Open Source Directions web show</title>
+      <link>https://www.spyder-ide.org/blog/webcast-quansight-ep1</link>
+      <description>Watch maintainer Carlos Córdoba explain Spyder's history, demo some of the IDE's current functionality, and reveal some of the key features planned for the project's immediate future on Episode 1 of Quansight's Open Source Directions broadcast. Carlos also answers a number of user-submitted questions covering a range of Spyder-related topics.</description>
+      <category>News</category>
+      <pubDate>Mon, 13 Aug 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>State of the Spyder, Part 2: Looking up</title>
+      <link>https://www.spyder-ide.org/blog/spyder-status-2018-present</link>
+      <description>In the second of a three part series, we've got some exciting announcements to make about Spyder and its continued development, and we'll review the project's current status and some major upcoming releases.</description>
+      <category>Status</category>
+      <pubDate>Mon, 23 Jul 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>State of the Spyder, Part 1: Looking back</title>
+      <link>https://www.spyder-ide.org/blog/spyder-status-2018-past</link>
+      <description>In the first of a three part series, we look back at the major events, project changes, milestones, and progress over the past six months since our previous funding ended. We'll also go over funding and development stats and status up to the present.</description>
+      <category>Status</category>
+      <pubDate>Sun, 06 May 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
+      <title>Introducing the unittest plugin</title>
+      <link>https://www.spyder-ide.org/blog/introducing-unittest-plugin</link>
+      <description>We introduce the Spyder unittest plugin, which can run tests and display the results right inside the IDE, with a real world example.</description>
+      <category>Tutorials</category>
+      <pubDate>Fri, 23 Feb 2018 00:00:00 GMT</pubDate>
+    </item>
+  
+      </channel>
+    </rss>
