@@ -10,6 +10,7 @@
     BsApple,
     BsQuestionCircleFill,
     BsDownload,
+    BsRssFill,
   } from "svelte-icons-pack/bs";
 
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
@@ -25,6 +26,7 @@
     mac: BsApple,
     unknown: BsQuestionCircleFill,
     download: BsDownload,
+    rss: BsRssFill,
   };
 
   export let button = true;
