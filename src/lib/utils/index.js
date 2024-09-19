@@ -12,9 +12,8 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
 
   // Convert the object into an array
   const allPosts = Object.entries(allPostFiles).map(([path, module]) => {
-    // Convert the object into an array
+    // Get the metadata from the module
     const { metadata } = module;
-
     // Format the path to get the slug
     const segments = path.split("/");
     segments.pop();
