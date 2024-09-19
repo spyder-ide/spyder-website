@@ -1,6 +1,9 @@
 import { browser } from "$app/environment";
 
-// Fetch all blog posts
+// Determine if a variable has a value (even `false` or `0`)
+export const hasValue = (a) => a !== undefined && a !== null;
+
+// Fetch all blog posts, sorted by date, optionally paginated
 export const fetchMarkdownPosts = async (pageNum, pageSize) => {
   // Load all posts
   const allPostFiles = import.meta.glob("/src/routes/blog/**/*.md", {
@@ -8,13 +11,9 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
   });
 
   // Convert the object into an array
-  const iterablePostFiles = Object.entries(allPostFiles);
-
-  // Create an array of posts
-  const allPosts = iterablePostFiles.map(([path, module]) => {
+  const allPosts = Object.entries(allPostFiles).map(([path, module]) => {
     // Get the metadata from the module
     const { metadata } = module;
-
     // Format the path to get the slug
     const segments = path.split("/");
     segments.pop();
@@ -29,6 +28,9 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
 
   // Sort posts
   const sortedPosts = sortPostsByDate(allPosts);
+
+  // If we don't provide a page number/page size, return the full list
+  if (!hasValue(pageNum) || !hasValue(pageSize)) return sortedPosts;
 
   // Calculate start and end indices for the desired page
   const start = (pageNum - 1) * pageSize;

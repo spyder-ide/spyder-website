@@ -65,6 +65,7 @@ export const socials = {
   facebook: "https://www.facebook.com/SpyderIDE/",
   mastodon: "https://fosstodon.org/@Spyder",
   instagram: "https://instagram.com/spyderide",
+  rss: `${base}/blog/feed.xml`
 };
 
 // Hero content
