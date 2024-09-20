@@ -35,7 +35,7 @@
   }
 
   $: ({ posts, pageNum, totalPages } = data.props);
-  $: image = data.image || "assets/media/blog_screenshot.webp";
+  $: image = data.image || "assets/media/blog_screenshot.png";
   $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
   $: metadata.setMetadata({
