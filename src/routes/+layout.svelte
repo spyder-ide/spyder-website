@@ -24,7 +24,7 @@
     $: title = data.title || `${siteTitle} | ${subtitle}`;
     $: description = data.description || siteDescription;
     $: keywords = data.keywords || siteKeywords.join(", ");
-    $: image = data.image || "assets/media/website_screenshot.png";
+    $: image = data.image || "assets/media/website_screenshot.webp";
     $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
     $: metadata.setMetadata({
