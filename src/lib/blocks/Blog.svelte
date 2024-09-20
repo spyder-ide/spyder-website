@@ -48,6 +48,7 @@
 
 <svelte:head>
   <link rel="canonical" href={url} />
+  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{url}/feed.xml">
 </svelte:head>
 
 <div class="container">
