@@ -1,14 +1,15 @@
 // Imports
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
+import { browser } from "$app/environment";
 
 //////////////////////////////////////////////////////////////////
 // Site config
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const siteUrl = dev
-  ? "http://localhost:5173/"
+export const siteUrl = browser
+  ? (dev ? "http://localhost:5173/" : `${window.location.protocol}//${window.location.host}/`)
   : "https://www.spyder-ide.org/";
 
 // Website metadata
