@@ -18,7 +18,7 @@ export const subtitle =
 export const comment =
   "Designed by the community, for the community";
 export const author = "Spyder Website Contributors";
-export const description = subtitle;
+export const description = "Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment";
 export const keywords = [
   "Python",
   "IDE",
@@ -34,6 +34,7 @@ export const keywords = [
 
 // Blog metadata
 export const blogTitle = "Welcome to Spyder's Blog";
+export const blogDescription = description;
 
 // Navigation
 export const navigation = [

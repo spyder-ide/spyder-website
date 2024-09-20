@@ -7,6 +7,7 @@
   import Pagination from "$lib/components/Pagination.svelte";
 
   import {
+    socials,
     siteUrl,
     title as siteTitle,
     author as siteAuthor,
@@ -16,7 +17,10 @@
   } from "$lib/config";
 
   export let data, pageNum, totalPages;
+
   const route = "blog";
+  const url = `${siteUrl}${route}`;
+  const site = `@${socials.twitter.split('/').pop()}`;
 
   let postsWithAuthor = [];
 
@@ -40,7 +44,8 @@
     keywords: blogKeywords.join(", "),
     author: siteAuthor,
     image: fullImageUrl,
-    url: siteUrl
+    site,
+    url
   });
 </script>
 

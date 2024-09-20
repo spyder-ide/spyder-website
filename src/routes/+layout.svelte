@@ -12,14 +12,17 @@
         author as siteAuthor,
         description as siteDescription,
         keywords as siteKeywords,
-        comment
+        subtitle,
+        socials
     } from "$lib/config";
 
     // Allow pages to override default metadata
     export let data = {};
 
-    $: title = data.title || `${siteTitle} | ${siteDescription}`;
-    $: description = data.description || comment;
+    const site = `@${socials.twitter.split('/').pop()}`;
+
+    $: title = data.title || `${siteTitle} | ${subtitle}`;
+    $: description = data.description || siteDescription;
     $: keywords = data.keywords || siteKeywords.join(", ");
     $: image = data.image || "assets/media/website_screenshot.png";
     $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
@@ -28,6 +31,7 @@
         title,
         description,
         keywords,
+        site,
         author: siteAuthor,
         url: siteUrl,
         image: fullImageUrl
@@ -52,11 +56,12 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={$metadata.site} />
     <meta name="twitter:url" content={$metadata.url} />
     <meta name="twitter:title" content={$metadata.title} />
     <meta name="twitter:description" content={$metadata.description} />
     <meta name="twitter:image" content={$metadata.image} />
-    <meta name="twitter:image:alt" content={`${$metadata.title} | ${$metadata.description}`} />
+    <meta name="twitter:image:alt" content={$metadata.title} />
 </svelte:head>
 
 <div class="layout grid h-full">
