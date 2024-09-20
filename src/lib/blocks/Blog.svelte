@@ -1,8 +1,10 @@
 <script>
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
+
+  import Loader from "$lib/components/Loader.svelte";
+  import Pagination from "$lib/components/Pagination.svelte";
 
   import {
     siteUrl,
@@ -13,13 +15,8 @@
     keywords as blogKeywords,
   } from "$lib/config";
 
-  import Loader from "$lib/components/Loader.svelte";
-  import Pagination from "$lib/components/Pagination.svelte";
-
   export let data, pageNum, totalPages;
-
-  $: ({ posts, pageNum, totalPages } = data.props);
-  $: route = "blog";
+  const route = "blog";
 
   let postsWithAuthor = [];
 
@@ -33,22 +30,23 @@
     }));
   }
 
-  $: url = $page.url.href;
-  $: fullImageUrl = `${siteUrl}/assets/media/blog_screenshot.png`;
+  $: ({ posts, pageNum, totalPages } = data.props);
+  $: image = data.image || "assets/media/blog_screenshot.png";
+  $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
   $: metadata.setMetadata({
     title: `${siteTitle} | ${blogTitle}`,
     description: blogDescription,
     keywords: blogKeywords.join(", "),
     author: siteAuthor,
-    url,
-    image: fullImageUrl
+    image: fullImageUrl,
+    url: siteUrl
   });
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={url} />
-  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{url}/feed.xml">
+  <link rel="canonical" href={siteUrl} />
+  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{siteUrl}feed.xml">
 </svelte:head>
 
 <div class="container">

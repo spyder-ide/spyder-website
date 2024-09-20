@@ -12,13 +12,14 @@
         author as siteAuthor,
         description as siteDescription,
         keywords as siteKeywords,
+        comment
     } from "$lib/config";
 
     // Allow pages to override default metadata
     export let data = {};
 
     $: title = data.title || `${siteTitle} | ${siteDescription}`;
-    $: description = data.description || siteDescription;
+    $: description = data.description || comment;
     $: keywords = data.keywords || siteKeywords.join(", ");
     $: image = data.image || "assets/media/website_screenshot.png";
     $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
@@ -50,11 +51,12 @@
     <meta property="og:site_name" content={siteTitle} />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={$metadata.url} />
-    <meta property="twitter:title" content={$metadata.title} />
-    <meta property="twitter:description" content={$metadata.description} />
-    <meta property="twitter:image" content={$metadata.image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={$metadata.url} />
+    <meta name="twitter:title" content={$metadata.title} />
+    <meta name="twitter:description" content={$metadata.description} />
+    <meta name="twitter:image" content={$metadata.image} />
+    <meta name="twitter:image:alt" content={`${$metadata.title} | ${$metadata.description}`} />
 </svelte:head>
 
 <div class="layout grid h-full">
