@@ -6,15 +6,7 @@
 
     import "../app.css";
 
-    import {
-        siteUrl,
-        title as siteTitle,
-        author as siteAuthor,
-        description as siteDescription,
-        keywords as siteKeywords,
-        subtitle,
-        socials,
-    } from "$lib/config";
+    import { title } from "$lib/config";
 </script>
 
 <svelte:head>
@@ -31,7 +23,7 @@
     <meta property="og:description" content={$metadata.description} />
     <meta property="og:image" content={$metadata.image} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:site_name" content={title} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

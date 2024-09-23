@@ -1,5 +1,6 @@
 <script>
     import { base } from "$app/paths";
+    import { browser } from "$app/environment"
     import { metadata } from "$lib/store";
     import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
@@ -24,21 +25,6 @@
 
     let postsWithAuthor = [];
 
-    $: if (posts) {
-        postsWithAuthor = Promise.all(
-            posts.map(async (post) => {
-                if (typeof window !== "undefined") {
-                    const authorMetadata = await fetchAuthorMetadata(
-                        post.meta.author,
-                    );
-                    return { ...post, authorMetadata };
-                }
-                return post;
-            }),
-        );
-    }
-
-    $: ({ posts, pageNum, totalPages } = data.props);
     $: image = data.image || "assets/media/blog_screenshot.png";
     $: fullImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
@@ -51,6 +37,21 @@
         site,
         url,
     });
+
+    $: ({ posts, pageNum, totalPages } = data.props);
+    $: if (posts) {
+        postsWithAuthor = Promise.all(
+            posts.map(async (post) => {
+                if (browser) {
+                    const authorMetadata = await fetchAuthorMetadata(
+                        post.meta.author,
+                    );
+                    return { ...post, authorMetadata };
+                }
+                return post;
+            }),
+        );
+    }
 </script>
 
 <svelte:head>
