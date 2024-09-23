@@ -13,29 +13,8 @@
         description as siteDescription,
         keywords as siteKeywords,
         subtitle,
-        socials
+        socials,
     } from "$lib/config";
-
-    // Allow pages to override default metadata
-    export let data = {};
-
-    const site = `@${socials.twitter.split('/').pop()}`;
-
-    $: title = data.title || `${siteTitle} | ${subtitle}`;
-    $: description = data.description || siteDescription;
-    $: keywords = data.keywords || siteKeywords.join(", ");
-    $: image = data.image || "assets/media/website_screenshot.png";
-    $: fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
-
-    $: metadata.setMetadata({
-        title,
-        description,
-        keywords,
-        site,
-        author: siteAuthor,
-        url: siteUrl,
-        image: fullImageUrl
-    });
 </script>
 
 <svelte:head>
