@@ -1,3 +1,5 @@
+import { compile } from 'mdsvex';
+
 const dataSrc = `https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100`;
 
 const currentContributors = [
@@ -6,6 +8,13 @@ const currentContributors = [
     name: "Carlos Córdoba",
     role: "Lead mantainer",
     latino: true,
+    tooltip: `
+      <ul>
+        <li>Revolutionized everything</li>
+        <li>Changed the world for the better</li>
+        <li>Made things better for everyone</li>
+      </ul>
+      `
   },
   {
     id: 16781833,
@@ -118,15 +127,15 @@ const textData = {
   remainingIntro: `Spyder is made possible by a collective of developers, testers, translators and donors, hailing from all around the globe!
     We exist by and for our worldwide community, and even the smallest contribution makes a world of different for us all.`,
   diversityTitle: `Diversity and Inclusion`,
-  diversityIntro: `We're proud of our highly diverse core devs contributors and user community, 
+  diversityIntro: `We're proud of our highly diverse core devs contributors and user community,
     bringing numerous distinct backgrounds and perspectives to the table.
     The Spyder team is led by, majority-composed-of, and recruits heavily from countries, languages, ethnicities and gender identities historically underrepresented in science and open source software, particularly in Latin America.
     Our contributors come from every inhabited continent on Earth and dozens of countries all around the world, each bringing unique needs and perspectives to the table.
     What's more, we help translate Spyder into almost a dozen languages for our user community across the globe, and we welcome you to join us!`,
 };
 
-function processContributors(current, past, all) {
-  // Update current contributors from GitHub with custom data
+const processContributors = (current, past, all) => {
+  // Update current/past contributors from GitHub with custom data
   const updateContributor = (contributor, allContributors) => {
     const match = allContributors.find((c) => c.id === contributor.id);
     return match ? { ...match, ...contributor } : contributor;
@@ -135,7 +144,7 @@ function processContributors(current, past, all) {
   const updatedCurrent = current.map((contributor) => updateContributor(contributor, all));
   const updatedPast = past.map((contributor) => updateContributor(contributor, all));
 
-  // Get the remaining contributors that are not in the current list
+  // Get the remaining contributors that are not in the current/past lists
   const remainingContributors = all.filter(
     (contributor) =>
       !current.some((c) => c.id === contributor.id) &&
