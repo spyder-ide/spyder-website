@@ -1,6 +1,19 @@
 <script>
+  import { Icon } from "svelte-icons-pack";
+  import { BsInfoCircle } from "svelte-icons-pack/bs";
+
+  import { tooltip } from "svooltip";
+  import "svooltip/styles.css";
+
   export let contributor;
   export let size = "medium";
+  export let tooltipOptions = {
+    content: contributor.tooltip,
+    placement: "bottom",
+    delay: [300, 300],
+    offset: 15,
+    html: true
+  };
 </script>
 
 <div
@@ -38,6 +51,14 @@
       {#if contributor.role}
         <p class="text-gray-600 dark:text-gray-400 text-sm">
           {contributor.role}
+          {#if contributor.tooltip}
+            <button
+              class="hover:text-red-berry-900 inline-flex align-middle ml-1"
+              use:tooltip={tooltipOptions}
+            >
+              <Icon src={BsInfoCircle} size={14} />
+            </button>
+          {/if}
         </p>
       {/if}
     </div>
