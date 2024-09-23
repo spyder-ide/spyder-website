@@ -1,5 +1,3 @@
-import { compile } from 'mdsvex';
-
 const dataSrc = `https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100`;
 
 const currentContributors = [
