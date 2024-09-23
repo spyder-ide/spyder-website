@@ -1,5 +1,5 @@
 import { metadata } from "$lib/store";
-import { siteUrl, title, description, keywords, author } from "$lib/config";
+import { siteUrl, title, subtitle, description, keywords, author } from "$lib/config";
 
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
@@ -203,7 +203,7 @@ frontPage = {
 export function load() {
   // Set metadata for the home page
   metadata.setMetadata({
-    title: `${title} | ${description}`,
+    title: `${title} | ${subtitle}`,
     description,
     keywords: keywords.join(", "),
     author,
