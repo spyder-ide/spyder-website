@@ -7,13 +7,37 @@
 
   export let contributor;
   export let size = "medium";
-  export let tooltipOptions = {
-    content: contributor.tooltip,
-    placement: "bottom",
-    delay: [300, 300],
-    offset: 15,
-    html: true
+
+  // Function to generate HTML string from tooltip
+  const generateTooltipHTML = (content) => {
+    let htmlString = `<div class='flex flex-direction-col gap-4'>`;
+    content.forEach((item) => {
+      htmlString += "<div>";
+      htmlString += `<h3 class="text-[130%] text-red-berry-900">${item.title}</h3>`;
+      htmlString += '<ul class="list-disc list-inside">';
+      item.list.forEach((listItem) => {
+        htmlString += `<li>${listItem}</li>`;
+      });
+      htmlString += "</ul>";
+      htmlString += "</div>";
+    });
+    htmlString += "</div>"
+
+    return htmlString;
   };
+
+  let tooltipHTML, tooltipOptions;
+
+  if (contributor.tooltip) {
+    tooltipHTML = generateTooltipHTML(contributor.tooltip);
+    tooltipOptions = {
+      content: tooltipHTML,
+      placement: "bottom",
+      delay: [300, 300],
+      offset: 15,
+      html: true,
+    };
+  }
 </script>
 
 <div
@@ -64,3 +88,13 @@
     </div>
   {/if}
 </div>
+
+<style>
+  :root {
+    --svooltip-bg: #fff;
+    --svooltip-text: rgb(55, 65, 81);
+    --svooltip-padding: 1rem 1.2rem;
+    --svooltip-text-size: 12px;
+    --svooltip-shadow: 0 3px 7px rgb(0 0 0 / 0.25);
+  }
+</style>

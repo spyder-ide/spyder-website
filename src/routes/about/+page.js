@@ -6,13 +6,24 @@ const currentContributors = [
     name: "Carlos Córdoba",
     role: "Lead mantainer",
     latino: true,
-    tooltip: `
-      <ul>
-        <li>Revolutionized everything</li>
-        <li>Changed the world for the better</li>
-        <li>Made things better for everyone</li>
-      </ul>
-      `
+    tooltip: [
+      {
+        title: "Header 1",
+        list: [
+           "Revolutionized everything",
+           "Changed the world for the better",
+           "Made things better for everyone"
+        ]
+      },
+      {
+        title: "Header 2",
+        list: [
+           "More items",
+           "a lot of different stuff",
+           "The salted pork is particulary good"
+        ]
+      }
+    ]
   },
   {
     id: 16781833,
