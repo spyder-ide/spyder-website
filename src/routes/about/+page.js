@@ -19,7 +19,7 @@ const currentContributors = [
         title: "Header 2",
         list: [
            "More items",
-           "a lot of different stuff",
+           "A lot of different stuff. This can be a particularly long line, for example",
            "The salted pork is particulary good"
         ]
       }
