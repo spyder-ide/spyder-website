@@ -10,18 +10,15 @@
 
   // Function to generate HTML string from tooltip
   const generateTooltipHTML = (content) => {
-    let htmlString = `<div class='flex flex-direction-col gap-4'>`;
+    let htmlString = `<div class='flex flex-col gap-2'>`;
     content.forEach((item) => {
-      htmlString += "<div>";
-      htmlString += `<h3 class="text-[130%] text-red-berry-900">${item.title}</h3>`;
-      htmlString += '<ul class="list-disc list-inside">';
+      htmlString += `<div><h3 class="text-[124%] text-red-berry-900">${item.title}</h3><ul class="list-disc list-inside">`;
       item.list.forEach((listItem) => {
         htmlString += `<li>${listItem}</li>`;
       });
-      htmlString += "</ul>";
-      htmlString += "</div>";
+      htmlString += "</ul></div>";
     });
-    htmlString += "</div>"
+    htmlString += "</div>";
 
     return htmlString;
   };
