@@ -20,24 +20,17 @@
   export let summary;
 
   let authorMetadata = { src: "", name: "" };
-  let firstImageURL = "";
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
-    console.log($page.data);
-    // Capture slot content after render
-    const slotContent = document.querySelector(".post-content").innerHTML;
-    const match = slotContent.match(/src="([^"]+)"/);
-    firstImageURL = match ? `${$page.url.href}${match[1]}` : "";
-  });
-
-  $: metadata.setMetadata({
-    title: `${siteTitle} | ${title}`,
-    description: summary,
-    keywords: `${tags}, ${category}`,
-    author: authorMetadata.name || author,
-    url: $page.url.href,
-    image: firstImageURL || ogImageBlog // Use firstImageURL instead of ogImageBlog
+    metadata.setMetadata({
+      title: `${siteTitle} | ${title}`,
+      description: summary,
+      keywords: `${tags}, ${category}`,
+      author: authorMetadata.name || author,
+      url: $page.url.href,
+      image: ogImageBlog
+    });
   });
 
 </script>
