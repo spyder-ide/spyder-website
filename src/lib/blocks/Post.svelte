@@ -33,7 +33,6 @@
     url: $page.url.href,
     image: ogImageBlog,
   });
-
 </script>
 
 <svelte:head>
@@ -68,7 +67,16 @@
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
     <h1
-      class="text-2xl md:text-4xl lg:tracking-tight xl:text-6xl text-center font-light md:font-extralight tracking-tight text-mine-shaft-600 dark:text-mine-shaft-200"
+      class="text-2xl
+      md:text-4xl
+      lg:tracking-tight
+      xl:text-6xl
+      text-center
+      font-light
+      md:font-extralight
+      tracking-tight
+      text-mine-shaft-600
+      dark:text-mine-shaft-200"
     >
       {title}
     </h1>
@@ -89,7 +97,13 @@
     </div>
   </div>
   <div
-    class="prose prose-lg dark:prose-invert prose-headings:font-medium prose-p:font-light max-w-[72ch] mx-auto"
+    class="prose
+    prose-lg
+    dark:prose-invert
+    prose-headings:font-medium
+    prose-p:font-light
+    max-w-[72ch]
+    mx-auto"
   >
     <slot />
   </div>
