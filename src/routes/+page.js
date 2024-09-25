@@ -1,5 +1,13 @@
 import { metadata } from "$lib/store";
-import { siteUrl, title, subtitle, description, keywords, author } from "$lib/config";
+import {
+  siteUrl,
+  title,
+  subtitle,
+  description,
+  keywords,
+  author,
+  ogImage,
+} from "$lib/config";
 
 // Content for blocks
 import Interactive from "$lib/content/interactive.md";
@@ -75,8 +83,9 @@ frontPage = {
                   src: "/assets/media/help.mp4",
                 },
               ],
-              videoCaption: "Get help for code you're working on with one click",
-            }
+              videoCaption:
+                "Get help for code you're working on with one click",
+            },
           },
           {
             title: "Editor",
@@ -208,7 +217,7 @@ export function load() {
     keywords: keywords.join(", "),
     author,
     url: siteUrl,
-    image: `${siteUrl}/assets/media/website_screenshot.png`
+    image: ogImage,
   });
 
   return frontPage;
