@@ -20,9 +20,15 @@
   export let summary;
 
   let authorMetadata = { src: "", name: "" };
+  let firstImageURL = "";
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
+    console.log($page.data);
+    // Capture slot content after render
+    const slotContent = document.querySelector(".post-content").innerHTML;
+    const match = slotContent.match(/src="([^"]+)"/);
+    firstImageURL = match ? `${$page.url.href}${match[1]}` : "";
   });
 
   $: metadata.setMetadata({
@@ -31,7 +37,7 @@
     keywords: `${tags}, ${category}`,
     author: authorMetadata.name || author,
     url: $page.url.href,
-    image: ogImageBlog,
+    image: firstImageURL || ogImageBlog // Use firstImageURL instead of ogImageBlog
   });
 
 </script>
@@ -89,7 +95,7 @@
     </div>
   </div>
   <div
-    class="prose prose-lg dark:prose-invert prose-headings:font-medium prose-p:font-light max-w-[72ch] mx-auto"
+    class="prose prose-lg dark:prose-invert prose-headings:font-medium prose-p:font-light max-w-[72ch] mx-auto post-content"
   >
     <slot />
   </div>
