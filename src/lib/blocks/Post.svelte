@@ -3,10 +3,7 @@
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import {
-    title as siteTitle,
-    ogImageBlog,
-  } from "$lib/config";
+  import { title as siteTitle, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   // svelte-ignore unused-export-let
@@ -24,20 +21,17 @@
 
   let authorMetadata = { src: "", name: "" };
 
-  function updateMetadata() {
-    metadata.setMetadata({
-      title: `${siteTitle} | ${title}`,
-      description: summary,
-      keywords: `${tags}, ${category}`,
-      author: authorMetadata.name || author,
-      url: $page.url.href,
-      image: ogImageBlog,
-    });
-  }
-
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
-    updateMetadata();
+  });
+
+  $: metadata.setMetadata({
+    title: `${siteTitle} | ${title}`,
+    description: summary,
+    keywords: `${tags}, ${category}`,
+    author: authorMetadata.name || author,
+    url: $page.url.href,
+    image: ogImageBlog,
   });
 
 </script>
