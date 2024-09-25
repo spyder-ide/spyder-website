@@ -1,9 +1,12 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { siteUrl, title as siteTitle } from "$lib/config";
+  import {
+    title as siteTitle,
+    ogImageBlog,
+  } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   // svelte-ignore unused-export-let
@@ -21,30 +24,51 @@
 
   let authorMetadata = { src: "", name: "" };
 
-  onMount(async () => {
-    if (typeof window !== 'undefined') {
-      authorMetadata = await fetchAuthorMetadata(author);
-      updateMetadata();
-    }
-  });
-
-  $: url = $page.url.href;
-
   function updateMetadata() {
     metadata.setMetadata({
       title: `${siteTitle} | ${title}`,
       description: summary,
       keywords: `${tags}, ${category}`,
       author: authorMetadata.name || author,
-      url,
-      image: `${siteUrl}/assets/media/blog_screenshot.png`
+      url: $page.url.href,
+      image: ogImageBlog,
     });
   }
+
+  onMount(async () => {
+    authorMetadata = await fetchAuthorMetadata(author);
+    updateMetadata();
+  });
+
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css">
-  <link rel="canonical" href={url} />
+  <title>{$metadata.title}</title>
+  <meta name="description" content={$metadata.description} />
+  <meta name="keywords" content={$metadata.keywords} />
+  <meta name="author" content={$metadata.author} />
+  <link rel="canonical" href={$metadata.url} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={$metadata.url} />
+  <meta property="og:title" content={$metadata.title} />
+  <meta property="og:description" content={$metadata.description} />
+  <meta property="og:image" content={$metadata.image} />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content={title} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content={$metadata.site} />
+  <meta name="twitter:url" content={$metadata.url} />
+  <meta name="twitter:title" content={$metadata.title} />
+  <meta name="twitter:description" content={$metadata.description} />
+  <meta name="twitter:image" content={$metadata.image} />
+  <meta name="twitter:image:alt" content={$metadata.title} />
+
+  <!-- Nord stylesheet for code blocks with prism -->
+  <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css" />
 </svelte:head>
 
 <article class="container">
@@ -56,7 +80,11 @@
     </h1>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
       {#if authorMetadata.src}
-        <img class="w-24 h-24 rounded-full object-cover" src={authorMetadata.src} alt={author} />
+        <img
+          class="w-24 h-24 rounded-full object-cover"
+          src={authorMetadata.src}
+          alt={author}
+        />
       {/if}
       <div class="font-light text-center">
         {authorMetadata.name || author}
