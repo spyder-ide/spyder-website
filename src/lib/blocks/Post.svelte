@@ -23,14 +23,15 @@
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
-    metadata.setMetadata({
-      title: `${siteTitle} | ${title}`,
-      description: summary,
-      keywords: `${tags}, ${category}`,
-      author: authorMetadata.name || author,
-      url: $page.url.href,
-      image: ogImageBlog
-    });
+  });
+
+  $: metadata.setMetadata({
+    title: `${siteTitle} | ${title}`,
+    description: summary,
+    keywords: `${tags}, ${category}`,
+    author: authorMetadata.name || author,
+    url: $page.url.href,
+    image: ogImageBlog,
   });
 
 </script>
@@ -88,7 +89,7 @@
     </div>
   </div>
   <div
-    class="prose prose-lg dark:prose-invert prose-headings:font-medium prose-p:font-light max-w-[72ch] mx-auto post-content"
+    class="prose prose-lg dark:prose-invert prose-headings:font-medium prose-p:font-light max-w-[72ch] mx-auto"
   >
     <slot />
   </div>
