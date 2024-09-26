@@ -6,9 +6,9 @@
 
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
   import {
-    socials,
     siteUrl,
     title as siteTitle,
     author as siteAuthor,
@@ -19,8 +19,6 @@
   } from "$lib/config";
 
   export let data, pageNum, totalPages;
-
-  const site = `@${socials.twitter.split("/").pop()}`;
 
   let postsWithAuthor = [];
 
@@ -51,39 +49,7 @@
   $: console.log($page);
 </script>
 
-<svelte:head>
-  <title>{$metadata.title}</title>
-  <meta name="description" content={$metadata.description} />
-  <meta name="keywords" content={$metadata.keywords} />
-  <meta name="author" content={$metadata.author} />
-  <link rel="canonical" href={$metadata.url} />
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="Spyder's Blog"
-    href="{$metadata.url}feed.xml"
-  />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={$metadata.url} />
-  <meta property="og:title" content={$metadata.title} />
-  <meta property="og:description" content={$metadata.description} />
-  <meta property="og:image" content={$metadata.image} />
-  <meta property="og:image:secure_url" content={$metadata.image} />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:site_name" content={site} />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:domain" content={$page.url.host} />
-  <meta property="twitter:url" content={$metadata.url} />
-  <meta name="twitter:site" content={$metadata.site} />
-  <meta name="twitter:title" content={$metadata.title} />
-  <meta name="twitter:description" content={$metadata.description} />
-  <meta name="twitter:image" content={$metadata.image} />
-  <meta name="twitter:image:alt" content={$metadata.title} />
-</svelte:head>
+<Metadata/>
 
 <div class="container">
   <h1
