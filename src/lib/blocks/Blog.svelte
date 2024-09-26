@@ -9,6 +9,7 @@
 
   import {
     socials,
+    siteUrl,
     title as siteTitle,
     author as siteAuthor,
     blogTitle,
@@ -109,7 +110,7 @@
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
               <a
                 class="post-link"
-                href="{$page.url.href}{post.path}"
+                href="{siteUrl}blog/{post.path}"
                 title={post.meta.title}
               >
                 {post.meta.title}
@@ -135,7 +136,7 @@
             </p>
             <a
               class="block text-right mt-4"
-              href="{$page.url.href}{post.path}"
+              href="{siteUrl}blog/{post.path}"
               title={post.meta.title}
             >
               Read More&hellip;
@@ -143,7 +144,7 @@
           </article>
         {/each}
       </div>
-      <Pagination {pageNum} {totalPages} route={$page.url.href} />
+      <Pagination {pageNum} {totalPages} route="blog" />
     {:catch error}
       <p>Error loading posts: {error.message}</p>
     {/await}
