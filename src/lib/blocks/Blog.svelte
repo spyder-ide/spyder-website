@@ -53,13 +53,31 @@
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={siteUrl} />
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="Spyder's Blog"
-    href="{siteUrl}feed.xml"
-  />
+  <title>{$metadata.title}</title>
+  <meta name="description" content={$metadata.description} />
+  <meta name="keywords" content={$metadata.keywords} />
+  <meta name="author" content={$metadata.author} />
+  <link rel="canonical" href={$metadata.url} />
+  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{$metadata.url}feed.xml" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={$metadata.url} />
+  <meta property="og:title" content={$metadata.title} />
+  <meta property="og:description" content={$metadata.description} />
+  <meta property="og:image" content={$metadata.image} />
+  <meta property="og:image:secure_url" content={$metadata.image} />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content={site} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:site" name="twitter:site" content={$metadata.site} />
+  <meta property="twitter:url" name="twitter:url" content={$metadata.url} />
+  <meta property="twitter:title" name="twitter:title" content={$metadata.title} />
+  <meta property="twitter:description" name="twitter:description" content={$metadata.description} />
+  <meta property="twitter:image" name="twitter:image" content={$metadata.image} />
+  <meta property="twitter:image:alt" name="twitter:image:alt" content={$metadata.title} />
 </svelte:head>
 
 <div class="container">

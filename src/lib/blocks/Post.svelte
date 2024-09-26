@@ -3,7 +3,7 @@
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { title as siteTitle, ogImageBlog } from "$lib/config";
+  import { title as siteTitle, ogImageBlog, socials } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   // svelte-ignore unused-export-let
@@ -20,6 +20,7 @@
   export let summary;
 
   let authorMetadata = { src: "", name: "" };
+  let site = `@${socials.twitter.split("/").pop()}`;
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
@@ -41,6 +42,7 @@
   <meta name="keywords" content={$metadata.keywords} />
   <meta name="author" content={$metadata.author} />
   <link rel="canonical" href={$metadata.url} />
+  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{$metadata.url}feed.xml" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -48,17 +50,18 @@
   <meta property="og:title" content={$metadata.title} />
   <meta property="og:description" content={$metadata.description} />
   <meta property="og:image" content={$metadata.image} />
+  <meta property="og:image:secure_url" content={$metadata.image} />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:site_name" content={title} />
+  <meta property="og:site_name" content={site} />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content={$metadata.site} />
-  <meta name="twitter:url" content={$metadata.url} />
-  <meta name="twitter:title" content={$metadata.title} />
-  <meta name="twitter:description" content={$metadata.description} />
-  <meta name="twitter:image" content={$metadata.image} />
-  <meta name="twitter:image:alt" content={$metadata.title} />
+  <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:site" name="twitter:site" content={$metadata.site} />
+  <meta property="twitter:url" name="twitter:url" content={$metadata.url} />
+  <meta property="twitter:title" name="twitter:title" content={$metadata.title} />
+  <meta property="twitter:description" name="twitter:description" content={$metadata.description} />
+  <meta property="twitter:image" name="twitter:image" content={$metadata.image} />
+  <meta property="twitter:image:alt" name="twitter:image:alt" content={$metadata.title} />
 
   <!-- Nord stylesheet for code blocks with prism -->
   <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css" />
@@ -75,6 +78,7 @@
       font-light
       md:font-extralight
       tracking-tight
+      text-balance
       text-mine-shaft-600
       dark:text-mine-shaft-200"
     >
