@@ -1,6 +1,7 @@
 <script>
   import Blog from "$lib/blocks/Blog.svelte";
 
+  /** @type {import('./$types').PageData} */
   export let data;
 
   let pageNum, totalPages;

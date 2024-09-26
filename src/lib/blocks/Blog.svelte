@@ -1,6 +1,6 @@
 <script>
-  import { base } from "$app/paths";
   import { browser } from "$app/environment";
+  import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
@@ -9,36 +9,32 @@
 
   import {
     socials,
-    siteUrl,
     title as siteTitle,
     author as siteAuthor,
     blogTitle,
     description as blogDescription,
     keywords as blogKeywords,
+    ogImageBlog,
   } from "$lib/config";
 
   export let data, pageNum, totalPages;
 
-  const route = "blog";
-  const url = `${siteUrl}${route}`;
   const site = `@${socials.twitter.split("/").pop()}`;
 
   let postsWithAuthor = [];
-
-  $: image = data.image || "assets/media/blog_screenshot.png";
-  $: fullImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
   $: metadata.setMetadata({
     title: `${siteTitle} | ${blogTitle}`,
     description: blogDescription,
     keywords: blogKeywords.join(", "),
     author: siteAuthor,
-    image: fullImageUrl,
+    image: ogImageBlog,
     site,
-    url,
+    url: $page.url.href,
   });
 
   $: ({ posts, pageNum, totalPages } = data.props);
+
   $: if (posts) {
     postsWithAuthor = Promise.all(
       posts.map(async (post) => {
@@ -50,6 +46,8 @@
       }),
     );
   }
+
+  $: console.log($page);
 </script>
 
 <svelte:head>
@@ -58,7 +56,12 @@
   <meta name="keywords" content={$metadata.keywords} />
   <meta name="author" content={$metadata.author} />
   <link rel="canonical" href={$metadata.url} />
-  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{$metadata.url}feed.xml" />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Spyder's Blog"
+    href="{$metadata.url}feed.xml"
+  />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -71,18 +74,27 @@
   <meta property="og:site_name" content={site} />
 
   <!-- Twitter -->
-  <meta property="twitter:card" name="twitter:card" content="summary_large_image" />
-  <meta property="twitter:site" name="twitter:site" content={$metadata.site} />
-  <meta property="twitter:url" name="twitter:url" content={$metadata.url} />
-  <meta property="twitter:title" name="twitter:title" content={$metadata.title} />
-  <meta property="twitter:description" name="twitter:description" content={$metadata.description} />
-  <meta property="twitter:image" name="twitter:image" content={$metadata.image} />
-  <meta property="twitter:image:alt" name="twitter:image:alt" content={$metadata.title} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="twitter:domain" content={$page.url.host} />
+  <meta property="twitter:url" content={$metadata.url} />
+  <meta name="twitter:site" content={$metadata.site} />
+  <meta name="twitter:title" content={$metadata.title} />
+  <meta name="twitter:description" content={$metadata.description} />
+  <meta name="twitter:image" content={$metadata.image} />
+  <meta name="twitter:image:alt" content={$metadata.title} />
 </svelte:head>
 
 <div class="container">
   <h1
-    class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32"
+    class="text-4xl
+      xl:tracking-tight
+      xl:text-6xl
+      text-center
+      tracking-tight
+      font-extralight
+      text-mine-shaft-600
+      dark:text-mine-shaft-200
+      my-16 md:my-32"
   >
     {blogTitle}
   </h1>
@@ -97,7 +109,7 @@
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
               <a
                 class="post-link"
-                href="{base}/{route}/{post.path}"
+                href="{$page.url.href}{post.path}"
                 title={post.meta.title}
               >
                 {post.meta.title}
@@ -123,7 +135,7 @@
             </p>
             <a
               class="block text-right mt-4"
-              href="{base}/{route}/{post.path}"
+              href="{$page.url.href}{post.path}"
               title={post.meta.title}
             >
               Read More&hellip;
@@ -131,7 +143,7 @@
           </article>
         {/each}
       </div>
-      <Pagination {pageNum} {totalPages} {route} />
+      <Pagination {pageNum} {totalPages} route={$page.url.href} />
     {:catch error}
       <p>Error loading posts: {error.message}</p>
     {/await}
