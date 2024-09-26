@@ -1,14 +1,15 @@
 // Imports
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
+import { browser } from "$app/environment";
 
 //////////////////////////////////////////////////////////////////
 // Site config
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const siteUrl = dev
-  ? "http://localhost:5173/"
+export const siteUrl = browser
+  ? (dev ? "http://localhost:5173/" : `${window.location.protocol}//${window.location.host}/`)
   : "https://www.spyder-ide.org/";
 
 // Website metadata
@@ -18,7 +19,8 @@ export const subtitle =
 export const comment =
   "Designed by the community, for the community";
 export const author = "Spyder Website Contributors";
-export const description = subtitle;
+export const description = "Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment";
+export const ogImage = `${siteUrl}assets/media/website_screenshot.png`;
 export const keywords = [
   "Python",
   "IDE",
@@ -34,6 +36,8 @@ export const keywords = [
 
 // Blog metadata
 export const blogTitle = "Welcome to Spyder's Blog";
+export const blogDescription = description;
+export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 
 // Navigation
 export const navigation = [

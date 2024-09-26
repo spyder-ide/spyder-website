@@ -1,10 +1,14 @@
 <script>
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
+  import { browser } from "$app/environment";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
+  import Loader from "$lib/components/Loader.svelte";
+  import Pagination from "$lib/components/Pagination.svelte";
+
   import {
+    socials,
     siteUrl,
     title as siteTitle,
     author as siteAuthor,
@@ -13,46 +17,55 @@
     keywords as blogKeywords,
   } from "$lib/config";
 
-  import Loader from "$lib/components/Loader.svelte";
-  import Pagination from "$lib/components/Pagination.svelte";
-
   export let data, pageNum, totalPages;
 
-  $: ({ posts, pageNum, totalPages } = data.props);
-  $: route = "blog";
+  const route = "blog";
+  const url = `${siteUrl}${route}`;
+  const site = `@${socials.twitter.split("/").pop()}`;
 
   let postsWithAuthor = [];
 
-  $: if (posts) {
-    postsWithAuthor = Promise.all(posts.map(async (post) => {
-      if (typeof window !== "undefined") {
-        const authorMetadata = await fetchAuthorMetadata(post.meta.author);
-        return { ...post, authorMetadata };
-      }
-      return post;
-    }));
-  }
-
-  $: url = $page.url.href;
-  $: fullImageUrl = `${siteUrl}/assets/media/blog_screenshot.png`;
+  $: image = data.image || "assets/media/blog_screenshot.png";
+  $: fullImageUrl = image.startsWith("http") ? image : `${siteUrl}${image}`;
 
   $: metadata.setMetadata({
     title: `${siteTitle} | ${blogTitle}`,
     description: blogDescription,
     keywords: blogKeywords.join(", "),
     author: siteAuthor,
+    image: fullImageUrl,
+    site,
     url,
-    image: fullImageUrl
   });
+
+  $: ({ posts, pageNum, totalPages } = data.props);
+  $: if (posts) {
+    postsWithAuthor = Promise.all(
+      posts.map(async (post) => {
+        if (browser) {
+          const authorMetadata = await fetchAuthorMetadata(post.meta.author);
+          return { ...post, authorMetadata };
+        }
+        return post;
+      }),
+    );
+  }
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={url} />
-  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href="{url}/feed.xml">
+  <link rel="canonical" href={siteUrl} />
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Spyder's Blog"
+    href="{siteUrl}feed.xml"
+  />
 </svelte:head>
 
 <div class="container">
-  <h1 class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32">
+  <h1
+    class="text-4xl xl:tracking-tight xl:text-6xl text-center tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 my-16 md:my-32"
+  >
     {blogTitle}
   </h1>
 
@@ -64,7 +77,11 @@
         {#each loadedPosts as post}
           <article>
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
-              <a class="post-link" href="{base}/{route}/{post.path}" title={post.meta.title}>
+              <a
+                class="post-link"
+                href="{base}/{route}/{post.path}"
+                title={post.meta.title}
+              >
                 {post.meta.title}
               </a>
             </h2>
@@ -83,7 +100,9 @@
                 </div>
               </div>
             {/if}
-            <p class="text-gray-700 dark:text-gray-300 font-light">{post.meta.summary}</p>
+            <p class="text-gray-700 dark:text-gray-300 font-light">
+              {post.meta.summary}
+            </p>
             <a
               class="block text-right mt-4"
               href="{base}/{route}/{post.path}"
