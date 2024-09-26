@@ -16,11 +16,13 @@
     description as blogDescription,
     keywords as blogKeywords,
     ogImageBlog,
+    socials
   } from "$lib/config";
 
   export let data, pageNum, totalPages;
 
   let postsWithAuthor = [];
+  const site = `@${socials.twitter.split("/").pop()}`;
 
   $: metadata.setMetadata({
     title: `${siteTitle} | ${blogTitle}`,
@@ -45,8 +47,6 @@
       }),
     );
   }
-
-  $: console.log($page);
 </script>
 
 <Metadata/>
