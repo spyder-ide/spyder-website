@@ -305,3 +305,6 @@ dist
 
 # Svelte-kit files
 .svelte-kit
+
+# Generated OG images
+static/assets/og
