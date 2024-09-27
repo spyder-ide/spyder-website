@@ -1,5 +1,13 @@
 import { metadata } from "$lib/store";
-import { siteUrl, title, description, keywords, author } from "$lib/config";
+import {
+  siteUrl,
+  title,
+  subtitle,
+  description,
+  keywords,
+  author,
+  ogImage,
+} from "$lib/config";
 
 // Content blocks
 let frontPage = {
@@ -56,8 +64,9 @@ let frontPage = {
                   src: "/assets/media/help.mp4",
                 },
               ],
-              videoCaption: "Get help for code you're working on with one click",
-            }
+              videoCaption:
+                "Get help for code you're working on with one click",
+            },
           },
           {
             title: "Editor",
@@ -266,12 +275,12 @@ let frontPage = {
 export function load() {
   // Set metadata for the home page
   metadata.setMetadata({
-    title: `${title} | ${description}`,
+    title: `${title} | ${subtitle}`,
     description,
     keywords: keywords.join(", "),
     author,
     url: siteUrl,
-    image: `${siteUrl}/assets/media/website_screenshot.png`
+    image: ogImage,
   });
 
   return frontPage;

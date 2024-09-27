@@ -21,9 +21,12 @@ if (browser) {
 function createMetadata() {
   const { subscribe, set, update } = writable({
     title: "",
-    author: "",
     description: "",
     keywords: "",
+    author: "",
+    url: "",
+    image: "",
+    site: ""
   });
 
   return {
@@ -32,9 +35,12 @@ function createMetadata() {
     reset: () =>
       set({
         title: "",
-        author: "",
         description: "",
         keywords: "",
+        author: "",
+        url: "",
+        image: "",
+        site: ""
       }),
   };
 }
