@@ -1,6 +1,7 @@
 <script>
   import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
   export let data;
   let blocks = data.props.blocks;
@@ -13,3 +14,5 @@
     <svelte:component this={block.content} />
   </ContentBlock>
 {/each}
+
+<Metadata/>
