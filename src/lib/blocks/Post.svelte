@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { title as siteTitle, ogImageBlog } from "$lib/config";
+  import { title as siteTitle, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
 
   import Metadata from "$lib/components/Metadata.svelte";
@@ -21,6 +21,8 @@
   export let summary;
 
   let authorMetadata = { src: "", name: "" };
+  const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
+  const customOgImagePath = `${$page.url.origin}/assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
@@ -32,7 +34,7 @@
     keywords: `${tags}, ${category}`,
     author: authorMetadata.name || author,
     url: $page.url.href,
-    image: ogImageBlog,
+    image: customOgImagePath || ogImageBlog,
   });
 </script>
 

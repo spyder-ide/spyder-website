@@ -37,6 +37,8 @@ export const keywords = [
 // Blog metadata
 export const blogTitle = "Welcome to Spyder's Blog";
 export const blogDescription = description;
+export const blogSlug = "blog";
+export const ogSlug = "og";
 export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 
 // Navigation
@@ -51,7 +53,7 @@ export const navigation = [
   [
     {
       text: "Blog",
-      href: `${base}/blog/`,
+      href: `${base}/${blogSlug}/`,
       target: "_self",
     },
     {

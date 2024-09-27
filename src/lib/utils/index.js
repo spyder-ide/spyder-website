@@ -54,9 +54,9 @@ export function formattedPubDate(date) {
 }
 
 // Fetch the author's metadata
-export async function fetchAuthorMetadata(author) {
+export async function fetchAuthorMetadata(author, customFetch) {
   try {
-    const response = await fetch(`/assets/authors/${author}/metadata.json`);
+    const response = await (customFetch || fetch)(`/assets/authors/${author}/metadata.json`);
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
     }
