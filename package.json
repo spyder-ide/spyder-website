@@ -19,7 +19,7 @@
     "mdsvex": "^0.11.0",
     "postcss": "^8.4.38",
     "svelte": "^4.2.12",
-    "svelte-youtube-embed": "^0.2.3",
+    "svelte-youtube-embed": "^0.3.0",
     "tailwindcss": "^3.4.3",
     "vite": "^5.1.6"
   },

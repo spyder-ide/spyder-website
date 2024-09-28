@@ -1,7 +1,7 @@
 <script>
     import { page } from "$app/stores";
     import { base } from "$app/paths";
-    import { socials } from "$lib/config";
+    import { socials, siteUrl, blogSlug } from "$lib/config";
     import { metadata } from "$lib/store";
 
     const site = `@${socials.twitter.split("/").pop()}`;
@@ -20,7 +20,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="Spyder's Blog"
-    href="{$metadata.url}feed.xml"
+    href="{siteUrl}{blogSlug}/feed.xml"
   />
 
   <!-- Open Graph / Facebook -->
