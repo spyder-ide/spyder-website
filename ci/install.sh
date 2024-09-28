@@ -1,3 +1,3 @@
 #!/bin/bash -ex
 
-npm install
+npm install --build-from-source
