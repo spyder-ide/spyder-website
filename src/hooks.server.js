@@ -134,3 +134,5 @@ export async function handle({ event, resolve }) {
 
   return resolve(event);
 }
+
+export const prerender = true;
