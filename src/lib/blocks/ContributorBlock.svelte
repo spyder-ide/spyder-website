@@ -13,7 +13,7 @@
   class:max-w-full={size === "large"}
 >
   {#if title}
-    <h2 class="text-4xl font-extralight text-red-berry-900 dark:text-neutral-400 mt-32 mb-16">
+    <h2 class="text-4xl text-red-berry-900 dark:text-neutral-400 mt-32 mb-16">
       {title}
     </h2>
   {/if}

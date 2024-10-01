@@ -32,7 +32,7 @@
   >
     {pageTitle}
   </h1>
-  <h2 class="text-center dark:text-neutral-200 text-2xl font-light mb-4">
+  <h2 class="text-center dark:text-neutral-200 text-xl font-light mb-4 max-w-6xl mx-auto">
     {pageIntro}
   </h2>
   {#if error}
