@@ -7,7 +7,16 @@ import { siteUrl, ogSlug, blogSlug } from "$lib/config"
 // Export the join function from the path module for use elsewhere
 export default join;
 
-function splitTitle(title, maxLineLength = 38) {
+// Set the output directory for OpenGraph images
+const outputDir = join(process.cwd(), 'static', 'assets', ogSlug);
+
+// Ensure the output directory exists
+if (!existsSync(outputDir)) {
+  mkdirSync(outputDir, { recursive: true });
+}
+
+// Split long lines for svg
+function splitTitle(title, maxLineLength = 35) {
   const words = title.split(' ');
   const lines = [];
   let currentLine = '';
@@ -93,13 +102,19 @@ const generateOgImage = async (title, author, pubDate, slug) => {
   }
 };
 
-// Set the output directory for OpenGraph images
-const outputDir = join(process.cwd(), 'static', 'assets', ogSlug);
+async function generateAllOgImages(fetch) {
+  const posts = await fetchMarkdownPosts();
+  for (const post of posts) {
+    const slug = post.path.split('/').pop();
+    const imagePath = join(outputDir, `${slug}.png`);
+    const authorMetadata = await fetchAuthorMetadata(post.meta.author, fetch);
 
-// Ensure the output directory exists
-if (!existsSync(outputDir)) {
-  mkdirSync(outputDir, { recursive: true });
+    if (!existsSync(imagePath)) {
+      await generateOgImage(post.meta.title, authorMetadata.name, post.meta.pub_date, slug);
+    }
+  }
 }
+
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -107,7 +122,7 @@ export async function handle({ event, resolve }) {
   if (
     event.url.pathname.startsWith(`/${blogSlug}/`) &&
     event.url.pathname.match(
-      /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i
+      /\.(png|jpe?g|gif|svg|webp|webm|mpogv|mp3|ogg)$/i
     )
   ) {
     const imagePath = join(process.cwd(), "src", "routes", event.url.pathname);
@@ -117,22 +132,8 @@ export async function handle({ event, resolve }) {
     }
   }
 
-  // Fetch all blog posts
-  const posts = await fetchMarkdownPosts();
-  // Generate OpenGraph images for each post if not already generated
-  for (const post of posts) {
-    // Get author metadata
-    const slug = post.path.split('/').pop(); // Extract slug from path
-    const imagePath = join(outputDir, `${slug}.png`);
-    const authorMetadata = await fetchAuthorMetadata(post.meta.author, event.fetch);
-
-    // Check if the image already exists
-    if (!existsSync(imagePath)) {
-      await generateOgImage(post.meta.title, authorMetadata.name, post.meta.pub_date, slug);
-    }
-  }
+  // Generate OpenGraph images
+  await generateAllOgImages(event.fetch);
 
   return resolve(event);
 }
-
-export const prerender = true;
