@@ -38,9 +38,9 @@ jobs:
       run: ./ci/install.sh
     - name: Install Fonts
       run: |
-        mkdir -p ~/.fonts/silka
-        cp -r static/assets/fonts/silka/* ~/.fonts/silka/
-        fc-cache -f -v
+        sudo mkdir -p /usr/local/share/fonts/silka
+        sudo cp -r static/assets/fonts/silka/* /usr/local/share/fonts/silka/
+        sudo fc-cache -f -v
     - name: List Available Fonts
       run: fc-list | grep -i silka
     - name: Build site
