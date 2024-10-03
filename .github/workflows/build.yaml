@@ -36,13 +36,6 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: ./ci/install.sh
-    - name: Install Fonts
-      run: |
-        sudo mkdir -p /usr/local/share/fonts/silka
-        sudo cp -r static/assets/fonts/silka/* /usr/local/share/fonts/silka/
-        sudo fc-cache -f -v
-    - name: List Available Fonts
-      run: fc-list | grep -i silka
     - name: Build site
       shell: bash
       run: ./ci/build.sh
