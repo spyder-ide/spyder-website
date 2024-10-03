@@ -36,6 +36,11 @@ jobs:
     - name: Install dependencies
       shell: bash
       run: ./ci/install.sh
+    - name: Install Fonts
+      run: |
+        mkdir -p ~/.fonts/silka
+        cp -r static/assets/fonts/silka/* ~/.fonts/silka/
+        fc-cache -f -v
     - name: Build site
       shell: bash
       run: ./ci/build.sh
