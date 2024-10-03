@@ -4,6 +4,7 @@
   import { metadata } from "$lib/store";
   import { title as siteTitle, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
+  import { base } from '$app/paths';
 
   import Metadata from "$lib/components/Metadata.svelte";
 
@@ -22,7 +23,7 @@
 
   let authorMetadata = { src: "", name: "" };
   const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
-  const customOgImagePath = `${$page.url.origin}/assets/${ogSlug}/${slug}.png`;
+  const customOgImagePath = `${base}/assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
@@ -36,6 +37,12 @@
     url: $page.url.href,
     image: customOgImagePath || ogImageBlog,
   });
+
+  // Debugging, remove later
+  console.log('Base:', base);
+  console.log('Slug:', slug);
+  console.log('Custom OG Image Path:', customOgImagePath);
+  console.log('Page URL:', $page.url.href);
 </script>
 
 <Metadata prism={true}/>
