@@ -4,7 +4,6 @@
   import { metadata } from "$lib/store";
   import { title as siteTitle, siteUrl, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
-  import { base } from '$app/paths';
 
   import Metadata from "$lib/components/Metadata.svelte";
 
@@ -39,9 +38,9 @@
   });
 
   // Debugging, remove later
+  console.log('Domain:', $page.url.origin);
   console.log('Custom OG Image Path:', customOgImagePath);
-  console.log('Page:', $page);
-  console.log('Page URL:', $page.url.href);
+  console.log('Full post URL:', $page.url.href);
 </script>
 
 <Metadata prism={true}/>
