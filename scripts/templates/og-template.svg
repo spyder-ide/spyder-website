@@ -2,7 +2,7 @@
   xmlns="http://www.w3.org/2000/svg">
   <style>
     .title { fill: #5d5d5d; font-size: 60px; font-weight: 900; font-family: 'Silka'; }
-    .byline { fill: #8c0000; font-size: 30px; font-weight: regular; font-family: 'Silka'; }
+    .byline { fill: #8c0000; font-size: 30px; font-family: 'Silka'; }
   </style>
   <defs>
     <mask id="a" maskUnits="userSpaceOnUse">
