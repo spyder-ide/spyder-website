@@ -1,7 +1,7 @@
 <svg width="${width}" height="${height}" xml:space="preserve"
   xmlns="http://www.w3.org/2000/svg">
   <style>
-    .title { fill: #5d5d5d; font-size: 60px; font-weight: 900; font-family: 'Silka Bold'; }
+    .title { fill: #5d5d5d; font-size: 60px; font-weight: 900; font-family: 'Silka Black'; }
     .byline { fill: #8c0000; font-size: 30px; font-weight: regular; font-family: 'Silka'; }
   </style>
   <defs>
