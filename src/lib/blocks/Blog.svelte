@@ -1,5 +1,6 @@
 <script>
   import { browser } from "$app/environment";
+  import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
@@ -76,7 +77,7 @@
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
               <a
                 class="post-link"
-                href="{siteUrl}blog/{post.path}"
+                href="{base}/blog/{post.path}"
                 title={post.meta.title}
               >
                 {post.meta.title}
