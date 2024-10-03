@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { title as siteTitle, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
+  import { title as siteTitle, siteUrl, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
   import { base } from '$app/paths';
 
@@ -23,7 +23,7 @@
 
   let authorMetadata = { src: "", name: "" };
   const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
-  const customOgImagePath = `${base}/assets/${ogSlug}/${slug}.png`;
+  const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
