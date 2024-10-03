@@ -31,13 +31,13 @@
   <meta property="og:image" content={$metadata.image} />
   <meta property="og:image:secure_url" content={$metadata.image} />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:site_name" content={site} />
+  <meta property="og:site_name" content="Spyder IDE" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="twitter:domain" content={$page.url.host} />
   <meta property="twitter:url" content={untrailedUrl} />
-  <meta name="twitter:site" content={$metadata.site} />
+  <meta name="twitter:site" content={site} />
   <meta name="twitter:title" content={$metadata.title} />
   <meta name="twitter:description" content={$metadata.description} />
   <meta name="twitter:image" content={$metadata.image} />

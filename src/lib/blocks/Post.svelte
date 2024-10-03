@@ -39,9 +39,8 @@
   });
 
   // Debugging, remove later
-  console.log('Base:', base);
-  console.log('Slug:', slug);
   console.log('Custom OG Image Path:', customOgImagePath);
+  console.log('Page:', $page);
   console.log('Page URL:', $page.url.href);
 </script>
 
