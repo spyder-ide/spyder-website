@@ -63,7 +63,7 @@ async function generateOgImage(data, slug) {
   const width = 1200;
   const height = 630;
   const titleLines = splitTitle(data.title);
-  const bylineY = height - 120;
+  const bylineY = height - 140;
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
