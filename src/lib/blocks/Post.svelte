@@ -81,6 +81,8 @@
   <div
     class="prose
     prose-lg
+    prose-headings:text-red-berry-900
+    dark:prose-headings:text-mine-shaft-200
     dark:prose-invert
     prose-headings:font-medium
     prose-p:font-light
