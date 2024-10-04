@@ -33,7 +33,7 @@ async function exists(pathToCheck) {
  * @param {number} maxLineLength - Maximum length of each line.
  * @returns {Array<string>} - Array of title lines.
  */
-function splitTitle(title, maxLineLength = 30) {
+function splitTitle(title, maxLineLength = 27) {
   const words = title.split(' ');
   const lines = [];
   let currentLine = '';
@@ -64,6 +64,7 @@ async function generateOgImage(data, slug) {
   const height = 630;
   const titleLines = splitTitle(data.title);
   const bylineY = height - 140;
+  const dateY = height - 100;
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
@@ -76,12 +77,13 @@ async function generateOgImage(data, slug) {
 
   // Replace placeholders with actual data
   const svg = templateContent
-    .replace('${width}', width)
-    .replace('${height}', height)
-    .replace('${titleTexts}', titleTexts)
-    .replace('${bylineY}', bylineY)
-    .replace('${author}', data.author)
-    .replace('${pubDate}', data.pubDate);
+    .replaceAll('${width}', width)
+    .replaceAll('${height}', height)
+    .replaceAll('${titleTexts}', titleTexts)
+    .replaceAll('${bylineY}', bylineY)
+    .replaceAll('${dateY}', dateY)
+    .replaceAll('${author}', data.author)
+    .replaceAll('${pubDate}', data.pubDate);
 
   try {
     // Create SVG buffer
