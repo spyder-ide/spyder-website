@@ -22,7 +22,7 @@
 
   let authorMetadata = { src: "", name: "" };
   const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
-  const customOgImagePath = `${$page.url.origin}/assets/${ogSlug}/${slug}.png`;
+  const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
     authorMetadata = await fetchAuthorMetadata(author);
