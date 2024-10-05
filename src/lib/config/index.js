@@ -8,7 +8,7 @@ import { PUBLIC_SITE_URL } from '$env/static/public';
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const siteUrl = PUBLIC_SITE_URL || (dev ? "http://localhost:5173" : "https://www.mydomain.org");
+export const siteUrl = dev ? "http://localhost:5173" : PUBLIC_SITE_URL;
 
 // Website metadata
 export const title = "Spyder";

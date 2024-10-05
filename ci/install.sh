@@ -22,4 +22,3 @@ export PUBLIC_SITE_URL="$SITE_URL"
 cat <<EOF > .env
 PUBLIC_SITE_URL=${SITE_URL}
 EOF
-
