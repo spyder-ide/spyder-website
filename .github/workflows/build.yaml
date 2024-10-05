@@ -33,7 +33,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '22.x'
-    - name: Install dependencies
+    - name: Install dependencies and set environment variables
+      env:
+        NODE_ENV: ${{ (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push' && 'production' }}
       shell: bash
       run: ./ci/install.sh
     - name: Build site

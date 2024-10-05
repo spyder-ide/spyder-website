@@ -1,13 +1,14 @@
 // Imports
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
+import { PUBLIC_SITE_URL } from '$env/static/public';
 
 //////////////////////////////////////////////////////////////////
 // Site config
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const siteUrl = dev ? "http://localhost:5173/" : "https://www.spyder-ide.org/";
+export const siteUrl = PUBLIC_SITE_URL || (dev ? "http://localhost:5173" : "https://www.mydomain.org");
 
 // Website metadata
 export const title = "Spyder";
