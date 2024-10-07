@@ -12,8 +12,8 @@ fc-cache -fv
 if [ -n "$REVIEW_ID" ]; then
   # Staging URL (Deploy Preview)
   SITE_URL="https://deploy-preview-${REVIEW_ID}--spyder-svelte-website-preview.netlify.app/"
-elif [ "$NODE_ENV" = "production" ]; then
-  # Production URL
+else
+  # Default to production URL if both REVIEW_ID and NODE_ENV are empty or false
   SITE_URL="https://www.spyder-ide.org/"
 fi
 
