@@ -13,6 +13,20 @@ const mkdir = promisify(fs.mkdir);
 const access = promisify(fs.access);
 const readFile = promisify(fs.readFile);
 
+const maxLineLength = 27;
+const maxTextLength = 100;
+const maxLines = 4;
+
+/**
+ * Determines if a given string's length is less than or equal to a specified quantity.
+ * @param {string} text - The string to evaluate.
+ * @param {number} qty - The length to compare against.
+ * @returns {boolean} - Returns true if the string's length is less than or equal to the specified quantity, otherwise false.
+ */
+function testLength(text, qty) {
+  return text.length <= qty;
+}
+
 /**
  * Checks if a given path exists.
  * @param {string} pathToCheck - Path to verify.
@@ -33,13 +47,13 @@ async function exists(pathToCheck) {
  * @param {number} maxLineLength - Maximum length of each line.
  * @returns {Array<string>} - Array of title lines.
  */
-function splitTitle(title, maxLineLength = 27) {
+function splitTitle(title, lineLenght = maxLineLength) {
   const words = title.split(' ');
   const lines = [];
   let currentLine = '';
 
   for (const word of words) {
-    if ((currentLine + word).length > maxLineLength) {
+    if ((currentLine + word).length > lineLenght) {
       lines.push(currentLine.trim());
       currentLine = word + ' ';
     } else {
@@ -49,6 +63,10 @@ function splitTitle(title, maxLineLength = 27) {
 
   if (currentLine.trim()) {
     lines.push(currentLine.trim());
+  }
+
+  if (lines.length > 4) {
+    throw new Error(`Processing the text produces too many lines (${lines.length} lines total, must be lees than 4). Edit your title and try again.`)
   }
 
   return lines;
@@ -63,8 +81,7 @@ async function generateOgImage(data, slug) {
   const width = 1200;
   const height = 630;
   const titleLines = splitTitle(data.title);
-  const bylineY = height - 140;
-  const dateY = height - 100;
+  const bylineY = height - 100;
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
@@ -81,9 +98,7 @@ async function generateOgImage(data, slug) {
     .replaceAll('${height}', height)
     .replaceAll('${titleTexts}', titleTexts)
     .replaceAll('${bylineY}', bylineY)
-    .replaceAll('${dateY}', dateY)
     .replaceAll('${author}', data.author)
-    .replaceAll('${pubDate}', data.pubDate);
 
   try {
     // Create SVG buffer
@@ -162,6 +177,10 @@ async function generateAllOgImages() {
         author: authorMetadata.name,
         pubDate: pubDateFormatted,
       };
+
+      if (!testLength(svgData.title, maxTextLength)) {
+        throw new Error(`The title of the post "${svgData.title}" is too long (${svgData.title.length} characters)! Use titles of ${maxTextLength} characters or less.`);
+      }
 
       // Generate the OG image
       await generateOgImage(svgData, slug);
