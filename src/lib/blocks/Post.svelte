@@ -36,11 +36,6 @@
     url: $page.url.href,
     image: customOgImagePath || ogImageBlog,
   });
-
-  // Debugging, remove later
-  console.log('Domain:', $page.url.origin);
-  console.log('Custom OG Image Path:', customOgImagePath);
-  console.log('Full post URL:', $page.url.href);
 </script>
 
 <Metadata prism={true}/>
