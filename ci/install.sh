@@ -13,7 +13,7 @@ if [ -n "$REVIEW_ID" ]; then
   # Staging URL (Deploy Preview)
   SITE_URL="https://deploy-preview-${REVIEW_ID}--spyder-svelte-website-preview.netlify.app/"
 else
-  # Default to production URL if both REVIEW_ID and NODE_ENV are empty or false
+  # Default to production URL if REVIEW_ID is empty or false
   SITE_URL="https://www.spyder-ide.org/"
 fi
 
