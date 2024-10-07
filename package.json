@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "generate-og-images": "node scripts/generate-og-images.js",
-    "dev": "npm run generate-og-images && vite dev",
-    "build": "npm run generate-og-images && vite build",
-    "preview": "vite preview",
+    "dev": "npm run generate-og-images && npx vite dev",
+    "build": "npm run generate-og-images && npx vite build",
+    "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
   },
   "devDependencies": {
