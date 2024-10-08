@@ -1,3 +1,5 @@
+import { tooltip } from 'svooltip';
+
 const dataSrc = `https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100`;
 
 const currentContributors = [
@@ -5,64 +7,117 @@ const currentContributors = [
     id: 365293,
     name: "Carlos Córdoba",
     role: "Lead mantainer",
-    latino: true,
     tooltip: [
       {
-        title: "Header 1",
         list: [
-           "Revolutionized everything",
-           "Changed the world for the better",
-           "Made things better for everyone"
+           "Maintainer since 2013"
         ]
       },
-      {
-        title: "Header 2",
-        list: [
-           "More items",
-           "A lot of different stuff. This can be a particularly long line, for example",
-           "The salted pork is particulary good"
-        ]
-      }
     ]
   },
   {
     id: 16781833,
     name: "Daniel Althviz",
     role: "Co-mantainer",
+    tooltip: [
+      {
+        list: [
+          "Release manager",
+          "Maintainer of QtPy and QtAwesome",
+          "Manager of NumFOCUS small development grants"
+        ]
+      }
+    ]
   },
   {
     id: 17051931,
     name: "C.A.M. Gerlach",
-    role: "Docs & tech writing",
-    avatar_url: "/assets/authors/camgerlach/pic.webp"
+    role: "Core developer",
+    avatar_url: "/assets/authors/camgerlach/pic.webp",
+    tooltip: [
+      {
+        list: [
+          "Docs maintainer",
+          "Technical writer"
+        ]
+      }
+    ]
+  },
+  {
+    id: 6740194,
+    name: "Quentin Peter",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Re-architecture communications between Spyder and Spyder-kernels",
+          "Creator of the Debugger pane",
+          "Many improvements to the IPython console"
+        ]
+      }
+    ]
   },
   {
     id: 9618975,
     name: "Ryan Clary",
-    role: "Installers",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Maintainer of the standalone installers"
+        ]
+      }
+    ]
   },
   {
     id: 7941918,
     name: "Jitse Niesen",
-    role: "External plugins",
-  },
-  {
-    id: 5204788,
-    name: "Hendrik D. Louzada",
-    role: "Remote development",
-    latino: true,
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "External plugins maintainer"
+        ]
+      }
+    ]
   },
   {
     id: 42411448,
     name: "Juan Sebastian Bautista",
     role: "Junior Developer",
-    latino: true,
+    tooltip: [
+      {
+        list: [
+          "Improvements to the Windows installer, QtConsole and Spyder's UI/UX"
+        ]
+      }
+    ]
+  },
+  {
+    id: 5204788,
+    name: "Hendrik D. Louzada",
+    role: "Junior Developer",
+    tooltip: [
+      {
+        list: [
+          "Backend for the Remote client plugin"
+        ]
+      }
+    ]
   },
   {
     id: 5027583,
     name: "Andrés Montoya",
-    role: "UI/UX Design & Social Media",
-    latino: true,
+    role: "Grpahic and web designer",
+    tooltip: [
+      {
+        list: [
+          "Developer and maintainer of this website",
+          "UI/UX improvements",
+          "Social media graphics designer"
+        ]
+      }
+    ]
   },
 ];
 
@@ -71,58 +126,135 @@ const pastContributors = [
     id: 1311787,
     name: "Pierre Raybaut",
     role: "Spyder Creator",
+    tooltip: [
+      {
+        list: [
+          "Started Spyder in 2009",
+          "Lead maintainer until 2013",
+        ]
+      }
+    ]
   },
   {
     id: 1878982,
     name: "Edgar Margffoy",
-    role: "LSP Support",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "LSP support for the entire application",
+          "Re-architecture plugin registration and interactions",
+          "New architecture for the Run plugin",
+          "Add global registries for actions, menus and toolbars",
+        ]
+      }
+    ]
   },
   {
     id: 50221806,
     name: "Isabela Presedo-Floyd",
-    role: "UX/UI Redesign",
-    female: true,
+    role: "Designer",
+    tooltip: [
+      {
+        list: [
+          "New color system and palette for the application",
+          "Many UI/UX improvements"
+        ]
+      }
+    ]
   },
   {
     id: 3627835,
     name: "Gonzalo Peña-Castellanos",
-    role: "API Redesign",
-    latino: true,
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Redesign of plugins API",
+          "Creator of Qtpy",
+          "Test and improve configuration system",
+          "Many improvements to the Editor"
+        ]
+      }
+    ]
   },
   {
     id: 18587879,
     name: "Juanita Gómez",
-    role: "Docs & Social Media",
-    latino: true,
-    female: true,
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Docs maintainer",
+          "Main content creator for Spyder's YouTube channel",
+          "Community manager"
+        ]
+      }
+    ]
   },
   {
     id: 10170372,
     name: "Jean-Sébastien Gosselin",
-    role: "Plots pane",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Creator of the Plots plane",
+          "Many improvements across the application",
+        ]
+      }
+    ]
   },
   {
     id: 20992645,
     name: "Stephannie Jimenez",
-    role: "Spyder-Terminal maintainer",
-    latino: true,
-    female: true,
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Spyder-terminal maintainer",
+          "New architecture for the Run plugin",
+          "Enhance icon manager",
+        ]
+      }
+    ]
   },
   {
     id: 2397974,
     name: "Sylvain Corlay",
-    role: "New Icon Theme",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "New icon theme for Spyder",
+          "Creator of QtAwesome",
+        ]
+      }
+    ]
   },
   {
     id: 2024217,
     name: "Rafael Laverde",
-    role: "Editor improvements",
-    latino: true,
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Improvements to the Editor",
+        ]
+      }
+    ]
   },
   {
     id: 10513354,
     name: "Brian Olsen",
-    role: "Console improvements",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Improvements to the IPython console"
+        ]
+      }
+    ]
   },
 ];
 
@@ -163,28 +295,12 @@ const processContributors = (current, past, all) => {
   const totalContributorsPool = [...updatedCurrent, ...updatedPast];
   const totalContributors = totalContributorsPool.length;
 
-  // Count the number of female and latinos contributors
-  const totalLatinos = totalContributorsPool.filter(
-    (contributor) => contributor.latino
-  ).length;
-  const totalFemales = totalContributorsPool.filter(
-    (contributor) => contributor.female
-  ).length;
-
-  // Calculate percentages
-  const percentageLatinos = (totalLatinos / totalContributors) * 100;
-  const percentageFemales = (totalFemales / totalContributors) * 100;
-
   // Return the updated current contributors, past contributors, and remaining contributors
   return {
     updatedCurrent,
     updatedPast,
     remainingContributors,
     totalContributors,
-    totalLatinos,
-    totalFemales,
-    percentageLatinos,
-    percentageFemales,
   };
 }
 
@@ -208,10 +324,6 @@ export async function load({ fetch }) {
       updatedPast,
       remainingContributors,
       totalContributors,
-      totalLatinos,
-      totalFemales,
-      percentageLatinos,
-      percentageFemales,
     } = processContributors(
       currentContributors,
       pastContributors,
@@ -224,10 +336,6 @@ export async function load({ fetch }) {
       remainingContributors,
       textData,
       totalContributors,
-      totalLatinos,
-      totalFemales,
-      percentageLatinos,
-      percentageFemales,
       loading: false,
       error: null,
     };
