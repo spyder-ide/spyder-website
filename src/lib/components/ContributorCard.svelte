@@ -49,7 +49,7 @@
     <img
       src={contributor.avatar_url}
       alt={contributor.login}
-      class="rounded-full border border-neutral-300 dark:border-neutral-800"
+      class="rounded-full border border-neutral-300 dark:border-neutral-800 shrink-0"
       class:w-8={size === "small"}
       class:h-8={size === "small"}
       class:w-16={size === "medium"}
