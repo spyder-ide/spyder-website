@@ -158,6 +158,7 @@ const pastContributors = [
       {
         list: [
           "New color system and palette for the application",
+          "Logo redesign",
           "Many UI/UX improvements"
         ]
       }
@@ -170,7 +171,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Redesign of plugins API",
+          "Redesign of the plugins API",
           "Creator of Qtpy",
           "Test and improve configuration system",
           "Many improvements to the Editor"
@@ -200,7 +201,7 @@ const pastContributors = [
       {
         list: [
           "Creator of the Plots plane",
-          "Many improvements across the application",
+          "Many improvements across the entire application",
         ]
       }
     ]
@@ -214,7 +215,7 @@ const pastContributors = [
         list: [
           "Spyder-terminal maintainer",
           "New architecture for the Run plugin",
-          "Enhance icon manager",
+          "Enhancements to the icon manager",
         ]
       }
     ]
