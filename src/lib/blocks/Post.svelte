@@ -81,6 +81,7 @@
     dark:prose-invert
     prose-headings:font-medium
     prose-p:font-light
+    prose-li:font-light
     max-w-[72ch]
     mx-auto"
   >
