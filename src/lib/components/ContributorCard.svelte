@@ -9,22 +9,22 @@
   export let size = "medium";
 
   // Function to generate HTML string from tooltip
-  const generateTooltipHTML = (content) => {
-    let htmlString = `<div class='flex flex-col gap-2 max-w-64'>`;
-      content.forEach((item) => {
-      let titleString = item.title ? `<h3 class="text-[124%] text-red-berry-900">${item.title}</h3>` : '';
-      htmlString += `<div>
-        ${titleString}
-        <ul class="list-disc list-outside ml-3">`;
-      item.list.forEach((listItem) => {
-        htmlString += `<li>${listItem}</li>`;
-      });
-      htmlString += "</ul></div>";
-    });
-    htmlString += "</div>";
-
-    return htmlString;
-  };
+  const generateTooltipHTML = (content) => `
+    <div class='flex flex-col gap-2 max-w-64'>
+      ${content.map(item => `
+        <div>
+          ${item.title ? `<h3 class="text-[124%] text-red-berry-900">${item.title}</h3>` : ''}
+          ${item.list.length === 1
+            ? `<p>${item.list[0]}</p>`
+            : `
+              <ul class="list-disc list-outside ml-3">
+                ${item.list.map(listItem => `<li>${listItem}</li>`).join('')}
+              </ul>
+            `}
+        </div>
+      `).join('')}
+    </div>
+  `;
 
   let tooltipHTML, tooltipOptions;
 
