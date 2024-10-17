@@ -7,6 +7,14 @@
         <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
         
     <item>
+      <title>Officially announcing the release of Spyder 6!</title>
+      <link>https://www.spyder-ide.org/blog/release-spyder-6.0.0</link>
+      <description>After two years in development and more than 2600 commits from over two dozen authors around the world, Spyder 6.0.0 had its stable release on September 3, 2024! Now that 6.0.1 is out and the dust has settled, we'd like to formally announce the release here, thank those who've contributed to it, and introduce a series of posts highlighting its major new features and improvements that haven't already been showcased here.</description>
+      <category>Releases</category>
+      <pubDate>Thu, 17 Oct 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
       <title>Scientific IDE UX Birds of a Feather session at SciPy 2024</title>
       <link>https://www.spyder-ide.org/blog/ide-ux-bof-scipy-2024</link>
       <description>The Spyder team hosted a Birds of a Feather session at SciPy 2024, this time on the topic of users' experiences (good and bad) with the UI/UX of scientific interfaces and IDEs, and how their developers can better serve users. Here, we share what we learned from the session, as well as a link to the full detailed community notes.</description>
