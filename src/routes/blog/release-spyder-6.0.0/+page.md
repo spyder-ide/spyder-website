@@ -21,7 +21,7 @@ Additionally, it completes the migration process to the new plugin API introduce
 Overall, over two dozen contributors made more than 2600 commits and contributed 312 pull requests closing 137 unique issues, adding or modifying approximately 200 000 lines of code across 900 files.
 We're excited that in less than a month and a half since being published, just our new standalone installers for Spyder 6.0.0 and 6.0.1 have been downloaded over 350 000 times across Windows, Mac and Linux!
 
-We'll have separate follow-up blog posts by each of our team members highlighting and demoing some of the biggest enhancements, including our new remote development platform, UI/UX design and usability improvements, updated first-party plugins, new website, documentation site and translations, and others, in addition to [Ryan's existing post on the brand new Conda-based installers/updaters](../cbi-installers).
+We'll have followup blogs by each of our team members highlighting the biggest improvements, including among others our new remote development architecture, UI/UX improvements, updated plugins, and a new website, docs site and translations, in addition to [Ryan's existing post](../cbi-installers) on the Conda-based installers/updaters.
 Keep an eye out for those in the coming weeks!
 
 In the meantime, here's a summary of what's new in the Spyder 6 release! Check out the [Spyder 6 Changelog](https://github.com/spyder-ide/spyder/blob/6.x/changelogs/Spyder-6.md#version-600-2024-09-03) for a complete list of new features, UI improvements, bug fixes, API changes and more.
@@ -113,7 +113,7 @@ In no particular order, and mentioning only the most prominent contribution of e
 - [Hendrik Louzada](https://github.com/hlouzada) created the backend for the whole remote development architecture
 - [Edgar Margffoy](https://github.com/andfoy) and [Stephannie Jimenez](https://github.com/steff456) created a brand new, pluggable and configurable Run architecture for Spyder as well as several other major API/under the hood improvements
 - [Andrés Montoya](https://github.com/conradolandia) helped improve the UI/UX, design and theming of Spyder 6 and created this brand new website for the project
-- And of course, [Carlos Cordoba](https://github.com/ccordoba12) lead the project throughout Spyder 6 development, both managing and supporting the team as well as making innumerable contributions of his own
+- And of course, [Carlos Cordoba](https://github.com/ccordoba12) lead the project throughout the Spyder 6 development process, both managing and supporting the team as well as making innumerable contributions of his own
 
 Three cheers for everyone who made Spyder 6 a reality!
 
@@ -121,12 +121,13 @@ Three cheers for everyone who made Spyder 6 a reality!
 ## What's next
 
 Spyder 6.0 will continue to receive point release updates with bug fixes and minor improvements, but we're already working on the next big release for Spyder, 6.1!
-Closer to a major release than a typical minor release, it'll have many further major new features and enhancements, including:
+We currently are planning for it to be closer to a major release than a typical minor release, with a number of further new features and enhancements building directly on the groundwork introduced in Spyder 6.0.
+Our plans and the specific features are likely to evolve as we get closer to release, so stay tuned to this blog and [@Spyder_IDE on Twitter/X](https://x.com/Spyder_IDE) for updates.
+However, some of the biggest new features we hope to bring you include:
 
-- Huge improvements to the remote development platform first introduced in 6.0, including the ability to easily open, manage and run remote files just as if you were working locally.
-- A new built-in package and environment manager that'll let you create Conda environments (automatically linked to projects) and install packages right from the Spyder graphical interface, leveraging our existing Conda-based installers—no more needing to install your own Python, use a separate application or the command line to create environments and install packages, or remember to activate the right environment before installing or running.
-- A graphical Spyder plugin browser, allowing you to find, install and manage plugins with one click in standalone-installed Spyder.
-- Many other improvements to the Editor, Console, Variable Explorer, Find page, completion, Run architecture, theming and more!
+- Major improvements to the remote development platform first introduced in 6.0, including the ability to easily open, manage and run remote files just as if you were working locally.
+- A new built-in package and environment manager that'll let you create Conda environments (automatically linked to projects) and install packages right from the Spyder graphical interface, leveraging our existing Conda-based installers.
+- A graphical Spyder plugin browser, allowing you to find, install and manage external plugins with one click in a standalone-installed Spyder.
 
 Want to start using Spyder 6 right now?
 The easiest way is by downloading our own installers for Windows, macOS and Linux [from our website](/download).
