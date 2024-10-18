@@ -10,7 +10,7 @@ const currentContributors = [
     tooltip: [
       {
         list: [
-           "Maintainer since 2013"
+           "Lead maintainer since 2013"
         ]
       },
     ]
@@ -38,7 +38,8 @@ const currentContributors = [
       {
         list: [
           "Docs maintainer",
-          "Technical writer"
+          "Technical, grant and blog writer",
+          "Outreach lead"
         ]
       }
     ]
@@ -50,7 +51,7 @@ const currentContributors = [
     tooltip: [
       {
         list: [
-          "Re-architecture communications between Spyder and Spyder-kernels",
+          "Re-architectured communications between Spyder and Spyder-Kernels",
           "Creator of the Debugger pane",
           "Many improvements to the IPython console"
         ]
@@ -84,7 +85,7 @@ const currentContributors = [
   {
     id: 42411448,
     name: "Juan Sebastian Bautista",
-    role: "Junior Developer",
+    role: "Junior developer",
     tooltip: [
       {
         list: [
@@ -96,11 +97,11 @@ const currentContributors = [
   {
     id: 5204788,
     name: "Hendrik D. Louzada",
-    role: "Junior Developer",
+    role: "Junior developer",
     tooltip: [
       {
         list: [
-          "Backend for the Remote client plugin"
+          "Developed backend for the remote client plugin"
         ]
       }
     ]
@@ -108,7 +109,7 @@ const currentContributors = [
   {
     id: 5027583,
     name: "Andrés Montoya",
-    role: "Grpahic and web designer",
+    role: "Graphic and web designer",
     tooltip: [
       {
         list: [
@@ -129,7 +130,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Started Spyder in 2009",
+          "Created Spyder in 2009",
           "Lead maintainer until 2013",
         ]
       }
@@ -143,7 +144,7 @@ const pastContributors = [
       {
         list: [
           "LSP support for the entire application",
-          "Re-architecture plugin registration and interactions",
+          "Re-architectured plugin registration and interactions",
           "New architecture for the Run plugin",
           "Add global registries for actions, menus and toolbars",
         ]
@@ -171,9 +172,9 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Redesign of the plugins API",
-          "Creator of Qtpy",
-          "Test and improve configuration system",
+          "Redesigned the plugins API",
+          "Creator of QtPy",
+          "Improved configuration system",
           "Many improvements to the Editor"
         ]
       }
@@ -186,7 +187,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Docs maintainer",
+          "Docs writer",
           "Main content creator for Spyder's YouTube channel",
           "Community manager"
         ]
@@ -213,7 +214,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Spyder-terminal maintainer",
+          "Spyder-Terminal maintainer",
           "New architecture for the Run plugin",
           "Enhancements to the icon manager",
         ]
