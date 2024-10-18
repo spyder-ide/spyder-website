@@ -214,7 +214,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Spyder-terminal maintainer",
+          "Spyder-Terminal maintainer",
           "New architecture for the Run plugin",
           "Enhancements to the icon manager",
         ]
