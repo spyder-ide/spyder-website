@@ -85,7 +85,7 @@ const currentContributors = [
   {
     id: 42411448,
     name: "Juan Sebastian Bautista",
-    role: "Junior Developer",
+    role: "Junior developer",
     tooltip: [
       {
         list: [
