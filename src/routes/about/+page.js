@@ -101,7 +101,7 @@ const currentContributors = [
     tooltip: [
       {
         list: [
-          "Backend for the Remote client plugin"
+          "Developed backend for the remote client plugin"
         ]
       }
     ]
