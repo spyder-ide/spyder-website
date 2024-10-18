@@ -96,7 +96,7 @@ const currentContributors = [
   {
     id: 5204788,
     name: "Hendrik D. Louzada",
-    role: "Junior Developer",
+    role: "Junior developer",
     tooltip: [
       {
         list: [
