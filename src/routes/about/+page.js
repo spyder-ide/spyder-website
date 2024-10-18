@@ -130,7 +130,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Started Spyder in 2009",
+          "Created Spyder in 2009",
           "Lead maintainer until 2013",
         ]
       }
