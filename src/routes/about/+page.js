@@ -109,7 +109,7 @@ const currentContributors = [
   {
     id: 5027583,
     name: "Andrés Montoya",
-    role: "Grpahic and web designer",
+    role: "Graphic and web designer",
     tooltip: [
       {
         list: [
