@@ -38,7 +38,8 @@ const currentContributors = [
       {
         list: [
           "Docs maintainer",
-          "Technical writer"
+          "Technical, grant and blog writer",
+          "Outreach lead"
         ]
       }
     ]
