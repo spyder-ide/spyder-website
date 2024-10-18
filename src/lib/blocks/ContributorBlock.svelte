@@ -36,7 +36,7 @@
       class:text-md={size === "small"}
       class:text-xl={size === "medium" || size === "large"}
     >
-      {intro}
+      {@html intro}
     </h2>
   {/if}
   <div

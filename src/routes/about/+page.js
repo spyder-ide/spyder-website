@@ -263,7 +263,7 @@ const pastContributors = [
 const textData = {
   pageTitle: "Who We Are",
   pageIntro: `Spyder is an open source, community-developed scientific environment and IDE written in Python, for Python.
-    As scientists, engineers and analysts just like you, we built it to combine the power of a comprehensive development tool with the speed of an interactive data exploration package, all in one easy-to-use interface.`,
+    As&nbsp;scientists, engineers and analysts just like you, we built it to combine the power of a comprehensive development tool with the speed of an interactive data exploration package, all in one easy-to-use interface.`,
   currentTitle: "Core team",
   pastTitle: "Past team members",
   remainingTitle: "Contributor community",
