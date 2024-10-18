@@ -10,7 +10,7 @@ const currentContributors = [
     tooltip: [
       {
         list: [
-           "Maintainer since 2013"
+           "Lead maintainer since 2013"
         ]
       },
     ]
