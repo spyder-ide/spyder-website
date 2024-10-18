@@ -50,7 +50,7 @@ const currentContributors = [
     tooltip: [
       {
         list: [
-          "Re-architecture communications between Spyder and Spyder-kernels",
+          "Re-architectured communications between Spyder and Spyder-Kernels",
           "Creator of the Debugger pane",
           "Many improvements to the IPython console"
         ]
