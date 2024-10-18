@@ -187,7 +187,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Docs maintainer",
+          "Docs writer",
           "Main content creator for Spyder's YouTube channel",
           "Community manager"
         ]
