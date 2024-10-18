@@ -172,7 +172,7 @@ const pastContributors = [
     tooltip: [
       {
         list: [
-          "Redesign of the plugins API",
+          "Redesigned the plugins API",
           "Creator of QtPy",
           "Improved configuration system",
           "Many improvements to the Editor"
