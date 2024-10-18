@@ -144,7 +144,7 @@ const pastContributors = [
       {
         list: [
           "LSP support for the entire application",
-          "Re-architecture plugin registration and interactions",
+          "Re-architectured plugin registration and interactions",
           "New architecture for the Run plugin",
           "Add global registries for actions, menus and toolbars",
         ]
