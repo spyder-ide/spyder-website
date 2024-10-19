@@ -22,6 +22,10 @@ export default {
         "4/3": "4 / 3",
         "16/10": "16 / 10",
       },
+      gridTemplateColumns: {
+        '16': 'repeat(16, minmax(0, 1fr))',
+        '23': 'repeat(23, minmax(0, 1fr))',
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
