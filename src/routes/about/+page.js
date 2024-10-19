@@ -174,7 +174,7 @@ const pastContributors = [
         list: [
           "Redesigned the plugins API",
           "Creator of QtPy",
-          "Improved configuration system",
+          "Improved configuration system and added tests for it",
           "Many improvements to the Editor"
         ]
       }
