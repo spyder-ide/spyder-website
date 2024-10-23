@@ -14,6 +14,7 @@
   } from "svelte-icons-pack/bs";
 
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
+  import { BiSolidDonateHeart } from "svelte-icons-pack/bi";
 
   let icons = {
     facebook: BsFacebook,
@@ -27,12 +28,14 @@
     unknown: BsQuestionCircleFill,
     download: BsDownload,
     rss: BsRssFill,
+    donate: BiSolidDonateHeart,
   };
 
   export let button = true;
   export let highlight = false;
   export let icon = "";
   export let iconSize = 20;
+  export let fontSize = 12;
   export let href = "";
   export let rel = "";
   export let text = "";
@@ -46,6 +49,8 @@
   let hasIcon = icon !== "" && currentIcon !== undefined ? true : false;
   let iconLeft = hasIcon && iconPosition === "left" ? true : false;
   let iconRight = hasIcon && iconPosition === "right" ? true : false;
+
+  let textStyle = `font-size:${fontSize}px`
 </script>
 
 <a
@@ -64,6 +69,7 @@
   class:rounded={button}
   class:regular={!highlight}
   class="flex items-center justify-between gap-3 text-sm lg:text-xs"
+  style={textStyle}
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"}>

@@ -50,6 +50,11 @@ export const navigation = [
   ],
   [
     {
+      text: "Support",
+      href: `${base}/support/`,
+      target: "_self",
+    },
+    {
       text: "Blog",
       href: `${base}/${blogSlug}/`,
       target: "_self",
