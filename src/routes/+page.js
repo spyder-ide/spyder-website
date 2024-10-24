@@ -51,6 +51,8 @@ frontPage = {
         background: "/assets/media/bg.svg",
         columns: false,
         divider: true,
+        boxed: true,
+        title: "Comparison",
         extraContent: WhatIs,
       },
 
