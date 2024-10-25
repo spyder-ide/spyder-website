@@ -256,6 +256,18 @@ const pastContributors = [
       }
     ]
   },
+  {
+    id: 2096628,
+    name: "Steve Silvester",
+    role: "Core developer",
+    tooltip: [
+      {
+        list: [
+          "Code completion, keybindings and file opening improvements"
+        ]
+      }
+    ]
+  },
 ];
 
 const textData = {
