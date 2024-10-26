@@ -47,8 +47,11 @@ export const navigation = [
       href: `${base}/download/`,
       target: "_self",
     },
-  ],
-  [
+    {
+      text: "About",
+      href: `${base}/about/`,
+      target: "_self",
+    },
     {
       text: "Blog",
       href: `${base}/${blogSlug}/`,
