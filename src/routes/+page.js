@@ -52,7 +52,7 @@ frontPage = {
         columns: false,
         divider: true,
         boxed: true,
-        title: "Comparison",
+        title: "The Spyder advantage",
         extraContent: WhatIs,
       },
 
