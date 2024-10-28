@@ -1,25 +1,26 @@
+<script>
+  import Logo from "$lib/components/Logo.svelte";
+</script>
+
 <div class="download container max-w-2xl mt-32">
-  <div class="info grid items-center justify-center">
-    <div class="grid-center -mx-5">
-      <img
-        src="/assets/media/header_donations.svg"
-        class="w-full"
-        alt="Help Keep Spyder Strong!"
-      />
-      <div class="heart-container">
-        <span class="heart heart-beat"></span>
-      </div>
-    </div>
-
-    <a
-      href="https://opencollective.com/spyder"
-      class="button my-4 md:my-8 lg:my-16 mx-auto"
-      id="donate"
+    <h1
+    class="text-4xl
+      xl:tracking-tight
+      xl:text-6xl
+      text-center
+      tracking-tight
+      font-extralight
+      text-mine-shaft-600
+      dark:text-mine-shaft-200
+      mb-16 md:mb-32"
     >
-      <img src="/assets/media/icon_donations.svg" alt="Donate!" />
-    </a>
+    Support Us!
+  </h1>
 
-    <div class="text-center">
+  <div class="border border-spring-wood-200 rounded-lg p-16 bg-contain bg-no-repeat bg-center bg-white shadow-2xl" style="background-image: url('/assets/media/bg.svg')">
+    <Logo classes="mb-8 mx-auto"/>
+
+    <div class="text-center mb-8 md:mb-16">
       <p>
         Spyder is a fully independent project, unaffiliated with Anaconda or
         other companies. As it’s developed by and for
@@ -30,7 +31,15 @@
         organization.
       </p>
     </div>
+    <a
+      href="https://opencollective.com/spyder"
+      class="button mx-auto"
+      id="donate"
+    >
+      <img src="/assets/media/icon_donations.svg" alt="Donate!" />
+    </a>
   </div>
+
 </div>
 
 <style>
@@ -54,76 +63,5 @@
   .button img {
     width: 100%;
     height: auto;
-  }
-
-  .heart-container {
-    position: absolute;
-    z-index: 2;
-    top: 28%;
-    right: 25%;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    z-index: -1;
-  }
-
-  .heart {
-    @apply bg-red-berry-800;
-    position: relative;
-    transform: rotate(45deg);
-    display: block;
-  }
-
-  .heart::before,
-  .heart::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: inherit;
-    border-radius: 50%;
-    display: block;
-  }
-
-  .heart::before {
-    transform: translateY(-50%);
-  }
-
-  .heart::after {
-    transform: translateX(-50%);
-  }
-
-  .heart-beat {
-    height: 6vw;
-    width: 6vw;
-    animation: beat 1.4s infinite linear;
-  }
-
-  .grid-center {
-    display: grid;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-  }
-
-  @keyframes beat {
-    0% {
-      transform: rotate(45deg) scale(1);
-    }
-    25% {
-      transform: rotate(45deg) scale(1);
-    }
-    30% {
-      transform: rotate(45deg) scale(1.4);
-    }
-    50% {
-      transform: rotate(45deg) scale(1.2);
-    }
-    70% {
-      transform: rotate(45deg) scale(1.4);
-    }
-    100% {
-      transform: rotate(45deg) scale(1);
-    }
   }
 </style>
