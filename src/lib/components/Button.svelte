@@ -43,6 +43,7 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
+  export let image = ""
 
   let currentIcon = icons[icon];
 
@@ -68,23 +69,27 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="flex items-center justify-between gap-3 text-sm lg:text-xs"
+  class={image ? "block max-w-60 mx-auto" : "flex items-center justify-between gap-3 text-sm lg:text-xs"}
   style={textStyle}
 >
-  {#if iconLeft}
-    <span class:icon-left={iconPosition === "left"}>
-      <Icon src={currentIcon} size={iconSize} />
-    </span>
-  {/if}
+  {#if image}
+    <img src={image} alt={text} />
+  {:else}
+    {#if iconLeft}
+      <span class:icon-left={iconPosition === "left"}>
+        <Icon src={currentIcon} size={iconSize} />
+      </span>
+    {/if}
 
-  {#if text}
-    <span>{text}</span>
-  {/if}
+    {#if text}
+      <span>{text}</span>
+    {/if}
 
-  {#if iconRight}
-    <span class:icon-right={iconPosition === "right"}>
-      <Icon src={currentIcon} size={iconSize} />
-    </span>
+    {#if iconRight}
+      <span class:icon-right={iconPosition === "right"}>
+        <Icon src={currentIcon} size={iconSize} />
+      </span>
+    {/if}
   {/if}
 </a>
 
@@ -97,8 +102,16 @@
     @apply from-red-berry-900 to-red-berry-950 text-white border-red-berry-950;
   }
 
+  .button.highlight:hover {
+    @apply from-red-berry-900 to-red-berry-900;
+  }
+
   .button.regular {
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
+  }
+
+  .button.regular:hover {
+    @apply from-mine-shaft-100 to-mine-shaft-50;
   }
 
   .button .icon-right {

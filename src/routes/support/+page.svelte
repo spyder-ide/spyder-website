@@ -1,9 +1,50 @@
 <script>
-  import Logo from "$lib/components/Logo.svelte";
+  import { metadata } from "$lib/store";
+  import { page } from "$app/stores";
+  import { title, description, keywords } from "$lib/config";
+
+  import Metadata from "$lib/components/Metadata.svelte";
+  import Button from "$lib/components/Button.svelte";
+
+  const pageTitle = "Support Us";
+
+  $: metadata.setMetadata({
+    title: `${title} | ${pageTitle}`,
+    description: description,
+    keywords: keywords.join(", "),
+    url: $page.url.href,
+  });
+
+  // Projects
+  const projects = [
+    {
+      image: "https://picsum.photos/640/400",
+      title: "Project 1",
+      content:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.",
+      buttonText: "Support this project"
+    },
+    {
+      image: "https://picsum.photos/640/400",
+      title: "Project 2",
+      content:
+        "Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
+      buttonText: "Support that project"
+    },
+    {
+      image: "https://picsum.photos/640/400",
+      title: "Project 3",
+      content:
+        "Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae.",
+      buttonText: "Support our project"
+    },
+  ];
 </script>
 
-<div class="download container max-w-2xl mt-32">
-    <h1
+<Metadata />
+
+<div class="download container mt-32">
+  <h1
     class="text-4xl
       xl:tracking-tight
       xl:text-6xl
@@ -13,47 +54,58 @@
       text-mine-shaft-600
       dark:text-mine-shaft-200
       mb-16 md:mb-32"
-    >
-    Support Us!
+  >
+    {pageTitle}!
   </h1>
 
-  <div class="border border-spring-wood-200 rounded-lg p-16 bg-contain bg-no-repeat bg-center bg-white shadow-2xl" style="background-image: url('/assets/media/bg.svg')">
-    <Logo classes="mb-8 mx-auto"/>
+  <p
+    class="text-center dark:text-neutral-200 text-xl font-light max-w-6xl mx-auto mb-16 md:mb-32"
+  >
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+    quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat
+    tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam
+    debitis aliquam.
+  </p>
 
-    <div class="text-center mb-8 md:mb-16">
-      <p>
-        Spyder is a fully independent project, unaffiliated with Anaconda or
-        other companies. As it’s developed by and for
-        <em><strong>you</strong></em>, our beloved community, we need
-        <em><strong>your</strong></em> support to help keep it moving forward!
-        Your donation goes directly to funding Spyder development through
-        <a href="https://numfocus.org/">NumFOCUS</a>, a recognized charitable
-        organization.
-      </p>
-    </div>
-    <a
-      href="https://opencollective.com/spyder"
-      class="button mx-auto"
-      id="donate"
-    >
-      <img src="/assets/media/icon_donations.svg" alt="Donate!" />
-    </a>
+  <Button text="Donate!" image="/assets/media/icon_donations.svg" highlight={true} />
+
+  <h2
+    class="text-4xl text-center text-red-berry-900 dark:text-neutral-400 mt-32 mb-16"
+  >
+    Projects
+  </h2>
+  <p
+    class="text-center dark:text-neutral-200 font-light mb-24 mx-auto max-w-6xl text-xl"
+  >
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum eaque
+    deserunt recusandae odio voluptatibus corporis hic nemo sint nesciunt
+    facilis eum, vel consectetur similique qui ea ab consequuntur ad fugiat.
+    Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo sint
+    nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur ad
+    fugiat.
+  </p>
+
+  <div class="grid grid-cols-3 gap-32">
+    {#each projects as project}
+      <div class="card">
+        {#if project.image}
+           <img class="w-full rounded-t-2xl" src={project.image} alt={project.title}>
+        {/if}
+        <div class="p-8">
+          <h4 class="title">{project.title}</h4>
+          <p class="content">{project.content}</p>
+          {#if project.buttonText}
+            <Button text={project.buttonText} highlight={true} icon="donate" iconSize={32} fontSize={18}/>
+          {/if}
+        </div>
+      </div>
+    {/each}
   </div>
-
 </div>
 
 <style>
   .button {
-    width: 240px;
-    height: 100px;
-    border-radius: 8px;
-    padding: 15px;
-    cursor: pointer;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @apply bg-red-berry-900;
+    @apply bg-red-berry-900 rounded-lg w-60 h-24 p-4 cursor-pointer flex content-center items-center shadow-2xl;
   }
 
   .button:hover {
@@ -63,5 +115,17 @@
   .button img {
     width: 100%;
     height: auto;
+  }
+
+  .card {
+    @apply border rounded-2xl shadow-2xl
+  }
+
+  .card .title {
+    @apply font-medium text-2xl text-red-berry-900 mb-8
+  }
+
+  .card .content {
+    @apply font-light mb-8
   }
 </style>
