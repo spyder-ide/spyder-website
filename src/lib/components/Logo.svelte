@@ -7,6 +7,7 @@
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
+  preserveAspectRatio="xMidYMid meet"
   width={width}
   height={height}
   {...(viewBox ? { viewBox } : {})}
