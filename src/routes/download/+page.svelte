@@ -2,9 +2,29 @@
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { releases } from "$lib/config";
+  import { page } from "$app/stores";
+  import { metadata } from "$lib/store";
 
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
+
+  import {
+    title,
+    author,
+    description,
+    ogImage as image,
+    keywords,
+  } from "$lib/config";
+
+  $: metadata.setMetadata({
+    title: `${title} | Download`,
+    description,
+    keywords: keywords.join(", "),
+    author,
+    image,
+    url: $page.url.href,
+  });
 
   let arch = "unknown";
   let os = "unknown";
@@ -79,6 +99,8 @@
     osButtons = generateDownloadButtons(releases);
   });
 </script>
+
+<Metadata/>
 
 <div class="download container max-w-2xl mt-32">
   {#if os === "unknown"}
