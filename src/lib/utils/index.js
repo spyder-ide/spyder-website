@@ -138,13 +138,30 @@ export const getOSButtons = (base, os) => {
   return osButtons;
 };
 
-// Load an icon dynamically
-export async function getIcon(iconName) {
+// Load an icon dynamically with optional theme
+const iconThemes = {
+  bs: () => import('svelte-icons-pack/bs'),
+  bi: () => import('svelte-icons-pack/bi'),
+  // Add more themes as needed
+};
+
+/**
+ * Fetches an icon from the specified theme.
+ *
+ * @param {string} iconName - The name of the icon to load.
+ * @param {string} [iconTheme='bs'] - The theme/library to load the icon from.
+ * @returns {Promise<SvelteComponent|null>} - The icon component or null if failed.
+ */
+export async function getIcon(iconName, iconTheme = 'bs') {
   try {
-    const module = await import("svelte-icons-pack/bs");
+    const moduleLoader = iconThemes[iconTheme];
+    if (!moduleLoader) {
+      throw new Error(`Unknown icon theme: ${iconTheme}`);
+    }
+    const module = await moduleLoader();
     return module[iconName];
   } catch (error) {
-    console.error(`Failed to load icon: ${iconName}`, error);
+    console.error(`Failed to load icon: ${iconName} from theme: ${iconTheme}`, error);
     return null;
   }
 }

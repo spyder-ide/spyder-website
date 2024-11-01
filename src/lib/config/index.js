@@ -100,6 +100,14 @@ export const githubButton = {
   href: "https://github.com/spyder-ide/spyder/",
 }
 
+// Donate button
+export const donateButton = {
+  highlight: true,
+  icon: "donate",
+  text: "Donate to the project",
+  href: "/donate/",
+}
+
 // Download links
 export const releases = {
   windows: {

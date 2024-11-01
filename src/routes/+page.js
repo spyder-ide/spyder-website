@@ -33,12 +33,11 @@ import Search from "$lib/content/search.md";
 import Sponsors from "$lib/content/sponsors.md";
 import Donations from "$lib/content/donations.md";
 
-let frontPage = {},
-  os = "linux",
-  osButtons = [];
+let os = "linux";
+let osButtons = [];
 
 // Content blocks
-frontPage = {
+const frontPage = {
   props: {
     // Hero section buttons
     buttons: [],
@@ -198,10 +197,10 @@ frontPage = {
             aspect: "xl:aspect-square",
           },
           {
-            title: "Donations",
-            content: "Show your support",
-            icon: "BsHeartFill",
-            link: "https://opencollective.com/spyder",
+            title: "News",
+            content: "Stay informed",
+            icon: "BsTwitterX",
+            link: "https://x.com/spyder_ide",
             aspect: "xl:aspect-square",
           },
         ],
