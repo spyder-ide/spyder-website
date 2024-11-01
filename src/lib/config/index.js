@@ -53,8 +53,8 @@ export const navigation = [
       target: "_self",
     },
     {
-      text: "Support",
-      href: `${base}/support/`,
+      text: "Donate",
+      href: `${base}/donate/`,
       target: "_self",
     },
     {

@@ -8,12 +8,19 @@
 
   const pageTitle = "Support Us";
 
-  $: metadata.setMetadata({
-    title: `${title} | ${pageTitle}`,
-    description: description,
-    keywords: keywords.join(", "),
-    url: $page.url.href,
-  });
+  const introPage = `Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+    Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
+    incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis
+    molestiae quibusdam debitis aliquam.`;
+
+  const buttonText = "Support This Project";
+
+  const introProjects = `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo sint
+    nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur ad
+    fugiat. Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo
+    sint nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur
+    ad fugiat.`;
 
   // Projects
   const projects = [
@@ -22,23 +29,30 @@
       title: "Project 1",
       content:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.",
-      buttonText: "Support this project"
+      buttonText,
     },
     {
       image: "https://picsum.photos/640/400",
       title: "Project 2",
       content:
         "Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing elit.",
-      buttonText: "Support that project"
+      buttonText,
     },
     {
       image: "https://picsum.photos/640/400",
       title: "Project 3",
       content:
         "Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore molestiae.",
-      buttonText: "Support our project"
+      buttonText,
     },
   ];
+
+  $: metadata.setMetadata({
+    title: `${title} | ${pageTitle}`,
+    description: description,
+    keywords: keywords.join(", "),
+    url: $page.url.href,
+  });
 </script>
 
 <Metadata />
@@ -61,13 +75,14 @@
   <p
     class="text-center dark:text-neutral-200 text-xl font-light max-w-6xl mx-auto mb-16 md:mb-32"
   >
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
-    quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat
-    tempore molestiae. Reiciendis quod minima ex facilis molestiae quibusdam
-    debitis aliquam.
+    {introPage}
   </p>
 
-  <Button text="Donate!" image="/assets/media/icon_donations.svg" highlight={true} />
+  <Button
+    text="Donate!"
+    image="/assets/media/icon_donations.svg"
+    highlight={true}
+  />
 
   <h2
     class="text-4xl text-center text-red-berry-900 dark:text-neutral-400 mt-32 mb-16"
@@ -77,25 +92,30 @@
   <p
     class="text-center dark:text-neutral-200 font-light mb-24 mx-auto max-w-6xl text-xl"
   >
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum eaque
-    deserunt recusandae odio voluptatibus corporis hic nemo sint nesciunt
-    facilis eum, vel consectetur similique qui ea ab consequuntur ad fugiat.
-    Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo sint
-    nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur ad
-    fugiat.
+    {introProjects}
   </p>
 
   <div class="grid grid-cols-3 gap-32">
     {#each projects as project}
       <div class="card">
         {#if project.image}
-           <img class="w-full rounded-t-2xl" src={project.image} alt={project.title}>
+          <img
+            class="w-full rounded-t-2xl"
+            src={project.image}
+            alt={project.title}
+          />
         {/if}
         <div class="p-8">
           <h4 class="title">{project.title}</h4>
           <p class="content">{project.content}</p>
           {#if project.buttonText}
-            <Button text={project.buttonText} highlight={true} icon="donate" iconSize={32} fontSize={18}/>
+            <Button
+              text={project.buttonText}
+              highlight={true}
+              icon="donate"
+              iconSize={32}
+              fontSize={18}
+            />
           {/if}
         </div>
       </div>
@@ -104,28 +124,15 @@
 </div>
 
 <style>
-  .button {
-    @apply bg-red-berry-900 rounded-lg w-60 h-24 p-4 cursor-pointer flex content-center items-center shadow-2xl;
-  }
-
-  .button:hover {
-    @apply bg-red-berry-800;
-  }
-
-  .button img {
-    width: 100%;
-    height: auto;
-  }
-
   .card {
-    @apply border rounded-2xl shadow-2xl
+    @apply border rounded-2xl shadow-2xl;
   }
 
   .card .title {
-    @apply font-medium text-2xl text-red-berry-900 mb-8
+    @apply font-medium text-2xl text-red-berry-900 mb-8;
   }
 
   .card .content {
-    @apply font-light mb-8
+    @apply font-light mb-8;
   }
 </style>
