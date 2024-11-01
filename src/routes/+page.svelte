@@ -7,7 +7,7 @@
   let blocks = data.props.blocks;
 </script>
 
-<Hero id="hero-section" />
+<Hero id="hero-section" divider={true} />
 
 {#each blocks as block (block.id)}
   <ContentBlock {...block} >

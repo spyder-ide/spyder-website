@@ -1,6 +1,27 @@
 <script>
+  import { page } from "$app/stores";
+  import { metadata } from "$lib/store";
+
   import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
+
+  import {
+    title,
+    author,
+    description,
+    ogImage as image,
+    keywords,
+  } from "$lib/config";
+
+  $: metadata.setMetadata({
+    title: `${title} | ${pageTitle}`,
+    description,
+    keywords: keywords.join(", "),
+    author,
+    image,
+    url: $page.url.href,
+  });
 
   export let data;
 
@@ -17,6 +38,8 @@
   let error = data.error;
   let loading = data.loading;
 </script>
+
+<Metadata/>
 
 <div class="container">
   <h1

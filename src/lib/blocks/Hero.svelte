@@ -5,9 +5,11 @@
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
   import ImageCompare from "$lib/components/ImageCompare.svelte";
+  import Divider from "$lib/components/Divider.svelte";
 
   export let id = "";
   export let classes = "";
+  export let divider = false;
 
   // Hero section buttons
   export let buttons = [];
@@ -65,6 +67,10 @@
   <div class="container aspect-video hero-image py-5">
     <ImageCompare before={heroImages.dark} after={heroImages.light} />
   </div>
+
+  {#if divider}
+    <Divider stroke={true} />
+  {/if}
 </section>
 
 <style>
