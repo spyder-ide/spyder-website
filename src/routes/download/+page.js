@@ -9,7 +9,6 @@ const content = {
       click: `If the download does not start automatically, please click the button below`,
       alt: `Alternatively, you can manually select the package you want from the links below, or ${visit}`
     },
-
   }
 }
 
