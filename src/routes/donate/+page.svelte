@@ -33,7 +33,6 @@
   >
     {props.page.title}!
   </h1>
-
   <p
     class="text-center
       dark:text-neutral-200
@@ -41,41 +40,12 @@
       font-light
       max-w-6xl
       mx-auto
-      mb-8
-      md:mb-16"
+      mb-16
+      md:mb-32"
   >
     {props.page.intro}
   </p>
-
-  <Button
-    text="Donate!"
-    image="/assets/media/icon_donations.svg"
-    highlight={true}
-  />
-
-  <h2
-    class="text-4xl
-      text-center
-      text-red-berry-900
-      dark:text-neutral-400
-      mt-32
-      mb-16"
-  >
-    {props.projects.title}
-  </h2>
-  <p
-    class="text-center
-      dark:text-neutral-200
-      font-light
-      mb-24
-      mx-auto
-      max-w-6xl
-      text-xl"
-  >
-    {props.projects.intro}
-  </p>
-
-  <div class="grid grid-cols-3 gap-32">
+  <div class="grid grid-cols-3 gap-32 mt-16">
     {#each props.projects.content as project}
       <div class="card">
         {#if project.image}
@@ -105,7 +75,7 @@
 
 <style>
   .card {
-    @apply border border-neutral-300 dark:border-neutral-700 rounded-2xl shadow-2xl;
+    @apply border border-neutral-300 dark:border-neutral-700 rounded-2xl shadow-2xl dark:shadow-neutral-900;
   }
 
   .card .title {

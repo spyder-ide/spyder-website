@@ -43,18 +43,8 @@ export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 export const navigation = [
   [
     {
-      text: "Download",
-      href: `${base}/download/`,
-      target: "_self",
-    },
-    {
       text: "About",
       href: `${base}/about/`,
-      target: "_self",
-    },
-    {
-      text: "Donate",
-      href: `${base}/donate/`,
       target: "_self",
     },
     {
@@ -68,6 +58,18 @@ export const navigation = [
       target: "_blank",
     },
   ],
+  [
+    {
+      text: "Download",
+      href: `${base}/download/`,
+      target: "_self",
+    },
+    {
+      text: "Donate",
+      href: `${base}/donate/`,
+      target: "_self",
+    }
+  ]
 ];
 
 // Social links (for footer and others)
