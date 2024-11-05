@@ -98,33 +98,56 @@
     getOSValues();
     osButtons = generateDownloadButtons(releases);
   });
+
+  export let data;
+  const pageTitle = data.props.title;
+  const pageIntro = data.props.intro;
+  const download = data.props.download;
 </script>
 
-<Metadata/>
+<Metadata />
 
-<div class="download container max-w-2xl mt-32">
+<div class="download container max-w-2xl">
   {#if os === "unknown"}
-    <h1 class="text-4xl font-extralight text-center">
-      Please select the package you want from the links below
+    <h1
+      class="text-4xl
+        xl:tracking-tight
+        xl:text-6xl
+        text-center
+        tracking-tight
+        font-extralight
+        text-mine-shaft-600
+        dark:text-mine-shaft-200 my-16 md:my-32"
+    >
+      {pageTitle}
     </h1>
-    <p class="text-neutral-500 text-center mt-4">
-      Or visit our <a href="https://github.com/spyder-ide/spyder/releases"
-        >releases page</a
-      > on GitHub.
-    </p>
-  {:else if os !== "unknown"}
-    <h1 class="text-center text-4xl font-extralight mb-16">
-      Download started&hellip;
-    </h1>
-    <h2 class="text-center dark:text-neutral-200 text-2xl font-light mb-4">
-      Selected <span class="text-red-berry-900 dark:text-white font-semibold">{osName}</span>
-      or compatible
+    <h2
+      class="text-center dark:text-neutral-200 text-xl font-light mb-4 max-w-6xl mx-auto"
+    >
+      {@html pageIntro}
     </h2>
-    <p class="text-sm text-neutral-500 text-center">
-      If the download does not start automatically, please click the button
-      below
+  {:else if os !== "unknown"}
+    <h1
+      class="text-4xl
+        xl:tracking-tight
+        xl:text-6xl
+        text-center
+        tracking-tight
+        font-extralight
+        text-mine-shaft-600
+        dark:text-mine-shaft-200 my-16 md:my-32"
+    >
+      {@html download.start}
+    </h1>
+    <h2 class="text-center dark:text-neutral-200 text-5xl font-extralight mb-8">
+      <span class="text-red-berry-900 dark:text-white font-extrabold"
+        >{osName}</span
+      > selected
+    </h2>
+    <p class="text-center text-xl font-light">
+      {download.click}
     </p>
-    <div class="block my-6 text-center">
+    <div class="block mt-8 mb-16 text-center w-48 mx-auto">
       <Button
         highlight
         text="Download for {osName}"
@@ -134,12 +157,8 @@
         rel="noopener noreferrer"
       />
     </div>
-    <p class="text-neutral-500 text-center">
-      Alternatively, you can manually select the package you want from the links
-      below, or visit our <a
-        href="https://github.com/spyder-ide/spyder/releases"
-        target="_blank">releases page</a
-      > on GitHub.
+    <p class="text-center text-xl font-light">
+      {@html download.alt}
     </p>
   {:else}
     <Loader />
@@ -147,23 +166,16 @@
 
   {#if osButtons}
     <div
-      class="border-t border-t-mine-shaft-300 dark:border-t-mine-shaft-600 mt-8"
+      class="mt-8 mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
     >
-      <div class="text-neutral-500 font-medium mt-4 text-center">
-        Available for
-      </div>
-      <div
-        class="mx-auto max-w-48 sm:max-w-md mt-4 mb-5 grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
-      >
-        {#each osButtons as button}
-          <Button
-            highlight={button.highlight}
-            icon={button.icon}
-            text={button.text}
-            href={button.href}
-          />
-        {/each}
-      </div>
+      {#each osButtons as button}
+        <Button
+          highlight={button.highlight}
+          icon={button.icon}
+          text={button.text}
+          href={button.href}
+        />
+      {/each}
     </div>
   {/if}
 </div>
