@@ -105,11 +105,11 @@
 
 <style>
   .card {
-    @apply border rounded-2xl shadow-2xl;
+    @apply border border-neutral-300 dark:border-neutral-700 rounded-2xl shadow-2xl;
   }
 
   .card .title {
-    @apply font-medium text-2xl text-red-berry-900 mb-8;
+    @apply font-medium text-2xl text-red-berry-900 dark:text-neutral-400 mb-8;
   }
 
   .card .content {

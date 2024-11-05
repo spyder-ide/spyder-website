@@ -19,7 +19,7 @@ const content = {
         ad fugiat.`,
       content: [
         {
-          image: "https://picsum.photos/640/400",
+          image: "https://picsum.photos/640/400.webp?random=1",
           title: "Project 1",
           content:
             `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
@@ -29,7 +29,7 @@ const content = {
           buttonText,
         },
         {
-          image: "https://picsum.photos/640/400",
+          image: "https://picsum.photos/640/400.webp?random=2",
           title: "Project 2",
           content:
             `Corrupti corporis quae unde cum, consectetur, voluptate placeat,
@@ -39,7 +39,7 @@ const content = {
           buttonText,
         },
         {
-          image: "https://picsum.photos/640/400",
+          image: "https://picsum.photos/640/400.webp?random=3",
           title: "Project 3",
           content:
             `Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
