@@ -3,7 +3,7 @@ const visit = `visit our <a href="https://github.com/spyder-ide/spyder/releases"
 const content = {
   props: {
     title: "Download Spyder",
-    intro: `Select the package you want to download from the links below. Or ${visit}`,
+    intro: `Select the package you want to download from the links below, or ${visit}`,
     download: {
       start: "Download started&hellip;",
       click: `If the download does not start automatically, please click the button below`,

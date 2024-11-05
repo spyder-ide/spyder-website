@@ -166,7 +166,7 @@
 
   {#if osButtons}
     <div
-      class="mt-8 mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
+      class="mt-16 mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
     >
       {#each osButtons as button}
         <Button
