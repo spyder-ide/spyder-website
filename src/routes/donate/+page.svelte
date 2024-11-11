@@ -45,28 +45,31 @@
   >
     {props.page.intro}
   </p>
-  <div class="grid grid-cols-3 gap-32 mt-16">
+  <div class="flex flex-wrap justify-center mt-16">
     {#each props.projects.content as project}
-      <div class="card">
-        {#if project.image}
-          <img
-            class="w-full rounded-t-2xl"
-            src={project.image}
-            alt={project.title}
-          />
-        {/if}
-        <div class="p-8">
-          <h4 class="title">{project.title}</h4>
-          <p class="content">{project.content}</p>
-          {#if project.buttonText}
-            <Button
-              text={project.buttonText}
-              highlight={true}
-              icon="donate"
-              iconSize={32}
-              fontSize={18}
+      <div class="flex-shrink-0 w-full md:w-1/2 xl:w-1/3 py-4 md:px-4">
+        <div class="card">
+          {#if project.image}
+            <img
+              class="w-full rounded-t-2xl"
+              src={project.image}
+              alt={project.title}
             />
           {/if}
+          <div class="card-container">
+            <h4 class="title">{project.title}</h4>
+            <p class="content">{project.content}</p>
+            {#if project.buttonText}
+              <Button
+                text={project.buttonText}
+                highlight={true}
+                icon="donate"
+                iconSize={32}
+                fontSize={18}
+                href={project.href}
+              />
+            {/if}
+          </div>
         </div>
       </div>
     {/each}
@@ -75,7 +78,12 @@
 
 <style>
   .card {
-    @apply border border-neutral-300 dark:border-neutral-700 rounded-2xl shadow-2xl dark:shadow-neutral-900;
+    @apply flex flex-col h-full border border-neutral-300 dark:border-neutral-700 rounded-2xl shadow-2xl dark:shadow-neutral-900;
+  }
+
+  .card-container {
+    @apply p-8 grid grid-flow-row h-full;
+    grid-template-rows: auto 1fr auto;
   }
 
   .card .title {

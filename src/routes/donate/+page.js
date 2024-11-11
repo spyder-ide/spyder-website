@@ -20,7 +20,7 @@ const content = {
       content: [
         {
           image: "https://picsum.photos/640/400.webp?random=1",
-          title: "Project 1",
+          title: "Spyder",
           content:
             `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
               corporis quae unde cum, consectetur, voluptate placeat, aspernatur
@@ -41,6 +41,16 @@ const content = {
         {
           image: "https://picsum.photos/640/400.webp?random=3",
           title: "Project 3",
+          content:
+            `Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
+              corporis quae unde cum, consectetur, voluptate placeat, aspernatur
+              incidunt quaerat tempore molestiae.`,
+          buttonText,
+        },
+        {
+          image: "https://picsum.photos/640/400.webp?random=4",
+          title: "Project 4",
           content:
             `Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti

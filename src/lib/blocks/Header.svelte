@@ -8,6 +8,7 @@
 
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
+  import DynamicIcon from "$lib/components/DynamicIcon.svelte";
 
   let isMenuOpen = false;
 
@@ -27,16 +28,28 @@
     <!-- Navigation (desktop) -->
     <div class="flex items-center md:gap-12 justify-end">
       <!-- Navigation (links) -->
-      <nav class="hidden md:flex items-center gap-4 xl:gap-6">
+      <nav class="hidden md:flex items-center gap-12 xl:gap-18">
         {#each navigation as menu}
           <ul class="menu flex items-center gap-4 xl:gap-6">
             {#each menu as item}
               <li class="menu-item">
                 <a
-                  class="menu-link h-20 grid items-center uppercase text-sm tracking-wider before:h-1 before:hover:bg-red-berry-900"
+                  class="menu-link grid items-center uppercase text-sm tracking-wider"
+                  class:h-20={!item.button && !item.icon}
+                  class:before:h-1={!item.button && !item.icon}
+                  class:button={item.button}
+                  class:icon={item.icon}
+                  class:beat={item.beat}
+                  class:before:hover:bg-red-berry-900={!item.button}
                   href={item.href}
-                  target={item.target}>{item.text}</a
+                  target={item.target}
                 >
+                {#if !item.icon}
+                  {item.text}
+                {:else}
+                  <DynamicIcon iconTheme{item.icon[0]} iconName={item.icon[1]} size="1.6em"/>
+                {/if}
+                </a>
               </li>
             {/each}
           </ul>
@@ -93,5 +106,25 @@
   .menu-link::before:not(.mobile),
   .menu-link::after:not(.mobile) {
     content: "";
+  }
+
+  .button:not(.icon) {
+    @apply border-2 border-neutral-300 rounded-md px-4 py-2;
+  }
+
+  .button:hover {
+    @apply bg-red-berry-900 text-white
+  }
+
+  .icon:hover {
+    @apply text-red-berry-900;
+  }
+
+  .beat:hover {
+    animation: beat .25s infinite alternate;
+  }
+
+  @keyframes beat{
+    to { transform: scale(1.4); }
   }
 </style>

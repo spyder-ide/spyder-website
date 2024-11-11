@@ -1,6 +1,6 @@
 <script>
   import { osStore } from "$lib/store";
-  import { heroContent, heroImages, githubButton, donateButton } from "$lib/config";
+  import { heroContent, heroImages, donateButton } from "$lib/config";
 
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -17,7 +17,7 @@
   // Subscribe to osStore
   osStore.subscribe((data) => {
     if (!data.loading) {
-      buttons = [...data.osButtons, githubButton, donateButton];
+      buttons = [...data.osButtons, donateButton];
     }
   });
 </script>
