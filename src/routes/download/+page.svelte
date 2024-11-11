@@ -4,6 +4,7 @@
   import { releases } from "$lib/config";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
+  import { getOS } from "$lib/utils";
 
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -29,8 +30,11 @@
   let arch = "unknown";
   let os = "unknown";
   let osName = "unknown";
+  let macs = Object.entries(releases.mac);
   let downloadUrl = "";
   let osButtons = [];
+
+  console.log(macs);
 
   // Generate download buttons even if we don't have
   // a download parameter in the URL
@@ -75,13 +79,15 @@
     const result = getOSfromURL();
 
     if (!result) {
-      return;
+      // Detect OS and architecture if not provided in the URL
+      os = getOS()
+      arch = "x64"
+    } else {
+      os = result.os;
+      arch = result.arch;
     }
 
-    os = result.os;
-    arch = result.arch;
-
-    if (releases[os][arch]) {
+    if (os !== "mac" && releases[os][arch]) {
       osName = releases[os][arch].name;
       downloadUrl = releases[os][arch].link;
     }
@@ -100,9 +106,9 @@
   });
 
   export let data;
-  const pageTitle = data.props.title;
-  const pageIntro = data.props.intro;
-  const download = data.props.download;
+  $: pageTitle = data.props.title;
+  $: pageIntro = data.props.intro;
+  $: download = data.props.download;
 </script>
 
 <Metadata />
@@ -137,7 +143,7 @@
         text-mine-shaft-600
         dark:text-mine-shaft-200 my-16 md:my-32"
     >
-      {@html download.start}
+      {@html download.title}
     </h1>
     <h2 class="text-center dark:text-neutral-200 text-5xl font-extralight mb-8">
       <span class="text-red-berry-900 dark:text-white font-extrabold"
@@ -145,20 +151,35 @@
       > selected
     </h2>
     <p class="text-center text-xl font-light">
-      {download.click}
+      {download.message}
     </p>
-    <div class="block mt-8 mb-16 text-center w-48 mx-auto">
-      <Button
-        highlight
-        text="Download for {osName}"
-        icon={os}
-        href={downloadUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      />
-    </div>
+    {#if os !== "mac"}
+      <div class="block mt-8 mb-16 text-center w-48 mx-auto">
+        <Button
+          highlight
+          text="Download for {osName}"
+          icon={os}
+          href={downloadUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+      </div>
+    {:else}
+      <div class="mt-8 mb-16 text-center w-96 flex gap-4 mx-auto">
+        {#each macs as mac}
+          <Button
+            highlight
+            text="Download for {mac[1].name}"
+            icon={"mac"}
+            href={mac[1].link}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        {/each}
+      </div>
+    {/if}
     <p class="text-center text-xl font-light">
-      {@html download.alt}
+      {@html download.alternative}
     </p>
   {:else}
     <Loader />
