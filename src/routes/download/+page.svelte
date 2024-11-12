@@ -117,13 +117,13 @@
   {#if os === "unknown"}
     <h1
       class="text-4xl
-        xl:tracking-tight
-        xl:text-6xl
+        lg:tracking-tight
+        lg:text-6xl
         text-center
         tracking-tight
         font-extralight
         text-mine-shaft-600
-        dark:text-mine-shaft-200 my-16 md:my-32"
+        dark:text-mine-shaft-200 my-16 md:mt-32 md:mb-8"
     >
       {pageTitle}
     </h1>
@@ -135,8 +135,8 @@
   {:else if os !== "unknown"}
     <h1
       class="text-4xl
-        xl:tracking-tight
-        xl:text-6xl
+        lg:tracking-tight
+        lg:text-6xl
         text-center
         tracking-tight
         font-extralight
@@ -145,12 +145,12 @@
     >
       {@html download.title}
     </h1>
-    <h2 class="text-center dark:text-neutral-200 text-5xl font-extralight mb-8">
+    <h2 class="text-center dark:text-neutral-200 text-4xl font-extralight mb-16">
       <span class="text-red-berry-900 dark:text-white font-extrabold"
         >{osName}</span
-      > selected
+      > detected
     </h2>
-    <p class="text-center text-xl font-light">
+    <p class="text-center text-xl font-light mb-16">
       {download.message}
     </p>
     {#if os !== "mac"}
