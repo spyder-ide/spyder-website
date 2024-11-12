@@ -40,14 +40,15 @@
                   class:button={item.button}
                   class:icon={item.icon}
                   class:beat={item.beat}
+                  class:highlight={item.highlight}
                   class:before:hover:bg-red-berry-900={!item.button}
                   href={item.href}
                   target={item.target}
                 >
-                {#if !item.icon}
-                  {item.text}
-                {:else}
+                {#if item.icon}
                   <DynamicIcon iconTheme{item.icon[0]} iconName={item.icon[1]} size="1.6em"/>
+                {:else}
+                  {item.text}
                 {/if}
                 </a>
               </li>
@@ -109,22 +110,42 @@
   }
 
   .button:not(.icon) {
-    @apply border-2 border-neutral-300 rounded-md px-4 py-2;
+    @apply border-2 border-neutral-400 rounded-md px-4 py-2 text-neutral-500 dark:text-neutral-300;
   }
 
   .button:hover {
-    @apply bg-red-berry-900 text-white
+    @apply border-neutral-600 dark:border-neutral-200;
+  }
+
+  .icon {
+    @apply text-neutral-500
+  }
+
+  .highlight {
+    @apply text-red-berry-900 dark:text-red-700;
   }
 
   .icon:hover {
-    @apply text-red-berry-900;
+    @apply text-neutral-900;
+  }
+
+  .beat {
+    animation: beat 1s ease-in-out 2;
   }
 
   .beat:hover {
-    animation: beat .25s infinite alternate;
+    @apply text-red-berry-900 dark:text-red-700;
   }
 
-  @keyframes beat{
-    to { transform: scale(1.4); }
+  @keyframes beat {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>

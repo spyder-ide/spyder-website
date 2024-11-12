@@ -80,6 +80,7 @@ export const navigation = [
       href: `${base}/donate/`,
       target: "_self",
       beat: true,
+      highlight: true,
       icon: ["bs","BsHeartFill"],
     },
     {
@@ -115,7 +116,7 @@ export const githubButton = {
 export const donateButton = {
   highlight: false,
   icon: "donate",
-  text: "Donate to the project",
+  text: "Support the project",
   href: "/donate/",
 }
 
