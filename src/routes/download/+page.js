@@ -5,7 +5,7 @@ const content = {
     title: "Download Spyder",
     intro: `Select the package you want to download from the links below, or ${visit}`,
     download: {
-      title: "Download started&hellip;",
+      title: "Download Spyder",
       message: `If the download does not start automatically, please click the button below`,
       alternative: `Alternatively, you can manually select the package you want from the links below, or ${visit}`
     },

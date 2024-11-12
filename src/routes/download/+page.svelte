@@ -92,7 +92,7 @@
       downloadUrl = releases[os][arch].link;
     }
 
-    if (downloadUrl) {
+    if (downloadUrl && result) {
       window.location = downloadUrl;
     }
   };
@@ -150,9 +150,6 @@
         >{osName}</span
       > detected
     </h2>
-    <p class="text-center text-xl font-light mb-16">
-      {download.message}
-    </p>
     {#if os !== "mac"}
       <div class="block mt-8 mb-16 text-center w-48 mx-auto">
         <Button
