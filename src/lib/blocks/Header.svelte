@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { Icon } from "svelte-icons-pack";
   import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
@@ -15,6 +16,16 @@
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
   }
+
+  onMount(() => {
+    setInterval(() => {
+      const beatElements = document.querySelectorAll(".beat");
+      beatElements.forEach((element) => {
+        element.classList.remove("beat");
+        setTimeout(() => element.classList.add("beat"), 1000);
+      });
+    }, 29000);
+  });
 </script>
 
 <header class="flex items-center text-mine-shaft-500 dark:text-mine-shaft-300">
@@ -45,11 +56,15 @@
                   href={item.href}
                   target={item.target}
                 >
-                {#if item.icon}
-                  <DynamicIcon iconTheme{item.icon[0]} iconName={item.icon[1]} size="1.6em"/>
-                {:else}
-                  {item.text}
-                {/if}
+                  {#if item.icon}
+                    <DynamicIcon
+                      iconTheme={item.icon[0]}
+                      iconName={item.icon[1]}
+                      size="1.6em"
+                    />
+                  {:else}
+                    {item.text}
+                  {/if}
                 </a>
               </li>
             {/each}
@@ -61,11 +76,7 @@
       <ColourSwitch />
 
       <!-- Hamburger menu button (visible on mobile) -->
-      <button
-        class="md:hidden"
-        on:click={toggleMenu}
-        aria-label="Toggle menu"
-      >
+      <button class="md:hidden" on:click={toggleMenu} aria-label="Toggle menu">
         <Icon src={BiMenu} size="24" />
       </button>
     </div>
@@ -74,7 +85,9 @@
 
 <!-- Mobile menu (shown when isMenuOpen is true) -->
 {#if isMenuOpen}
-  <div class="md:hidden fixed inset-0 z-50 bg-spring-wood-50 text-gray-700 dark:bg-mine-shaft-950 dark:text-spring-wood-50">
+  <div
+    class="md:hidden fixed inset-0 z-50 bg-spring-wood-50 text-gray-700 dark:bg-mine-shaft-950 dark:text-spring-wood-50"
+  >
     <div class="container py-5 text-right">
       <button class="mb-8 pt-2" on:click={toggleMenu} aria-label="Close menu">
         <Icon src={AiOutlineClose} size="24" />
@@ -118,7 +131,7 @@
   }
 
   .icon {
-    @apply text-neutral-500
+    @apply text-neutral-500;
   }
 
   .highlight {
@@ -134,7 +147,7 @@
   }
 
   .beat:hover {
-    @apply text-red-berry-900 dark:text-red-700;
+    @apply text-red-berry-800 dark:text-red-600;
   }
 
   @keyframes beat {
