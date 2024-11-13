@@ -64,13 +64,13 @@
       {formattedPubDate(pub_date)}
     </div>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
-      <div class="flex items-center justify-center gap-16">
+      <div class="flex gap-8">
         {#each authorsMetadata as author}
           <div class="flex flex-col items-center gap-2">
             {#if author.src}
               <img class="w-24 h-24 rounded-full object-cover" src={author.src} alt={author.name} />
             {/if}
-            <div class="font-light text-center w-36 mx-auto">
+            <div class="font-light text-center w-36">
               {author.name}
             </div>
           </div>

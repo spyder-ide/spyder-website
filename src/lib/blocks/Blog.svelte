@@ -137,7 +137,7 @@
   .names p::after {
     content: ", ";
   }
-  .names p:nth-last-child(-n+2) {
+  .names p:nth-last-child(2)::after {
     content: " & ";
   }
   .names p:last-child::after {
