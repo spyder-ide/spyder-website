@@ -168,8 +168,6 @@ async function generateAllOgImages() {
       const authorsArray = Array.isArray(meta.author) ? meta.author : [meta.author];
       const authorMetadata = await fetchAuthorsMetadata(authorsArray);
 
-      console.log(authorMetadata);
-
       if (!authorMetadata) {
         console.warn(
           `Could not fetch metadata for author "${meta.author}". Skipping image generation for post "${slug}".`
@@ -182,8 +180,6 @@ async function generateAllOgImages() {
         title: meta.title,
         author: authorMetadata.map(a => a.name),
       };
-
-      console.log(svgData);
 
       if (!testLength(svgData.title, maxTextLength)) {
         throw new Error(`The title of the post "${svgData.title}" is too long (${svgData.title.length} characters)! Use titles of ${maxTextLength} characters or less.`);
