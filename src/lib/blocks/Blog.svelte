@@ -83,7 +83,7 @@
       <div class="grid grid-flow-row gap-24">
         {#each loadedPosts as post}
           <article>
-            <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
+            <h2 class="text-xl md:text-2xl xl:text-3xl font-light text-balance">
               <a
                 class="post-link"
                 href="{base}/blog/{post.path}"
