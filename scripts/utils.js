@@ -66,6 +66,21 @@ export async function fetchAuthorMetadata(author) {
 }
 
 /**
+ * Fetches metadata for multiple authors.
+ * @param {Array<string>} authors - An array of authors' names.
+ * @returns {Promise<Array<Object>>} - A promise that resolves to an array of objects containing authors' information.
+ */
+export async function fetchAuthorsMetadata(authors) {
+  if (!authors || !Array.isArray(authors)) {
+    console.error("Invalid authors data:", authors);
+    return [];
+  }
+
+  const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));
+  return metadataList;
+}
+
+/**
  * Fetch all Markdown posts with their metadata.
  * @returns {Promise<Array>} - Array of post objects.
  */
@@ -76,7 +91,9 @@ export async function fetchMarkdownPostsMetadata() {
   const allPosts = await Promise.all(
     markdownFiles.map(async (filePath) => {
       const fileContent = await fs.readFile(filePath, 'utf-8');
-      const { data: metadata, content } = matter(fileContent);
+
+      // We discard the content and keep the metadata
+      const { data: metadata, _ } = matter(fileContent);
 
       if (!metadata.title || !metadata.author || !metadata.pub_date) {
         throw new Error(`File ${filePath} is missing required metadata.`);
@@ -85,10 +102,10 @@ export async function fetchMarkdownPostsMetadata() {
       // Extract the name of the post directory (slug)
       const slug = path.basename(path.dirname(filePath));
 
+      // Return metadata and post path
       return {
         meta: metadata,
         path: `/blog/${slug}`,
-        //content, // we don't need the content of the posts for this
       };
     })
   );

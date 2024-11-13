@@ -4,8 +4,7 @@ import fs from 'fs';
 import { promisify } from 'util';
 import {
   fetchMarkdownPostsMetadata,
-  formattedPubDate,
-  fetchAuthorMetadata,
+  fetchAuthorsMetadata,
 } from './utils.js';
 
 const writeFile = promisify(fs.writeFile);
@@ -15,7 +14,6 @@ const readFile = promisify(fs.readFile);
 
 const maxLineLength = 27;
 const maxTextLength = 100;
-const maxLines = 4;
 
 /**
  * Determines if a given string's length is less than or equal to a specified quantity.
@@ -47,7 +45,7 @@ async function exists(pathToCheck) {
  * @param {number} maxLineLength - Maximum length of each line.
  * @returns {Array<string>} - Array of title lines.
  */
-function splitTitle(title, lineLenght = maxLineLength) {
+function splitText(title, lineLenght = maxLineLength) {
   const words = title.split(' ');
   const lines = [];
   let currentLine = '';
@@ -80,17 +78,25 @@ function splitTitle(title, lineLenght = maxLineLength) {
 async function generateOgImage(data, slug) {
   const width = 1200;
   const height = 630;
-  const titleLines = splitTitle(data.title);
+  const titleLines = splitText(data.title);
   const bylineY = height - 100;
+
+  // Read the SVG template
+  const templatePath = path.join(process.cwd(), 'scripts', 'templates', 'og-template.svg');
+  const templateContent = await readFile(templatePath, 'utf-8');
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
     .map((line, index) => `<text x="120" y="${150 + index * 72}" class="title">${line}</text>`)
     .join('\n  ');
 
-  // Read the SVG template
-  const templatePath = path.join(process.cwd(), 'scripts', 'templates', 'og-template.svg');
-  const templateContent = await readFile(templatePath, 'utf-8');
+  // If we have multiple authors, create a string with their names
+  let authors = '';
+  if (Array.isArray(data.author) && data.author.length > 1) {
+    authors = [data.author.slice(0, -1).join(', ') + ' &amp; ' + data.author.slice(-1)];
+  } else {
+    authors = data.author;
+  }
 
   // Replace placeholders with actual data
   const svg = templateContent
@@ -98,7 +104,7 @@ async function generateOgImage(data, slug) {
     .replaceAll('${height}', height)
     .replaceAll('${titleTexts}', titleTexts)
     .replaceAll('${bylineY}', bylineY)
-    .replaceAll('${author}', data.author)
+    .replaceAll('${author}', authors)
 
   try {
     // Create SVG buffer
@@ -158,8 +164,11 @@ async function generateAllOgImages() {
         continue;
       }
 
-      // Fetch author metadata
-      const authorMetadata = await fetchAuthorMetadata(meta.author);
+      // Fetch author metadata\
+      const authorsArray = Array.isArray(meta.author) ? meta.author : [meta.author];
+      const authorMetadata = await fetchAuthorsMetadata(authorsArray);
+
+      console.log(authorMetadata);
 
       if (!authorMetadata) {
         console.warn(
@@ -168,15 +177,13 @@ async function generateAllOgImages() {
         continue;
       }
 
-      // Format publication date
-      const pubDateFormatted = formattedPubDate(meta.pub_date);
-
       // Prepare data for the SVG
       const svgData = {
         title: meta.title,
-        author: authorMetadata.name,
-        pubDate: pubDateFormatted,
+        author: authorMetadata.map(a => a.name),
       };
+
+      console.log(svgData);
 
       if (!testLength(svgData.title, maxTextLength)) {
         throw new Error(`The title of the post "${svgData.title}" is too long (${svgData.title.length} characters)! Use titles of ${maxTextLength} characters or less.`);

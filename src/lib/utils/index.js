@@ -69,13 +69,10 @@ export async function fetchAuthorMetadata(author, customFetch) {
   }
 }
 
-export async function fetchAuthorsMetadata(post) {
-  let authors = [];
-
-  if (post.authors && Array.isArray(post.authors)) {
-    authors = post.authors;
-  } else if (post.author && typeof post.author === 'string') {
-    authors = [post.author];
+export async function fetchAuthorsMetadata(authors) {
+  if (!authors || !Array.isArray(authors)) {
+    console.error("Invalid authors data:", authors);
+    return [];
   }
 
   const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));

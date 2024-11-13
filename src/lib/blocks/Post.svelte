@@ -28,7 +28,7 @@
   onMount(async () => {
     // Normalize authors data
     const postAuthors = (Array.isArray(authors) && authors.length > 0) ? authors : (author ? [author] : []);
-    authorsMetadata = await fetchAuthorsMetadata({ authors: postAuthors });
+    authorsMetadata = await fetchAuthorsMetadata(postAuthors[0]);
   });
 
   $: metadata.setMetadata({
@@ -60,21 +60,21 @@
     >
       {title}
     </h1>
+    <div class="text-neutral-500 text-center text-xl mt-4">
+      {formattedPubDate(pub_date)}
+    </div>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
-      <div class="flex items-center justify-center gap-4">
+      <div class="flex items-center justify-center gap-16">
         {#each authorsMetadata as author}
-          <div class="flex flex-col items-center gap-4">
+          <div class="flex flex-col items-center gap-2">
             {#if author.src}
               <img class="w-24 h-24 rounded-full object-cover" src={author.src} alt={author.name} />
             {/if}
-            <div class="font-light text-center">
+            <div class="font-light text-center w-36 mx-auto">
               {author.name}
             </div>
           </div>
         {/each}
-      </div>
-      <div class="text-neutral-500 text-xs font-medium">
-        {formattedPubDate(pub_date)}
       </div>
     </div>
   </div>
