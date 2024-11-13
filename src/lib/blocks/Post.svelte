@@ -16,7 +16,6 @@
   export let title;
   export let pub_date;
   export let author;
-  export let authors;
   export let tags;
   export let category;
   export let summary;
@@ -26,9 +25,8 @@
   const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
-    // Normalize authors data
-    const postAuthors = (Array.isArray(authors) && authors.length > 0) ? authors : (author ? [author] : []);
-    authorsMetadata = await fetchAuthorsMetadata(postAuthors[0]);
+    const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
+    authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
   $: metadata.setMetadata({
