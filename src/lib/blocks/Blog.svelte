@@ -3,7 +3,7 @@
   import { base } from "$app/paths";
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
-  import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
+  import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
@@ -38,15 +38,24 @@
   $: ({ posts, pageNum, totalPages } = data.props);
 
   $: if (posts) {
-    postsWithAuthor = Promise.all(
-      posts.map(async (post) => {
-        if (browser) {
-          const authorMetadata = await fetchAuthorMetadata(post.meta.author);
-          return { ...post, authorMetadata };
-        }
-        return post;
-      }),
-    );
+    postsWithAuthor = (async () => {
+      return Promise.all(
+        posts.map(async (post) => {
+          if (browser) {
+            try {
+              // Ensure post.meta.author is an array
+              const authorsArray = Array.isArray(post.meta.author) ? post.meta.author : [post.meta.author];
+              const authorMetadata = await fetchAuthorsMetadata(authorsArray);
+              return { ...post, authorMetadata };
+            } catch (error) {
+              console.error("Error fetching author metadata:", error);
+              return { ...post, authorMetadata: [] };
+            }
+          }
+          return post;
+        }),
+      );
+    })();
   }
 </script>
 
@@ -74,7 +83,7 @@
       <div class="grid grid-flow-row gap-24">
         {#each loadedPosts as post}
           <article>
-            <h2 class="text-xl md:text-2xl xl:text-3xl font-light">
+            <h2 class="text-xl md:text-2xl xl:text-3xl font-light text-balance">
               <a
                 class="post-link"
                 href="{base}/blog/{post.path}"
@@ -85,13 +94,19 @@
             </h2>
             {#if post.authorMetadata}
               <div class="flex gap-4 items-center my-4">
-                <img
-                  class="w-12 h-12 rounded-full object-cover bg-white"
-                  src={post.authorMetadata.src}
-                  alt={post.authorMetadata.name}
-                />
+                {#each post.authorMetadata as author}
+                  <img
+                    class="w-12 h-12 rounded-full object-cover bg-white"
+                    src={author.src}
+                    alt={author.name}
+                  />
+                {/each}
                 <div>
-                  <p>{post.authorMetadata.name}</p>
+                  <div class="flex gap-2 names">
+                    {#each post.authorMetadata as author}
+                      <p>{author.name}</p>
+                    {/each}
+                  </div>
                   <small>
                     Published on {formattedPubDate(post.meta.pub_date)}
                   </small>
@@ -117,3 +132,15 @@
     {/await}
   </section>
 </div>
+
+<style>
+  .names p::after {
+    content: ", ";
+  }
+  .names p:nth-last-child(2)::after {
+    content: " & ";
+  }
+  .names p:last-child::after {
+    content: "";
+  }
+</style>

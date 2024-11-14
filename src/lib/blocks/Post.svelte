@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { title as siteTitle, siteUrl, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
-  import { formattedPubDate, fetchAuthorMetadata } from "$lib/utils";
+  import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
   import Metadata from "$lib/components/Metadata.svelte";
 
@@ -20,19 +20,20 @@
   export let category;
   export let summary;
 
-  let authorMetadata = { src: "", name: "" };
+  let authorsMetadata = [];
   const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
-    authorMetadata = await fetchAuthorMetadata(author);
+    const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
+    authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
   $: metadata.setMetadata({
     title: `${siteTitle} | ${title}`,
     description: summary,
     keywords: `${tags}, ${category}`,
-    author: authorMetadata.name || author,
+    author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
     url: $page.url.href,
     image: customOgImagePath || ogImageBlog,
   });
@@ -57,19 +58,21 @@
     >
       {title}
     </h1>
+    <div class="text-neutral-500 text-center text-xl mt-4">
+      {formattedPubDate(pub_date)}
+    </div>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
-      {#if authorMetadata.src}
-        <img
-          class="w-24 h-24 rounded-full object-cover"
-          src={authorMetadata.src}
-          alt={author}
-        />
-      {/if}
-      <div class="font-light text-center">
-        {authorMetadata.name || author}
-        <div class="text-neutral-500 text-xs font-medium">
-          {formattedPubDate(pub_date)}
-        </div>
+      <div class="flex gap-8">
+        {#each authorsMetadata as author}
+          <div class="flex flex-col items-center gap-2">
+            {#if author.src}
+              <img class="w-24 h-24 rounded-full object-cover" src={author.src} alt={author.name} />
+            {/if}
+            <div class="font-light text-center w-36">
+              {author.name}
+            </div>
+          </div>
+        {/each}
       </div>
     </div>
   </div>
@@ -81,6 +84,7 @@
     dark:prose-invert
     prose-headings:font-medium
     prose-p:font-light
+    prose-p:text-pretty
     prose-li:font-light
     max-w-[72ch]
     mx-auto"

@@ -69,6 +69,16 @@ export async function fetchAuthorMetadata(author, customFetch) {
   }
 }
 
+export async function fetchAuthorsMetadata(authors) {
+  if (!authors || !Array.isArray(authors)) {
+    console.error("Invalid authors data:", authors);
+    return [];
+  }
+
+  const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));
+  return metadataList;
+}
+
 // Sort posts by date
 export const sortPostsByDate = (posts) =>
   posts.sort((a, b) => new Date(b.meta.pub_date) - new Date(a.meta.pub_date));
