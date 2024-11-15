@@ -39,14 +39,19 @@ export const blogSlug = "blog";
 export const ogSlug = "og";
 export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 
+// Social links (for footer and others)
+export const socials = {
+  github: "https://github.com/spyder-ide/spyder",
+  twitter: "https://twitter.com/spyder_ide",
+  facebook: "https://www.facebook.com/SpyderIDE/",
+  mastodon: "https://fosstodon.org/@Spyder",
+  instagram: "https://instagram.com/spyderide",
+  rss: `${base}/blog/feed.xml`
+};
+
 // Navigation
 export const navigation = [
   [
-    {
-      text: "Download",
-      href: `${base}/download/`,
-      target: "_self",
-    },
     {
       text: "About",
       href: `${base}/about/`,
@@ -63,17 +68,29 @@ export const navigation = [
       target: "_blank",
     },
   ],
+  [
+    {
+      text: "GitHub",
+      href: socials.github,
+      target: "_blank",
+      icon: ["bs","BsGithub"],
+    },
+    {
+      text: "Donate",
+      href: `${base}/donate/`,
+      target: "_self",
+      beat: true,
+      highlight: true,
+      icon: ["bs","BsHeartFill"],
+    },
+    {
+      text: "Download",
+      href: `${base}/download/`,
+      target: "_self",
+      button: true,
+    },
+  ]
 ];
-
-// Social links (for footer and others)
-export const socials = {
-  github: "https://github.com/spyder-ide/spyder",
-  twitter: "https://twitter.com/spyder_ide",
-  facebook: "https://www.facebook.com/SpyderIDE/",
-  mastodon: "https://fosstodon.org/@Spyder",
-  instagram: "https://instagram.com/spyderide",
-  rss: `${base}/blog/feed.xml`
-};
 
 // Hero content
 export const heroContent = {
@@ -93,6 +110,14 @@ export const githubButton = {
   icon: "github",
   text: "Checkout on GitHub",
   href: "https://github.com/spyder-ide/spyder/",
+}
+
+// Donate button
+export const donateButton = {
+  highlight: false,
+  icon: "donate",
+  text: "Support the project",
+  href: "/donate/",
 }
 
 // Download links
