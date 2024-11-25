@@ -27,6 +27,7 @@
     url: $page.url.href,
   });
 
+  let result;
   let arch = "unknown";
   let os = "unknown";
   let osName = "unknown";
@@ -76,12 +77,12 @@
       return;
     }
 
-    const result = getOSfromURL();
+    result = getOSfromURL();
 
     if (!result) {
       // Detect OS and architecture if not provided in the URL
-      os = getOS()
-      arch = "x64"
+      os = getOS();
+      arch = "x64";
     } else {
       os = result.os;
       arch = result.arch;
@@ -107,32 +108,15 @@
 
   export let data;
   $: pageTitle = data.props.title;
-  $: pageIntro = data.props.intro;
+  $: pageSubtitle = data.props.subtitle;
+  $: pageSubtitleAlt = data.props.alternative;
   $: download = data.props.download;
 </script>
 
 <Metadata />
 
 <div class="download container max-w-2xl">
-  {#if os === "unknown"}
-    <h1
-      class="text-4xl
-        lg:tracking-tight
-        lg:text-6xl
-        text-center
-        tracking-tight
-        font-extralight
-        text-mine-shaft-600
-        dark:text-mine-shaft-200 my-16 md:mt-32 md:mb-8"
-    >
-      {pageTitle}
-    </h1>
-    <h2
-      class="text-center dark:text-neutral-200 text-xl font-light mb-4 max-w-6xl mx-auto"
-    >
-      {@html pageIntro}
-    </h2>
-  {:else if os !== "unknown"}
+  {#if os !== "unknown"}
     <h1
       class="text-4xl
         lg:tracking-tight
@@ -143,13 +127,18 @@
         text-mine-shaft-600
         dark:text-mine-shaft-200 my-16 md:my-32"
     >
-      {@html download.title}
+      {@html result ? download.title : pageTitle}
     </h1>
-    <h2 class="text-center dark:text-neutral-200 text-4xl font-extralight mb-16">
+    <h2
+      class="text-center dark:text-neutral-200 text-4xl font-extralight mb-8"
+    >
       <span class="text-red-berry-900 dark:text-white font-extrabold"
         >{osName}</span
       > detected
     </h2>
+    <p class="text-center text-xl font-light">
+      {@html result ? pageSubtitle : pageSubtitleAlt}
+    </p>
     {#if os !== "mac"}
       <div class="block mt-8 mb-16 text-center w-48 mx-auto">
         <Button
@@ -175,7 +164,7 @@
         {/each}
       </div>
     {/if}
-    <p class="text-center text-xl font-light">
+    <p class="text-center text-lg font-light mb-8">
       {@html download.alternative}
     </p>
   {:else}
@@ -184,7 +173,7 @@
 
   {#if osButtons}
     <div
-      class="mt-16 mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
+      class="mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
     >
       {#each osButtons as button}
         <Button
