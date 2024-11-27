@@ -40,6 +40,7 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+#lib/ # Producing an error: can't add files within Svelte's $lib/ directory
 lib64/
 MANIFEST
 parts/
@@ -305,3 +306,6 @@ dist
 
 # Svelte-kit files
 .svelte-kit
+
+# Generated OG images
+static/assets/og

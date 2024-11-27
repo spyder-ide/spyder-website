@@ -1,5 +1,3 @@
-import { browser } from "$app/environment";
-
 // Determine if a variable has a value (even `false` or `0`)
 export const hasValue = (a) => a !== undefined && a !== null;
 
@@ -54,9 +52,9 @@ export function formattedPubDate(date) {
 }
 
 // Fetch the author's metadata
-export async function fetchAuthorMetadata(author) {
+export async function fetchAuthorMetadata(author, customFetch) {
   try {
-    const response = await fetch(`/assets/authors/${author}/metadata.json`);
+    const response = await (customFetch || fetch)(`/assets/authors/${author}/metadata.json`);
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
     }
@@ -71,6 +69,16 @@ export async function fetchAuthorMetadata(author) {
   }
 }
 
+export async function fetchAuthorsMetadata(authors) {
+  if (!authors || !Array.isArray(authors)) {
+    console.error("Invalid authors data:", authors);
+    return [];
+  }
+
+  const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));
+  return metadataList;
+}
+
 // Sort posts by date
 export const sortPostsByDate = (posts) =>
   posts.sort((a, b) => new Date(b.meta.pub_date) - new Date(a.meta.pub_date));
@@ -83,7 +91,7 @@ export const randomId = (length) =>
 
 // Determine the operating system and return it
 export const getOS = () => {
-  if (browser) {
+  if (typeof window !== "undefined") {
     const userAgent = navigator.userAgent.toLowerCase();
     const os = {
       mac: ["mac"],

@@ -85,7 +85,7 @@
   {#if title}
     <h1
       class={`text-4xl font-semibold tracking-tight max-w-2xl px-8 mx-auto text-center text-red-berry-900 dark:text-neutral-400
-        ${!boxed ? 'lg:mb-24' : ''}`}
+        ${!boxed ? 'lg:mb-24' : 'lg:mb-8'}`}
     >
       {@html title}
     </h1>

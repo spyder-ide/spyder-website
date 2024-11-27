@@ -1,16 +1,14 @@
 // Imports
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
-import { browser } from "$app/environment";
+import { PUBLIC_SITE_URL } from '$env/static/public';
 
 //////////////////////////////////////////////////////////////////
 // Site config
 //////////////////////////////////////////////////////////////////
 
 // Base URL
-export const siteUrl = browser
-  ? (dev ? "http://localhost:5173/" : `${window.location.protocol}//${window.location.host}/`)
-  : "https://www.spyder-ide.org/";
+export const siteUrl = dev ? "http://localhost:5173" : PUBLIC_SITE_URL;
 
 // Website metadata
 export const title = "Spyder";
@@ -37,6 +35,8 @@ export const keywords = [
 // Blog metadata
 export const blogTitle = "Welcome to Spyder's Blog";
 export const blogDescription = description;
+export const blogSlug = "blog";
+export const ogSlug = "og";
 export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 
 // Navigation
@@ -47,11 +47,14 @@ export const navigation = [
       href: `${base}/download/`,
       target: "_self",
     },
-  ],
-  [
+    {
+      text: "About",
+      href: `${base}/about/`,
+      target: "_self",
+    },
     {
       text: "Blog",
-      href: `${base}/blog/`,
+      href: `${base}/${blogSlug}/`,
       target: "_self",
     },
     {
