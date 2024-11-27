@@ -1,0 +1,80 @@
+---
+title: The inside scoop on Spyder 6's new remote development platform
+author:
+  - hlouzada
+  - ccordoba12
+  - camgerlach
+tags: Feature, Spyder6
+category: Releases
+pub_date: 2024-11-29
+summary: Spyder 6 includes a brand new remote development platform, building the foundations for enabling Spyder to easily leverage the power and data of remote desktops, servers, clusters and the cloud from anywhere! Hendrik Louzada, the lead developer behind this new backend, shares the details on how it all works, how he implemented it and his experiences doing so, and what's next for remote development in Spyder 6.1!
+---
+
+![Graphic with the Spyder icon connected to a network, with the words Easy Remote Execution is available now](hero.svg)
+
+We're excited to have our newest core developer, Hendrik Louzada, and our team share with you their insights and perspectives on Spyder's new remote development platform introduced in Spyder 6!
+Join us as Hendrik shares how he got started with Spyder and the project, how the new achetecture is implemented under the hood, what challenges we faced and what he learned from them, and what's next for Spyder 6.1.0!
+
+
+## How'd you find out about Spyder and why'd you join the project?
+
+Hendrick first started to work on Spyder around three years ago, developing a series of plugins to control remote magnetic resonance equipment (such as MRI machines) directly in the IDE.
+As part of that project, he made multiple upstream contributions to Spyder itself to improve the Language Server Protocol support (LSP, the architecture that powers Spyder's code completion, introspection, analysis and formatting).
+
+In 2023, Spyder received a [Chan Zuckerberg Initiative](https://chanzuckerberg.com/) (CZI) [EOSS 5 grant](https://chanzuckerberg.com/eoss/proposals/enhancing-spyder-ide-remote-support-for-scientific-research-in-python/) to implement a new remote development platform and features in Spyder to allow users to develop and run code in remote desktops, servers, clusters and cloud machines.
+After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found Hendrik, who joined the core development team near the end of 2023.
+
+
+![Demo of opening a new remote kernel via the Consoles menu](remote-console-demo.mp4)
+
+## How is the new remote development platform implemented?
+
+The backend, [`spyder-remote-services`](https://github.com/spyder-ide/spyder-remote-services), uses [Jupyter Server](https://jupyter-server.readthedocs.io/) and the [JupyterHub API](https://jupyterhub.readthedocs.io/en/stable/reference/rest-api.html), since Spyder is already leverages the Jupyter architecture to manage kernels and run code.
+We decided to use SSH to communicate with the remote machine, since it's secure and widely used for this purpose.
+
+That project is managed through an internal Spyder plugin, *Remote Client*, which uses the Jupyter API to manage remote Spyder kernels and connect them to Spyder.
+The *Remote Client* [frontend](https://github.com/spyder-ide/spyder/pull/22079) and [backend](https://github.com/spyder-ide/spyder/pull/21757) was developed as an interface for Spyder to connect and manage the Jupyter Server installed on the remote machine.
+The plugin connects to the machine over SSH, installs the server, and creates SSH tunnels for the exposed server and extra APIs implemented by `spyder-remote-services`.
+The remote client plugin is currently able to automatically create remote [IPython Consoles](https://docs.spyder-ide.org/current/panes/ipythonconsole.html) on behalf of users.
+Furthermore, you can now stop remote computations and restart remote kernels, which was not possible before.
+
+
+![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png)
+
+## What challenges did you face and how'd you overcome them?
+
+There are a number of Python libraries that implement the SSH protocol, but most of them use the underlying SSH client and server installed by the operating system.
+Unfortunately, the Windows SSH client has a serious issue that prevents tunnels from working correctly, so we needed an implementation that uses the underlying SSH libraries directly.
+After investigating a number of options, the [AsyncSSH project](https://github.com/ronf/asyncssh) was the only one that both meets that requirement and is also robust and well maintained, which we implemented in the PR [spyder-ide/spyder#22223](https://github.com/spyder-ide/spyder/pull/22223).
+
+However, there was still an important problem with AsyncSSH: Spyder uses the Qt framework's event loop for its graphical user interface, which is not async-enabled.
+Therefore, we had to write an async API that was flexible enough to be able to call several async functions in a specific event loop, allow for loops to be run concurrently (to avoid blocking the main Qt event loop and causing Spyder's GUI to freeze), and be thread-safe so it can be called from any Qt thread.
+
+To cover all those requirements, Hendrick created the [`@AsyncDispatcher` decorator](https://github.com/spyder-ide/spyder/blob/v6.0.0/spyder/api/asyncdispatcher.py#L39) function, which starts a thread to run an async loop, schedules the async function in a specific loop, and returns a future object with the function's result.
+That result is emitted in a Qt signal which is then used by Spyder synchronously to perform other tasks (e.g. check if the server is running).
+
+
+![Spyder consoles menu listing remote as well as local Python environments to open](remote-console-menu.png)
+
+## What have you learned so far?
+
+Working on an open source project has provided me with the opportunity to witness how my contributions directly impact users in real time.
+Seeing my work being utilized and appreciated by the Spyder community is very rewarding and motivates me to strive for excellence and dedication.
+Additionally, observing individuals dedicated to improving Spyder for many years with a common goal to help the scientific community, and without focusing primarily on profit, is incredibly inspiring.
+
+This project has taught me the importance of adaptability and perseverance.
+There were moments with problems too hard to understand by myself, but with the team's support I was able to push through those obstacles, making me more confident and resilient.
+
+I'm very grateful for the opportunity to work on Spyder with such a dedicated and supportive team.
+I am excited to apply the lessons learned as we move into the next phases of this project!
+
+
+## What's next for the project?
+
+Our plans for the next feature version, [Spyder 6.1.0](https://github.com/spyder-ide/spyder/milestone/134), include adding the necessary APIs to `spyder-remote-services` so it can manipulate the remote file system, and grant Spyder the ability to work with, copy, move and delete remote files and directories right from the easy to use graphical interface.
+Users will also be able to create and manage local and remote Python environments, so they can work in different scientific and programming projects remotely at the same time.
+Finally, we plan to enable connecting to an already running JupyterHub instance, for situations where the user's school, enterprise or organization already has one set up that they want to work with using Spyder, instead of being locked in to the JupyterLab web interface.
+The changes required will be relatively straightforward since instead of talking to our own server for remote development, users will communicate with the existing JupyterHub instead.
+
+We can't wait to bring this features to you soon in the next feature version, coming early next year, and see all the cool things you all end up doing with them.
+And until then, as always—Happy Spydering!🕸️
