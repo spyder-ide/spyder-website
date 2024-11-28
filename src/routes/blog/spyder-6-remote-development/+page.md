@@ -10,7 +10,21 @@ pub_date: 2024-11-29
 summary: Spyder 6 includes a brand new remote development platform, building the foundations for enabling Spyder to easily leverage the power and data of remote desktops, servers, clusters and the cloud from anywhere! Hendrik Louzada, the lead developer behind this new backend, shares the details on how it all works, how he implemented it and his experiences doing so, and what's next for remote development in Spyder 6.1!
 ---
 
-![Graphic with the Spyder icon connected to a network, with the words Easy Remote Execution is available now](hero.svg)
+![Graphic with the Spyder icon connected to a network, with the words Easy Remote Execution is available now](hero.png)
+
+The foundations of Spyder's new remote development platform are available now in Spyder 6.0, with more features to come in 6.1 and beyond!
+The goal is to make it easy for you to host their files, data and computations on remote desktops, clusters, servers and the cloud while being able to use Spyder just like you normally would locally.
+
+Alongside built-in backend and client-server components, Spyder 6.0 features a new remote connection manager that allows you to connect to any machine with a SSH server, no prior installation or configuration needed, and automatically set up and use a remote Python environment  on the host.
+It also features graphical status checking and reporting, host configuration management, and more.
+In addition, it brings a new `Consoles` submenu allowing you to connect to any remote environment with one click, launch a console and run your code.
+You can also stop code execution as well as restart remove kernels from right within Spyder.
+
+<video controls>
+  <source src="remote-console-demo.mp4" type="video/mp4">
+  <track kind="captions">
+  Sorry, your browser doesn’t support HTML5 video. Download the <a href="screencast.mp4">MP4 file</a>
+</video>
 
 We're excited to have our newest core developer, Hendrik Louzada, and our team share with you their insights and perspectives on Spyder's new remote development platform introduced in Spyder 6!
 Join us as Hendrik shares how he got started with Spyder and the project, how the new achetecture is implemented under the hood, what challenges we faced and what he learned from them, and what's next for Spyder 6.1.0!
@@ -25,7 +39,7 @@ In 2023, Spyder received a [Chan Zuckerberg Initiative](https://chanzuckerberg.c
 After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found Hendrik, who joined the core development team near the end of 2023.
 
 
-![Demo of opening a new remote kernel via the Consoles menu](remote-console-demo.mp4)
+![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png)
 
 ## How is the new remote development platform implemented?
 
@@ -39,7 +53,7 @@ The remote client plugin is currently able to automatically create remote [IPyth
 Furthermore, you can now stop remote computations and restart remote kernels, which was not possible before.
 
 
-![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png)
+![Spyder consoles menu listing remote as well as local Python environments to open](remote-console-menu.png)
 
 ## What challenges did you face and how'd you overcome them?
 
@@ -54,7 +68,7 @@ To cover all those requirements, Hendrick created the [`@AsyncDispatcher` decora
 That result is emitted in a Qt signal which is then used by Spyder synchronously to perform other tasks (e.g. check if the server is running).
 
 
-![Spyder consoles menu listing remote as well as local Python environments to open](remote-console-menu.png)
+![Spyder remote connection manager, showing a successfully connected host](remote-connection-manager-status.png)
 
 ## What have you learned so far?
 
