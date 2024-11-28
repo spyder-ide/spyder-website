@@ -12,7 +12,7 @@ import {
 } from "$lib/config";
 
 // Import YAML data
-import contentYaml from './content.yaml?raw';
+import content from './content.yaml?raw';
 
 // Load content and process blocks
 export function load() {
@@ -27,7 +27,7 @@ export function load() {
   });
 
   // Parse the YAML content
-  const frontPage = yaml.load(contentYaml);
+  const frontPage = yaml.load(content);
 
   return frontPage;
 }

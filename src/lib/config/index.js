@@ -37,6 +37,8 @@ export const blogTitle = "Welcome to Spyder's Blog";
 export const blogDescription = description;
 export const blogSlug = "blog";
 export const ogSlug = "og";
+export const blogPageStart = 1;
+export const blogPageSize = 10;
 export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
 
 // Navigation

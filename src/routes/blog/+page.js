@@ -7,11 +7,13 @@ import {
   blogDescription as description,
   keywords,
   author,
-  ogImageBlog
+  ogImageBlog,
+  blogPageStart,
+  blogPageSize
 } from "$lib/config";
 
-const pageNum = 1;
-const pageSize = 10;
+const pageNum = blogPageStart;
+const pageSize = blogPageSize;
 
 export async function load() {
   // Set the metadata
