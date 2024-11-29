@@ -35,10 +35,10 @@ I first started to work on Spyder around three years ago, developing a series of
 As part of that project, I made several upstream contributions to Spyder itself to improve the Language Server Protocol support (LSP, the architecture that powers Spyder's code completion, introspection, analysis and formatting).
 
 In 2023, Spyder received a [Chan Zuckerberg Initiative](https://chanzuckerberg.com/) Essential Open Source Software for Science [Cycle 5 grant](https://chanzuckerberg.com/eoss/proposals/enhancing-spyder-ide-remote-support-for-scientific-research-in-python/) to implement a new remote development architecture and features in Spyder to allow users to develop and run code in remote servers and cloud machines.
-After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found me, so I joined the core development team near the end of 2023.
+After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found me, so I joined the core development team near the end of 2023.<br><br>
 
 
-![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png)
+![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png "Spyder's new remote connection manager lists the configurable SSH settings for creating a remote host")
 
 ## How is the new remote development platform implemented?
 
@@ -49,10 +49,10 @@ That project is managed through an internal Spyder plugin, *Remote Client*, whic
 The *Remote Client* [frontend](https://github.com/spyder-ide/spyder/pull/22079) and [backend](https://github.com/spyder-ide/spyder/pull/21757) were developed as an interface for Spyder to connect and manage the Jupyter Server installed on the remote machine.
 The plugin connects to the machine, installs the server, and creates SSH tunnels for the exposed server and extra APIs implemented by `spyder-remote-services`.
 Once that's complete, Spyder will be able to automatically create remote [IPython Consoles](https://docs.spyder-ide.org/current/panes/ipythonconsole.html) on behalf of users.
-Furthermore, you can now stop remote computations and restart remote kernels, which was not possible before.
+Furthermore, you can now stop remote computations and restart remote kernels, which was not possible before.<br><br>
 
 
-![Spyder consoles menu listing remote as well as local Python environments to open](remote-console-menu.png)
+![Spyder consoles menu listing remote as well as local Python environments to open](remote-console-menu.png "Spyder's Consoles menu now has a new submenu allowing one-click launch of consoles on remote hosts")
 
 ## What challenges did you face and how'd you overcome them?
 
@@ -65,10 +65,10 @@ However, there was still an important problem with AsyncSSH: Spyder uses the Qt 
 Therefore, I had to write an async API that was flexible enough to be able to call several async functions in a specific event loop, allow for loops to be run concurrently (to avoid blocking the main Qt event loop and causing Spyder's GUI to freeze), and be thread-safe so it can be called from any Qt thread.
 
 To cover all those requirements, I created the [`@AsyncDispatcher` decorator](https://github.com/spyder-ide/spyder/blob/v6.0.0/spyder/api/asyncdispatcher.py#L39) function, which starts a thread to run an async loop if needed, schedules the async function in a specific loop, and returns a future object with the async function's result.
-That result is emitted in a Qt signal which is then used by Spyder synchronously to perform other tasks (e.g. check if the server is running).
+That result is emitted in a Qt signal which is then used by Spyder synchronously to perform other tasks (e.g. check if the server is running).<br><br>
 
 
-![Spyder remote connection manager, showing a successfully connected host](remote-connection-manager-status.png)
+![Spyder remote connection manager, showing a successfully connected host](remote-connection-manager-status.png "The new remote connection manager shows detailed connection and status information for remote hosts")
 
 ## What have you learned so far?
 
@@ -88,6 +88,7 @@ I am excited to apply the lessons learned as we move into the next phases of thi
 Our plans for the next feature version, [Spyder 6.1.0](https://github.com/spyder-ide/spyder/milestone/134), include adding the necessary APIs to `spyder-remote-services` so it can manipulate the remote file system.
 This will allow you to view, copy, move and delete remote files and directories right from Spyder's Files pane.
 Users will also be able to create and manage local and remote Python environments, so they can work in different scientific and programming projects remotely at the same time.
+
 Finally, we plan to enable connecting to an already running JupyterHub instance, for situations where the user's organization already has one set up that they want to work with using Spyder.
 The changes required will be relatively straightforward since instead of talking to our own server for remote development, users will communicate with the existing JupyterHub instead.
 
