@@ -25,17 +25,17 @@ You can also stop code execution as well as restart remote kernels from within S
   Sorry, your browser doesn’t support HTML5 video. Download the <a href="screencast.mp4">MP4 file</a>
 </video>
 
-We're excited to have our newest core developer, Hendrik Louzada, and our team share with you their insights and perspectives on Spyder's new remote development platform introduced in Spyder 6!
+We're excited to have our newest core developer, Hendrik Louzada, share with you his insights and perspectives on Spyder 6's new remote development architecture he helped implement!
 Join us as Hendrik shares how he got started with Spyder and the project, how the new achetecture is implemented under the hood, what challenges he faced and what he learned from them, and what's next for Spyder 6.1.0!
 
 
 ## How'd you find out about Spyder and why'd you join the project?
 
-Hendrick first started to work on Spyder around three years ago, developing a series of plugins to control remote magnetic resonance equipment (such as MRI machines) directly in the IDE.
-As part of that project, he made multiple upstream contributions to Spyder itself to improve the Language Server Protocol support (LSP, the architecture that powers Spyder's code completion, introspection, analysis and formatting).
+I first started to work on Spyder around three years ago, developing a series of plugins to control remote magnetic resonance equipment (such as MRI machines) directly in the IDE.
+As part of that project, I made several upstream contributions to Spyder itself to improve the Language Server Protocol support (LSP, the architecture that powers Spyder's code completion, introspection, analysis and formatting).
 
 In 2023, Spyder received a [Chan Zuckerberg Initiative](https://chanzuckerberg.com/) Essential Open Source Software for Science [Cycle 5 grant](https://chanzuckerberg.com/eoss/proposals/enhancing-spyder-ide-remote-support-for-scientific-research-in-python/) to implement a new remote development architecture and features in Spyder to allow users to develop and run code in remote servers and cloud machines.
-After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found Hendrik, who joined the core development team near the end of 2023.
+After a six-month search by Spyder lead maintainer Carlos Cordoba to find the right candidate to engineer the backend and network architecture for this project, he found me, so I joined the core development team near the end of 2023.
 
 
 ![New remote connection manager dialog in Spyder listing the configurable settings for a new remote host](remote-connection-manager-new.png)
@@ -57,13 +57,14 @@ Furthermore, you can now stop remote computations and restart remote kernels, wh
 ## What challenges did you face and how'd you overcome them?
 
 There are a number of Python libraries that implement the SSH protocol, but most of them use the underlying SSH client and server installed by the operating system.
-Unfortunately, the Windows SSH client has a serious issue that prevents tunnels from working correctly, so we needed an implementation that uses the underlying SSH libraries directly.
-After investigating a number of options, the [AsyncSSH project](https://github.com/ronf/asyncssh) was the only one that both meets that requirement and is also robust and well maintained, which we implemented in the PR [spyder-ide/spyder#22223](https://github.com/spyder-ide/spyder/pull/22223).
+Unfortunately, the Windows SSH client has a serious issue that prevents tunnels from working correctly, so I needed to find an implementation that uses the underlying SSH libraries directly instead.
+After investigating a number of options, the [AsyncSSH project](https://github.com/ronf/asyncssh) was the only one that both meets that requirement and is also robust and well maintained.
+Hence, I implemented tunneling using that library in the pull request [spyder-ide/spyder#22223](https://github.com/spyder-ide/spyder/pull/22223).
 
 However, there was still an important problem with AsyncSSH: Spyder uses the Qt framework's event loop for its graphical user interface, which is not async-enabled.
-Therefore, we had to write an async API that was flexible enough to be able to call several async functions in a specific event loop, allow for loops to be run concurrently (to avoid blocking the main Qt event loop and causing Spyder's GUI to freeze), and be thread-safe so it can be called from any Qt thread.
+Therefore, I had to write an async API that was flexible enough to be able to call several async functions in a specific event loop, allow for loops to be run concurrently (to avoid blocking the main Qt event loop and causing Spyder's GUI to freeze), and be thread-safe so it can be called from any Qt thread.
 
-To cover all those requirements, Hendrick created the [`@AsyncDispatcher` decorator](https://github.com/spyder-ide/spyder/blob/v6.0.0/spyder/api/asyncdispatcher.py#L39) function, which starts a thread to run an async loop, schedules the async function in a specific loop, and returns a future object with the function's result.
+To cover all those requirements, I created the [`@AsyncDispatcher` decorator](https://github.com/spyder-ide/spyder/blob/v6.0.0/spyder/api/asyncdispatcher.py#L39) function, which starts a thread to run an async loop if needed, schedules the async function in a specific loop, and returns a future object with the async function's result.
 That result is emitted in a Qt signal which is then used by Spyder synchronously to perform other tasks (e.g. check if the server is running).
 
 
