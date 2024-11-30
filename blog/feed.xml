@@ -7,6 +7,14 @@
         <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
         
     <item>
+      <title>The inside scoop on Spyder 6's new remote development platform</title>
+      <link>https://www.spyder-ide.org/blog/spyder-6-remote-development</link>
+      <description>Spyder 6 includes a brand new remote development platform, building the foundations for enabling Spyder to easily leverage the power and data of remote desktops, servers, clusters and the cloud from anywhere! Hendrik Louzada, the lead developer behind this new backend, shares the details on how it all works, how he implemented it and his experiences doing so, and what's next for remote development in Spyder 6.1!</description>
+      <category>Releases</category>
+      <pubDate>Fri, 29 Nov 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
       <title>Officially announcing the release of Spyder 6!</title>
       <link>https://www.spyder-ide.org/blog/release-spyder-6.0.0</link>
       <description>After two years in development and more than 2600 commits from over two dozen authors around the world, Spyder 6.0.0 had its stable release on September 3, 2024! Now that 6.0.1 is out and the dust has settled, we'd like to formally announce the release here, thank those who've contributed to it, and introduce a series of posts highlighting its major new features and improvements that haven't already been showcased here.</description>
