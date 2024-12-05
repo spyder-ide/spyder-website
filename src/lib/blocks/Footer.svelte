@@ -18,6 +18,7 @@
   text-center
   text-mine-shaft-500
   dark:text-mine-shaft-300
+
   bg-quill-gray-200
   dark:bg-mine-shaft-900"
 >

@@ -1,0 +1,92 @@
+# Website metadata
+title: Spyder
+subtitle: The Python IDE that scientists and data analysts deserve
+comment: Designed by the community, for the community
+author: Spyder Website Contributors
+description: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
+keywords:
+  - Python
+  - IDE
+  - Spyder
+  - Matplotlib
+  - iPython
+  - Jupyter
+  - Science
+  - Data-Science
+  - Data-Analytics
+  - Programming
+
+# Blog metadata
+blogTitle: Welcome to Spyder's Blog
+blogDescription: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
+blogSlug: blog
+ogSlug: og
+blogPageStart: 1
+blogPageSize: 10
+
+# Navigation
+navigation:
+  - - text: Download
+      href: /download/
+      target: _self
+    - text: About
+      href: /about/
+      target: _self
+    - text: Blog
+      href: /blog/
+      target: _self
+    - text: Docs
+      href: https://docs.spyder-ide.org/
+      target: _blank
+
+# Social links
+socials:
+  github: https://github.com/spyder-ide/spyder
+  twitter: https://twitter.com/spyder_ide
+  facebook: https://www.facebook.com/SpyderIDE/
+  mastodon: https://fosstodon.org/@Spyder
+  instagram: https://instagram.com/spyderide
+
+# Hero content
+heroContent:
+  title: The Python IDE that scientists and data analysts deserve
+  description: Designed by the community, for the community
+
+# Images in hero
+heroImages:
+  dark: /assets/media/screenshot_dark.webp
+  light: /assets/media/screenshot_light.webp
+
+# Github button
+githubButton:
+  highlight: false
+  icon: github
+  text: Checkout on GitHub
+  href: https://github.com/spyder-ide/spyder/
+
+# Download links
+releases:
+  windows:
+    x64:
+      name: Windows 10+
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
+  linux:
+    x64:
+      name: Linux
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
+  mac:
+    arm64:
+      name: macOS 14.0+ (M1)
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
+    x64:
+      name: macOS 12.0+ (Intel)
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg
+
+# Footer title and content
+footerTitle: Connect with us on
+footerContent: >-
+  © 2024 [Spyder Website Contributors](https://github.com/spyder-ide/spyder-website/graphs/contributors) | [MIT License](https://github.com/spyder-ide/spyder-website/blob/main/LICENSE.md)
+
+  Made by [@conradolandia](https://github.com/conradolandia/) with 🖤 using [SvelteKit](https://kit.svelte.dev/)
+
+  Feature icons by [sip](https://github.com/leshak/svelte-icons-pack) | Markdown processed using [mdsvex](https://mdsvex.pngwn.io/)
