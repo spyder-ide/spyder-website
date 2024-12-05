@@ -29,6 +29,12 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            },
             figure: {
               border: "1px solid",
               backgroundColor: "rgba(0, 0, 0, 0.01)",
