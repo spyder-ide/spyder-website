@@ -35,6 +35,11 @@ export default {
             'code::after': {
               content: '""'
             },
+            code: {
+              fontSize: "1rem",
+              fontSize: "1.18rem",
+              fontWeight: "400"
+            },
             figure: {
               border: "1px solid",
               backgroundColor: "rgba(0, 0, 0, 0.01)",
@@ -53,6 +58,14 @@ export default {
               marginRight: "auto"
             }
           },
+        },
+        lg: {
+          css: {
+            code: {
+              fontSize: "1.18rem",
+              fontWeight: "400"
+            },
+          }
         },
         md: {
           css: {
