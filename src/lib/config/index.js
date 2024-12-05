@@ -1,9 +1,10 @@
 // Imports
+import yaml from 'js-yaml';
+import content from './content.yaml?raw';
+
 import { dev } from "$app/environment";
 import { base } from "$app/paths";
 import { PUBLIC_SITE_URL } from '$env/static/public';
-import yaml from 'js-yaml';
-import content from './content.yaml?raw';
 
 // Load configuration from YAML
 const config = yaml.load(content);
@@ -21,7 +22,7 @@ export const subtitle = config.subtitle;
 export const comment = config.comment;
 export const author = config.author;
 export const description = config.description;
-export const ogImage = `${siteUrl}assets/media/website_screenshot.png`;
+export const ogImage = `${siteUrl}/assets/media/website_screenshot.png`;
 export const keywords = config.keywords;
 
 // Blog metadata
@@ -31,7 +32,11 @@ export const blogSlug = config.blogSlug;
 export const ogSlug = config.ogSlug;
 export const blogPageStart = config.blogPageStart;
 export const blogPageSize = config.blogPageSize;
-export const ogImageBlog = `${siteUrl}assets/media/blog_screenshot.png`;
+export const blogPublishedOn = config.blogPublishedOn;
+export const blogReadMore = config.blogReadMore;
+export const blogError = config.blogError;
+export const blogMetadataError = config.blogMetadataError;
+export const ogImageBlog = `${siteUrl}/assets/media/blog_screenshot.png`;
 
 // Navigation
 export const navigation = config.navigation.map(section =>

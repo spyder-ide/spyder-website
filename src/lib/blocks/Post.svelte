@@ -22,7 +22,7 @@
 
   let authorsMetadata = [];
   const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
-  const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
+  const customOgImagePath = `${siteUrl}/assets/${ogSlug}/${slug}.png`;
 
   onMount(async () => {
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);

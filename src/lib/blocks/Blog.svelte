@@ -1,7 +1,6 @@
 <script>
   import { browser } from "$app/environment";
   import { base } from "$app/paths";
-  import { page } from "$app/stores";
   import { metadata } from "$lib/store";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
@@ -16,6 +15,11 @@
     blogTitle,
     description as blogDescription,
     keywords as blogKeywords,
+    blogPublishedOn,
+    blogReadMore,
+    blogError,
+    blogMetadataError,
+    blogSlug,
     ogImageBlog,
     socials
   } from "$lib/config";
@@ -32,7 +36,7 @@
     author: siteAuthor,
     image: ogImageBlog,
     site,
-    url: $page.url.href,
+    url: siteUrl,
   });
 
   $: ({ posts, pageNum, totalPages } = data.props);
@@ -48,7 +52,7 @@
               const authorMetadata = await fetchAuthorsMetadata(authorsArray);
               return { ...post, authorMetadata };
             } catch (error) {
-              console.error("Error fetching author metadata:", error);
+              console.error(blogMetadataError, error);
               return { ...post, authorMetadata: [] };
             }
           }
@@ -86,7 +90,7 @@
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light text-balance">
               <a
                 class="post-link"
-                href="{base}/blog/{post.path}"
+                href="{base}/{blogSlug}/{post.path}"
                 title={post.meta.title}
               >
                 {post.meta.title}
@@ -108,7 +112,7 @@
                     {/each}
                   </div>
                   <small>
-                    Published on {formattedPubDate(post.meta.pub_date)}
+                    {blogPublishedOn} {formattedPubDate(post.meta.pub_date)}
                   </small>
                 </div>
               </div>
@@ -118,17 +122,17 @@
             </p>
             <a
               class="block text-right mt-4"
-              href="{siteUrl}blog/{post.path}"
+              href="{base}/{blogSlug}/{post.path}"
               title={post.meta.title}
             >
-              Read More&hellip;
+              {blogReadMore}&hellip;
             </a>
           </article>
         {/each}
       </div>
-      <Pagination {pageNum} {totalPages} route="blog" />
+      <Pagination {pageNum} {totalPages} route={blogSlug} />
     {:catch error}
-      <p>Error loading posts: {error.message}</p>
+      <p>{blogError}: {error.message}</p>
     {/await}
   </section>
 </div>
