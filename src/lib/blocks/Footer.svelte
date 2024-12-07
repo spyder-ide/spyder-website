@@ -1,12 +1,10 @@
 <script>
-  import { socials, footerTitle } from "$lib/config";
+  import { socials, footerTitle, footerContent } from "$lib/config";
 
   import Divider from "$lib/components/Divider.svelte";
   import Button from "$lib/components/Button.svelte";
-  import FooterContent from "$lib/content/footer-content.md";
 
   const socialIcons = new Map(Object.entries(socials));
-
 </script>
 
 <!-- Footer -->
@@ -30,7 +28,7 @@
       {/each}
     </div>
     <div class="max-w-md mx-auto text-sm">
-      <FooterContent />
+      {@html footerContent}
     </div>
   </div>
 </footer>

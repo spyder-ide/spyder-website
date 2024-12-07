@@ -18,22 +18,13 @@
     keywords,
   } from "$lib/config";
 
-  $: metadata.setMetadata({
-    title: `${title} | Download`,
-    description,
-    keywords: keywords.join(", "),
-    author,
-    image,
-    url: $page.url.href,
-  });
-
-  let result;
   let arch = "unknown";
   let os = "unknown";
   let osName = "unknown";
   let macs = Object.entries(releases.mac);
   let downloadUrl = "";
   let osButtons = [];
+  let pageTitle, pageSubtitle, pageSubtitleAlt, download, result;
 
   console.log(macs);
 
@@ -98,19 +89,31 @@
     }
   };
 
-  $: osName = releases[os]?.[arch]?.name ?? "";
-  $: downloadUrl = releases[os]?.[arch]?.link ?? "";
-
   onMount(() => {
     getOSValues();
     osButtons = generateDownloadButtons(releases);
   });
 
   export let data;
-  $: pageTitle = data.props.title;
-  $: pageSubtitle = data.props.subtitle;
-  $: pageSubtitleAlt = data.props.alternative;
-  $: download = data.props.download;
+
+  $: {
+    osName = releases[os]?.[arch]?.name ?? "";
+    downloadUrl = releases[os]?.[arch]?.link ?? "";
+    pageTitle = data.props.title;
+    pageSubtitle = data.props.subtitle;
+    pageSubtitleAlt = data.props.alternative;
+    download = data.props.download;
+
+    metadata.setMetadata({
+      title: `${title} | Download`,
+      description,
+      keywords: keywords.join(", "),
+      author,
+      image,
+      url: $page.url.href,
+    });
+  }
+
 </script>
 
 <Metadata />

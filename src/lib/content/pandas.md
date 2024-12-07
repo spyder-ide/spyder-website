@@ -1,1 +1,0 @@
-![Spyder Variable Explorer pane showing a pandas dataframe containing weather observations in a "spreadsheet" style view, with multi-level index columns, per-column heatmaps and toolbar options for displaying and editing the data](/assets/media/pandas.webp "Interact with the contents of your dataframes")

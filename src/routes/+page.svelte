@@ -7,12 +7,10 @@
   let blocks = data.props.blocks;
 </script>
 
+<Metadata/>
+
 <Hero id="hero-section" divider={true} />
 
 {#each blocks as block (block.id)}
-  <ContentBlock {...block} >
-    <svelte:component this={block.content} />
-  </ContentBlock>
+  <ContentBlock {...block}/>
 {/each}
-
-<Metadata/>
