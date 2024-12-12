@@ -1,10 +1,10 @@
 <script>
+  import { _, json } from 'svelte-i18n';
   import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  export let data;
-  let blocks = data.props.blocks;
+  let blocks = $json('frontpage.props.blocks');
 </script>
 
 <Metadata/>

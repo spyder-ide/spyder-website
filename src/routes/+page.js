@@ -1,5 +1,3 @@
-import yaml from 'js-yaml';
-
 import { metadata } from "$lib/store";
 import {
   siteUrl,
@@ -10,9 +8,6 @@ import {
   author,
   ogImage,
 } from "$lib/config";
-
-// Import YAML data
-import content from './content.yaml?raw';
 
 // Load content and process blocks
 export function load() {
@@ -25,9 +20,4 @@ export function load() {
     url: siteUrl,
     image: ogImage,
   });
-
-  // Parse the YAML content
-  const frontPage = yaml.load(content);
-
-  return frontPage;
 }
