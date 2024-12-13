@@ -35,8 +35,6 @@
   let downloadUrl = "";
   let osButtons = [];
 
-  console.log(macs);
-
   // Generate download buttons even if we don't have
   // a download parameter in the URL
   let generateDownloadButtons = (releases) => {
