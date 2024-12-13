@@ -21,6 +21,7 @@ You can also stop code execution as well as restart remote kernels from within S
 
 <video controls>
   <source src="remote-console-demo.mp4" type="video/mp4">
+  <track kind="captions">
 </video>
 
 We're excited to have our newest core developer, Hendrik Louzada, share with you his insights and perspectives on Spyder 6's new remote development architecture he helped implement!
