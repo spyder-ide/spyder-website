@@ -10,8 +10,8 @@ props:
       title: Ventajas de Spyder
       extraContent:
         title: >-
-          Get the ease of use of Jupyter along with many advanced features
-          found in PyCharm and VSCode in a single programming environment
+          Obtenga la facilidad de uso de Jupyter, y muchas mas características avanzadas
+          que se encuentran en PyCharm y VSCode, en un solo entorno de programación
 
     - id: interactive-section
       title: Interactive programming built in

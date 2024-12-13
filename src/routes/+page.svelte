@@ -4,7 +4,7 @@
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  let blocks = $json('frontpage.props.blocks');
+  $: blocks = $json('frontpage.props.blocks');
 </script>
 
 <Metadata/>

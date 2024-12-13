@@ -1,3 +1,48 @@
+site:
+  title: Spyder
+  subtitle: The Python IDE that scientists and data analysts deserve
+  comment: Designed by the community, for the community
+  author: Spyder Website Contributors
+  description: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
+  keywords:
+    - Python
+    - IDE
+    - Spyder
+    - Matplotlib
+    - iPython
+    - Jupyter
+    - Science
+    - Data-Science
+    - Data-Analytics
+    - Programming
+  navigation:
+    - - text: Download
+        href: /download/
+        target: _self
+      - text: About
+        href: /about/
+        target: _self
+      - text: Blog
+        href: /blog/
+        target: _self
+      - text: Docs
+        href: https://docs.spyder-ide.org/
+        target: _blank
+
+blog:
+  title: Welcome to Spyder's Blog
+  slug: blog
+  pageStart: 1
+  pageSize: 10
+  publishedOn: Published on
+  readMore: Read More
+  error: Error loading posts
+  metadataError: Error fetching author metadata
+
+
+
+
+
 # Website metadata
 title: Spyder
 subtitle: The Python IDE that scientists and data analysts deserve
