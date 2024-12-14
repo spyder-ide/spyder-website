@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
   darkMode: "class",
@@ -29,6 +29,17 @@ export default {
       typography: (theme) => ({
         DEFAULT: {
           css: {
+            'code::before': {
+              content: '""'
+            },
+            'code::after': {
+              content: '""'
+            },
+            code: {
+              fontSize: "1rem",
+              fontSize: "1.18rem",
+              fontWeight: "400"
+            },
             figure: {
               border: "1px solid",
               backgroundColor: "rgba(0, 0, 0, 0.01)",
@@ -47,6 +58,14 @@ export default {
               marginRight: "auto"
             }
           },
+        },
+        lg: {
+          css: {
+            code: {
+              fontSize: "1.18rem",
+              fontWeight: "400"
+            },
+          }
         },
         md: {
           css: {

@@ -26,8 +26,6 @@
   let osButtons = [];
   let pageTitle, pageSubtitle, pageSubtitleAlt, download, result;
 
-  console.log(macs);
-
   // Generate download buttons even if we don't have
   // a download parameter in the URL
   let generateDownloadButtons = (releases) => {
