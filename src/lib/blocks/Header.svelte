@@ -3,11 +3,15 @@
   import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
 
+  import { waitLocale } from 'svelte-i18n';
+
   import { base } from "$app/paths";
   import { title, description, navigation } from "$lib/config";
 
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import LanguageSelect from "$lib/components/LanguageSelect.svelte";
 
   let isMenuOpen = false;
 
@@ -16,6 +20,9 @@
   }
 </script>
 
+{#await waitLocale()}
+  <Loader/>
+{:then}
 <header class="flex items-center text-mine-shaft-500 dark:text-mine-shaft-300">
   <div class="container flex items-center justify-between">
     <!-- Logo -->
@@ -42,6 +49,9 @@
           </ul>
         {/each}
       </nav>
+
+      <!-- Language switch -->
+      <LanguageSelect />
 
       <!-- Theme switch (dark/light) -->
       <ColourSwitch />
@@ -84,6 +94,7 @@
     </div>
   </div>
 {/if}
+{/await}
 
 <style>
   .menu-link {

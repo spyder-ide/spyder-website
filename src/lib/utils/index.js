@@ -46,9 +46,9 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
 };
 
 // Format the date
-export function formattedPubDate(date) {
+export function formattedPubDate(date, i18n = "en-US") {
   const options = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(date).toLocaleDateString("en-US", options);
+  return new Date(date).toLocaleDateString(i18n, options);
 }
 
 // Fetch the author's metadata

@@ -1,1 +1,0 @@
-![Spyder Consoles menu with the "New console in environment" submenu selected, showing a listing of Conda environments by name, type and Python version](/assets/media/conda.webp "Work with multiple environments at once")

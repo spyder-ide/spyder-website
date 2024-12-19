@@ -2,21 +2,23 @@
   import DynamicIcon from "$lib/components/DynamicIcon.svelte";
   import Image from "$lib/components/Image.svelte";
 
-  export let aspect = "";
   export let innerColumn;
+  export let aspect = "";
   export let classes = "";
+  export let size = 48;
 </script>
 
 <div
   class="text-red-berry-900 dark:text-neutral-300 flex flex-col items-center justify-center text-center {aspect}"
 >
   {#if innerColumn.icon}
-    <DynamicIcon icon={innerColumn.icon} size="48" />
+    <DynamicIcon icon={innerColumn.icon} {size} />
   {:else if innerColumn.imgSrc}
     <Image
       figure={false}
       imgSrc={innerColumn.imgSrc}
       imgSrcDark={innerColumn.imgSrcDark}
+      imgAlt={innerColumn.imgAlt}
       contain={true}
       {classes}
     />

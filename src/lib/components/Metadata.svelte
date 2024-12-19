@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>{$metadata.title}</title>
+  <title>{$metadata.title || title}</title>
   <meta name="description" content={$metadata.description} />
   <meta name="keywords" content={$metadata.keywords} />
   <meta name="author" content={$metadata.author} />
@@ -28,7 +28,9 @@
   <meta property="og:title" content={$metadata.title} />
   <meta property="og:description" content={$metadata.description} />
   <meta property="og:image" content={$metadata.image} />
-  <meta property="og:image:secure_url" content={$metadata.image} />
+  {#if $metadata.image.startsWith("https")}
+    <meta property="og:image:secure_url" content={$metadata.image} />
+  {/if}
   <meta property="og:locale" content="en_US" />
   <meta property="og:site_name" content="Spyder IDE" />
 

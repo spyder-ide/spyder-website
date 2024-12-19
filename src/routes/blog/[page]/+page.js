@@ -7,10 +7,12 @@ import {
   blogDescription as description,
   keywords,
   author,
-  ogImageBlog
+  ogImageBlog,
+  blogPageStart,
+  blogPageSize
 } from "$lib/config";
 
-let pageSize = 10;
+let pageSize = blogPageSize;
 
 export async function load({ params }) {
   // Set the metadata
@@ -23,7 +25,7 @@ export async function load({ params }) {
     image: ogImageBlog,
   });
 
-  const pageNum = parseInt(params.page, pageSize) || 1;
+  const pageNum = parseInt(params.page, pageSize) || blogPageStart;
   const { posts, totalPages } = await fetchMarkdownPosts(pageNum, pageSize);
 
   // Fetch the posts dynamically
