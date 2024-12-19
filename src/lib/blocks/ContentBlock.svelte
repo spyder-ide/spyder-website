@@ -110,7 +110,7 @@
         {/if}
         {#if buttons}
           <div
-            class={`grid grid-cols-1 md:grid-cols-2 gap-4 items-center mt-8
+            class={`grid grid-cols-1 gap-4 items-center mt-8
               ${!columns ? 'text-center' : ''}`}
           >
             {#each buttons as button}

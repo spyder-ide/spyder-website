@@ -32,7 +32,7 @@
   export let button = true;
   export let highlight = false;
   export let icon = "";
-  export let iconSize = 20;
+  export let iconSize = 24;
   export let href = "";
   export let rel = "";
   export let text = "";
@@ -40,6 +40,7 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
+  export let textSize = "";
 
   let currentIcon = icons[icon];
 
@@ -63,7 +64,11 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="flex items-center justify-between gap-3 text-sm lg:text-xs"
+  class:text-xs={textSize === 'xs'}
+  class:text-sm={textSize === 'sm'}
+  class:text-md={textSize === 'md'}
+  class:text-lg={textSize === 'lg'}
+  class="flex items-center justify-between gap-3 font-medium"
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"}>
