@@ -68,6 +68,7 @@
   class:text-sm={textSize === 'sm'}
   class:text-md={textSize === 'md'}
   class:text-lg={textSize === 'lg'}
+  class:text-xl={textSize === 'xl'}
   class="flex items-center justify-between gap-3 font-medium"
 >
   {#if iconLeft}
