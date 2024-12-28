@@ -30,7 +30,8 @@ Similarly, [I made](https://github.com/spyder-ide/spyder/pull/21857) the individ
 
 ![Before and after of an array editor widget, showing a more intuitive and less space-consuming layout](array-builder-improvement.png "UI improvements to the array builder widget")
 
-With that preliminary work out of the way, [I implemented](https://github.com/spyder-ide/spyder/pull/22079) the remote connection manager dialog to create and manage connections to remote servers, offering different SSH authentication methods with user credentials saved securely.
+With that preliminary work out of the way, [I implemented](https://github.com/spyder-ide/spyder/pull/22079) the remote connection manager to create, edit and interact with connections to other hosts.
+It offers multiple SSH authentication methods with user credentials saved securely.
 This information is used to automatically open a connection, install the server [Hendrik developed](../spyder-6-remote-development), start a Spyder Kernel in the remote machine and create an IPython console connected to it.
 In Spyder 5, you needed to do all that by hand, which was quite a [long and cumbersome process](https://docs.spyder-ide.org/5/panes/ipythonconsole.html#connect-to-a-remote-kernel).
 With the improvements in Spyder 6, all you need to do is enter your basic SSH credentials the first time you can connect, and Spyder takes care of everything else with one click!
@@ -98,7 +99,7 @@ Beyond my own projects, a large part of my role as a maintainer and leader is su
 
 I've assisted [Juan-Sebsatian Bautista](https://github.com/jsbautista), one of our junior developers, in several significant enhancements to Spyder's UI.
 In particular, [I've made UI/UX improvements](https://github.com/spyder-ide/spyder/pull/21134) to the layout and scaling of the empty pane widget and added a message if the emptiness is due to a faulty IPython Console.
-As part of that work, we also enhanced the About dialog layout as well.
+As part of that work, I also took the opportunity to enhance the About dialog's layout.
 
 ![Spyder Consoles with the New Console in Environment submenu displayed, showing new sections and user-added environments](console-envs-menu-improvements.png "UI improvements to the new console in environment menu")
 
@@ -108,7 +109,7 @@ It also consolidates environment tracking functionality previously duplicated be
 
 ![Spyder switcher dialog, with a text box and a list of matching files and other objects](file-switcher.png "Switcher in Spyder 6, with Carlos' UI improvements")
 
-I aided [Angela Remolina](https://github.com/AngelaRemolina)'s work on improving and adding real-time file search to the Switcher (`Ctrl-P`), making [a number of improvements](https://github.com/spyder-ide/spyder/pull/21275( to its performance and UI/UX.
+I aided [Angela Remolina](https://github.com/AngelaRemolina)'s work on adding real-time file search for the current project to the Switcher (`Ctrl-P`), making [a number of improvements](https://github.com/spyder-ide/spyder/pull/21275) to its UI.
 These changes make the switcher compute file results asynchronously in a separate process to avoid interface freezes and improve performance.
 Additionally, it highlights the matching characters in the results, filters the results to only include non-binary, text files that can reasonably be human-edited, clarifies the section layout and improves the tests.
 
@@ -140,16 +141,16 @@ This means that we're in good shape to tackle the complex challenges that will c
 
 ![Spyder-Env-Manager pane showing an environment selector and a list of installed package names, descriptions and versions as well as toolbar options to interact with them](spyder-env-manager-alpha.png "Working alpha version of the Spyder-Env-Manager plugin")
 
-Next year, I'll be working on more UI/UX improvements on several different fronts.
+Next year, I'll be making more UI/UX improvements on several different fronts.
 
 I'll integrate the [Spyder-Env-Manager](https://github.com/spyder-ide/spyder-env-manager) plugin, developed by [Daniel Althviz](https://github.com/dalthviz) and [Juan-Sebsatian Bautista](https://github.com/jsbautista), with the remote development client.
-Spyder-Env-Manager allows you to create Conda environments as well as install and manage packages within them from within Spyder's graphical interface—no arcane commands or external GUIs, and mo separate install of Anaconda with our standalone installers.
+Spyder-Env-Manager allows you to create Conda environments as well as install and manage packages within them directly from Spyder—no arcane commands or external GUIs, and no separate install of Anaconda needed with our standalone installers.
 With this integration, you'll be able to create environments on remote machines just as easily as locally, without needing to install anything on the server.
 
 In addition, I'll be adding new preferences to allow you to easily associate your Spyder projects with Conda environments.
 That way, they will be automatically activated both for installing packages and running code, addressing the all too common issue of doing one or the other in the wrong environment without realizing.
 
 Finally, I'll improve the file/symbol switcher's look-and-feel and integrate it with other plugins.
-For example, you'll be able to type the IPython console to quickly open or switch to a specific console or Python environment.
+For example, you'll be to quickly open or switch to a specific console just by typing its name.
 
 I can't wait to release these continued enhancements to Spyder's interface and usability, and as always, happy Spydering!🕸️
