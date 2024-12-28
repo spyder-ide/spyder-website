@@ -5,7 +5,7 @@ author:
   - camgerlach
 tags: Feature, Spyder6
 category: Releases
-pub_date: 2024-12-23
+pub_date: 2024-12-28
 summary: "Spyder's lead maintainer, Carlos Cordoba, shares his insights on the projects and features he helped develop for Spyder 6.0, particularly UI/UX and where the IDE is headed next."
 ---
 
@@ -34,7 +34,7 @@ With that preliminary work out of the way, [I implemented](https://github.com/sp
 It offers multiple SSH authentication methods with user credentials saved securely.
 This information is used to automatically open a connection, install the server [Hendrik developed](../spyder-6-remote-development), start a Spyder Kernel in the remote machine and create an IPython console connected to it.
 In Spyder 5, you needed to do all that by hand, which was quite a [long and cumbersome process](https://docs.spyder-ide.org/5/panes/ipythonconsole.html#connect-to-a-remote-kernel).
-With the improvements in Spyder 6, all you need to do is enter your basic SSH credentials the first time you can connect, and Spyder takes care of everything else with one click!
+With the improvements in Spyder 6, you just need to enter your SSH credentials the first time you connect, and Spyder takes care of everything from there with one click!
 
 ![Spyder connection status dialog in the remote connections manager, showing a connected icon, connection information and a detailed log of connection progress steps](remote-connection-status-log.png "The detailed remote connection log in the connection status window")
 
@@ -75,7 +75,7 @@ The Plots pane also saw [plenty of love](https://github.com/spyder-ide/spyder/pu
 Plots are still fit to the pane by default, but zoom in/out buttons are now enabled by default, and a new toolbar button allows toggling between fit to window and 1:1 actual size.
 On top of that, zoom level is now saved per plot, and double-clicking a plot shows it full size.
 Additionally, the toolbar is more organized and users can drag and drop their plots in the thumbnail list to the right to re-order them as they wish.
-Put together, this solves a significant set of past pain points that Spyder users and developers have previously expressed.
+Put together, this solves a significant set of pain points that Spyder users and developers expressed previously about this pane.
 
 ![Before and after of the Spyder consoles menu, with the new version featuring refined layout and icons and displaying a new Open in Environment submenu, offering environments that a console can be opened in](console-menu-added.png "Refined Consoles menu with new Open in Environment submenu")
 
@@ -95,7 +95,7 @@ Here's a sampling of some more:
 
 ![Spyder's revised About dialog, with tabs Overview, Community and Legal. Overview tab shows the IDE's name, version, website, major dependency versions and social media links, in an organized and comfortable layout](spyder6-about-dialog.png "Revised Spyder 6 About dialog, on which Carlos worked")
 
-Beyond my own projects, a large part of my role as a maintainer and leader is supporting the work of others.
+Beyond the remote development frontend and the UI/UX work, a large part of my role as a maintainer and leader is supporting the work of others.
 
 I've assisted [Juan-Sebsatian Bautista](https://github.com/jsbautista), one of our junior developers, in several significant enhancements to Spyder's UI.
 In particular, [I've made UI/UX improvements](https://github.com/spyder-ide/spyder/pull/21134) to the layout and scaling of the empty pane widget and added a message if the emptiness is due to a faulty IPython Console.
@@ -111,7 +111,7 @@ It also consolidates environment tracking functionality previously duplicated be
 
 I aided [Angela Remolina](https://github.com/AngelaRemolina)'s work on adding real-time file search for the current project to the Switcher (`Ctrl-P`), making [a number of improvements](https://github.com/spyder-ide/spyder/pull/21275) to its UI.
 These changes make the switcher compute file results asynchronously in a separate process to avoid interface freezes and improve performance.
-Additionally, it highlights the matching characters in the results, filters the results to only include non-binary, text files that can reasonably be human-edited, clarifies the section layout and improves the tests.
+Additionally, it now highlights the matching characters in the project search results, filters the results to only include text files that can edited, clarifies the section layout and improves the tests.
 
 ![Before and after screenshots of specific parts of Spyder's debugger pane, highlighting the additional and refined toolbar icons/buttons and the fix to jarring coloars in the stack browser](debugger-pane-ui-improvements.png "Some of Carlos' improvements to the Debugger pane UI")
 
