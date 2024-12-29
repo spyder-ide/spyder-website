@@ -7,6 +7,14 @@
         <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
         
     <item>
+      <title>Spyder 6 project lead: Remote development interface and application UI/UX improvements</title>
+      <link>https://www.spyder-ide.org/blog/spyder-6-carlos</link>
+      <description>Spyder's lead maintainer, Carlos Cordoba, shares his insights on the projects and features he helped develop for Spyder 6.0, particularly UI/UX and where the IDE is headed next.</description>
+      <category>Releases</category>
+      <pubDate>Sat, 28 Dec 2024 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
       <title>Spyder 6 under the hood: Editor migration, remote dev QA, test overhaul and more!</title>
       <link>https://www.spyder-ide.org/blog/spyder-6-daniel</link>
       <description>Beyond the headline features, there's a lot more new and improved under the hood in Spyder 6. Daniel Althviz, Spyder's release manager and co-maintainer, was at the forefront of much of it, and we're here to share the highlights with all of you and what he plans to work on next!</description>
