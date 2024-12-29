@@ -47,6 +47,16 @@
   let hasIcon = icon !== "" && currentIcon !== undefined ? true : false;
   let iconLeft = hasIcon && iconPosition === "left" ? true : false;
   let iconRight = hasIcon && iconPosition === "right" ? true : false;
+
+  if (textSize === 'xs') {
+    iconSize = iconSize * 0.8
+  } else if (textSize === 'sm') {
+    iconSize = iconSize * 0.9
+  } else if (textSize === 'lg') {
+    iconSize = iconSize * 1.2
+  } else if (textSize === 'xl') {
+    iconSize = iconSize * 1.3
+  }
 </script>
 
 <a
