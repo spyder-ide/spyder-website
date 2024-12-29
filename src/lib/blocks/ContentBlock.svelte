@@ -119,7 +119,7 @@
         {/if}
         {#if buttons}
           {#if buttons.length > 1}
-            <div class={`grid grid-cols-1 gap-4 items-center mt-8 ${!columns ? "text-center" : ""}`}>
+            <div class={`grid grid-cols-1 gap-4 items-center mt-8 mr-32 ${!columns ? "text-center" : ""}`}>
               {#each buttons as button}
                 <Button {...button} />
               {/each}
