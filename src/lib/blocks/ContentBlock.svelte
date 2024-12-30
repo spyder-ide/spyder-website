@@ -125,7 +125,7 @@
               {/each}
             </div>
           {:else}
-            <div class={`mt-8 ${!columns ? "text-center" : ""}`}>
+            <div class={`mt-8 mr-32 ${!columns ? "text-center" : ""}`}>
               {#each buttons as button}
                 <Button {...button} />
               {/each}
