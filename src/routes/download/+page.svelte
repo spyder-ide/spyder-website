@@ -138,7 +138,7 @@
       {@html result ? pageSubtitle : pageSubtitleAlt}
     </p>
     {#if os !== "mac"}
-      <div class="block mt-8 mb-16 text-center w-48 mx-auto">
+      <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
         <Button
           highlight
           text="Download for {osName}"
@@ -149,7 +149,7 @@
         />
       </div>
     {:else}
-      <div class="mt-8 mb-16 text-center w-96 flex gap-4 mx-auto">
+      <div class="mt-8 mb-16 text-center w-[550px] flex gap-4 mx-auto">
         {#each macs as mac}
           <Button
             highlight
@@ -171,7 +171,7 @@
 
   {#if osButtons}
     <div
-      class="mb-5 mx-auto max-w-48 sm:max-w-md grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
+      class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
     >
       {#each osButtons as button}
         <Button
