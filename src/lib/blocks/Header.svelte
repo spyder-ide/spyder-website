@@ -2,6 +2,7 @@
   import { Icon } from "svelte-icons-pack";
   import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
+  import { page } from "$app/stores";
 
   import { waitLocale } from 'svelte-i18n';
 
@@ -41,6 +42,7 @@
               <li class="menu-item">
                 <a
                   class="menu-link h-20 grid items-center uppercase text-sm tracking-wider before:h-1 before:hover:bg-red-berry-900"
+                  class:before:bg-red-berry-900={$page.url.pathname === item.href}
                   href={item.href}
                   target={item.target}>{item.text}</a
                 >
@@ -82,6 +84,7 @@
               <li>
                 <a
                   class="menu-link mobile block py-8 uppercase text-2xl tracking-wider no-underline"
+                  class:text-red-berry-900={$page.url.pathname === item.href}
                   href={item.href}
                   target={item.target}
                   on:click={toggleMenu}>{item.text}</a

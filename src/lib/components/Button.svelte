@@ -32,7 +32,7 @@
   export let button = true;
   export let highlight = false;
   export let icon = "";
-  export let iconSize = 20;
+  export let iconSize = 24;
   export let href = "";
   export let rel = "";
   export let text = "";
@@ -40,12 +40,23 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
+  export let textSize = "";
 
   let currentIcon = icons[icon];
 
   let hasIcon = icon !== "" && currentIcon !== undefined ? true : false;
   let iconLeft = hasIcon && iconPosition === "left" ? true : false;
   let iconRight = hasIcon && iconPosition === "right" ? true : false;
+
+  if (textSize === 'xs') {
+    iconSize = iconSize * 0.8
+  } else if (textSize === 'sm') {
+    iconSize = iconSize * 0.9
+  } else if (textSize === 'lg') {
+    iconSize = iconSize * 1.2
+  } else if (textSize === 'xl') {
+    iconSize = iconSize * 1.3
+  }
 </script>
 
 <a
@@ -63,7 +74,12 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class="flex items-center justify-between gap-3 text-sm lg:text-xs"
+  class:text-xs={textSize === 'xs'}
+  class:text-sm={textSize === 'sm'}
+  class:text-md={textSize === 'md'}
+  class:text-lg={textSize === 'lg'}
+  class:text-xl={textSize === 'xl'}
+  class="flex items-center justify-between gap-3 font-medium"
 >
   {#if iconLeft}
     <span class:icon-left={iconPosition === "left"}>
@@ -72,7 +88,7 @@
   {/if}
 
   {#if text}
-    <span>{text}</span>
+    <span class="text-left">{text}</span>
   {/if}
 
   {#if iconRight}
