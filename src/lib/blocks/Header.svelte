@@ -1,13 +1,13 @@
 <script>
+  import { _ } from 'svelte-i18n';
+  import { waitLocale } from 'svelte-i18n';
+
   import { Icon } from "svelte-icons-pack";
   import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
+
   import { page } from "$app/stores";
-
-  import { waitLocale } from 'svelte-i18n';
-
   import { base } from "$app/paths";
-  import { title, description, navigation } from "$lib/config";
 
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import Logo from "$lib/components/Logo.svelte";
@@ -29,14 +29,14 @@
     <!-- Logo -->
     <a href="{base}/" class="title h-20 flex items-center">
       <Logo />
-      <span class="sr-only">{title} {description}</span>
+      <span class="sr-only">{$_('config.site.title')} {$_('config.site.description')}</span>
     </a>
 
     <!-- Navigation (desktop) -->
     <div class="flex items-center md:gap-12 justify-end">
       <!-- Navigation (links) -->
       <nav class="hidden md:flex items-center gap-4 xl:gap-6">
-        {#each navigation as menu}
+        {#each $_('config.site.navigation') as menu}
           <ul class="menu flex items-center gap-4 xl:gap-6">
             {#each menu as item}
               <li class="menu-item">
@@ -78,7 +78,7 @@
         <Icon src={AiOutlineClose} size="24" />
       </button>
       <nav class="text-center">
-        {#each navigation as menu}
+        {#each $_('config.site.navigation') as menu}
           <ul class="menu">
             {#each menu as item}
               <li>

@@ -1,4 +1,6 @@
 <script>
+  import { _, json } from 'svelte-i18n';
+
   import { browser } from "$app/environment";
   import { base } from "$app/paths";
   import { metadata } from "$lib/store";
@@ -10,16 +12,6 @@
 
   import {
     siteUrl,
-    title as siteTitle,
-    author as siteAuthor,
-    blogTitle,
-    description as blogDescription,
-    keywords as blogKeywords,
-    blogPublishedOn,
-    blogReadMore,
-    blogError,
-    blogMetadataError,
-    blogSlug,
     ogImageBlog,
     socials
   } from "$lib/config";
@@ -30,10 +22,10 @@
   const site = `@${socials.twitter.split("/").pop()}`;
 
   $: metadata.setMetadata({
-    title: `${siteTitle} | ${blogTitle}`,
-    description: blogDescription,
-    keywords: blogKeywords.join(", "),
-    author: siteAuthor,
+    title: `${$_('config.site.title')} | ${$_('config.blog.title')}`,
+    description: $_('config.blog.description'),
+    keywords: $json('config.site.keywords').join(", "),
+    author: $_('config.site.author'),
     image: ogImageBlog,
     site,
     url: siteUrl,
@@ -52,7 +44,7 @@
               const authorMetadata = await fetchAuthorsMetadata(authorsArray);
               return { ...post, authorMetadata };
             } catch (error) {
-              console.error(blogMetadataError, error);
+              console.error($_('config.blog.metadataError'), error);
               return { ...post, authorMetadata: [] };
             }
           }
@@ -77,7 +69,7 @@
       dark:text-mine-shaft-200
       my-16 md:my-32"
   >
-    {blogTitle}
+    {$_('config.blog.title')}
   </h1>
 
   <section class="max-w-3xl mx-auto">
@@ -90,7 +82,7 @@
             <h2 class="text-xl md:text-2xl xl:text-3xl font-light text-balance">
               <a
                 class="post-link"
-                href="{base}/{blogSlug}/{post.path}"
+                href="{base}/{$_('config.blog.slug')}/{post.path}"
                 title={post.meta.title}
               >
                 {post.meta.title}
@@ -112,7 +104,7 @@
                     {/each}
                   </div>
                   <small>
-                    {blogPublishedOn} {formattedPubDate(post.meta.pub_date)}
+                    {$_('config.blog.publishedOn')} {formattedPubDate(post.meta.pub_date)}
                   </small>
                 </div>
               </div>
@@ -122,17 +114,17 @@
             </p>
             <a
               class="block text-right mt-4"
-              href="{base}/{blogSlug}/{post.path}"
+              href="{base}/{$_('config.blog.slug')}/{post.path}"
               title={post.meta.title}
             >
-              {blogReadMore}&hellip;
+              {$_('config.blog.readMore')}&hellip;
             </a>
           </article>
         {/each}
       </div>
-      <Pagination {pageNum} {totalPages} route={blogSlug} />
+      <Pagination {pageNum} {totalPages} route={$_('config.blog.slug')} />
     {:catch error}
-      <p>{blogError}: {error.message}</p>
+      <p>{$_('config.blog.error')}: {error.message}</p>
     {/await}
   </section>
 </div>
