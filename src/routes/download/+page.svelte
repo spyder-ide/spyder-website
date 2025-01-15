@@ -1,4 +1,5 @@
 <script>
+  import { _, json } from "svelte-i18n";
   import { onMount } from "svelte";
   import { browser } from "$app/environment";
   import { releases } from "$lib/config";
@@ -24,7 +25,7 @@
   let macs = Object.entries(releases.mac);
   let downloadUrl = "";
   let osButtons = [];
-  let pageTitle, pageSubtitle, pageSubtitleAlt, download, result;
+  let pageTitle, pageSubtitle, pageSubtitleAlt, download, result, buttonText;
 
   // Generate download buttons even if we don't have
   // a download parameter in the URL
@@ -68,8 +69,8 @@
 
     result = getOSfromURL();
 
+    // Detect OS and architecture if not provided in the URL
     if (!result) {
-      // Detect OS and architecture if not provided in the URL
       os = getOS();
       arch = "x64";
     } else {
@@ -92,18 +93,17 @@
     osButtons = generateDownloadButtons(releases);
   });
 
-  export let data;
-
   $: {
     osName = releases[os]?.[arch]?.name ?? "";
     downloadUrl = releases[os]?.[arch]?.link ?? "";
-    pageTitle = data.props.title;
-    pageSubtitle = data.props.subtitle;
-    pageSubtitleAlt = data.props.alternative;
-    download = data.props.download;
+    pageTitle = $_("download.title");
+    pageSubtitle = $_("download.subtitle");
+    pageSubtitleAlt = $_("download.alternative");
+    buttonText = $_("download.button.text");
+    download = $json("download.action");
 
     metadata.setMetadata({
-      title: `${title} | Download`,
+      title: `${title} | ${$_("download.action.name")}`,
       description,
       keywords: keywords.join(", "),
       author,
@@ -111,7 +111,6 @@
       url: $page.url.href,
     });
   }
-
 </script>
 
 <Metadata />
@@ -130,12 +129,11 @@
     >
       {@html result ? download.title : pageTitle}
     </h1>
-    <h2
-      class="text-center dark:text-neutral-200 text-4xl font-extralight mb-8"
-    >
-      <span class="text-red-berry-900 dark:text-white font-extrabold"
-        >{osName}</span
-      > detected
+    <h2 class="text-center dark:text-neutral-200 text-4xl font-extralight mb-8">
+      <span class="text-red-berry-900 dark:text-white font-extrabold">
+        {osName}
+      </span>
+      {$_("download.detected")}
     </h2>
     <p class="text-center text-xl font-light">
       {@html result ? pageSubtitle : pageSubtitleAlt}
@@ -144,7 +142,7 @@
       <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
         <Button
           highlight
-          text="Download for {osName}"
+          text="{buttonText} {osName}"
           icon={os}
           href={downloadUrl}
           target="_blank"
@@ -156,7 +154,7 @@
         {#each macs as mac}
           <Button
             highlight
-            text="Download for {mac[1].name}"
+            text="{buttonText} {mac[1].name}"
             icon={"mac"}
             href={mac[1].link}
             target="_blank"

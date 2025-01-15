@@ -2,6 +2,11 @@ import { _, json } from "svelte-i18n"
 
 import { metadata } from "$lib/store";
 import {
+  title,
+  subtitle,
+  description,
+  keywords,
+  author,
   siteUrl,
   ogImage,
 } from "$lib/config";
@@ -10,10 +15,10 @@ import {
 export function load() {
   // Set metadata for the home page
   metadata.setMetadata({
-    title: `${_('config.site.title')} | ${_('config.site.subtitle')}`,
-    description: _('config.site.description'),
-    keywords: json('config.site.keywords').join(", "),
-    author: _('config.site.author'),
+    title: `${title} | ${subtitle}`,
+    description,
+    keywords: keywords.join(", "),
+    author,
     url: siteUrl,
     image: ogImage,
   });
