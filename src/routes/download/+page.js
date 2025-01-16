@@ -1,3 +1,9 @@
-export function load() {
-  return;
+export async function load() {
+  return {
+    props: {
+
+    },
+  };
 }
+
+export const prerender = true;

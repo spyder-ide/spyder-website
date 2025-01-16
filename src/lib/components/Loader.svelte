@@ -3,7 +3,7 @@
   export let classes = "";
 </script>
 
-<div class="w-full h-full grid items-center justify-center m-auto bg-spring-wood-50">
+<div class="w-full h-full grid items-center justify-center m-auto bg-spring-wood-50 min-h-20 min-w-20">
   <svg
     width="24"
     height="24"

@@ -1,34 +1,12 @@
 import { fetchMarkdownPosts } from "$lib/utils";
-import { metadata } from "$lib/store";
-import {
-  siteUrl,
-  title,
-  blogTitle as subtitle,
-  blogDescription as description,
-  keywords,
-  author,
-  ogImageBlog,
-  blogPageStart,
-  blogPageSize
-} from "$lib/config";
+import { blogPageStart, blogPageSize } from "$lib/config";
 
-let pageSize = blogPageSize;
+const pageNum = blogPageStart;
+const pageSize = blogPageSize;
 
-export async function load({ params }) {
-  // Set the metadata
-  metadata.setMetadata({
-    title: `${title} | ${subtitle}`,
-    description,
-    keywords: keywords.join(", "),
-    author,
-    url: siteUrl,
-    image: ogImageBlog,
-  });
-
-  const pageNum = parseInt(params.page, pageSize) || blogPageStart;
+// Fetch the posts dynamically
+export async function load() {
   const { posts, totalPages } = await fetchMarkdownPosts(pageNum, pageSize);
-
-  // Fetch the posts dynamically
   return {
     props: {
       posts,

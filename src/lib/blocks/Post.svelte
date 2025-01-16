@@ -1,8 +1,11 @@
 <script>
+  import { _, waitLocale } from 'svelte-i18n';
   import { onMount } from "svelte";
+
   import { page } from "$app/stores";
+
   import { metadata } from "$lib/store";
-  import { title as siteTitle, siteUrl, ogSlug, blogSlug, ogImageBlog } from "$lib/config";
+  import { siteUrl, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
   import Metadata from "$lib/components/Metadata.svelte";
@@ -20,23 +23,30 @@
   export let category;
   export let summary;
 
+  // Initialize variables
+  let siteTitle;
   let authorsMetadata = [];
-  const slug = $page.url.pathname.replace(`/${blogSlug}`, '').replaceAll('/', '');
-  const customOgImagePath = `${siteUrl}assets/${ogSlug}/${slug}.png`;
+
+  const slug = $page.url.pathname.replace(`/${$_('config.blog.slug')}`, '').replaceAll('/', '');
+  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
-  $: metadata.setMetadata({
-    title: `${siteTitle} | ${title}`,
-    description: summary,
-    keywords: `${tags}, ${category}`,
-    author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
-    url: $page.url.href,
-    image: customOgImagePath || ogImageBlog,
-  });
+  $: {
+    siteTitle = $_('config.site.title');
+    metadata.setMetadata({
+      title: `${siteTitle} | ${title}`,
+      description: summary,
+      keywords: `${tags}, ${category}`,
+      author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
+      url: $page.url.href,
+      image: customOgImagePath || ogImageBlog,
+    });
+  }
+
 </script>
 
 <Metadata prism={true}/>

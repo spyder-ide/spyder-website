@@ -1,9 +1,9 @@
 site:
   title: Spyder
   subtitle: El entorno de desarrollo Python que científicos y analistas de datos requieren
-  comment: Designed by the community, for the community
-  author: Spyder Website Contributors
-  description: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
+  comment: Diseñado por la comunidad, para la comunidad
+  author: Contribuyentes del sitio web de Spyder
+  description: Obtenga la facilidad de uso de Jupyter junto con muchas funciones avanzadas que se encuentran en PyCharm y VSCode en un solo entorno de programación
   keywords:
     - Python
     - IDE
@@ -11,15 +11,15 @@ site:
     - Matplotlib
     - iPython
     - Jupyter
-    - Science
+    - Ciencia
     - Data-Science
     - Data-Analytics
-    - Programming
+    - Programación
   navigation:
-    - - text: Download
+    - - text: Descarga
         href: /download/
         target: _self
-      - text: About
+      - text: Acerca de
         href: /about/
         target: _self
       - text: Blog
@@ -35,15 +35,15 @@ site:
       <p>  Hecho por <a href="https://github.com/conradolandia/">@conradolandia</a> con 🖤 usando <a href="https://kit.svelte.dev/">SvelteKit</a></p>
       <p>  Usando íconos de <a href="https://github.com/leshak/svelte-icons-pack">sip</a> | Markdown procesado con <a href="https://mdsvex.pngwn.io/">mdsvex</a></p>
   heroContent:
-    title: The Python IDE that scientists and data analysts deserve
-    description: Designed by the community, for the community
+    title: El IDE de Python para científicos y analistas de datos
+    description: Diseñado por la comunidad, para la comunidad
   heroImages:
     dark: /assets/media/screenshot_dark.webp
     light: /assets/media/screenshot_light.webp
   githubButton:
     highlight: false
     icon: github
-    text: Checkout on GitHub
+    text: Checkout en GitHub
     href: https://github.com/spyder-ide/spyder/
   socials:
     github: https://github.com/spyder-ide/spyder
@@ -51,29 +51,14 @@ site:
     facebook: https://www.facebook.com/SpyderIDE/
     mastodon: https://fosstodon.org/@Spyder
     instagram: https://instagram.com/spyderide
+    rss: https://www.spyder-ide.org/blog/feed.xml
 blog:
   title: Bienvenidos al Blog de Spyder
-  description: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
+  description: Obtenga la facilidad de uso de Jupyter junto con muchas funciones avanzadas que se encuentran en PyCharm y VSCode en un solo entorno de programación
   slug: blog
-  pageStart: 1
-  pageSize: 10
-  publishedOn: Published on
-  readMore: Read More
-  error: Error loading posts
-  metadataError: Error fetching author metadata
-releases:
-  windows:
-    x64:
-      name: Windows 10+
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
-  linux:
-    x64:
-      name: Linux
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
-  mac:
-    arm64:
-      name: macOS 14.0+ (M1)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
-    x64:
-      name: macOS 12.0+ (Intel)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg
+  previous: Anterior
+  next: Siguiente
+  publishedOn: Publicado el
+  readMore: Leer más
+  error: Error crgando entradas
+  metadataError: Error obteniendo metadatos de autor

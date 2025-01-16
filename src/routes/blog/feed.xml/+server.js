@@ -26,7 +26,7 @@ export async function GET() {
         <title>${blogTitle}</title>
         <link>${siteUrl}blog</link>
         <description>${description} | ${comment}</description>
-        <atom:link href="${siteUrl}blog/feed.xml" rel="self" type="application/rss+xml"/>
+        <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml"/>
         ${feedItems}
       </channel>
     </rss>

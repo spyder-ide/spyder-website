@@ -30,7 +30,7 @@ const processContributors = (current, past, all) => {
 };
 
 export async function load({ fetch }) {
-  const { dataSrc, currentContributors, pastContributors, textData } = yaml.load(content);
+  const { dataSrc, currentContributors, pastContributors } = yaml.load(content);
 
   try {
     // Fetch the contributors data
@@ -61,7 +61,6 @@ export async function load({ fetch }) {
       currentContributors: updatedCurrent,
       pastContributors: updatedPast,
       remainingContributors,
-      textData,
       totalContributors,
       loading: false,
       error: null,
@@ -72,7 +71,6 @@ export async function load({ fetch }) {
       currentContributors,
       pastContributors,
       remainingContributors: [],
-      textData,
       error: error.message,
     };
   }

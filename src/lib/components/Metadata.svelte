@@ -1,9 +1,20 @@
 <script>
-    import { base } from "$app/paths";
-    import { title, socials, siteUrl, blogSlug } from "$lib/config";
-    import { metadata } from "$lib/store";
+    import { _, json, locale } from "svelte-i18n";
 
-    const site = `@${socials.twitter.split("/").pop()}`;
+    import { base } from "$app/paths";
+
+    import { metadata } from "$lib/store";
+    import { siteUrl } from "$lib/config";
+
+    let site, title, blogSlug, socials, localeCode;
+
+    $: {
+      socials = $json('config.site.socials');
+      site = `@${socials.twitter.split("/").pop()}`;
+      localeCode = $locale.replace('-', '_');
+      blogSlug = $_('config.blog.slug') || 'blog';
+    }
+
     const untrailedUrl = $metadata.url.replace(/\/+$/, '');
 
     export let prism = false;
@@ -19,7 +30,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="Spyder's Blog"
-    href="{siteUrl}{blogSlug}/feed.xml"
+    href="{siteUrl}/{blogSlug}/feed.xml"
   />
 
   <!-- Open Graph / Facebook -->
@@ -31,7 +42,7 @@
   {#if $metadata.image.startsWith("https")}
     <meta property="og:image:secure_url" content={$metadata.image} />
   {/if}
-  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale" content={localeCode} />
   <meta property="og:site_name" content="Spyder IDE" />
 
   <!-- Twitter -->

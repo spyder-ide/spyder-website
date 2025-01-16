@@ -1,0 +1,26 @@
+title: Download Spyder
+subtitle: If the download does not start automatically, please click the button below
+alternative: To download Spyder for the detected OS, please click the button below
+detected: detected
+button:
+  text: Download for
+action:
+  name: Download
+  title: Download Started...
+  alternative: Alternatively, you can manually select the package you want from the buttons below, or visit our <a href=https://github.com/spyder-ide/spyder/releases target=_blank>releases page</a> on GitHub.
+releases:
+  windows:
+    x64:
+      name: Windows 10+
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
+  linux:
+    x64:
+      name: Linux
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
+  mac:
+    arm64:
+      name: macOS 14.0+ (M1)
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
+    x64:
+      name: macOS 12.0+ (Intel)
+      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg

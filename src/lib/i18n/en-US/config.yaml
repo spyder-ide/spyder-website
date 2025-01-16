@@ -51,29 +51,14 @@ site:
     facebook: https://www.facebook.com/SpyderIDE/
     mastodon: https://fosstodon.org/@Spyder
     instagram: https://instagram.com/spyderide
+    rss: https://www.spyder-ide.org/blog/feed.xml
 blog:
   title: Welcome to Spyder's Blog
   description: Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment
   slug: blog
-  pageStart: 1
-  pageSize: 10
+  previous: Previous
+  next: Next
   publishedOn: Published on
   readMore: Read More
   error: Error loading posts
   metadataError: Error fetching author metadata
-releases:
-  windows:
-    x64:
-      name: Windows 10+
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
-  linux:
-    x64:
-      name: Linux
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
-  mac:
-    arm64:
-      name: macOS 14.0+ (M1)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
-    x64:
-      name: macOS 12.0+ (Intel)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg

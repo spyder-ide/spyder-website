@@ -39,7 +39,6 @@ const escapeQuotes = () => {
   };
 }
 
-/** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [
@@ -56,7 +55,6 @@ const mdsvexOptions = {
   },
 };
 
-/** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
     adapter: adapter(),

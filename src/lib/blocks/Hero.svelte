@@ -1,6 +1,6 @@
 <script>
+  import { _, json } from "svelte-i18n";
   import { osStore } from "$lib/store";
-  import { heroContent, heroImages, githubButton } from "$lib/config";
 
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -14,12 +14,21 @@
   // Hero section buttons
   export let buttons = [];
 
-  // Subscribe to osStore
-  osStore.subscribe((data) => {
-    if (!data.loading) {
-      buttons = [...data.osButtons, githubButton];
-    }
-  });
+  let heroContent, heroImages, githubButton;
+
+  $: {
+    heroContent = $json('config.site.heroContent');
+    heroImages = $json('config.site.heroImages');
+    githubButton = $json('config.site.githubButton');
+
+    // Subscribe to osStore
+    osStore.subscribe((data) => {
+      if (!data.loading) {
+        buttons = [...data.osButtons, githubButton];
+      }
+    });
+  }
+
 </script>
 
 <section {id} class="mt-20 {classes}">

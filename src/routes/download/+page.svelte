@@ -1,9 +1,10 @@
 <script>
   import { _, json } from "svelte-i18n";
   import { onMount } from "svelte";
+
   import { browser } from "$app/environment";
-  import { releases } from "$lib/config";
   import { page } from "$app/stores";
+
   import { metadata } from "$lib/store";
   import { getOS } from "$lib/utils";
 
@@ -11,21 +12,25 @@
   import Button from "$lib/components/Button.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import {
-    title,
-    author,
-    description,
-    ogImage as image,
-    keywords,
-  } from "$lib/config";
+  import { ogImage as image } from "$lib/config";
 
   let arch = "unknown";
   let os = "unknown";
   let osName = "unknown";
+  let releases = $json("download.releases");
   let macs = Object.entries(releases.mac);
   let downloadUrl = "";
   let osButtons = [];
-  let pageTitle, pageSubtitle, pageSubtitleAlt, download, result, buttonText;
+  let title,
+    description,
+    author,
+    keywords,
+    pageTitle,
+    pageSubtitle,
+    pageSubtitleAlt,
+    download,
+    result,
+    buttonText;
 
   // Generate download buttons even if we don't have
   // a download parameter in the URL
@@ -96,6 +101,12 @@
   $: {
     osName = releases[os]?.[arch]?.name ?? "";
     downloadUrl = releases[os]?.[arch]?.link ?? "";
+
+    title = $_("config.site.title");
+    description = $_("config.site.description");
+    keywords = $json("config.site.keywords");
+    author = $_("config.site.author");
+
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");
     pageSubtitleAlt = $_("download.alternative");
@@ -103,7 +114,7 @@
     download = $json("download.action");
 
     metadata.setMetadata({
-      title: `${title} | ${$_("download.action.name")}`,
+      title: `${title} | ${download.name}`,
       description,
       keywords: keywords.join(", "),
       author,

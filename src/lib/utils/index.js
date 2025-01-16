@@ -1,3 +1,5 @@
+import { browser } from "$app/environment";
+
 // Determine if a variable has a value (even `false` or `0`)
 export const hasValue = (a) => a !== undefined && a !== null;
 
@@ -91,7 +93,7 @@ export const randomId = (length) =>
 
 // Determine the operating system and return it
 export const getOS = () => {
-  if (typeof window !== "undefined") {
+  if (browser) {
     const userAgent = navigator.userAgent.toLowerCase();
     const os = {
       mac: ["mac"],
