@@ -9,6 +9,9 @@
   import Metadata from "$lib/components/Metadata.svelte";
 
   import { ogImage as image } from "$lib/config";
+  import { processContributors } from "$lib/utils";
+
+  export let data;
 
   let title,
     author,
@@ -19,7 +22,18 @@
     currentTitle,
     pastTitle,
     remainingTitle,
-    remainingIntro;
+    remainingIntro,
+    allContributors,
+    currentContributors,
+    pastContributors,
+    remainingContributors,
+    updatedCurrent,
+    updatedPast,
+    loading,
+    localContributors,
+    error;
+
+  allContributors = data.contributors;
 
   $: {
     title = $_("config.site.title");
@@ -34,6 +48,17 @@
     remainingTitle = $_("about.remainingTitle");
     remainingIntro = $_("about.remainingIntro");
 
+    currentContributors = $json('contributors.current');
+    pastContributors = $json('contributors.past');
+
+    // Process contributors whenever the source data changes
+    if (allContributors && currentContributors && pastContributors) {
+      localContributors = processContributors(currentContributors, pastContributors, allContributors);
+      updatedCurrent = localContributors.updatedCurrent;
+      updatedPast = localContributors.updatedPast;
+      remainingContributors = localContributors.remainingContributors;
+    }
+
     metadata.setMetadata({
       title: `${title} | ${pageTitle}`,
       description,
@@ -43,14 +68,6 @@
       url: $page.url.href,
     });
   }
-
-  export let data;
-
-  let currentContributors = data.currentContributors;
-  let pastContributors = data.pastContributors;
-  let remainingContributors = data.remainingContributors;
-  let error = data.error;
-  let loading = data.loading;
 </script>
 
 {#await waitLocale()}
@@ -80,19 +97,19 @@
     {:else if loading}
       <Loader />
     {:else}
-      {#if currentContributors && currentContributors.length > 0}
+      {#if updatedCurrent && updatedCurrent.length > 0}
         <ContributorBlock
           title={currentTitle}
-          contributors={currentContributors}
+          contributors={updatedCurrent}
           size={"large"}
         />
       {:else}
         <Loader />
       {/if}
-      {#if pastContributors && pastContributors.length > 0}
+      {#if updatedPast && updatedPast.length > 0}
         <ContributorBlock
           title={pastTitle}
-          contributors={pastContributors}
+          contributors={updatedPast}
           size={"medium"}
         />
       {:else}

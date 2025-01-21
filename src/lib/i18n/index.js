@@ -1,23 +1,6 @@
-import { init, register } from 'svelte-i18n';
+import { init, register, getLocaleFromNavigator } from 'svelte-i18n';
 import { browser } from '$app/environment';
 import yaml from 'js-yaml';
-
-const fallbackLocale = 'en-US';
-
-const getUserLocale = () => {
-  if (browser) {
-    let localLocale = navigator.language || navigator.userLanguage;
-    if (localLocale.startsWith('en')) {
-      localLocale = 'en-US';
-    } else if (localLocale.startsWith('es')) {
-      localLocale = 'es-ES';
-    }
-    return localLocale;
-  }
-  return fallbackLocale;
-}
-
-const initialLocale = getUserLocale();
 
 // Generate dictionary
 const generateDictionary = async (modules) => {
@@ -45,8 +28,24 @@ register('es-ES', async () => {
   return generateDictionary(modules);
 });
 
-
 // Initialize i18n
+const fallbackLocale = 'en-US';
+
+const getUserLocale = () => {
+  if (browser) {
+    let localLocale = getLocaleFromNavigator();
+    if (localLocale.startsWith('en')) {
+      localLocale = 'en-US';
+    } else if (localLocale.startsWith('es')) {
+      localLocale = 'es-ES';
+    }
+    return localLocale;
+  }
+  return fallbackLocale;
+}
+
+const initialLocale = getUserLocale();
+
 init({
   fallbackLocale,
   initialLocale

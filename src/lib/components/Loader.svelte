@@ -1,16 +1,15 @@
 <script>
-  export let fill = "#000";
   export let classes = "";
 </script>
 
-<div class="w-full h-full grid items-center justify-center m-auto bg-spring-wood-50 min-h-20 min-w-20">
+<div class="w-full h-full grid items-center justify-center m-auto min-h-20 min-w-20">
   <svg
     width="24"
     height="24"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle class="spinner {classes}" cx="12" cy="12" r="0" {fill} />
+    <circle class="spinner fill-mine-shaft-950 dark:fill-spring-wood-50 {classes}" cx="12" cy="12" r="0" />
   </svg>
 </div>
 

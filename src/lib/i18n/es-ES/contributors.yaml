@@ -1,0 +1,146 @@
+current:
+  - id: 365293
+    name: Carlos Córdoba
+    role: Mantenedor principal
+    tooltip:
+      - list:
+          - Mantenedor principal desde 2013
+  - id: 16781833
+    name: Daniel Althviz
+    role: Co-mantenedor
+    tooltip:
+      - list:
+          - Gestor de versiones
+          - Responsable de mantenimiento de QtPy y QtAwesome
+          - Gestor de pequeñas subvenciones de desarrollo de NumFOCUS
+  - id: 17051931
+    name: C.A.M. Gerlach
+    role: Core developer
+    avatar_url: /assets/authors/camgerlach/pic.webp
+    tooltip:
+      - list:
+          - Docs maintainer
+          - "Technical, grant and blog writer"
+          - Outreach lead
+  - id: 6740194
+    name: Quentin Peter
+    role: Core developer
+    tooltip:
+      - list:
+          - Re-architectured communications between Spyder and Spyder-Kernels
+          - Creator of the Debugger pane
+          - Many improvements to the IPython console
+  - id: 9618975
+    name: Ryan Clary
+    role: Core developer
+    tooltip:
+      - list:
+          - Maintainer of the standalone installers
+  - id: 7941918
+    name: Jitse Niesen
+    role: Core developer
+    tooltip:
+      - list:
+          - External plugins maintainer
+  - id: 42411448
+    name: Juan Sebastian Bautista
+    role: Junior developer
+    tooltip:
+      - list:
+          - "Improvements to the Windows installer, QtConsole and Spyder's UI/UX"
+  - id: 5204788
+    name: Hendrik D. Louzada
+    role: Junior developer
+    tooltip:
+      - list:
+          - Developed backend for the remote client plugin
+  - id: 5027583
+    name: Andrés Montoya
+    role: Graphic and web designer
+    tooltip:
+      - list:
+          - Developer and maintainer of this website
+          - UI/UX improvements
+          - Social media graphics designer
+past:
+  - id: 1311787
+    name: Pierre Raybaut
+    role: Spyder Creator
+    tooltip:
+      - list:
+          - Created Spyder in 2009
+          - Lead maintainer until 2013
+  - id: 1878982
+    name: Edgar Margffoy
+    role: Core developer
+    tooltip:
+      - list:
+          - LSP support for the entire application
+          - Re-architectured plugin registration and interactions
+          - New architecture for the Run plugin
+          - "Add global registries for actions, menus and toolbars"
+  - id: 50221806
+    name: Isabela Presedo-Floyd
+    role: Designer
+    tooltip:
+      - list:
+          - New color system and palette for the application
+          - Logo redesign
+          - Many UI/UX improvements
+  - id: 3627835
+    name: Gonzalo Peña-Castellanos
+    role: Core developer
+    tooltip:
+      - list:
+          - Redesigned the plugins API
+          - Creator of QtPy
+          - Improved configuration system and added tests for it
+          - Many improvements to the Editor
+  - id: 18587879
+    name: Juanita Gómez
+    role: Core developer
+    tooltip:
+      - list:
+          - Docs writer
+          - "Main content creator for Spyder's YouTube channel"
+          - Community manager
+  - id: 10170372
+    name: Jean-Sébastien Gosselin
+    role: Core developer
+    tooltip:
+      - list:
+          - Creator of the Plots plane
+          - Many improvements across the entire application
+  - id: 20992645
+    name: Stephannie Jimenez
+    role: Core developer
+    tooltip:
+      - list:
+          - Spyder-Terminal maintainer
+          - New architecture for the Run plugin
+          - Enhancements to the icon manager
+  - id: 2397974
+    name: Sylvain Corlay
+    role: Core developer
+    tooltip:
+      - list:
+          - New icon theme for Spyder
+          - Creator of QtAwesome
+  - id: 2024217
+    name: Rafael Laverde
+    role: Core developer
+    tooltip:
+      - list:
+          - Improvements to the Editor
+  - id: 10513354
+    name: Brian Olsen
+    role: Core developer
+    tooltip:
+      - list:
+          - Improvements to the IPython console
+  - id: 2096628
+    name: Steve Silvester
+    role: Core developer
+    tooltip:
+      - list:
+          - "Code completion, keybindings and file opening improvements"

@@ -56,7 +56,9 @@ export function formattedPubDate(date, i18n = "en-US") {
 // Fetch the author's metadata
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
-    const response = await (customFetch || fetch)(`/assets/authors/${author}/metadata.json`);
+    const response = await (customFetch || fetch)(
+      `/assets/authors/${author}/metadata.json`
+    );
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
     }
@@ -77,7 +79,9 @@ export async function fetchAuthorsMetadata(authors) {
     return [];
   }
 
-  const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));
+  const metadataList = await Promise.all(
+    authors.map((author) => fetchAuthorMetadata(author))
+  );
   return metadataList;
 }
 
@@ -160,3 +164,75 @@ export async function getIcon(iconName) {
     return null;
   }
 }
+
+// Process contributors lists
+export const processContributors = (current, past, all) => {
+  // Update current/past contributors from GitHub with custom data
+  const updateContributor = (contributor, allContributors) => {
+    const match = allContributors.find((c) => c.id === contributor.id);
+    return match ? { ...match, ...contributor } : contributor;
+  };
+
+  const updatedCurrent = current.map((contributor) =>
+    updateContributor(contributor, all)
+  );
+  const updatedPast = past.map((contributor) =>
+    updateContributor(contributor, all)
+  );
+
+  // Get the remaining contributors that are not in the current/past lists
+  const remainingContributors = all.filter(
+    (contributor) =>
+      !current.some((c) => c.id === contributor.id) &&
+      !past.some((p) => p.id === contributor.id)
+  );
+
+  return {
+    updatedCurrent,
+    updatedPast,
+    remainingContributors,
+  };
+};
+
+// Get contributors object from GiHub
+const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
+const dataURL = "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
+
+export const getContributors = async (
+  customFetch = undefined,
+  dataSrc = dataURL,
+  token = githubToken,
+  startPage = 1,
+  maxPages = 3,
+) => {
+  const contributors = [];
+  const headers = {
+    Authorization: `token ${token}`,
+    Accept: "application/vnd.github.v3+json",
+  };
+
+  try {
+    // Fetch the contributors data with authentication
+    for (let n = startPage; n <= maxPages; n++) {
+      const response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
+        headers,
+      });
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      contributors.push(...data);
+    }
+
+    return {
+      contributors,
+      loading: false,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Failed to fetch contributors:", error);
+    return {
+      contributors: [],
+      error: error.message,
+    };
+  }
+};
