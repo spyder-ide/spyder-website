@@ -194,6 +194,7 @@ export const processContributors = (current, past, all) => {
   };
 };
 
+
 // Get contributors object from GiHub
 const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
 const dataURL = "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
