@@ -57,7 +57,7 @@ export function formattedPubDate(date, i18n = "en-US") {
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
     const response = await (customFetch || fetch)(
-      `/assets/authors/${author}/metadata.json`
+      `/assets/authors/${author}/metadata.json`,
     );
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
@@ -80,7 +80,7 @@ export async function fetchAuthorsMetadata(authors) {
   }
 
   const metadataList = await Promise.all(
-    authors.map((author) => fetchAuthorMetadata(author))
+    authors.map((author) => fetchAuthorMetadata(author)),
   );
   return metadataList;
 }
@@ -184,7 +184,7 @@ export const processContributors = (current, past, all) => {
   const remainingContributors = all.filter(
     (contributor) =>
       !current.some((c) => c.id === contributor.id) &&
-      !past.some((p) => p.id === contributor.id)
+      !past.some((p) => p.id === contributor.id),
   );
 
   return {
@@ -194,9 +194,9 @@ export const processContributors = (current, past, all) => {
   };
 };
 
-
 // Get contributors object from GiHub
-const dataURL = "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
+const dataURL =
+  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
 let githubToken;
 
 if (import.meta.env.VITE_GITHUB_TOKEN) {
@@ -205,8 +205,8 @@ if (import.meta.env.VITE_GITHUB_TOKEN) {
 
 export const getContributors = async (
   customFetch = undefined,
-  dataSrc = dataURL,
-  token = githubToken,
+  dataSrc = dataURL || "",
+  token = githubToken || undefined,
   startPage = 1,
   maxPages = 3,
 ) => {
@@ -223,6 +223,7 @@ export const getContributors = async (
   try {
     // Fetch the contributors data with authentication
     for (let n = startPage; n <= maxPages; n++) {
+      if (!dataSrc) throw new Error(`There is no data source to fetch!`);
       if (headers) {
         response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
           headers,
