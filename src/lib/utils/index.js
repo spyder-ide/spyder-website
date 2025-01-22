@@ -196,8 +196,12 @@ export const processContributors = (current, past, all) => {
 
 
 // Get contributors object from GiHub
-const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
 const dataURL = "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
+let githubToken;
+
+if (import.meta.env.VITE_GITHUB_TOKEN) {
+  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
+}
 
 export const getContributors = async (
   customFetch = undefined,
@@ -206,20 +210,29 @@ export const getContributors = async (
   startPage = 1,
   maxPages = 3,
 ) => {
-  const contributors = [];
-  const headers = {
-    Authorization: `token ${token}`,
-    Accept: "application/vnd.github.v3+json",
-  };
+  let headers, response;
+  let contributors = [];
+
+  if (token) {
+    headers = {
+      Authorization: `token ${token}`,
+      Accept: "application/vnd.github.v3+json",
+    };
+  }
 
   try {
     // Fetch the contributors data with authentication
     for (let n = startPage; n <= maxPages; n++) {
-      const response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
-        headers,
-      });
-      if (!response.ok)
+      if (headers) {
+        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
+          headers,
+        });
+      } else {
+        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`);
+      }
+      if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       contributors.push(...data);
     }
