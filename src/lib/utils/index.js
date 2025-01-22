@@ -1,9 +1,18 @@
 import { browser } from "$app/environment";
 
-// Determine if a variable has a value (even `false` or `0`)
+/**
+ * Determines if a variable has a value (even `false` or `0`)
+ * @param {*} a - The value to check
+ * @returns {boolean} True if the value is neither undefined nor null
+ */
 export const hasValue = (a) => a !== undefined && a !== null;
 
-// Fetch all blog posts, sorted by date, optionally paginated
+/**
+ * Fetches all blog posts, optionally paginated and sorted by date
+ * @param {number} [pageNum] - The page number for pagination
+ * @param {number} [pageSize] - Number of posts per page
+ * @returns {Promise<Array<{meta: object, path: string}>|{posts: Array<{meta: object, path: string}>, pageNum: number, totalPages: number}>}
+ */
 export const fetchMarkdownPosts = async (pageNum, pageSize) => {
   // Load all posts
   const allPostFiles = import.meta.glob("/src/routes/blog/**/*.md", {
@@ -47,13 +56,23 @@ export const fetchMarkdownPosts = async (pageNum, pageSize) => {
   };
 };
 
-// Format the date
+/**
+ * Formats a date string according to locale
+ * @param {string|Date} date - The date to format
+ * @param {string} [i18n="en-US"] - The locale identifier
+ * @returns {string} Formatted date string
+ */
 export function formattedPubDate(date, i18n = "en-US") {
   const options = { year: "numeric", month: "long", day: "numeric" };
   return new Date(date).toLocaleDateString(i18n, options);
 }
 
-// Fetch the author's metadata
+/**
+ * Fetches metadata for a single author
+ * @param {string} author - Author identifier
+ * @param {Function} [customFetch] - Optional custom fetch function for testing
+ * @returns {Promise<{src: string, name: string}|null>} Author metadata or null if fetch fails
+ */
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
     const response = await (customFetch || fetch)(
@@ -73,6 +92,11 @@ export async function fetchAuthorMetadata(author, customFetch) {
   }
 }
 
+/**
+ * Fetches metadata for multiple authors
+ * @param {string[]} authors - Array of author identifiers
+ * @returns {Promise<Array<{src: string, name: string}|null>>} Array of author metadata
+ */
 export async function fetchAuthorsMetadata(authors) {
   if (!authors || !Array.isArray(authors)) {
     console.error("Invalid authors data:", authors);
@@ -85,17 +109,28 @@ export async function fetchAuthorsMetadata(authors) {
   return metadataList;
 }
 
-// Sort posts by date
+/**
+ * Sorts posts by publication date in descending order
+ * @param {Array<{meta: {pub_date: string|Date}}>} posts - Array of post objects
+ * @returns {Array<{meta: {pub_date: string|Date}}>} Sorted posts array
+ */
 export const sortPostsByDate = (posts) =>
   posts.sort((a, b) => new Date(b.meta.pub_date) - new Date(a.meta.pub_date));
 
-// Generate random ID
+/**
+ * Generates a random ID string
+ * @param {number} [length=24] - Length of the ID to generate
+ * @returns {string} Random ID string
+ */
 export const randomId = (length) =>
   Math.random()
     .toString(length || 24)
     .replace(/[^a-z]+/g, "");
 
-// Determine the operating system and return it
+/**
+ * Determines the user's operating system from browser user agent
+ * @returns {('mac'|'windows'|'linux')} Operating system identifier, defaults to 'windows' if unknown
+ */
 export const getOS = () => {
   if (browser) {
     const userAgent = navigator.userAgent.toLowerCase();
@@ -110,8 +145,15 @@ export const getOS = () => {
       }
     }
   }
+  return "windows";
 };
 
+/**
+ * Generates download buttons configuration based on OS
+ * @param {string} base - Base URL for downloads
+ * @param {string} os - Operating system identifier
+ * @returns {Array<{highlight?: boolean, icon?: string, text: string, href: string}>} Button configurations
+ */
 export const getOSButtons = (base, os) => {
   let osButtons = [{}];
   let str = "";
@@ -154,7 +196,11 @@ export const getOSButtons = (base, os) => {
   return osButtons;
 };
 
-// Load an icon dynamically
+/**
+ * Dynamically loads an icon from svelte-icons-pack
+ * @param {string} iconName - Name of the icon to load
+ * @returns {Promise<object|null>} Icon component or null if loading fails
+ */
 export async function getIcon(iconName) {
   try {
     const module = await import("svelte-icons-pack/bs");
@@ -165,7 +211,13 @@ export async function getIcon(iconName) {
   }
 }
 
-// Process contributors lists
+/**
+ * Processes and merges different contributor lists
+ * @param {Array<{id: string|number}>} current - Current contributors
+ * @param {Array<{id: string|number}>} past - Past contributors
+ * @param {Array<{id: string|number}>} all - All contributors
+ * @returns {{updatedCurrent: Array<object>, updatedPast: Array<object>, remainingContributors: Array<object>}}
+ */
 export const processContributors = (current, past, all) => {
   // Update current/past contributors from GitHub with custom data
   const updateContributor = (contributor, allContributors) => {
@@ -203,6 +255,15 @@ if (import.meta.env.VITE_GITHUB_TOKEN) {
   githubToken = import.meta.env.VITE_GITHUB_TOKEN;
 }
 
+/**
+ * Fetches contributors data from GitHub API
+ * @param {Function} [customFetch] - Optional custom fetch function
+ * @param {string} [dataSrc] - GitHub API URL
+ * @param {string} [token] - GitHub authentication token
+ * @param {number} [startPage=1] - Starting page number
+ * @param {number} [maxPages=3] - Maximum number of pages to fetch
+ * @returns {Promise<{contributors: Array<object>, loading?: boolean, error: string|null}>}
+ */
 export const getContributors = async (
   customFetch = undefined,
   dataSrc = dataURL || "",
