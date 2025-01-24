@@ -81,6 +81,7 @@ const registerLanguage = async (locale, getModules) => {
     register(locale, () => minimalDictionary);
   }
 };
+
 /**
  * Register all available languages from the languages object
  * @description Iterates through each locale and its corresponding module loader function,
