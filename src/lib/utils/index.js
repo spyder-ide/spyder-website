@@ -149,49 +149,32 @@ export const getOS = () => {
 };
 
 /**
- * Generates download buttons configuration based on OS
- * @param {string} base - Base URL for downloads
- * @param {string} os - Operating system identifier
- * @returns {Array<{highlight?: boolean, icon?: string, text: string, href: string}>} Button configurations
+ * Gets the download buttons configuration for a specific operating system
+ * @param {string} base - Base URL for download links
+ * @param {('mac'|'windows'|'linux')} os - Operating system identifier
+ * @returns {Array<{highlight: boolean, icon: string, version: string, href: string}>} Array of button configurations
+ * @description Generates download button configurations based on OS and processor architecture.
+ * For macOS, generates buttons for both ARM64 and x64 architectures. For Windows and Linux,
+ * generates a single x64 button.
  */
 export const getOSButtons = (base, os) => {
-  let osButtons = [{}];
-  let str = "";
+  let osButtons = [];
+  let processorFamily = [];
 
-  if (os === "windows") {
-    str = "for Windows 10+";
-  } else if (os === "linux") {
-    str = "for Linux";
-  } else if (os === "mac") {
-    str = "for macOS";
-    const m1 = "14.0+ (M1)";
-    const intel = "12.0+ (Intel)";
-    osButtons = [
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str} ${m1}`,
-        href: `${base}/download?os=${os}&arch=arm64`,
-      },
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str} ${intel}`,
-        href: `${base}/download?os=${os}&arch=x64`,
-      },
-    ];
+  if (os === "mac") {
+    processorFamily = ["arm64", "x64"];
+  } else {
+    processorFamily = ["x64"];
   }
 
-  if (os === "windows" || os === "linux") {
-    osButtons = [
-      {
-        highlight: true,
-        icon: `${os}`,
-        text: `Download ${str}`,
-        href: `${base}/download?os=${os}&arch=x64`,
-      },
-    ];
-  }
+  processorFamily.forEach((arch) => {
+    osButtons.push({
+      highlight: true,
+      icon: `${os}`,
+      text: `download.releases.${os}.${arch}.name`,
+      href: `${base}/download?os=${os}&arch=${arch}`,
+    });
+  });
 
   return osButtons;
 };
@@ -246,7 +229,6 @@ export const processContributors = (current, past, all) => {
   };
 };
 
-// Get contributors object from GiHub
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
 let githubToken;

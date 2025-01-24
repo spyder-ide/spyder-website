@@ -1,5 +1,5 @@
 <script>
-  import { _, json } from "svelte-i18n";
+  import { _, json, isLoading } from "svelte-i18n";
   import { osStore } from "$lib/store";
 
   import Vanta from "$lib/components/Vanta.svelte";
@@ -17,18 +17,21 @@
   let heroContent, heroImages, githubButton;
 
   $: {
-    heroContent = $json('config.site.heroContent');
-    heroImages = $json('config.site.heroImages');
-    githubButton = $json('config.site.githubButton');
+    heroContent = $json("config.site.heroContent");
+    heroImages = $json("config.site.heroImages");
+    githubButton = $json("config.site.githubButton");
 
     // Subscribe to osStore
     osStore.subscribe((data) => {
-      if (!data.loading) {
-        buttons = [...data.osButtons, githubButton];
+      if (!data.loading && !$isLoading) {
+        const translatedOsButtons = data.osButtons.map((button) => ({
+          ...button,
+          text: `${$_("download.button.message")} ${$_(button.text)}` || {},
+        }));
+        buttons = [...translatedOsButtons, githubButton];
       }
     });
   }
-
 </script>
 
 <section {id} class="mt-20 {classes}">

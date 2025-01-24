@@ -1,4 +1,5 @@
 <script>
+  import { _, isLoading, json } from "svelte-i18n";
   import { onMount } from "svelte";
   import Youtube from "svelte-youtube-embed";
 
@@ -72,18 +73,24 @@
     return () => window.removeEventListener("resize", handleResize);
   });
 
-  $: style = mobile
-    ? ""
-    : currentBg
-      ? `background-image: url(${currentBg});`
-      : "";
+  $: {
+    style = mobile
+      ? ""
+      : currentBg
+        ? `background-image: url(${currentBg});`
+        : "";
 
-  osStore.subscribe((data) => {
-    if (!data.loading && buttons && imgSrc) {
-      buttons = [...data.osButtons];
-      imgSrc = `/assets/media/${data.os}.webp`;
-    }
-  });
+    osStore.subscribe((data) => {
+      if (!data.loading && !$isLoading && buttons && imgSrc) {
+        const translatedOsButtons = data.osButtons.map((button) => ({
+          ...button,
+          text: `${$_("download.button.message")} ${$_(button.text)}` || {},
+        }));
+        buttons = [...translatedOsButtons];
+        imgSrc = `/assets/media/${data.os}.webp`;
+      }
+    });
+  }
 </script>
 
 <section
@@ -115,27 +122,29 @@
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? "max-w-full" : "mt-8 md:mt-24 text-center max-w-2xl mx-auto"}`}
           >
-              {#if typeof content !== 'object'}
-                <slot />
-              {:else}
-                {#if content.title}
-                  {#if content.titleTag}
-                    <svelte:element this={content.titleTag}>
-                      {content.title}
-                    </svelte:element>
-                  {:else}
-                    <h2>{content.title}</h2>
-                  {/if}
-                {/if}
-                {#if content.text}
-                  {@html content.text}
+            {#if typeof content !== "object"}
+              <slot />
+            {:else}
+              {#if content.title}
+                {#if content.titleTag}
+                  <svelte:element this={content.titleTag}>
+                    {content.title}
+                  </svelte:element>
+                {:else}
+                  <h2>{content.title}</h2>
                 {/if}
               {/if}
+              {#if content.text}
+                {@html content.text}
+              {/if}
+            {/if}
           </div>
         {/if}
         {#if buttons}
           {#if buttons.length > 1}
-            <div class={`grid grid-cols-1 gap-4 items-center mt-8 mr-32 ${!columns ? "text-center" : ""}`}>
+            <div
+              class={`grid grid-cols-1 gap-4 items-center mt-8 mr-32 ${!columns ? "text-center" : ""}`}
+            >
               {#each buttons as button}
                 <Button {...button} />
               {/each}
@@ -160,10 +169,10 @@
         {:else if imgSrc}
           {#if imgLink}
             <a href={imgLink} target="_blank" rel="noopener noreferrer">
-              <Image {imgSrc} {caption} classes={imgClasses} alt={imgAlt} />
+              <Image {imgSrc} {imgAlt} {caption} classes={imgClasses} />
             </a>
           {:else}
-            <Image {imgSrc} {caption} classes={imgClasses} alt={imgAlt} />
+            <Image {imgSrc} {imgAlt} {caption} classes={imgClasses} />
           {/if}
         {:else if tabs}
           <Tabs {tabs} />
@@ -208,22 +217,20 @@
     >
       {#if $$slots.extraContent}
         <slot name="extraContent" />
+      {:else if typeof extraContent !== "object"}
+        <svelte:component this={extraContent} />
       {:else}
-        {#if typeof extraContent !== 'object'}
-          <svelte:component this={extraContent} />
-        {:else}
-          {#if extraContent.title}
-            {#if extraContent.titleTag}
-              <svelte:element this={extraContent.titleTag}>
-                {extraContent.title}
-              </svelte:element>
-            {:else}
-              <h2>{extraContent.title}</h2>
-            {/if}
+        {#if extraContent.title}
+          {#if extraContent.titleTag}
+            <svelte:element this={extraContent.titleTag}>
+              {extraContent.title}
+            </svelte:element>
+          {:else}
+            <h2>{extraContent.title}</h2>
           {/if}
-          {#if extraContent.text}
-            {@html extraContent.text}
-          {/if}
+        {/if}
+        {#if extraContent.text}
+          {@html extraContent.text}
         {/if}
       {/if}
     </div>

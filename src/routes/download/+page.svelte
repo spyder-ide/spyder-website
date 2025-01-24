@@ -102,6 +102,8 @@
     osName = releases[os]?.[arch]?.name ?? "";
     downloadUrl = releases[os]?.[arch]?.link ?? "";
 
+    buttonText = $_("download.button.message");
+
     title = $_("config.site.title");
     description = $_("config.site.description");
     keywords = $json("config.site.keywords");
@@ -110,7 +112,6 @@
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");
     pageSubtitleAlt = $_("download.alternative");
-    buttonText = $_("download.button.text");
     download = $json("download.action");
 
     metadata.setMetadata({

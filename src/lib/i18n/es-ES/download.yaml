@@ -3,7 +3,7 @@ subtitle: Si la descarga no se inicia automáticamente, usa el siguiente botón
 alternative: Descarga Spyder para el sistema operativo detectado usando el siguiente botón
 detected: detectado
 button:
-  text: Descargar para
+  message: Descargar para
 action:
   name: Descarga
   title: Descarga iniciada...

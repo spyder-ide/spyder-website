@@ -1,5 +1,4 @@
 props:
-  buttons: []
   blocks:
     - id: what-is-spyder-section
       imgSrc: /assets/media/banner.svg

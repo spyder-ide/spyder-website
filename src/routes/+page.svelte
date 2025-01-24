@@ -1,6 +1,5 @@
 <script>
   import { _, json } from "svelte-i18n";
-
   import { metadata } from "$lib/store";
   import { siteUrl, ogImage } from "$lib/config";
 
@@ -8,24 +7,33 @@
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  let blocks, title, subtitle, description, keywords, author;
+  let blocks = [];
+  let title = "";
+  let subtitle = "";
+  let description = "";
+  let keywords = [];
+  let author = "";
 
-  $: {
-    blocks = $json("frontpage.props.blocks");
-    title = $_("config.site.title");
-    subtitle = $_("config.site.subtitle");
-    author = $_("config.site.author");
-    description = $_("config.site.description");
-    keywords = $json("config.site.keywords");
+  $: if ($json && $_) {
+    try {
+      blocks = $json("frontpage.props.blocks") || [];
+      title = $_("config.site.title") || "";
+      subtitle = $_("config.site.subtitle") || "";
+      author = $_("config.site.author") || "";
+      description = $_("config.site.description") || "";
+      keywords = $json("config.site.keywords") || [];
 
-    metadata.setMetadata({
-      title: `${title} | ${subtitle}`,
-      description,
-      keywords: keywords.join(", "),
-      author,
-      url: siteUrl,
-      image: ogImage,
-    });
+      metadata.setMetadata({
+        title: title && subtitle ? `${title} | ${subtitle}` : title,
+        description,
+        keywords: Array.isArray(keywords) ? keywords.join(", ") : "",
+        author,
+        url: siteUrl,
+        image: ogImage,
+      });
+    } catch (error) {
+      console.error("Error loading translations:", error);
+    }
   }
 </script>
 
@@ -33,6 +41,8 @@
 
 <Hero id="hero-section" divider={true} />
 
-{#each blocks as block (block.id)}
-  <ContentBlock {...block} />
-{/each}
+{#if blocks && blocks.length > 0}
+  {#each blocks as block (block.id)}
+    <ContentBlock {...block} />
+  {/each}
+{/if}

@@ -52,6 +52,7 @@ site:
     mastodon: https://fosstodon.org/@Spyder
     instagram: https://instagram.com/spyderide
     rss: https://www.spyder-ide.org/blog/feed.xml
+
 blog:
   title: Bienvenidos al Blog de Spyder
   description: Obtenga la facilidad de uso de Jupyter junto con muchas funciones avanzadas que se encuentran en PyCharm y VSCode en un solo entorno de programación
