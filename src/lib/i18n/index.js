@@ -1,6 +1,27 @@
+import yaml from 'js-yaml';
 import { init, register } from 'svelte-i18n';
 import { browser } from '$app/environment';
-import yaml from 'js-yaml';
+import { minimalDictionary } from '$lib/utils';
+
+/**
+ * Available languages configuration
+ * @type {Object.<string, Function>}
+ */
+const languages = {
+  'en-US': () => import.meta.glob('./en-US/*.yaml', { query: '?raw', import: 'default' }),
+  'es-ES': () => import.meta.glob('./es-ES/*.yaml', { query: '?raw', import: 'default' })
+};
+
+/**
+ * Normalizes a locale string to a supported locale
+ * @param {string} loc - The locale string to normalize
+ * @returns {string} A supported locale ('en-US' or 'es-ES')
+ */
+export const normalizeLocale = (loc) => {
+  if (loc.startsWith('en')) return 'en-US';
+  if (loc.startsWith('es')) return 'es-ES';
+  return 'en-US'; // fallback
+};
 
 /**
  * Generates a dictionary of translations from YAML files
@@ -37,15 +58,7 @@ const generateDictionary = async (modules) => {
   } catch (error) {
     console.error('Error generating dictionary:', error);
     // Return a minimal dictionary to prevent complete failure
-    return {
-      config: {
-        site: {
-          title: 'Spyder IDE',
-          description: 'The Scientific Python Development Environment',
-          author: 'Spyder Project Contributors'
-        }
-      }
-    };
+    return minimalDictionary;
   }
 };
 
@@ -65,44 +78,26 @@ const registerLanguage = async (locale, getModules) => {
   } catch (error) {
     console.error(`Error registering ${locale}:`, error);
     // Register a minimal fallback dictionary
-    register(locale, () => ({
-      config: {
-        site: {
-          title: 'Spyder IDE',
-          description: 'The Scientific Python Development Environment',
-          author: 'Spyder Project Contributors'
-        }
-      }
-    }));
+    register(locale, () => minimalDictionary);
   }
 };
-
 /**
- * Available languages configuration
- * @type {Object.<string, Function>}
+ * Register all available languages from the languages object
+ * @description Iterates through each locale and its corresponding module loader function,
+ * registering them with the i18n system
  */
-const languages = {
-  'en-US': () => import.meta.glob('./en-US/*.yaml', { query: '?raw', import: 'default' }),
-  'es-ES': () => import.meta.glob('./es-ES/*.yaml', { query: '?raw', import: 'default' })
-};
-
-/**
- * Normalizes a locale string to a supported locale
- * @param {string} loc - The locale string to normalize
- * @returns {string} A supported locale ('en-US' or 'es-ES')
- */
-export const normalizeLocale = (loc) => {
-  if (loc.startsWith('en')) return 'en-US';
-  if (loc.startsWith('es')) return 'es-ES';
-  return 'en-US'; // fallback
-};
-
-// Register all languages
 Object.entries(languages).forEach(([locale, getModules]) => {
   registerLanguage(locale, getModules);
 });
 
-// Initialize i18n with fallbacks
+/**
+ * Initialize the i18n system with configuration options
+ * @description Sets up internationalization with the following settings:
+ * - Fallback to en-US if a translation is missing
+ * - Initial locale set to en-US in browser environments
+ * - 200ms loading delay to prevent flashing
+ * - Custom message handling for missing translations
+ */
 init({
   fallbackLocale: 'en-US',
   initialLocale: browser ? 'en-US' : undefined, // Start with English in browser
