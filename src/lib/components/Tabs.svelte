@@ -11,20 +11,6 @@
   onMount(async () => {
     const module = await import("./VideoPlayer.svelte");
     VideoPlayer = module.default;
-
-    // Preload video sources
-    tabs.forEach((tab) => {
-      if (tab.isVideo && tab.content.videoSources) {
-        tab.content.videoSources.forEach((source) => {
-          const link = document.createElement("link");
-          link.rel = "preload";
-          link.as = "video";
-          link.href = source.src;
-          document.head.appendChild(link);
-        });
-      }
-    });
-
     isLoading = false;
   });
 
@@ -35,6 +21,18 @@
   function handleTabClick(tab) {
     isLoading = true;
     current = tab;
+
+    // Preload video sources for the selected tab
+    if (tab.isVideo && tab.content.videoSources) {
+      tab.content.videoSources.forEach((source) => {
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "fetch";
+        link.href = source.src;
+        document.head.appendChild(link);
+      });
+    }
+
     // Use setTimeout to allow the UI to update and show the loader
     setTimeout(() => {
       isLoading = false;
