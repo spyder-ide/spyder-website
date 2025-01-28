@@ -3,8 +3,8 @@
   import { browser } from "$app/environment";
 
   const languages = [
-    { code: "en-US", name: "EN" },
-    { code: "es-ES", name: "ES" },
+    { code: "en-US", name: "English" },
+    { code: "es-ES", name: "Español" },
   ];
 
   let isDropdownOpen = false;
@@ -39,14 +39,14 @@
   <button
     bind:this={dropdownButton}
     class="inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium
-           bg-spring-wood-50 dark:bg-mine-shaft-950 border border-mine-shaft-200 dark:border-mine-shaft-800
-           rounded-md shadow-sm focus:outline-none focus:ring-offset-0
+           bg-spring-wood-50 dark:bg-mine-shaft-950 border border-mine-shaft-200
+           dark:border-mine-shaft-500 rounded-md shadow-sm focus:outline-none focus:ring-offset-0
            focus:ring-offset-spring-wood-50 dark:focus:ring-offset-mine-shaft-950 focus:ring-red-berry-900 focus:ring-1
            text-mine-shaft-700 dark:text-neutral-300 hover:bg-spring-wood-100 dark:hover:bg-mine-shaft-900
            transition-colors duration-200"
     on:click={() => (isDropdownOpen = !isDropdownOpen)}
   >
-    {languages.find((lang) => lang.code === $locale)?.name || "EN"}
+    {languages.find((lang) => lang.code === $locale)?.name || "English"}
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="w-4 h-4 ml-1.5 transition-transform duration-200"
