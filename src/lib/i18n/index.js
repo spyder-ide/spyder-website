@@ -14,12 +14,12 @@ const languages = {
 
 /**
  * Normalizes a locale string to a supported locale
- * @param {string} loc - The locale string to normalize
+ * @param {string} locale - The locale string to normalize
  * @returns {string} A supported locale ('en-US' or 'es-ES')
  */
-export const normalizeLocale = (loc) => {
-  if (loc.startsWith('en')) return 'en-US';
-  if (loc.startsWith('es')) return 'es-ES';
+export const normalizeLocale = (locale) => {
+  if (locale.startsWith('en')) return 'en-US';
+  if (locale.startsWith('es')) return 'es-ES';
   return 'en-US'; // fallback
 };
 
