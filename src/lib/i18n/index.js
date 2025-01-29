@@ -1,26 +1,113 @@
-import yaml from 'js-yaml';
-import { init, register } from 'svelte-i18n';
-import { browser } from '$app/environment';
-import { minimalDictionary } from '$lib/utils';
+import yaml from "js-yaml";
+import { init, register } from "svelte-i18n";
+import { browser } from "$app/environment";
 
 /**
- * Available languages configuration
- * @type {Object.<string, Function>}
+ * A minimal dictionary object containing basic site configuration
+ * Used as a fallback when translation files cannot be loaded
+ * @type {Object} Dictionary containing site configuration
+ * @property {Object} config - Configuration object
+ * @property {Object} config.site - Site-specific configuration
+ * @property {string} config.site.title - The site title
+ * @property {string} config.site.description - The site description
+ * @property {string} config.site.author - The site author/contributors
  */
-const languages = {
-  'en-US': () => import.meta.glob('./en-US/*.yaml', { query: '?raw', import: 'default' }),
-  'es-ES': () => import.meta.glob('./es-ES/*.yaml', { query: '?raw', import: 'default' })
+const MINIMAL_DICTIONARY = {
+  config: {
+    site: {
+      title: 'Spyder IDE',
+      description: 'The Scientific Python Development Environment',
+      author: 'Spyder Project Contributors'
+    }
+  }
+}
+
+/**
+ * Maps language codes to their normalized variants based on available languages
+ * This helps map similar locales to our supported ones (e.g., 'en-GB' -> 'en-US')
+ * @type {Object.<string, string>}
+ */
+const LANGUAGE_MAPPINGS = {
+  // English variants
+  "en": "en-US",
+  "en-GB": "en-US",
+  "en-AU": "en-US",
+  "en-CA": "en-US",
+  "en-NZ": "en-US",
+  "en-ZA": "en-US",
+  // Spanish variants
+  "es": "es-ES",
+  "es-MX": "es-ES",
+  "es-AR": "es-ES",
+  "es-CO": "es-ES",
+  "es-CL": "es-ES",
+  "es-PE": "es-ES",
+  "es-VE": "es-ES",
+  "es-419": "es-ES", // Latin American Spanish
 };
+
+/**
+ * Configuration object for available languages in the application
+ * @type {Object.<string, {
+ *   name: string,
+ *   loader: () => Object.<string, () => Promise<string>>
+ * }>}
+ */
+export const availableLanguages = {
+  "en-US": {
+    name: "English",
+    loader: () =>
+      import.meta.glob("./en-US/*.yaml", { query: "?raw", import: "default" }),
+  },
+  "es-ES": {
+    name: "Español",
+    loader: () =>
+      import.meta.glob("./es-ES/*.yaml", { query: "?raw", import: "default" }),
+  },
+};
+
+// Convert availableLanguages to format needed for language selection
+export const languageOptions = Object.entries(availableLanguages).map((
+  [code, config],
+) => ({
+  code,
+  name: config.name,
+}));
+
+// Use loaders from availableLanguages configuration
+const languages = Object.fromEntries(
+  Object.entries(availableLanguages).map((
+    [locale, config],
+  ) => [locale, config.loader]),
+);
 
 /**
  * Normalizes a locale string to a supported locale
  * @param {string} locale - The locale string to normalize
- * @returns {string} A supported locale ('en-US' or 'es-ES')
+ * @returns {string} A supported locale from availableLanguages
  */
-export const normalizeLocale = (locale) => {
-  if (locale.startsWith('en')) return 'en-US';
-  if (locale.startsWith('es')) return 'es-ES';
-  return 'en-US'; // fallback
+export const normalizeLocale = (locale = "en-US") => {
+  // If the locale is already supported, return it
+  if (availableLanguages[locale]) {
+    return locale;
+  }
+
+  // Try to find a direct mapping
+  const normalizedLocale = LANGUAGE_MAPPINGS[locale];
+  if (normalizedLocale && availableLanguages[normalizedLocale]) {
+    return normalizedLocale;
+  }
+
+  // Try to match just the language part (e.g., 'en' from 'en-GB')
+  const languageCode = locale.split("-")[0];
+  const mappedLanguage = LANGUAGE_MAPPINGS[languageCode];
+  if (mappedLanguage && availableLanguages[mappedLanguage]) {
+    return mappedLanguage;
+  }
+
+  // If no mapping found, return the default locale
+  console.warn(`Unsupported locale: ${locale}, falling back to en-US`);
+  return "en-US";
 };
 
 /**
@@ -43,7 +130,7 @@ const generateDictionary = async (modules) => {
           continue;
         }
 
-        const filename = path.split('/').pop().replace('.yaml', '');
+        const filename = path.split("/").pop().replace(".yaml", "");
         dictionary[filename] = data;
       } catch (error) {
         console.error(`Error loading translation file ${path}:`, error);
@@ -51,14 +138,14 @@ const generateDictionary = async (modules) => {
     }
 
     if (Object.keys(dictionary).length === 0) {
-      throw new Error('No valid translation files loaded');
+      throw new Error("No valid translation files loaded");
     }
 
     return dictionary;
   } catch (error) {
-    console.error('Error generating dictionary:', error);
+    console.error("Error generating dictionary:", error);
     // Return a minimal dictionary to prevent complete failure
-    return minimalDictionary;
+    return MINIMAL_DICTIONARY;
   }
 };
 
@@ -78,7 +165,7 @@ const registerLanguage = async (locale, getModules) => {
   } catch (error) {
     console.error(`Error registering ${locale}:`, error);
     // Register a minimal fallback dictionary
-    register(locale, () => minimalDictionary);
+    register(locale, () => MINIMAL_DICTIONARY);
   }
 };
 
@@ -100,12 +187,12 @@ Object.entries(languages).forEach(([locale, getModules]) => {
  * - Custom message handling for missing translations
  */
 init({
-  fallbackLocale: 'en-US',
-  initialLocale: browser ? 'en-US' : undefined, // Start with English in browser
+  fallbackLocale: "en-US",
+  initialLocale: browser ? "en-US" : undefined, // Start with English in browser
   loadingDelay: 200,
   formats: {}, // Add any custom formats here
   handleMissingMessage: ({ locale, id, defaultValue }) => {
     console.warn(`Missing translation: ${id} for locale: ${locale}`);
     return defaultValue || id;
-  }
+  },
 });

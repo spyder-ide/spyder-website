@@ -12,6 +12,7 @@
   import Loader from "$lib/components/Loader.svelte";
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import LanguageSelect from "$lib/components/LanguageSelect.svelte";
+  import { languageOptions } from "$lib/i18n";
 
   let isMenuOpen = false;
 
@@ -52,7 +53,7 @@
         </nav>
 
         <!-- Language switch -->
-        <LanguageSelect />
+        <LanguageSelect languages={languageOptions} />
 
         <!-- Theme switch (dark/light) -->
         <ColourSwitch />

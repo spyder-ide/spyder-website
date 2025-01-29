@@ -294,23 +294,3 @@ export const getContributors = async (
     };
   }
 };
-
-/**
- * A minimal dictionary object containing basic site configuration
- * Used as a fallback when translation files cannot be loaded
- * @type {Object} Dictionary containing site configuration
- * @property {Object} config - Configuration object
- * @property {Object} config.site - Site-specific configuration
- * @property {string} config.site.title - The site title
- * @property {string} config.site.description - The site description
- * @property {string} config.site.author - The site author/contributors
- */
-export const minimalDictionary = {
-  config: {
-    site: {
-      title: 'Spyder IDE',
-      description: 'The Scientific Python Development Environment',
-      author: 'Spyder Project Contributors'
-    }
-  }
-}
