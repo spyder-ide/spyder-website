@@ -73,6 +73,7 @@
 <style>
   .dropdownButton {
     @apply inline-flex
+      min-w-24
       items-center
       justify-center
       px-3
