@@ -13,7 +13,10 @@
 
   import { siteUrl, ogImageBlog, config } from "$lib/config";
 
-  export let data, pageNum, totalPages;
+  /** @type {import('./$types').PageData} */
+  export let data;
+
+  export let pageNum, totalPages;
 
   let postsWithAuthor = [];
   let site, socials, posts;

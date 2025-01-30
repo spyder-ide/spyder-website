@@ -67,6 +67,7 @@
     currentContributorsMap = createContributorsMap(
       currentTranslatedContributors,
     );
+
     pastContributorsMap = createContributorsMap(pastTranslatedContributors);
 
     // Merge contributor data with translations
@@ -74,6 +75,7 @@
       currentRawContributors,
       currentContributorsMap,
     );
+
     pastContributors = mergeContributorData(
       pastRawContributors,
       pastContributorsMap,

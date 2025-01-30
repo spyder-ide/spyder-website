@@ -1,4 +1,13 @@
 import { browser } from "$app/environment";
+import { blogPageStart, blogPageSize } from "$lib/config";
+
+const dataURL =
+  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
+let githubToken;
+
+if (import.meta.env.VITE_GITHUB_TOKEN) {
+  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
+}
 
 /**
  * Determines if a variable has a value (even `false` or `0`)
@@ -229,14 +238,6 @@ export const processContributors = (current, past, all) => {
   };
 };
 
-const dataURL =
-  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
-let githubToken;
-
-if (import.meta.env.VITE_GITHUB_TOKEN) {
-  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
-}
-
 /**
  * Fetches contributors data from GitHub API
  * @param {Function} [customFetch] - Optional custom fetch function
@@ -318,3 +319,33 @@ export const mergeContributorData = (rawContributors, translationsMap) => {
     ...translationsMap.get(element.id),
   }));
 };
+
+/**
+ * Shared loader function for blog pages
+ * @param {number} [page] - Page number to load (optional)
+ * @returns {Promise<{props: {posts: Array, pageNum: number, totalPages: number}}>}
+ */
+export async function loadBlogPage(page = blogPageStart) {
+  const pageSize = blogPageSize;
+  const { posts, totalPages } = await fetchMarkdownPosts(page, pageSize);
+
+  return {
+    props: {
+      posts,
+      pageNum: page,
+      totalPages,
+    },
+  };
+}
+
+/**
+ * Generate static routes for blog pages
+ * @returns {Promise<Array<{page: string}>>}
+ */
+export async function generateBlogEntries() {
+  const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
+  return Array.from(
+    { length: totalPages },
+    (_, i) => ({ page: `${i + 1}` })
+  );
+}

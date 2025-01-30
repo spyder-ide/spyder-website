@@ -10,6 +10,7 @@
 
   import Metadata from "$lib/components/Metadata.svelte";
 
+  /** @type {import('./$types').PageData} */
   // svelte-ignore unused-export-let
   export let data;
   // svelte-ignore unused-export-let
