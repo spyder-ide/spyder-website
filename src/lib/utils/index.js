@@ -294,3 +294,27 @@ export const getContributors = async (
     };
   }
 };
+
+/**
+ * Creates a map of contributors by their ID
+ * @param {Array} contributors - Array of contributor objects
+ * @returns {Map} Map of contributors with ID as key
+ */
+export const createContributorsMap = (contributors) => {
+  const map = new Map();
+  contributors.forEach((element) => map.set(element.id, element));
+  return map;
+};
+
+/**
+ * Merges contributor data with translations
+ * @param {Array} rawContributors - Raw contributor data
+ * @param {Map} translationsMap - Map of translated contributor data
+ * @returns {Array} Merged contributor data
+ */
+export const mergeContributorData = (rawContributors, translationsMap) => {
+  return rawContributors.map((element) => ({
+    ...element,
+    ...translationsMap.get(element.id),
+  }));
+};

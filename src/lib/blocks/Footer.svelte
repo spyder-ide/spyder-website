@@ -1,6 +1,8 @@
 <script>
   import { _, json, waitLocale } from "svelte-i18n"
 
+  import { config } from "$lib/config";
+
   import Loader from "$lib/components/Loader.svelte";
   import Divider from "$lib/components/Divider.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -8,7 +10,7 @@
   let socials, socialIcons;
 
   $: {
-    socials = $json('config.site.socials');
+    socials = config.site.socials;
     socialIcons = new Map(Object.entries(socials));
   }
 

@@ -1,6 +1,8 @@
 <script>
   import { _, json, isLoading } from "svelte-i18n";
+
   import { osStore } from "$lib/store";
+  import { config } from "$lib/config";
 
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -14,12 +16,14 @@
   // Hero section buttons
   export let buttons = [];
 
-  let heroContent, heroImages, githubButton;
+  let heroContent, heroImages, githubButton, githubButtonTranslation, tranlatedGithubButton;
 
   $: {
-    heroContent = $json("config.site.heroContent");
-    heroImages = $json("config.site.heroImages");
-    githubButton = $json("config.site.githubButton");
+    heroContent = $json("config.site.heroContent") || "";
+    heroImages = config.site.heroImages || {};
+    githubButton = config.site.githubButton || {};
+    githubButtonTranslation = $json("config.site.githubButton") || {};
+    tranlatedGithubButton = {...githubButton, ...githubButtonTranslation }
 
     // Subscribe to osStore
     osStore.subscribe((data) => {
@@ -28,7 +32,7 @@
           ...button,
           text: `${$_("download.button.message")} ${$_(button.text)}` || {},
         }));
-        buttons = [...translatedOsButtons, githubButton];
+        buttons = [...translatedOsButtons, tranlatedGithubButton];
       }
     });
   }

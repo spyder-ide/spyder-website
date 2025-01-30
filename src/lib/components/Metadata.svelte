@@ -1,21 +1,19 @@
 <script>
-    import { _, json, locale } from "svelte-i18n";
+    import { _, locale } from "svelte-i18n";
 
     import { base } from "$app/paths";
 
     import { metadata } from "$lib/store";
-    import { siteUrl } from "$lib/config";
+    import { siteUrl, config } from "$lib/config";
 
-    let site, title, blogSlug, socials, localeCode;
+    let site, title, socials, localeCode;
+    const untrailedUrl = $metadata.url.replace(/\/+$/, '');
 
     $: {
-      socials = $json('config.site.socials');
+      socials = config.site.socials;
       site = `@${socials.twitter.split("/").pop()}`;
       localeCode = $locale.replace('-', '_');
-      blogSlug = $_('config.blog.slug') || 'blog';
     }
-
-    const untrailedUrl = $metadata.url.replace(/\/+$/, '');
 
     export let prism = false;
 </script>
@@ -30,7 +28,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="Spyder's Blog"
-    href="{siteUrl}/{blogSlug}/feed.xml"
+    href="{siteUrl}/blog/feed.xml"
   />
 
   <!-- Open Graph / Facebook -->

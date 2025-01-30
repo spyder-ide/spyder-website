@@ -1,5 +1,5 @@
 <script>
-  import { _, json, waitLocale, locale } from 'svelte-i18n';
+  import { _, waitLocale, locale } from "svelte-i18n";
 
   import { browser } from "$app/environment";
   import { base } from "$app/paths";
@@ -11,10 +11,7 @@
   import Pagination from "$lib/components/Pagination.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import {
-    siteUrl,
-    ogImageBlog,
-  } from "$lib/config";
+  import { siteUrl, ogImageBlog, config } from "$lib/config";
 
   export let data, pageNum, totalPages;
 
@@ -22,14 +19,14 @@
   let site, socials, posts;
 
   $: {
-    socials = $json('config.site.socials');
+    socials = config.site.socials;
     site = `@${socials.twitter.split("/").pop()}`;
 
     metadata.setMetadata({
-      title: `${$_('config.site.title')} | ${$_('config.blog.title')}`,
-      description: $_('config.blog.description'),
-      keywords: $json('config.site.keywords').join(", "),
-      author: $_('config.site.author'),
+      title: `${$_("config.site.title")} | ${$_("config.blog.title")}`,
+      description: $_("config.blog.description"),
+      author: $_("config.site.author"),
+      keywords: config.site.keywords.join(", "),
       image: ogImageBlog,
       site,
       url: siteUrl,
@@ -38,32 +35,34 @@
     ({ posts, pageNum, totalPages } = data.props);
 
     if (posts) {
-    postsWithAuthor = (async () => {
-      return Promise.all(
-        posts.map(async (post) => {
-          if (browser) {
-            try {
-              // Ensure post.meta.author is an array
-              const authorsArray = Array.isArray(post.meta.author) ? post.meta.author : [post.meta.author];
-              const authorMetadata = await fetchAuthorsMetadata(authorsArray);
-              return { ...post, authorMetadata };
-            } catch (error) {
-              console.error($_('config.blog.metadataError'), error);
-              return { ...post, authorMetadata: [] };
+      postsWithAuthor = (async () => {
+        return Promise.all(
+          posts.map(async (post) => {
+            if (browser) {
+              try {
+                // Ensure post.meta.author is an array
+                const authorsArray = Array.isArray(post.meta.author)
+                  ? post.meta.author
+                  : [post.meta.author];
+                const authorMetadata = await fetchAuthorsMetadata(authorsArray);
+                return { ...post, authorMetadata };
+              } catch (error) {
+                console.error($_("config.blog.metadataError"), error);
+                return { ...post, authorMetadata: [] };
+              }
             }
-          }
-          return post;
-        }),
-      );
-    })();
-  }
+            return post;
+          }),
+        );
+      })();
+    }
   }
 </script>
 
-<Metadata/>
+<Metadata />
 
 {#await waitLocale()}
-  <Loader/>
+  <Loader />
 {:then}
   <div class="container">
     <h1
@@ -77,7 +76,7 @@
         dark:text-mine-shaft-200
         my-16 md:my-32"
     >
-      {$_('config.blog.title')}
+      {$_("config.blog.title")}
     </h1>
 
     <section class="max-w-3xl mx-auto">
@@ -87,10 +86,12 @@
         <div class="grid grid-flow-row gap-24">
           {#each loadedPosts as post}
             <article>
-              <h2 class="text-xl md:text-2xl xl:text-3xl font-light text-balance">
+              <h2
+                class="text-xl md:text-2xl xl:text-3xl font-light text-balance"
+              >
                 <a
                   class="post-link"
-                  href="{base}/{$_('config.blog.slug')}/{post.path}"
+                  href="{base}/blog/{post.path}"
                   title={post.meta.title}
                 >
                   {post.meta.title}
@@ -112,7 +113,8 @@
                       {/each}
                     </div>
                     <small>
-                      {$_('config.blog.publishedOn')} {formattedPubDate(post.meta.pub_date, $locale)}
+                      {$_("config.blog.publishedOn")}
+                      {formattedPubDate(post.meta.pub_date, $locale)}
                     </small>
                   </div>
                 </div>
@@ -122,17 +124,17 @@
               </p>
               <a
                 class="block text-right mt-4"
-                href="{base}/{$_('config.blog.slug')}/{post.path}"
+                href="{base}/blog/{post.path}"
                 title={post.meta.title}
               >
-                {$_('config.blog.readMore')}&hellip;
+                {$_("config.blog.readMore")}&hellip;
               </a>
             </article>
           {/each}
         </div>
-        <Pagination {pageNum} {totalPages} route={$_('config.blog.slug')} />
+        <Pagination {pageNum} {totalPages} route="blog" />
       {:catch error}
-        <p>{$_('config.blog.error')}: {error.message}</p>
+        <p>{$_("config.blog.error")}: {error.message}</p>
       {/await}
     </section>
   </div>

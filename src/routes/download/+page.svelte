@@ -12,7 +12,7 @@
   import Button from "$lib/components/Button.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import { ogImage as image } from "$lib/config";
+  import { ogImage as image, config } from "$lib/config";
 
   let arch = "unknown";
   let os = "unknown";
@@ -106,8 +106,8 @@
 
     title = $_("config.site.title");
     description = $_("config.site.description");
-    keywords = $json("config.site.keywords");
     author = $_("config.site.author");
+    keywords = config.site.keywords;
 
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");

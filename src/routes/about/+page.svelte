@@ -8,39 +8,48 @@
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import { ogImage as image } from "$lib/config";
-  import { processContributors } from "$lib/utils";
+  import { ogImage as image, config, contributors } from "$lib/config";
+  import {
+    processContributors,
+    createContributorsMap,
+    mergeContributorData,
+  } from "$lib/utils";
 
+  /** @type {import('./$types').PageData} */
   export let data;
 
-  let title,
-    author,
-    description,
-    keywords,
-    pageIntro,
+  // Page metadata
+  let title, author, description, keywords;
+
+  // Page content
+  let pageIntro,
     pageTitle,
     currentTitle,
     pastTitle,
     remainingTitle,
-    remainingIntro,
-    allContributors,
-    currentContributors,
-    pastContributors,
-    remainingContributors,
-    updatedCurrent,
-    updatedPast,
-    loading,
-    localContributors,
-    error;
+    remainingIntro;
 
-  allContributors = data.contributors;
+  // Contributor data
+  let currentRawContributors, pastRawContributors;
+  let currentTranslatedContributors, pastTranslatedContributors;
+  let currentContributorsMap, pastContributorsMap;
+  let currentContributors, pastContributors, remainingContributors;
+  let updatedCurrent, updatedPast;
+
+  // State
+  let loading = false;
+  let error = null;
+
+  const allContributors = data.contributors;
 
   $: {
+    // Load page metadata
     title = $_("config.site.title");
     author = $_("config.site.author");
     description = $_("config.site.description");
-    keywords = $json("config.site.keywords");
+    keywords = config.site.keywords;
 
+    // Load page content
     pageIntro = $_("about.pageIntro");
     pageTitle = $_("about.pageTitle");
     currentTitle = $_("about.currentTitle");
@@ -48,17 +57,42 @@
     remainingTitle = $_("about.remainingTitle");
     remainingIntro = $_("about.remainingIntro");
 
-    currentContributors = $json('contributors.current');
-    pastContributors = $json('contributors.past');
+    // Load contributor data
+    currentRawContributors = contributors.current;
+    pastRawContributors = contributors.past;
+    currentTranslatedContributors = $json("contributors.current");
+    pastTranslatedContributors = $json("contributors.past");
 
-    // Process contributors whenever the source data changes
+    // Create contributor maps
+    currentContributorsMap = createContributorsMap(
+      currentTranslatedContributors,
+    );
+    pastContributorsMap = createContributorsMap(pastTranslatedContributors);
+
+    // Merge contributor data with translations
+    currentContributors = mergeContributorData(
+      currentRawContributors,
+      currentContributorsMap,
+    );
+    pastContributors = mergeContributorData(
+      pastRawContributors,
+      pastContributorsMap,
+    );
+
+    // Process all contributors
     if (allContributors && currentContributors && pastContributors) {
-      localContributors = processContributors(currentContributors, pastContributors, allContributors);
-      updatedCurrent = localContributors.updatedCurrent;
-      updatedPast = localContributors.updatedPast;
-      remainingContributors = localContributors.remainingContributors;
+      const processedContributors = processContributors(
+        currentContributors,
+        pastContributors,
+        allContributors,
+      );
+
+      updatedCurrent = processedContributors.updatedCurrent;
+      updatedPast = processedContributors.updatedPast;
+      remainingContributors = processedContributors.remainingContributors;
     }
 
+    // Update metadata
     metadata.setMetadata({
       title: `${title} | ${pageTitle}`,
       description,
@@ -71,7 +105,7 @@
 </script>
 
 {#await waitLocale()}
-  <Loader/>
+  <Loader />
 {:then}
   <Metadata />
   <div class="container">

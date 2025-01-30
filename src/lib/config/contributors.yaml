@@ -1,0 +1,44 @@
+current:
+  - id: 365293
+    name: Carlos Córdoba
+  - id: 16781833
+    name: Daniel Althviz
+  - id: 17051931
+    name: C.A.M. Gerlach
+    avatar_url: /assets/authors/camgerlach/pic.webp
+  - id: 6740194
+    name: Quentin Peter
+  - id: 9618975
+    name: Ryan Clary
+  - id: 7941918
+    name: Jitse Niesen
+  - id: 42411448
+    name: Juan Sebastian Bautista
+  - id: 5204788
+    name: Hendrik D. Louzada
+  - id: 5027583
+    name: Andrés Montoya
+past:
+  - id: 1311787
+    name: Pierre Raybaut
+  - id: 1878982
+    name: Edgar Margffoy
+  - id: 50221806
+    name: Isabela Presedo-Floyd
+    role: Designer
+  - id: 3627835
+    name: Gonzalo Peña-Castellanos
+  - id: 18587879
+    name: Juanita Gómez
+  - id: 10170372
+    name: Jean-Sébastien Gosselin
+  - id: 20992645
+    name: Stephannie Jimenez
+  - id: 2397974
+    name: Sylvain Corlay
+  - id: 2024217
+    name: Rafael Laverde
+  - id: 10513354
+    name: Brian Olsen
+  - id: 2096628
+    name: Steve Silvester

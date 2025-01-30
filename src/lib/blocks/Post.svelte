@@ -1,5 +1,5 @@
 <script>
-  import { _, waitLocale } from 'svelte-i18n';
+  import { _ } from 'svelte-i18n';
   import { onMount } from "svelte";
 
   import { page } from "$app/stores";
@@ -27,7 +27,7 @@
   let siteTitle;
   let authorsMetadata = [];
 
-  const slug = $page.url.pathname.replace(`/${$_('config.blog.slug')}`, '').replaceAll('/', '');
+  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {

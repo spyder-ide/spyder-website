@@ -2,6 +2,7 @@ import { dev } from "$app/environment";
 import { PUBLIC_SITE_URL } from '$env/static/public';
 import yaml from 'js-yaml';
 import rawConfig from "./config.yaml?raw";
+import rawContributors from "./contributors.yaml?raw"
 
 //////////////////////////////////////////////////////////////////
 // Site config
@@ -13,3 +14,4 @@ export const ogImageBlog = `${siteUrl}/assets/media/blog_screenshot.png`;
 export const blogPageStart = 1;
 export const blogPageSize = 10;
 export const config = yaml.load(rawConfig);
+export const contributors = yaml.load(rawContributors);
