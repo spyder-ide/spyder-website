@@ -1,5 +1,6 @@
 <script>
   import { _, json, isLoading } from "svelte-i18n";
+  import { onMount } from "svelte";
 
   import { osStore } from "$lib/store";
   import { config } from "$lib/config";
@@ -16,26 +17,37 @@
   // Hero section buttons
   export let buttons = [];
 
-  let heroContent, heroImages, githubButton, githubButtonTranslation, tranlatedGithubButton;
+  let heroContent,
+    heroImages,
+    githubButton,
+    githubButtonTranslation,
+    tranlatedGithubButton,
+    unsubscribeOs;
 
   $: {
     heroContent = $json("config.site.heroContent") || "";
     heroImages = config.site.heroImages || {};
     githubButton = config.site.githubButton || {};
     githubButtonTranslation = $json("config.site.githubButton") || {};
-    tranlatedGithubButton = {...githubButton, ...githubButtonTranslation }
+    tranlatedGithubButton = { ...githubButton, ...githubButtonTranslation };
+  }
 
+  onMount(() => {
     // Subscribe to osStore
-    osStore.subscribe((data) => {
+    unsubscribeOs = osStore.subscribe((data) => {
       if (!data.loading && !$isLoading) {
         const translatedOsButtons = data.osButtons.map((button) => ({
           ...button,
-          text: `${$_("download.button.message")} ${$_(button.text)}` || {},
+          text: `${$_("download.button.message")} ${button.text}`,
         }));
         buttons = [...translatedOsButtons, tranlatedGithubButton];
       }
     });
-  }
+
+    return () => {
+      if (unsubscribeOs) unsubscribeOs();
+    };
+  });
 </script>
 
 <section {id} class="mt-20 {classes}">
@@ -80,7 +92,7 @@
     {/if}
   </div>
 
-  <div class="container aspect-video hero-image py-5">
+  <div class="container aspect-video py-5 mt-16">
     <ImageCompare before={heroImages.dark} after={heroImages.light} />
   </div>
 
@@ -89,8 +101,3 @@
   {/if}
 </section>
 
-<style>
-  .hero-image {
-    margin-top: 4rem;
-  }
-</style>

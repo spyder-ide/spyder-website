@@ -1,7 +1,8 @@
 <script>
   import { _, json } from "svelte-i18n";
   import { metadata } from "$lib/store";
-  import { siteUrl, ogImage, config } from "$lib/config";
+  import { siteUrl, ogImage, config, frontpage } from "$lib/config";
+  import { mergeContentBlocks } from "$lib/utils/content";
 
   import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
@@ -16,13 +17,18 @@
 
   $: if ($json && $_) {
     try {
-      blocks = $json("frontpage.props.blocks") || [];
+      // Merge config blocks with translated blocks
+      const translatedBlocks = $json("frontpage") || [];
+      blocks = mergeContentBlocks(frontpage, translatedBlocks);
+
+      // Load page metadata
       title = $_("config.site.title") || "";
       subtitle = $_("config.site.subtitle") || "";
       author = $_("config.site.author") || "";
       description = $_("config.site.description") || "";
       keywords = config.site.keywords || [];
 
+      // Update metadata
       metadata.setMetadata({
         title: title && subtitle ? `${title} | ${subtitle}` : title,
         description,
@@ -32,7 +38,7 @@
         image: ogImage,
       });
     } catch (error) {
-      console.error("Error loading translations:", error);
+      console.error("Error loading content:", error);
     }
   }
 </script>
@@ -41,7 +47,7 @@
 
 <Hero id="hero-section" divider={true} />
 
-{#if blocks && blocks.length > 0}
+{#if blocks?.length}
   {#each blocks as block (block.id)}
     <ContentBlock {...block} />
   {/each}

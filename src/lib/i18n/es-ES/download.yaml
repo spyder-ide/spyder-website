@@ -8,19 +8,3 @@ action:
   name: Descarga
   title: Descarga iniciada...
   alternative: De manera alternativa, puedes seleccionar manualmente el paquete que deseas descargar usando los botones a continuación, o visita nuestra <a href=https://github.com/spyder-ide/spyder/releases target=_blank>página de Releases</a> en GitHub.
-releases:
-  windows:
-    x64:
-      name: Windows 10+
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
-  linux:
-    x64:
-      name: Linux
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
-  mac:
-    arm64:
-      name: macOS 14.0+ (M1)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
-    x64:
-      name: macOS 12.0+ (Intel)
-      link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg

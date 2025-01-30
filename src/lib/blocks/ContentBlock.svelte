@@ -1,17 +1,14 @@
 <script>
-  import { _, isLoading, json } from "svelte-i18n";
+  import { _, isLoading } from "svelte-i18n";
   import { onMount } from "svelte";
-  import Youtube from "svelte-youtube-embed";
 
   import { randomId } from "$lib/utils";
   import { colourScheme, osStore } from "$lib/store";
 
-  import Card from "$lib/components/Card.svelte";
-  import Tabs from "$lib/components/Tabs.svelte";
-  import Image from "$lib/components/Image.svelte";
-  import Button from "$lib/components/Button.svelte";
+  import ContentSection from "$lib/components/ContentSection.svelte";
+  import MediaSection from "$lib/components/MediaSection.svelte";
   import Divider from "$lib/components/Divider.svelte";
-  import VideoPlayer from "$lib/components/VideoPlayer.svelte";
+  import Image from "$lib/components/Image.svelte";
 
   export let id = randomId();
   export let columns = true;
@@ -41,6 +38,8 @@
 
   let style = "";
   let mobile = false;
+  let unsubscribeOs;
+  let resizeHandler;
 
   const debounce = (func, wait) => {
     let timeout;
@@ -50,47 +49,46 @@
         func(...args);
       };
       clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      timeout = window.setTimeout(later, wait);
     };
   };
 
   $: currentBg =
     $colourScheme === "dark" && backgroundDark ? backgroundDark : background;
 
-  onMount(() => {
-    const handleResize = debounce(() => {
-      mobile = window.innerWidth < 768;
-      style = mobile
-        ? ""
-        : currentBg
-          ? `background-image: url(${currentBg});`
-          : "";
-    }, 250);
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  });
-
-  $: {
-    style = mobile
+  $: style =
+    mobile && !currentBg
       ? ""
       : currentBg
         ? `background-image: url(${currentBg});`
         : "";
 
-    osStore.subscribe((data) => {
-      if (!data.loading && !$isLoading && buttons && imgSrc) {
-        const translatedOsButtons = data.osButtons.map((button) => ({
-          ...button,
-          text: `${$_("download.button.message")} ${$_(button.text)}` || {},
-        }));
-        buttons = [...translatedOsButtons];
-        imgSrc = `/assets/media/${data.os}.webp`;
-      }
-    });
-  }
+  onMount(() => {
+    resizeHandler = debounce(() => {
+      mobile = window.innerWidth < 768;
+    }, 250);
+
+    window.addEventListener("resize", resizeHandler);
+    resizeHandler();
+
+    if (buttons && imgSrc) {
+      unsubscribeOs = osStore.subscribe((data) => {
+        if (!data.loading && !$isLoading) {
+          const translatedOsButtons = data.osButtons.map((button) => ({
+            ...button,
+            text: `${$_("download.button.message")} ${button.text}`,
+          }));
+          buttons = [...translatedOsButtons];
+          imgSrc = `/assets/media/${data.os}.webp`;
+        }
+      });
+    }
+
+    return () => {
+      if (resizeHandler) window.removeEventListener("resize", resizeHandler);
+      if (unsubscribeOs) unsubscribeOs();
+    };
+  });
 </script>
 
 <section
@@ -114,111 +112,39 @@
       ${border ? "border border-mine-shaft-200 dark:border-mine-shaft-800" : ""}`}
   >
     {#if content || buttons}
-      <div class={columns ? "col-span-full lg:col-span-4" : "col-span-full"}>
-        {#if content}
-          <div
-            class={`prose prose-h2:text-lg prose-h1:text-xl prose-headings:font-light prose-headings:tracking-tight
-              prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
-              prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
-              ${columns ? "max-w-full" : "mt-8 md:mt-24 text-center max-w-2xl mx-auto"}`}
-          >
-            {#if typeof content !== "object"}
-              <slot />
-            {:else}
-              {#if content.title}
-                {#if content.titleTag}
-                  <svelte:element this={content.titleTag}>
-                    {content.title}
-                  </svelte:element>
-                {:else}
-                  <h2>{content.title}</h2>
-                {/if}
-              {/if}
-              {#if content.text}
-                {@html content.text}
-              {/if}
-            {/if}
-          </div>
-        {/if}
-        {#if buttons}
-          {#if buttons.length > 1}
-            <div
-              class={`grid grid-cols-1 gap-4 items-center mt-8 mr-32 ${!columns ? "text-center" : ""}`}
-            >
-              {#each buttons as button}
-                <Button {...button} />
-              {/each}
-            </div>
-          {:else}
-            <div class={`mt-8 mr-32 ${!columns ? "text-center" : ""}`}>
-              {#each buttons as button}
-                <Button {...button} />
-              {/each}
-            </div>
-          {/if}
-        {/if}
-      </div>
+      <ContentSection {content} {buttons} {columns}>
+        <slot />
+      </ContentSection>
     {/if}
 
     {#if videoId || videoSources || tabs || imgSrc || innerColumns}
-      <div class={columns ? "col-span-full lg:col-span-6" : "col-span-full"}>
-        {#if videoId}
-          <Youtube id={videoId} altThumb={true} --title-font-family="Silka" />
-        {:else if videoSources}
-          <VideoPlayer {videoSources} {videoPoster} />
-        {:else if imgSrc}
-          {#if imgLink}
-            <a href={imgLink} target="_blank" rel="noopener noreferrer">
-              <Image {imgSrc} {imgAlt} {caption} classes={imgClasses} />
-            </a>
-          {:else}
-            <Image {imgSrc} {imgAlt} {caption} classes={imgClasses} />
-          {/if}
-        {:else if tabs}
-          <Tabs {tabs} />
-        {:else if innerColumns}
-          <div
-            class="max-w-2xl mx-auto flex flex-col gap-8 md:gap-16 mt-2 md:mt-0 md:grid md:grid-cols-2"
-          >
-            {#each innerColumns as innerColumn}
-              {#if innerColumn.link}
-                <a
-                  href={innerColumn.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="card-link md:grid w-full h-full items-center"
-                >
-                  <Card
-                    {innerColumn}
-                    aspect={innerColumn.aspect}
-                    classes="w-52 md:h-32"
-                  />
-                </a>
-              {:else}
-                <Card
-                  {innerColumn}
-                  aspect={innerColumn.aspect}
-                  classes="w-52 md:h-32"
-                />
-              {/if}
-            {/each}
-          </div>
-        {/if}
-      </div>
+      <MediaSection
+        {columns}
+        {videoId}
+        {videoSources}
+        {videoPoster}
+        {imgSrc}
+        {imgLink}
+        {imgAlt}
+        {imgClasses}
+        {caption}
+        {tabs}
+        {innerColumns}
+      />
     {/if}
   </div>
 
-  {#if $$slots.extraContent || extraContent}
+  {#if extraContent}
     <div
       class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light
               prose-headings:tracking-tight prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? "order-first" : ""}`}
     >
-      {#if $$slots.extraContent}
-        <slot name="extraContent" />
-      {:else if typeof extraContent !== "object"}
-        <svelte:component this={extraContent} />
+      {#if typeof extraContent !== "object"}
+        {#if extraContent}
+          <svelte:component this={null} />
+        {/if}
       {:else}
         {#if extraContent.title}
           {#if extraContent.titleTag}

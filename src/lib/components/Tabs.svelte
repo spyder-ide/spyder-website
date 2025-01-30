@@ -1,12 +1,26 @@
 <script>
   import { fade } from "svelte/transition";
   import { onMount } from "svelte";
+  import { locale } from "svelte-i18n";
 
   export let tabs = [];
+  export let defaultTab = 0;
 
-  let current = tabs[0];
+  let current;
   let VideoPlayer;
   let isLoading = true;
+  let currentIndex = defaultTab;
+
+  // Initialize current tab and handle language changes
+  $: {
+    if (tabs.length) {
+      // Preserve current tab index when language changes
+      current = tabs[currentIndex];
+    } else if (!current) {
+      current = tabs[defaultTab];
+      currentIndex = defaultTab;
+    }
+  }
 
   onMount(async () => {
     const module = await import("./VideoPlayer.svelte");
@@ -14,13 +28,14 @@
     isLoading = false;
   });
 
-  $: currentKey = current.isVideo
-    ? JSON.stringify(current.content)
-    : current.content;
+  $: currentKey = current?.isVideo
+    ? JSON.stringify(current.content) + $locale // Add locale to force update on language change
+    : current?.content;
 
-  function handleTabClick(tab) {
+  function handleTabClick(tab, index) {
     isLoading = true;
     current = tab;
+    currentIndex = index;
 
     // Preload video sources for the selected tab
     if (tab.isVideo && tab.content.videoSources) {
@@ -45,19 +60,21 @@
          border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm
          text-gray-700 lg:h-8 lg:-mt-8"
 >
-  {#each tabs as tab}
+  {#each tabs as tab, i}
     <button
       class="pb-2 border-b-2 border-neutral-500 text-gray-500
              text-xs sm:text-sm lg:text-base font-light"
       class:selected={current === tab}
-      on:click={() => handleTabClick(tab)}
+      on:click={() => handleTabClick(tab, i)}
+      aria-selected={current === tab}
+      role="tab"
     >
       {tab.title}
     </button>
   {/each}
 </div>
 
-<div class="tab-content">
+<div class="tab-content" role="tabpanel">
   {#if isLoading}
     <div
       class="skeleton-loader"
@@ -66,7 +83,7 @@
     >
       <div class="skeleton-image"></div>
     </div>
-  {:else}
+  {:else if current}
     {#key currentKey}
       {#if current.isVideo === true}
         <div in:fade={{ duration: 200 }}>

@@ -7,87 +7,94 @@
 
   import { metadata } from "$lib/store";
   import { getOS } from "$lib/utils";
+  import {
+    ogImage as image,
+    config,
+    releases
+   } from "$lib/config";
 
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import { ogImage as image, config } from "$lib/config";
+  /** @typedef {{ name: string, link: string }} ReleaseInfo */
+  /** @typedef {Record<string, Record<string, ReleaseInfo>>} Releases */
 
+  // State
   let arch = "unknown";
   let os = "unknown";
   let osName = "unknown";
-  let releases = $json("download.releases");
-  let macs = Object.entries(releases.mac);
+  let macs = [];
   let downloadUrl = "";
   let osButtons = [];
-  let title,
-    description,
-    author,
-    keywords,
-    pageTitle,
-    pageSubtitle,
-    pageSubtitleAlt,
-    download,
-    result,
-    buttonText;
+  let result;
 
-  // Generate download buttons even if we don't have
-  // a download parameter in the URL
-  let generateDownloadButtons = (releases) => {
-    for (let os in releases) {
-      for (let arch in releases[os]) {
-        if (releases[os][arch]) {
-          osName = releases[os][arch].name;
-          downloadUrl = releases[os][arch].link;
-          osButtons.push({
+  // Page content
+  let title, description, author, keywords;
+  let pageTitle, pageSubtitle, pageSubtitleAlt;
+  let download, buttonText;
+
+  /**
+   * Generate download buttons for all available releases
+   * @param {Releases} releases - The releases configuration
+   * @returns {Array<{highlight: boolean, icon: string, text: string, href: string}>}
+   */
+  const generateDownloadButtons = (releases) => {
+    if (!releases) return [];
+
+    const buttons = [];
+    for (const [osType, architectures] of Object.entries(releases)) {
+      for (const [_, releaseInfo] of Object.entries(architectures)) {
+        if (releaseInfo) {
+          buttons.push({
             highlight: true,
-            icon: os,
-            text: osName,
-            href: downloadUrl,
+            icon: osType,
+            text: releaseInfo.name,
+            href: releaseInfo.link,
           });
         }
       }
     }
-
-    return osButtons;
+    return buttons;
   };
 
-  // Get the OS and architecture from the URL
+  /**
+   * Extract OS and architecture from URL parameters
+   * @returns {{ os: string, arch: string } | false}
+   */
   const getOSfromURL = () => {
-    let os, arch;
+    if (!browser) return false;
+
     const params = new URLSearchParams(window.location.search);
-    os = params.get("os");
-    arch = params.get("arch");
-    if (!os || !arch) {
-      return false;
-    }
-    return { os, arch };
+    const os = params.get("os");
+    const arch = params.get("arch");
+
+    return (os && arch) ? { os, arch } : false;
   };
 
-  // and start the download automatically on load
-  // if the URL contains a download parameter
-  let getOSValues = () => {
-    if (!browser) {
-      return;
-    }
+  /**
+   * Initialize OS values and trigger automatic download if needed
+   */
+  const getOSValues = () => {
+    if (!browser) return;
 
     result = getOSfromURL();
 
-    // Detect OS and architecture if not provided in the URL
+    // Detect OS and architecture
     if (!result) {
       os = getOS();
       arch = "x64";
     } else {
-      os = result.os;
-      arch = result.arch;
+      ({ os, arch } = result);
     }
 
-    if (os !== "mac" && releases[os][arch]) {
+    // Set download info for non-Mac systems
+    if (os !== "mac" && releases?.[os]?.[arch]) {
       osName = releases[os][arch].name;
       downloadUrl = releases[os][arch].link;
     }
 
+    // Start automatic download if URL parameters are present
     if (downloadUrl && result) {
       window.location = downloadUrl;
     }
@@ -99,21 +106,22 @@
   });
 
   $: {
-    osName = releases[os]?.[arch]?.name ?? "";
-    downloadUrl = releases[os]?.[arch]?.link ?? "";
+    // Update download info
+    osName = releases?.[os]?.[arch]?.name ?? "";
+    downloadUrl = releases?.[os]?.[arch]?.link ?? "";
 
+    // Load translations
     buttonText = $_("download.button.message");
-
     title = $_("config.site.title");
     description = $_("config.site.description");
     author = $_("config.site.author");
     keywords = config.site.keywords;
-
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");
     pageSubtitleAlt = $_("download.alternative");
     download = $json("download.action");
 
+    // Update metadata
     metadata.setMetadata({
       title: `${title} | ${download.name}`,
       description,
@@ -122,6 +130,11 @@
       image,
       url: $page.url.href,
     });
+
+    // Update Mac-specific data
+    if (releases?.mac) {
+      macs = Object.entries(releases.mac);
+    }
   }
 </script>
 
@@ -153,22 +166,22 @@
     {#if os !== "mac"}
       <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
         <Button
-          highlight
-          text="{buttonText} {osName}"
-          icon={os}
           href={downloadUrl}
+          highlight
+          icon={os}
+          text="{buttonText} {osName}"
           target="_blank"
           rel="noopener noreferrer"
         />
       </div>
     {:else}
       <div class="mt-8 mb-16 text-center w-[550px] flex gap-4 mx-auto">
-        {#each macs as mac}
+        {#each macs as [_, release]}
           <Button
             highlight
-            text="{buttonText} {mac[1].name}"
-            icon={"mac"}
-            href={mac[1].link}
+            icon="mac"
+            text="{buttonText} {release.name}"
+            href={release.link}
             target="_blank"
             rel="noopener noreferrer"
           />
@@ -182,17 +195,10 @@
     <Loader />
   {/if}
 
-  {#if osButtons}
-    <div
-      class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
-    >
+  {#if osButtons?.length}
+    <div class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4">
       {#each osButtons as button}
-        <Button
-          highlight={button.highlight}
-          icon={button.icon}
-          text={button.text}
-          href={button.href}
-        />
+        <Button {...button} />
       {/each}
     </div>
   {/if}

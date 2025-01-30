@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { blogPageStart, blogPageSize } from "$lib/config";
+import { blogPageStart, blogPageSize, releases } from "$lib/config";
 
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
@@ -180,7 +180,7 @@ export const getOSButtons = (base, os) => {
     osButtons.push({
       highlight: true,
       icon: `${os}`,
-      text: `download.releases.${os}.${arch}.name`,
+      text: releases[os][arch].name,
       href: `${base}/download?os=${os}&arch=${arch}`,
     });
   });
