@@ -1,24 +1,21 @@
 <script>
-  import { _, json, waitLocale } from "svelte-i18n"
-
-  import { config } from "$lib/config";
+  import { _, waitLocale } from "svelte-i18n";
 
   import Loader from "$lib/components/Loader.svelte";
   import Divider from "$lib/components/Divider.svelte";
-  import Button from "$lib/components/Button.svelte";
+  import SocialIcons from "$lib/components/SocialIcons.svelte";
 
-  let socials, socialIcons;
+  let footerTitle, footerContent;
 
   $: {
-    socials = config.site.socials;
-    socialIcons = new Map(Object.entries(socials));
+    footerTitle = $_("config.site.footer.title");
+    footerContent = $_("config.site.footer.content");
   }
-
 </script>
 
 <!-- Footer -->
 {#await waitLocale()}
-  <Loader/>
+  <Loader />
 {:then}
   <footer
     class="relative
@@ -33,14 +30,12 @@
   >
     <Divider />
     <div class="container mt-14">
-      <h2 class="text-red-berry-900 dark:text-neutral-400">{$_('config.site.footer.title')}</h2>
-      <div class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4">
-        {#each socialIcons as [icon, href]}
-          <Button {icon} {href} button={false} target="_blank" iconSize={24} />
-        {/each}
-      </div>
+      <h2 class="text-red-berry-900 dark:text-neutral-400">
+        {footerTitle}
+      </h2>
+      <SocialIcons />
       <div class="max-w-md mx-auto text-sm">
-        {@html $_('config.site.footer.content')}
+        {@html footerContent}
       </div>
     </div>
   </footer>
