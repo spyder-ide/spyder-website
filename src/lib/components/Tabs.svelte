@@ -10,6 +10,8 @@
   let VideoPlayer;
   let isLoading = true;
   let currentIndex = defaultTab;
+  let tabsContainer;
+  let tabsHeight = 0;
 
   // Initialize current tab and handle language changes
   $: {
@@ -20,6 +22,14 @@
       current = tabs[defaultTab];
       currentIndex = defaultTab;
     }
+  }
+
+  // Update height when locale or tabs change
+  $: if (tabsContainer && ($locale || tabs)) {
+    // Use setTimeout to ensure DOM is updated
+    setTimeout(() => {
+      tabsHeight = tabsContainer.offsetHeight;
+    }, 0);
   }
 
   onMount(async () => {
@@ -56,9 +66,11 @@
 </script>
 
 <div
+  bind:this={tabsContainer}
   class="flex gap-1 sm:gap-2 lg:gap-4 xl:gap-8 justify-evenly lg:justify-end
          border-b border-mine-shaft-300 dark:border-mine-shaft-600 text-sm
-         text-gray-700 lg:h-8 lg:-mt-8"
+         text-gray-700"
+  style="margin-top: -{tabsHeight}px"
 >
   {#each tabs as tab, i}
     <button

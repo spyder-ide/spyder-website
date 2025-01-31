@@ -9,7 +9,6 @@ import yaml from "js-yaml";
  */
 export function loadYamlSafely(content, name) {
   try {
-    // Use yaml.load which is safe by default in js-yaml 4.x
     const data = yaml.load(content, {
       json: true, // Forces JSON compatible output
       schema: yaml.JSON_SCHEMA, // Restricts to JSON-like types only

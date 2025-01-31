@@ -63,6 +63,19 @@
         ? `background-image: url(${currentBg});`
         : "";
 
+  $: if (buttons && imgSrc) {
+    unsubscribeOs = osStore.subscribe((data) => {
+      if (!data.loading && !$isLoading) {
+        const translatedOsButtons = data.osButtons.map((button) => ({
+          ...button,
+          text: `${$_("download.button.message")} ${button.text}`,
+        }));
+        buttons = [...translatedOsButtons];
+        imgSrc = `/assets/media/${data.os}.webp`;
+      }
+    });
+  }
+
   onMount(() => {
     resizeHandler = debounce(() => {
       mobile = window.innerWidth < 768;
@@ -70,19 +83,6 @@
 
     window.addEventListener("resize", resizeHandler);
     resizeHandler();
-
-    if (buttons && imgSrc) {
-      unsubscribeOs = osStore.subscribe((data) => {
-        if (!data.loading && !$isLoading) {
-          const translatedOsButtons = data.osButtons.map((button) => ({
-            ...button,
-            text: `${$_("download.button.message")} ${button.text}`,
-          }));
-          buttons = [...translatedOsButtons];
-          imgSrc = `/assets/media/${data.os}.webp`;
-        }
-      });
-    }
 
     return () => {
       if (resizeHandler) window.removeEventListener("resize", resizeHandler);

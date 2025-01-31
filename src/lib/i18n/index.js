@@ -1,6 +1,6 @@
-import yaml from "js-yaml";
 import { init, register } from "svelte-i18n";
 import { browser } from "$app/environment";
+import { loadYamlSafely } from '$lib/utils/yaml';
 
 /**
  * A minimal dictionary object containing basic site configuration
@@ -123,7 +123,7 @@ const generateDictionary = async (modules) => {
     for (const [path, loader] of Object.entries(modules)) {
       try {
         const content = await loader();
-        const data = yaml.load(content);
+        const data = loadYamlSafely(content, 'content');
 
         if (!data) {
           console.warn(`Empty or invalid YAML content in ${path}`);

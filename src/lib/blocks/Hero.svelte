@@ -21,7 +21,7 @@
     heroImages,
     githubButton,
     githubButtonTranslation,
-    tranlatedGithubButton,
+    translatedGithubButton,
     unsubscribeOs;
 
   $: {
@@ -29,10 +29,8 @@
     heroImages = config.site.heroImages || {};
     githubButton = config.site.githubButton || {};
     githubButtonTranslation = $json("config.site.githubButton") || {};
-    tranlatedGithubButton = { ...githubButton, ...githubButtonTranslation };
-  }
+    translatedGithubButton = { ...githubButton, ...githubButtonTranslation };
 
-  onMount(() => {
     // Subscribe to osStore
     unsubscribeOs = osStore.subscribe((data) => {
       if (!data.loading && !$isLoading) {
@@ -40,10 +38,12 @@
           ...button,
           text: `${$_("download.button.message")} ${button.text}`,
         }));
-        buttons = [...translatedOsButtons, tranlatedGithubButton];
+        buttons = [...translatedOsButtons, translatedGithubButton];
       }
     });
+  }
 
+  onMount(() => {
     return () => {
       if (unsubscribeOs) unsubscribeOs();
     };

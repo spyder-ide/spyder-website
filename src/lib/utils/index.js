@@ -1,5 +1,5 @@
 import { browser } from "$app/environment";
-import { blogPageStart, blogPageSize, releases } from "$lib/config";
+import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
@@ -11,10 +11,11 @@ if (import.meta.env.VITE_GITHUB_TOKEN) {
 
 /**
  * Determines if a variable has a value (even `false` or `0`)
- * @param {*} a - The value to check
+ * @param {*} variable - The value to check
  * @returns {boolean} True if the value is neither undefined nor null
  */
-export const hasValue = (a) => a !== undefined && a !== null;
+export const hasValue = (variable) =>
+  variable !== undefined && variable !== null;
 
 /**
  * Fetches all blog posts, optionally paginated and sorted by date
@@ -346,6 +347,6 @@ export async function generateBlogEntries() {
   const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
   return Array.from(
     { length: totalPages },
-    (_, i) => ({ page: `${i + 1}` })
+    (_, i) => ({ page: `${i + 1}` }),
   );
 }
