@@ -91,6 +91,10 @@
       dark:border-mine-shaft-500
       hover:bg-spring-wood-100
       dark:hover:bg-mine-shaft-900
+      focus:outline-none
+      focus:ring-1
+      focus:ring-red-berry-900
+      focus:ring-offset-0
       transition-colors
       duration-200;
   }
@@ -104,7 +108,7 @@
       rounded-md
       shadow-lg
       bg-spring-wood-50
-      dark:bg-mine-shaft-950
+      dark:bg-mine-shaft-900
       ring-1
       ring-black
       ring-opacity-5
