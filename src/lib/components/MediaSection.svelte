@@ -16,13 +16,14 @@
   export let caption = "";
   export let tabs = undefined;
   export let innerColumns = false;
+  export let aspectRatio = "4:3";
 </script>
 
 <div class={columns ? "col-span-full lg:col-span-6" : "col-span-full"}>
   {#if videoId}
     <Youtube id={videoId} altThumb={true} --title-font-family="Silka" />
   {:else if videoSources}
-    <VideoPlayer {videoSources} {videoPoster} />
+    <VideoPlayer {videoSources} {videoPoster} {aspectRatio} />
   {:else if imgSrc}
     {#if imgLink}
       <a href={imgLink} target="_blank" rel="noopener noreferrer">
