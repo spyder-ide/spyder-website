@@ -85,7 +85,7 @@
   {/if}
 
   {#if text}
-    <span>{text}</span>
+    <span class="text-left">{text}</span>
   {/if}
 
   {#if hasIcon && iconPosition === "right"}

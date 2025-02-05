@@ -10,7 +10,6 @@
   onMount(() => {
     socials = config.site.socials;
     socialIcons = new Map(Object.entries(socials));
-    console.log(socials);
   });
 </script>
 

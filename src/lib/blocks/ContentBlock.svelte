@@ -106,7 +106,7 @@
   {/if}
 
   <div
-    class={`mx-auto grid gap-8 px-8 ${classes}
+    class={`mx-auto grid gap-y-16 lg:gap-y-8 px-8 ${classes}
       ${!boxed ? "py-8 max-w-screen-lg 2xl:max-w-screen-xl" : "max-w-screen-md"}
       ${columns ? "gap-x-8 lg:gap-x-16 xl:gap-x-32 lg:grid-cols-10" : ""}
       ${border ? "border border-mine-shaft-200 dark:border-mine-shaft-800" : ""}`}

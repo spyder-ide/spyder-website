@@ -35,14 +35,14 @@
   {#if buttons}
     {#if buttons.length > 1}
       <div
-        class={`grid grid-cols-1 gap-4 items-center mt-8 mr-32 ${!columns ? "text-center" : ""}`}
+        class="grid grid-cols-1 gap-4 items-center mt-8 lg:mr-32"
       >
         {#each buttons as button}
           <Button {...button} />
         {/each}
       </div>
     {:else}
-      <div class={`mt-8 mr-32 ${!columns ? "text-center" : ""}`}>
+      <div class="mt-8 flex items-center justify-center lg:block lg:mr-20">
         {#each buttons as button}
           <Button {...button} />
         {/each}
