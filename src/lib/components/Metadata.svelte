@@ -1,16 +1,25 @@
 <script>
-    import { base } from "$app/paths";
-    import { title, socials, siteUrl, blogSlug } from "$lib/config";
-    import { metadata } from "$lib/store";
+    import { _, locale } from "svelte-i18n";
 
-    const site = `@${socials.twitter.split("/").pop()}`;
+    import { base } from "$app/paths";
+
+    import { metadata } from "$lib/store";
+    import { siteUrl, config } from "$lib/config";
+
+    let site, title, socials, localeCode;
     const untrailedUrl = $metadata.url.replace(/\/+$/, '');
+
+    $: {
+      socials = config.site.socials;
+      site = `@${socials.twitter.split("/").pop()}`;
+      localeCode = $locale.replace('-', '_');
+    }
 
     export let prism = false;
 </script>
 
 <svelte:head>
-  <title>{$metadata.title}</title>
+  <title>{$metadata.title || title}</title>
   <meta name="description" content={$metadata.description} />
   <meta name="keywords" content={$metadata.keywords} />
   <meta name="author" content={$metadata.author} />
@@ -19,7 +28,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="Spyder's Blog"
-    href="{siteUrl}{blogSlug}/feed.xml"
+    href="{siteUrl}/blog/feed.xml"
   />
 
   <!-- Open Graph / Facebook -->
@@ -28,8 +37,10 @@
   <meta property="og:title" content={$metadata.title} />
   <meta property="og:description" content={$metadata.description} />
   <meta property="og:image" content={$metadata.image} />
-  <meta property="og:image:secure_url" content={$metadata.image} />
-  <meta property="og:locale" content="en_US" />
+  {#if $metadata.image.startsWith("https")}
+    <meta property="og:image:secure_url" content={$metadata.image} />
+  {/if}
+  <meta property="og:locale" content={localeCode} />
   <meta property="og:site_name" content="Spyder IDE" />
 
   <!-- Twitter -->

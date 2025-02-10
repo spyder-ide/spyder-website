@@ -28,7 +28,7 @@
 
   let tooltipHTML, tooltipOptions;
 
-  if (contributor.tooltip) {
+  $: if (contributor.tooltip) {
     tooltipHTML = generateTooltipHTML(contributor.tooltip);
     tooltipOptions = {
       content: tooltipHTML,

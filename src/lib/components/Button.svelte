@@ -16,17 +16,17 @@
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
 
   let icons = {
+    download: BsDownload,
     facebook: BsFacebook,
     github: BsGithub,
     instagram: BsInstagram,
-    mastodon: BsMastodon,
-    twitter: BsTwitterX,
-    windows: BsWindows,
     linux: VscTerminalLinux,
     mac: BsApple,
-    unknown: BsQuestionCircleFill,
-    download: BsDownload,
+    mastodon: BsMastodon,
     rss: BsRssFill,
+    twitter: BsTwitterX,
+    unknown: BsQuestionCircleFill,
+    windows: BsWindows,
   };
 
   export let button = true;
@@ -42,29 +42,22 @@
   export let fullwidth = false;
   export let textSize = "";
 
-  let currentIcon = icons[icon];
+  let currentIcon = icons[icon] || null;
+  let hasIcon = !!currentIcon && icon !== "";
 
-  let hasIcon = icon !== "" && currentIcon !== undefined ? true : false;
-  let iconLeft = hasIcon && iconPosition === "left" ? true : false;
-  let iconRight = hasIcon && iconPosition === "right" ? true : false;
-
-  if (textSize === 'xs') {
-    iconSize = iconSize * 0.8
-  } else if (textSize === 'sm') {
-    iconSize = iconSize * 0.9
-  } else if (textSize === 'lg') {
-    iconSize = iconSize * 1.2
-  } else if (textSize === 'xl') {
-    iconSize = iconSize * 1.3
+  if (textSize === "xs") {
+    iconSize *= 0.8;
+  } else if (textSize === "sm") {
+    iconSize *= 0.9;
+  } else if (textSize === "lg") {
+    iconSize *= 1.2;
+  } else if (textSize === "xl") {
+    iconSize *= 1.3;
   }
 </script>
 
 <a
-  {rel}
-  {href}
-  {title}
-  {target}
-  class:button
+  class:button={button}
   class:w-full={fullwidth}
   class:icon-link={!button}
   class:hover:text-red-berry-950={!button}
@@ -74,15 +67,19 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class:text-xs={textSize === 'xs'}
-  class:text-sm={textSize === 'sm'}
-  class:text-md={textSize === 'md'}
-  class:text-lg={textSize === 'lg'}
-  class:text-xl={textSize === 'xl'}
+  class:text-xs={textSize === "xs"}
+  class:text-sm={textSize === "sm"}
+  class:text-md={textSize === "md"}
+  class:text-lg={textSize === "lg"}
+  class:text-xl={textSize === "xl"}
   class="flex items-center justify-between gap-3 font-medium"
+  {rel}
+  {href}
+  title={title}
+  target={target}
 >
-  {#if iconLeft}
-    <span class:icon-left={iconPosition === "left"}>
+  {#if hasIcon && iconPosition === "left"}
+    <span class:icon-left={true}>
       <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
@@ -91,8 +88,8 @@
     <span class="text-left">{text}</span>
   {/if}
 
-  {#if iconRight}
-    <span class:icon-right={iconPosition === "right"}>
+  {#if hasIcon && iconPosition === "right"}
+    <span class:icon-right={true}>
       <Icon src={currentIcon} size={iconSize} />
     </span>
   {/if}
@@ -111,11 +108,11 @@
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
   }
 
-  .button .icon-right {
+  .icon-left {
     margin-right: -0.4em;
   }
 
-  .button .icon-left {
+  .icon-right {
     margin-left: -0.4em;
   }
 </style>

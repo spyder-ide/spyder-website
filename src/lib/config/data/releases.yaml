@@ -1,0 +1,15 @@
+windows:
+  x64:
+    name: Windows 10+
+    link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Windows-x86_64.exe
+linux:
+  x64:
+    name: Linux
+    link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-Linux-x86_64.sh
+mac:
+  arm64:
+    name: macOS 14.0+ (M1)
+    link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-arm64.pkg
+  x64:
+    name: macOS 12.0+ (Intel)
+    link: https://github.com/spyder-ide/spyder/releases/latest/download/Spyder-macOS-x86_64.pkg

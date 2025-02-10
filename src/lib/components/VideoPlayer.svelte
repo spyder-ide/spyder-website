@@ -1,33 +1,51 @@
-<script>
-  import { onMount, onDestroy } from "svelte";
+<script lang="ts">
+  import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { Icon } from "svelte-icons-pack";
   import { BsPlayCircleFill, BsPauseCircleFill } from "svelte-icons-pack/bs";
 
+  interface VideoSource {
+    src: string;
+    type?: string;
+  }
+
+  const dispatch = createEventDispatcher<{
+    load: void;
+  }>();
+
   // Props
-  export let videoSources = [];
+  export let videoSources: VideoSource[] = [];
   export let videoPoster = "";
   export let progress = true;
   export let info = true;
+  export let aspectRatio = "4:3"; // Default aspect ratio
 
-  // These values are bound to properties of the video
+  // State
   let time = 0;
   let autoplay = false;
   let userPaused = false;
   let paused = true;
-  let duration;
+  let duration: number | undefined;
   let showControls = false;
-  let showControlsTimeout;
-  let videoElement;
-  let observer;
+  let showControlsTimeout: ReturnType<typeof setTimeout>;
+  let videoElement: HTMLVideoElement;
+  let observer: IntersectionObserver;
+  let isVideoReady = false;
+  let lastMouseDown: Date;
 
-  // Used to track time of last mouse down event
-  let lastMouseDown;
+  // Computed values
+  $: aspectRatioPadding = (() => {
+    const [width, height] = aspectRatio.split(':').map(Number);
+    return (height / width * 100) + '%';
+  })();
 
-  const handleIntersection = (entries) => {
+  // Event handlers
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const [entry] = entries;
     if (entry.isIntersecting) {
       if (videoElement && paused && !userPaused) {
-        videoElement.play();
+        videoElement.play().catch(() => {
+          // Ignore autoplay errors - they're expected in some browsers
+        });
       }
     } else {
       if (videoElement && !paused) {
@@ -38,7 +56,7 @@
     }
   };
 
-  function handleMove(e) {
+  function handleMove(e: MouseEvent | TouchEvent) {
     // Make the controls visible
     showControls = true;
 
@@ -49,178 +67,273 @@
     }
 
     if (!duration) return; // video not loaded yet
-    if (e.type !== "touchmove" && !(e.buttons & 1)) return; // mouse not down
+    if (e instanceof MouseEvent && !(e.buttons & 1)) return; // mouse not down
 
-    const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
-    const { left, right } = this.getBoundingClientRect();
+    const clientX = e instanceof TouchEvent ? e.touches[0].clientX : e.clientX;
+    const { left, right } = (e.currentTarget as HTMLElement).getBoundingClientRect();
     time = (duration * (clientX - left)) / (right - left);
   }
 
-  // we can't rely on the built-in click event, because it fires
-  // after a drag — we have to listen for clicks ourselves
-  const handleMousedown = (e) => {
+  function handleMousedown() {
     lastMouseDown = new Date();
-  };
+  }
 
-  const handleMouseup = (e) => {
-    if (new Date() - lastMouseDown < 300) {
+  function handleMouseup(e: MouseEvent) {
+    if (new Date().getTime() - lastMouseDown.getTime() < 300) {
       if (paused) {
-        e.target.play();
+        (e.target as HTMLVideoElement).play().catch(() => {
+          // Handle play errors gracefully
+          userPaused = true;
+        });
         userPaused = false;
       } else {
-        e.target.pause();
+        (e.target as HTMLVideoElement).pause();
         userPaused = true;
       }
     }
-  };
+  }
 
-  // format time as `01:23` or `01:23:45` and so on
-  const format = (seconds) => {
+  function handleVideoReady() {
+    if (!isVideoReady && videoElement && videoElement.readyState >= 3) {
+      isVideoReady = true;
+      dispatch('load');
+    }
+  }
+
+  // Utility functions
+  function formatTime(seconds: number): string {
     if (isNaN(seconds)) return "...";
 
     const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
-    if (seconds < 10) seconds = "0" + seconds;
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
 
-    return `${minutes}:${seconds}`;
-  };
-
-  // Observe the video element and pause it
-  // when it's no longer in the viewport
+  // Lifecycle
   onMount(() => {
     observer = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: "0px",
-      threshold: 0.5, // Adjust this value to change when the video plays/pauses
+      threshold: 0.5,
     });
 
     if (videoElement) {
       observer.observe(videoElement);
     }
+
+    return () => {
+      clearTimeout(showControlsTimeout);
+    };
   });
 
-  // Stop observing the video element when it's destroyed
   onDestroy(() => {
     if (observer) {
       observer.disconnect();
     }
+    clearTimeout(showControlsTimeout);
   });
+
+  // Reactive statements
+  $: if (videoSources) {
+    isVideoReady = false;
+  }
 
   $: if (userPaused) {
     showControls = true;
     clearTimeout(showControlsTimeout);
   }
+
+  $: if (duration) {
+    handleVideoReady();
+  }
 </script>
 
 {#if videoSources.length > 0}
-  <div class="video-container relative">
-    <video
-      bind:this={videoElement}
-      {autoplay}
-      loop
-      muted
-      playsinline
-      poster={videoPoster}
-      on:mousemove={handleMove}
-      on:touchmove|preventDefault={handleMove}
-      on:mousedown={handleMousedown}
-      on:mouseup={handleMouseup}
-      on:ended={() => {
-        userPaused = false;
-      }}
-      bind:currentTime={time}
-      bind:duration
-      bind:paused
-    >
-      {#each videoSources as source}
-        {#if source.src !== undefined}
-          <source src={source.src} type={source.type || "video/mp4"} />
-        {/if}
-      {/each}
-    </video>
+  <div class="video-wrapper">
+    <div class="video-container" style="padding-top: {aspectRatioPadding}">
+      <video
+        bind:this={videoElement}
+        {autoplay}
+        loop
+        muted
+        playsinline
+        preload="auto"
+        poster={videoPoster}
+        on:mousemove={handleMove}
+        on:touchmove|preventDefault={handleMove}
+        on:mousedown={handleMousedown}
+        on:mouseup={handleMouseup}
+        on:loadedmetadata={handleVideoReady}
+        on:loadeddata={handleVideoReady}
+        on:canplay={handleVideoReady}
+        on:canplaythrough={handleVideoReady}
+        on:ended={() => {
+          userPaused = false;
+        }}
+        bind:currentTime={time}
+        bind:duration
+        bind:paused
+      >
+        {#each videoSources as source}
+          {#if source.src}
+            <source src={source.src} type={source.type || "video/mp4"} />
+          {/if}
+        {/each}
+      </video>
 
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="controls" style="opacity: {duration && showControls ? 1 : 0}">
-      <button
-        class="p-4"
-        on:click={() => {
-          paused = !paused;
-          userPaused = paused;
-          showControls = true; // Ensure controls are shown when toggling play/pause
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div
+        role="button"
+        tabindex="0"
+        class="controls"
+        style="opacity: {duration && showControls ? 1 : 0}"
+        on:mousemove|stopPropagation={() => {
+          showControls = true;
+          clearTimeout(showControlsTimeout);
         }}
       >
-        <Icon
-          src={paused ? BsPlayCircleFill : BsPauseCircleFill}
-          size="1.5em"
-          color="#fff"
-        />
-      </button>
+        <button
+          class="control-button"
+          on:click={() => {
+            paused = !paused;
+            userPaused = paused;
+            showControls = true;
+          }}
+        >
+          <Icon
+            src={paused ? BsPlayCircleFill : BsPauseCircleFill}
+            size="1.5em"
+            color="#fff"
+          />
+        </button>
 
-      {#if info}
-        <div class="info flex justify-between">
-          <span
-            >click anywhere to {paused ? "play" : "pause"} / drag to seek</span
-          >
-          <div>
-            <span class="time">{format(time)}</span>
-            <span>/</span>
-            <span class="time">{format(duration)}</span>
+        {#if info}
+          <div class="info">
+            <span class="info-text">
+              click anywhere to {paused ? "play" : "pause"} / drag to seek
+            </span>
+            <div class="time-display">
+              <span class="time">{formatTime(time)}</span>
+              <span class="time-separator">/</span>
+              <span class="time">{formatTime(duration || 0)}</span>
+            </div>
           </div>
-        </div>
-      {/if}
+        {/if}
 
-      {#if progress}
-        <progress value={time / duration || 0} />
-      {/if}
+        {#if progress}
+          <progress class="progress-bar" value={time / (duration || 1)} />
+        {/if}
+      </div>
     </div>
   </div>
 {/if}
 
 <style>
+  .video-wrapper {
+    width: 100%;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   .controls {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    pointer-events: none;
-    transition: opacity 1s;
-    cursor: pointer;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
   }
 
-  span {
-    padding: 0.2em 0.5em;
+  .control-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+  }
+
+  .control-button:hover {
+    transform: scale(1.1);
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .info-text {
     color: white;
-    font-size: 0.75em;
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .time-display {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .time {
-    width: 3em;
+    color: white;
+    font-size: 0.75rem;
+    min-width: 3em;
+    text-align: center;
   }
 
-  .time:last-child {
-    text-align: right;
+  .time-separator {
+    color: white;
+    opacity: 0.7;
   }
 
-  progress {
-    display: block;
+  .progress-bar {
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
-    height: 5px;
+    height: 4px;
+    cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
   }
 
-  progress::-webkit-progress-bar,
-  progress::-moz-progress-bar {
+  .progress-bar::-webkit-progress-bar {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .progress-bar::-webkit-progress-value {
+    background-color: rgb(200, 0, 0);
+    transition: width 0.1s linear;
+  }
+
+  .progress-bar::-moz-progress-bar {
     background-color: rgb(200, 0, 0);
   }
 
-  progress::-webkit-progress-value,
-  progress::-moz-progress-value {
-    background-color: rgb(255, 255, 255);
-  }
+  @media (hover: hover) {
+    .controls {
+      opacity: 0;
+    }
 
-  video {
-    width: 100%;
+    .video-container:hover .controls {
+      opacity: 1;
+    }
   }
 </style>
