@@ -1,4 +1,6 @@
 <script>
+  import { _ } from "svelte-i18n";
+
   import { base } from "$app/paths";
   import Button from "./Button.svelte";
 
@@ -12,7 +14,7 @@
     <Button
       icon="chevronLeft"
       href="{base}/{route}/{pageNum - 1}"
-      text="Previous"
+      text="{$_('config.blog.previous')}"
       iconPosition="left"
       highlight={true}
     />
@@ -21,7 +23,7 @@
     <Button
       icon="chevronRight"
       href="{base}/{route}/{pageNum + 1}"
-      text="Next"
+      text="{$_('config.blog.next')}"
       iconPosition="right"
       highlight={true}
     />

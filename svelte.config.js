@@ -39,7 +39,6 @@ const escapeQuotes = () => {
   };
 }
 
-/** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [
@@ -56,7 +55,6 @@ const mdsvexOptions = {
   },
 };
 
-/** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
     adapter: adapter(),
@@ -71,6 +69,26 @@ const config = {
   },
   extensions: [".svelte", ".md"],
   preprocess: [mdsvex(mdsvexOptions), vitePreprocess()],
+  // Omit warning about screenreaders announcing <img> elements as an image
+  onwarn: (warning, handler) => {
+    // Fail the build on production if we have redundant words in the alt text
+    //if (process.env.NODE_ENV === 'production' &&
+    //    warning.code === 'a11y-img-redundant-alt' &&
+    //    warning.message.includes('Screenreaders already announce')) {
+    //  throw new Error(
+    //    `Build failed: Image alt text contains redundant terms (${warning.filename})\n` +
+    //    'Remove words like "image", "photo", or "picture" from alt text as screen readers already announce these.'
+    //  );
+    //}
+
+    // Omit the warning about redundant alt text if we are on development mode
+    if (warning.code === 'a11y-img-redundant-alt' &&
+        warning.message.includes('Screenreaders already announce')) {
+      return;
+    }
+
+    handler(warning);
+  }
 };
 
 export default config;

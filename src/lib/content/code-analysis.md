@@ -1,1 +1,0 @@
-![Spyder Code Analysis pane showing the results for a file, including an overall score and a listing of errors, warnings, refactoring and convention issues; each has a name, code, line number and message](/assets/media/code_analysis.webp "Get in-depth insight on issues and improvements with your code")
