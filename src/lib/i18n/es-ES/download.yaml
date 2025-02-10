@@ -7,4 +7,4 @@ button:
 action:
   name: Descarga
   title: Descarga iniciada...
-  alternative: De manera alternativa, puedes seleccionar manualmente el paquete que deseas descargar usando los botones a continuación, o visita nuestra <a href=https://github.com/spyder-ide/spyder/releases target=_blank>página de Releases</a> en GitHub.
+  alternative: De manera alternativa, puedes seleccionar manualmente el paquete que deseas descargar usando los siguientes botones, o visitar nuestra <a href=https://github.com/spyder-ide/spyder/releases target=_blank>página de lanzamientos</a> en GitHub.
