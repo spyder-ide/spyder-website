@@ -3,8 +3,8 @@
       <channel>
         <title>Welcome to Spyder's Blog</title>
         <link>https://www.spyder-ide.org/blog</link>
-        <description>Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment | Designed by the community, for the community</description>
-        <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
+        <description>Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment</description>
+        <atom:link href="https://www.spyder-ide.org//blog/feed.xml" rel="self" type="application/rss+xml"/>
         
     <item>
       <title>Spyder 6 project lead: Remote development interface and application UI/UX improvements</title>
