@@ -19,6 +19,7 @@
         ```
 
 2. Create a blog post folder in `src/routes/blog` (name becomes URL slug - lowercase, no spaces)
+
 3. Add a `+page.md` file with this frontmatter:
 ```yaml
 ---
@@ -40,7 +41,7 @@ summary: Concise overview of content # Required
     ![Meaningful description](image.webp "Optional caption")
     ```
     - Store images in the post's folder
-    - All images require descriptive alt text (avoid "image of..." phrasing)
+    - All images require *descriptive* alt text (avoid "image of...", "picture of...", "photo of...", etc.)
 
 7. Preview locally with:
 ```bash
@@ -49,6 +50,6 @@ npm run dev
     - Verify post appears at `/blog/`
     - Check author metadata and image display
 
-8. There is no need to build for production, the workflow will run the build on GitHub Actions
+8. There is no need to build for production, the workflow will run the build on GitHub Actions.
 
-9. Create PR against upstream `main` branch
+9. Create PR against upstream `main` branch.
