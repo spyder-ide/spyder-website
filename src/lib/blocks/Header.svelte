@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import { _, json, waitLocale } from "svelte-i18n";
 
   import { Icon } from "svelte-icons-pack";
@@ -32,6 +33,7 @@
     isMenuOpen = !isMenuOpen;
   }
 
+  /*
   onMount(() => {
     setInterval(() => {
       const beatElements = document.querySelectorAll(".beat");
@@ -41,6 +43,7 @@
       });
     }, 29000);
   });
+  */
 </script>
 
 {#await waitLocale()}
@@ -136,45 +139,5 @@
   .menu-link::before:not(.mobile),
   .menu-link::after:not(.mobile) {
     content: "";
-  }
-
-  .button:not(.icon) {
-    @apply border-2 border-neutral-400 rounded-md px-4 py-2 text-neutral-500 dark:text-neutral-300;
-  }
-
-  .button:hover {
-    @apply border-neutral-600 dark:border-neutral-200;
-  }
-
-  .icon {
-    @apply text-neutral-500;
-  }
-
-  .highlight {
-    @apply text-red-berry-900 dark:text-red-700;
-  }
-
-  .icon:hover {
-    @apply text-neutral-900;
-  }
-
-  .beat {
-    animation: beat 1s ease-in-out 2;
-  }
-
-  .beat:hover {
-    @apply text-red-berry-800 dark:text-red-600;
-  }
-
-  @keyframes beat {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.4);
-    }
-    100% {
-      transform: scale(1);
-    }
   }
 </style>
