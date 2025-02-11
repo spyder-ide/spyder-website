@@ -1,5 +1,8 @@
 import { fetchMarkdownPosts } from "$lib/utils";
-import { siteUrl, blogTitle, description, comment } from "$lib/config";
+import { siteUrl } from "$lib/config";
+
+const blogTitle = "Welcome to Spyder's Blog";
+const description = "Get the ease of use of Jupyter along with many advanced features found in PyCharm and VSCode in a single programming environment";
 
 export async function GET() {
   const posts = await fetchMarkdownPosts();
@@ -25,8 +28,8 @@ export async function GET() {
       <channel>
         <title>${blogTitle}</title>
         <link>${siteUrl}blog</link>
-        <description>${description} | ${comment}</description>
-        <atom:link href="${siteUrl}blog/feed.xml" rel="self" type="application/rss+xml"/>
+        <description>${description}</description>
+        <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml"/>
         ${feedItems}
       </channel>
     </rss>
@@ -39,4 +42,4 @@ export async function GET() {
   });
 }
 
-export const prerender = true
+export const prerender = true;

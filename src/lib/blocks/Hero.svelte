@@ -1,6 +1,9 @@
 <script>
+  import { _, json, isLoading } from "svelte-i18n";
+  import { onMount } from "svelte";
+
   import { osStore } from "$lib/store";
-  import { heroContent, heroImages, donateButton } from "$lib/config";
+  import { config } from "$lib/config";
 
   import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -14,11 +17,36 @@
   // Hero section buttons
   export let buttons = [];
 
-  // Subscribe to osStore
-  osStore.subscribe((data) => {
-    if (!data.loading) {
-      buttons = [...data.osButtons, donateButton];
-    }
+  let heroContent,
+    heroImages,
+    githubButton,
+    githubButtonTranslation,
+    translatedGithubButton,
+    unsubscribeOs;
+
+  $: {
+    heroContent = $json("config.site.heroContent") || "";
+    heroImages = config.site.heroImages || {};
+    githubButton = config.site.githubButton || {};
+    githubButtonTranslation = $json("config.site.githubButton") || {};
+    translatedGithubButton = { ...githubButton, ...githubButtonTranslation };
+
+    // Subscribe to osStore
+    unsubscribeOs = osStore.subscribe((data) => {
+      if (!data.loading && !$isLoading) {
+        const translatedOsButtons = data.osButtons.map((button) => ({
+          ...button,
+          text: `${$_("download.button.message")} ${button.text}`,
+        }));
+        buttons = [...translatedOsButtons, translatedGithubButton];
+      }
+    });
+  }
+
+  onMount(() => {
+    return () => {
+      if (unsubscribeOs) unsubscribeOs();
+    };
   });
 </script>
 
@@ -64,7 +92,7 @@
     {/if}
   </div>
 
-  <div class="container aspect-video hero-image py-5">
+  <div class="container aspect-video py-5 mt-16">
     <ImageCompare before={heroImages.dark} after={heroImages.light} />
   </div>
 
@@ -73,8 +101,3 @@
   {/if}
 </section>
 
-<style>
-  .hero-image {
-    margin-top: 4rem;
-  }
-</style>

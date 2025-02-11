@@ -1,0 +1,89 @@
+- id: what-is-spyder-section
+  imgSrc: /assets/media/banner.svg
+  background: /assets/media/bg.svg
+  columns: false
+  divider: true
+  boxed: true
+
+- id: interactive-section
+  title: Interactive programming built in
+  divider: true
+  border: false
+  tabs:
+    - isVideo: true
+      content:
+        videoSources:
+          - src: /assets/media/variable_explorer.mp4
+    - isVideo: true
+      content:
+        videoSources:
+          - src: /assets/media/help.mp4
+    - isVideo: true
+      content:
+        videoSources:
+          - src: /assets/media/editor.mp4
+
+- id: pydata-section
+  divider: true
+  tabs:
+    - content:
+        imgSrc: /assets/media/matplotlib.webp
+    - content:
+        imgSrc: /assets/media/pandas.webp
+    - content:
+        imgSrc: /assets/media/numpy.webp
+    - content:
+        imgSrc: /assets/media/conda.webp
+    - content:
+        imgSrc: /assets/media/sympy.webp
+
+- id: growth-section
+  divider: true
+  tabs:
+    - content:
+        imgSrc: /assets/media/developer_tools.webp
+    - content:
+        imgSrc: /assets/media/projects.webp
+    - content:
+        imgSrc: /assets/media/code_analysis.webp
+    - content:
+        imgSrc: /assets/media/search.webp
+
+- id: setup-section
+  divider: true
+  imgSrc: /assets/media/windows.webp
+  buttons: []
+
+- id: sponsors-section
+  content:
+    titleTag: h1
+  divider: true
+  columns: false
+  boxed: true
+  extraImage: /assets/media/sponsors.svg
+  extraImageLink: https://opencollective.com/spyder#support
+  innerColumns:
+    - imgSrc: /assets/media/czi_light.svg
+      imgSrcDark: /assets/media/czi_dark.svg
+      link: https://chanzuckerberg.com/
+    - imgSrc: /assets/media/numfocus_lrg.png
+      link: https://numfocus.org/
+
+- id: learn-more-section
+  columns: false
+  boxed: true
+  background: /assets/media/bg_more.svg
+  backgroundDark: /assets/media/bg_more_dark.svg
+  innerColumns:
+    - icon: BsYoutube
+      link: https://www.youtube.com/c/spyderide
+      aspect: xl:aspect-square
+    - icon: BsBookHalf
+      link: https://docs.spyder-ide.org
+      aspect: xl:aspect-square
+    - icon: BsGithub
+      link: https://github.com/spyder-ide/spyder
+      aspect: xl:aspect-square
+    - icon: BsHeartFill
+      link: https://opencollective.com/spyder
+      aspect: xl:aspect-square

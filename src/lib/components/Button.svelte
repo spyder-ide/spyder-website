@@ -17,25 +17,23 @@
   import { BiSolidDonateHeart } from "svelte-icons-pack/bi";
 
   let icons = {
+    download: BsDownload,
     facebook: BsFacebook,
     github: BsGithub,
     instagram: BsInstagram,
-    mastodon: BsMastodon,
-    twitter: BsTwitterX,
-    windows: BsWindows,
     linux: VscTerminalLinux,
     mac: BsApple,
-    unknown: BsQuestionCircleFill,
-    download: BsDownload,
+    mastodon: BsMastodon,
     rss: BsRssFill,
-    donate: BiSolidDonateHeart,
+    twitter: BsTwitterX,
+    unknown: BsQuestionCircleFill,
+    windows: BsWindows,
   };
 
   export let button = true;
   export let highlight = false;
   export let icon = "";
-  export let iconSize = 20;
-  export let fontSize = 12;
+  export let iconSize = 24;
   export let href = "";
   export let rel = "";
   export let text = "";
@@ -43,23 +41,24 @@
   export let target = "_parent";
   export let iconPosition = "right";
   export let fullwidth = false;
-  export let image = ""
+  export let textSize = "";
 
-  let currentIcon = icons[icon];
+  let currentIcon = icons[icon] || null;
+  let hasIcon = !!currentIcon && icon !== "";
 
-  let hasIcon = icon !== "" && currentIcon !== undefined ? true : false;
-  let iconLeft = hasIcon && iconPosition === "left" ? true : false;
-  let iconRight = hasIcon && iconPosition === "right" ? true : false;
-
-  let textStyle = `font-size:${fontSize}px`
+  if (textSize === "xs") {
+    iconSize *= 0.8;
+  } else if (textSize === "sm") {
+    iconSize *= 0.9;
+  } else if (textSize === "lg") {
+    iconSize *= 1.2;
+  } else if (textSize === "xl") {
+    iconSize *= 1.3;
+  }
 </script>
 
 <a
-  {rel}
-  {href}
-  {title}
-  {target}
-  class:button
+  class:button={button}
   class:w-full={fullwidth}
   class:icon-link={!button}
   class:hover:text-red-berry-950={!button}
@@ -69,27 +68,31 @@
   class:px-5={button}
   class:rounded={button}
   class:regular={!highlight}
-  class={image ? "block max-w-60 mx-auto" : "flex items-center justify-between gap-3 text-sm lg:text-xs"}
-  style={textStyle}
+  class:text-xs={textSize === "xs"}
+  class:text-sm={textSize === "sm"}
+  class:text-md={textSize === "md"}
+  class:text-lg={textSize === "lg"}
+  class:text-xl={textSize === "xl"}
+  class="flex items-center justify-between gap-3 font-medium"
+  {rel}
+  {href}
+  title={title}
+  target={target}
 >
-  {#if image}
-    <img src={image} alt={text} />
-  {:else}
-    {#if iconLeft}
-      <span class:icon-left={iconPosition === "left"}>
-        <Icon src={currentIcon} size={iconSize} />
-      </span>
-    {/if}
+  {#if hasIcon && iconPosition === "left"}
+    <span class:icon-left={true}>
+      <Icon src={currentIcon} size={iconSize} />
+    </span>
+  {/if}
 
-    {#if text}
-      <span>{text}</span>
-    {/if}
+  {#if text}
+    <span class="text-left">{text}</span>
+  {/if}
 
-    {#if iconRight}
-      <span class:icon-right={iconPosition === "right"}>
-        <Icon src={currentIcon} size={iconSize} />
-      </span>
-    {/if}
+  {#if hasIcon && iconPosition === "right"}
+    <span class:icon-right={true}>
+      <Icon src={currentIcon} size={iconSize} />
+    </span>
   {/if}
 </a>
 
@@ -110,15 +113,11 @@
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
   }
 
-  .button.regular:hover {
-    @apply from-mine-shaft-100 to-mine-shaft-50;
-  }
-
   .button .icon-right {
     margin-right: -0.4em;
   }
 
-  .button .icon-left {
+  .icon-right {
     margin-left: -0.4em;
   }
 </style>
