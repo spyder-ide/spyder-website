@@ -1,13 +1,20 @@
 <script>
+  import { _ } from "svelte-i18n";
+
   import { metadata } from "$lib/store";
   import { page } from "$app/stores";
-  import { title, description, keywords } from "$lib/config";
+  import { config } from "$lib/config";
 
   import Metadata from "$lib/components/Metadata.svelte";
   import Button from "$lib/components/Button.svelte";
 
   export let data;
   const props = data.props;
+  let title, description, keywords;
+
+  title = $_("config.site.title");
+  description = $_("config.site.description");
+  keywords = config.site.keywords;
 
   $: metadata.setMetadata({
     title: `${title} | ${props.page.title}`,
