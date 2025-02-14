@@ -14,7 +14,6 @@
   } from "svelte-icons-pack/bs";
 
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
-  import { BiSolidDonateHeart } from "svelte-icons-pack/bi";
 
   let icons = {
     download: BsDownload,

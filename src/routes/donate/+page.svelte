@@ -3,7 +3,7 @@
 
   import { metadata } from "$lib/store";
   import { page } from "$app/stores";
-  import { config } from "$lib/config";
+  import { ogImage, config } from "$lib/config";
 
   import Metadata from "$lib/components/Metadata.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -21,6 +21,7 @@
     description: description,
     keywords: keywords.join(", "),
     url: $page.url.href,
+    image: ogImage,
   });
 </script>
 

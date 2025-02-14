@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import { _, json, waitLocale } from "svelte-i18n";
 
   import { Icon } from "svelte-icons-pack";
@@ -16,6 +15,7 @@
   import Loader from "$lib/components/Loader.svelte";
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import LanguageSelect from "$lib/components/LanguageSelect.svelte";
+  import NavButton from "$lib/components/NavButton.svelte";
 
   let isMenuOpen = false;
   const mainNav = config.site.navigation || [];
@@ -32,18 +32,6 @@
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
   }
-
-  /*
-  onMount(() => {
-    setInterval(() => {
-      const beatElements = document.querySelectorAll(".beat");
-      beatElements.forEach((element) => {
-        element.classList.remove("beat");
-        setTimeout(() => element.classList.add("beat"), 1000);
-      });
-    }, 29000);
-  });
-  */
 </script>
 
 {#await waitLocale()}
@@ -81,6 +69,9 @@
             </ul>
           {/each}
         </nav>
+
+        <!-- Support button -->
+        <NavButton buttonText="Support us" supportIcon href="/donate/"/>
 
         <!-- Language switch -->
         <LanguageSelect languages={languageOptions} />

@@ -1,9 +1,8 @@
 <script>
   import { locale } from "svelte-i18n";
-  import { Icon } from "svelte-icons-pack";
-  import { BiChevronDown } from "svelte-icons-pack/bi";
-
   import { browser } from "$app/environment";
+
+  import NavButton from "$lib/components/NavButton.svelte";
 
   export let languages;
 
@@ -38,17 +37,12 @@
 <svelte:window on:click={handleClickOutside} />
 
 <div class="relative inline-block text-left">
-  <button
-    bind:this={dropdownButton}
-    class="dropdownButton"
+  <NavButton
+    bind:button={dropdownButton}
+    buttonText={languages.find((lang) => lang.code === $locale)?.name || "English"}
+    iconClasses={iconClasses}
     on:click={() => (isDropdownOpen = !isDropdownOpen)}
-  >
-    {languages.find((lang) => lang.code === $locale)?.name || "English"}
-    <Icon
-      src={BiChevronDown}
-      className="w-4 h-4 ml-2 -mr-1 transition-transform duration-200 {iconClasses}"
-    />
-  </button>
+  />
 
   {#if isDropdownOpen}
     <div class="dropdownMenu">
@@ -71,34 +65,6 @@
 </div>
 
 <style>
-  .dropdownButton {
-    @apply inline-flex
-      min-w-24
-      items-center
-      justify-center
-      px-3
-      py-1.5
-      shadow-sm
-      rounded-md
-      text-xs
-      font-medium
-      text-mine-shaft-700
-      dark:text-neutral-300
-      bg-spring-wood-50
-      dark:bg-mine-shaft-950
-      border
-      border-mine-shaft-200
-      dark:border-mine-shaft-500
-      hover:bg-spring-wood-100
-      dark:hover:bg-mine-shaft-900
-      focus:outline-none
-      focus:ring-1
-      focus:ring-red-berry-900
-      focus:ring-offset-0
-      transition-colors
-      duration-200;
-  }
-
   .dropdownMenu {
     @apply absolute
       right-0
