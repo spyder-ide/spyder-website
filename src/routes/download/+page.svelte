@@ -164,7 +164,7 @@
       {@html result ? pageSubtitle : pageSubtitleAlt}
     </p>
     {#if os !== "mac"}
-      <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
+      <div class="block mt-8 mb-16 text-center max-w-[250px] mx-auto">
         <Button
           href={downloadUrl}
           highlight
@@ -175,7 +175,7 @@
         />
       </div>
     {:else}
-      <div class="mt-8 mb-16 text-center w-[550px] flex gap-4 mx-auto">
+      <div class="mt-8 mb-16 text-center max-w-[550px] flex flex-col sm:flex-row gap-4 mx-auto">
         {#each macs as [_, release]}
           <Button
             highlight

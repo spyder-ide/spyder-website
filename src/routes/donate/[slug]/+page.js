@@ -60,7 +60,7 @@ export async function load({ params, fetch }) {
         oneTime: projectDonations.oneTime,
         deals: projectDonations.deals,
         progress: project.donationGoal
-          ? (projectDonations.total / project.donationGoal) * 100
+          ? parseFloat(((projectDonations.total / project.donationGoal) * 100).toFixed(2))
           : null,
       },
     };

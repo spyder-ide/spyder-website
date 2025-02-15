@@ -50,11 +50,11 @@
       </a>
 
       <!-- Navigation (desktop) -->
-      <div class="flex items-center md:gap-12 justify-end">
+      <div class="flex items-center gap-2 lg:gap-12 justify-end">
         <!-- Navigation (links) -->
-        <nav class="hidden md:flex items-center gap-4 xl:gap-6">
+        <nav class="hidden md:flex items-center justify-end gap-4 xl:gap-6">
           {#each navigation as menu}
-            <ul class="menu flex items-center gap-4 xl:gap-6">
+            <ul class="menu flex items-center justify-end gap-2 lg:gap-4 xl:gap-6">
               {#each menu as item}
                 <li class="menu-item">
                   <a
@@ -70,11 +70,13 @@
           {/each}
         </nav>
 
-        <!-- Support button -->
-        <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+        <div class="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">
+          <!-- Support button -->
+          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
 
-        <!-- Language switch -->
-        <LanguageSelect languages={languageOptions} />
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} />
+        </div>
 
         <!-- Theme switch (dark/light) -->
         <ColourSwitch />
@@ -117,6 +119,13 @@
             </ul>
           {/each}
         </nav>
+        <div class="md:hidden flex flex-col items-center gap-2 scale-150 mt-8">
+          <!-- Support button -->
+          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} />
+        </div>
       </div>
     </div>
   {/if}

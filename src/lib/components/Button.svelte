@@ -11,6 +11,7 @@
     BsQuestionCircleFill,
     BsDownload,
     BsRssFill,
+    BsHeartFill,
   } from "svelte-icons-pack/bs";
 
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
@@ -27,6 +28,7 @@
     twitter: BsTwitterX,
     unknown: BsQuestionCircleFill,
     windows: BsWindows,
+    donate: BsHeartFill,
   };
 
   export let button = true;
@@ -41,6 +43,7 @@
   export let iconPosition = "right";
   export let fullwidth = false;
   export let textSize = "";
+  export let isLink = true;
 
   let currentIcon = icons[icon] || null;
   let hasIcon = !!currentIcon && icon !== "";
@@ -56,44 +59,92 @@
   }
 </script>
 
-<a
-  class:button={button}
-  class:w-full={fullwidth}
-  class:icon-link={!button}
-  class:hover:text-red-berry-950={!button}
-  class:dark:hover:text-neutral-100={!button}
-  class:highlight={button && highlight}
-  class:py-4={button}
-  class:px-5={button}
-  class:rounded={button}
-  class:regular={!highlight}
-  class:text-xs={textSize === "xs"}
-  class:text-sm={textSize === "sm"}
-  class:text-md={textSize === "md"}
-  class:text-lg={textSize === "lg"}
-  class:text-xl={textSize === "xl"}
-  class="flex items-center justify-between gap-3 font-medium"
-  {rel}
-  {href}
-  title={title}
-  target={target}
->
-  {#if hasIcon && iconPosition === "left"}
-    <span class:icon-left={true}>
-      <Icon src={currentIcon} size={iconSize} />
-    </span>
-  {/if}
+{#if isLink}
+  <a
+    class:button
+    class:w-full={fullwidth}
+    class:icon-link={!button}
+    class:hover:text-red-berry-950={!button}
+    class:dark:hover:text-neutral-100={!button}
+    class:highlight={button && highlight}
+    class:py-4={button}
+    class:px-5={button}
+    class:rounded={button}
+    class:regular={!highlight}
+    class:text-xs={textSize === "xs"}
+    class:text-sm={textSize === "sm"}
+    class:text-md={textSize === "md"}
+    class:text-lg={textSize === "lg"}
+    class:text-xl={textSize === "xl"}
+    class="flex items-center justify-between gap-3 font-medium"
+    {rel}
+    {href}
+    {title}
+    {target}
+  >
+    <slot name="prefix">
+      {#if hasIcon && iconPosition === "left"}
+        <span class="icon-left">
+          <Icon src={currentIcon} size={iconSize} />
+        </span>
+      {/if}
+    </slot>
 
-  {#if text}
-    <span class="text-left">{text}</span>
-  {/if}
+    {#if text}
+      <span class="text-left">{text}</span>
+    {/if}
 
-  {#if hasIcon && iconPosition === "right"}
-    <span class:icon-right={true}>
-      <Icon src={currentIcon} size={iconSize} />
-    </span>
-  {/if}
-</a>
+    <slot name="suffix">
+      {#if hasIcon && iconPosition === "right"}
+        <span class="icon-right">
+          <Icon src={currentIcon} size={iconSize} />
+        </span>
+      {/if}
+    </slot>
+  </a>
+{:else}
+  <button
+    class:button
+    class:w-full={fullwidth}
+    class:icon-link={!button}
+    class:hover:text-red-berry-950={!button}
+    class:dark:hover:text-neutral-100={!button}
+    class:highlight={button && highlight}
+    class:py-4={button}
+    class:px-5={button}
+    class:rounded={button}
+    class:regular={!highlight}
+    class:text-xs={textSize === "xs"}
+    class:text-sm={textSize === "sm"}
+    class:text-md={textSize === "md"}
+    class:text-lg={textSize === "lg"}
+    class:text-xl={textSize === "xl"}
+    class="flex items-center justify-between gap-3 font-medium"
+    {rel}
+    {title}
+    on:click
+  >
+    <slot name="prefix">
+      {#if hasIcon && iconPosition === "left"}
+        <span class="icon-left">
+          <Icon src={currentIcon} size={iconSize} />
+        </span>
+      {/if}
+    </slot>
+
+    {#if text}
+      <span class="text-left">{text}</span>
+    {/if}
+
+    <slot name="suffix">
+      {#if hasIcon && iconPosition === "right"}
+        <span class="icon-right">
+          <Icon src={currentIcon} size={iconSize} />
+        </span>
+      {/if}
+    </slot>
+  </button>
+{/if}
 
 <style>
   .button {
@@ -112,11 +163,11 @@
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
   }
 
-  .button .icon-right {
-    margin-right: -0.4em;
+  .icon-left {
+    margin-left: -0.4em;
   }
 
   .icon-right {
-    margin-left: -0.4em;
+    margin-right: -0.4em;
   }
 </style>

@@ -41,7 +41,7 @@ export async function load({ fetch }) {
         total: projectDonations[project.term].total,
         deals: projectDonations[project.term].deals,
         progress: project.donationGoal
-          ? (projectDonations[project.term].total / project.donationGoal) * 100
+          ? parseFloat(((projectDonations[project.term].total / project.donationGoal) * 100).toFixed(2))
           : null,
       },
     }));
