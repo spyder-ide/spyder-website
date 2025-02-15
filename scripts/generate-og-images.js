@@ -1,43 +1,15 @@
 import sharp from 'sharp';
 import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
+import { promises as fs } from 'fs';
 import {
   fetchMarkdownPostsMetadata,
   fetchAuthorsMetadata,
+  testLength,
+  exists,
 } from './utils.js';
-
-const writeFile = promisify(fs.writeFile);
-const mkdir = promisify(fs.mkdir);
-const access = promisify(fs.access);
-const readFile = promisify(fs.readFile);
 
 const maxLineLength = 27;
 const maxTextLength = 100;
-
-/**
- * Determines if a given string's length is less than or equal to a specified quantity.
- * @param {string} text - The string to evaluate.
- * @param {number} qty - The length to compare against.
- * @returns {boolean} - Returns true if the string's length is less than or equal to the specified quantity, otherwise false.
- */
-function testLength(text, qty) {
-  return text.length <= qty;
-}
-
-/**
- * Checks if a given path exists.
- * @param {string} pathToCheck - Path to verify.
- * @returns {Promise<boolean>} - True if exists, false otherwise.
- */
-async function exists(pathToCheck) {
-  try {
-    await access(pathToCheck, fs.constants.F_OK);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Splits a title into multiple lines if it exceeds a maximum length.
@@ -83,7 +55,7 @@ async function generateOgImage(data, slug) {
 
   // Read the SVG template
   const templatePath = path.join(process.cwd(), 'scripts', 'templates', 'og-template.svg');
-  const templateContent = await readFile(templatePath, 'utf-8');
+  const templateContent = await fs.readFile(templatePath, 'utf-8');
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
@@ -135,11 +107,11 @@ async function generateOgImage(data, slug) {
 
     // Ensure output directory exists
     if (!(await exists(outputDir))) {
-      await mkdir(outputDir, { recursive: true });
+      await fs.mkdir(outputDir, { recursive: true });
     }
 
     // Save the image to the filesystem
-    await writeFile(outputPath, image);
+    await fs.writeFile(outputPath, image);
     console.log(`OG image generated for post: ${slug}`);
   } catch (error) {
     console.error('Error generating OG image:', error);

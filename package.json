@@ -4,12 +4,14 @@
   "type": "module",
   "scripts": {
     "generate-og-images": "node scripts/generate-og-images.js",
-    "dev": "npm run generate-og-images && npx vite dev",
-    "build": "npm run generate-og-images && npx vite build",
+    "generate-hubspot-data": "node scripts/generate-hubspot-data.js",
+    "dev": "npm run generate-hubspot-data && npm run generate-og-images && npx vite dev",
+    "build": "npm run generate-hubspot-data && npm run generate-og-images && npx vite build",
     "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
   },
   "dependencies": {
+    "@hubspot/api-client": "^12.0.1",
     "@sveltejs/adapter-static": "^3.0.6",
     "@sveltejs/kit": "^2.9.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.2",
@@ -17,6 +19,7 @@
     "@types/three": "^0.169.0",
     "autoprefixer": "^10.4.20",
     "cookie": "^1.0.2",
+    "dotenv": "^16.4.7",
     "gh-pages": "^6.1.1",
     "gray-matter": "^4.0.3",
     "js-yaml": "^4.1.0",

@@ -1,6 +1,30 @@
-import path from 'path';
-import matter from 'gray-matter';
-import { promises as fs } from 'fs';
+import path from "path";
+import matter from "gray-matter";
+import { promises as fs } from "fs";
+
+/**
+ * Determines if a given string's length is less than or equal to a specified quantity.
+ * @param {string} text - The string to evaluate.
+ * @param {number} qty - The length to compare against.
+ * @returns {boolean} - Returns true if the string's length is less than or equal to the specified quantity, otherwise false.
+ */
+export function testLength(text, qty) {
+  return text.length <= qty;
+}
+
+/**
+ * Checks if a given path exists.
+ * @param {string} pathToCheck - Path to verify.
+ * @returns {Promise<boolean>} - True if exists, false otherwise.
+ */
+export async function exists(pathToCheck) {
+  try {
+    await fs.access(pathToCheck, fs.constants.F_OK);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Async function to recursively get all files with a specific extension.
@@ -31,7 +55,9 @@ export async function getFilesRecursively(dir, ext) {
  * @returns {Array} - Sorted array of posts.
  */
 export function sortPostsByDate(posts) {
-  return posts.sort((a, b) => new Date(b.meta.pub_date) - new Date(a.meta.pub_date));
+  return posts.sort((a, b) =>
+    new Date(b.meta.pub_date) - new Date(a.meta.pub_date)
+  );
 }
 
 /**
@@ -40,8 +66,8 @@ export function sortPostsByDate(posts) {
  * @returns {string} - Formatted date in "Month Day, Year".
  */
 export function formattedPubDate(date) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(date).toLocaleDateString('en-US', options);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return new Date(date).toLocaleDateString("en-US", options);
 }
 
 /**
@@ -51,8 +77,15 @@ export function formattedPubDate(date) {
  */
 export async function fetchAuthorMetadata(author) {
   try {
-    const metadataPath = path.join(process.cwd(), 'static', 'assets', 'authors', author, 'metadata.json');
-    const metadataContent = await fs.readFile(metadataPath, 'utf-8');
+    const metadataPath = path.join(
+      process.cwd(),
+      "static",
+      "assets",
+      "authors",
+      author,
+      "metadata.json",
+    );
+    const metadataContent = await fs.readFile(metadataPath, "utf-8");
     const metadata = JSON.parse(metadataContent);
 
     return {
@@ -76,7 +109,9 @@ export async function fetchAuthorsMetadata(authors) {
     return [];
   }
 
-  const metadataList = await Promise.all(authors.map(author => fetchAuthorMetadata(author)));
+  const metadataList = await Promise.all(
+    authors.map((author) => fetchAuthorMetadata(author)),
+  );
   return metadataList;
 }
 
@@ -85,12 +120,12 @@ export async function fetchAuthorsMetadata(authors) {
  * @returns {Promise<Array>} - Array of post objects.
  */
 export async function fetchMarkdownPostsMetadata() {
-  const postsDir = path.join(process.cwd(), 'src', 'routes', 'blog');
-  const markdownFiles = await getFilesRecursively(postsDir, '.md');
+  const postsDir = path.join(process.cwd(), "src", "routes", "blog");
+  const markdownFiles = await getFilesRecursively(postsDir, ".md");
 
   const allPosts = await Promise.all(
     markdownFiles.map(async (filePath) => {
-      const fileContent = await fs.readFile(filePath, 'utf-8');
+      const fileContent = await fs.readFile(filePath, "utf-8");
 
       // We discard the content and keep the metadata
       const { data: metadata, _ } = matter(fileContent);
@@ -107,7 +142,7 @@ export async function fetchMarkdownPostsMetadata() {
         meta: metadata,
         path: `/blog/${slug}`,
       };
-    })
+    }),
   );
 
   // Sort posts by publication date descending

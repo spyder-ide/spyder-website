@@ -1,0 +1,17 @@
+projects:
+  - id: 0
+    term: Spyder
+    image: https://picsum.photos/640/400.webp?random=1
+    donationGoal: 5000
+  - id: 1
+    term: Lorem
+    image: https://picsum.photos/640/400.webp?random=2
+    donationGoal: 1000
+  - id: 2
+    term: Ipsum
+    image: https://picsum.photos/640/400.webp?random=3
+    donationGoal: 1500
+  - id: 3
+    term: Dolar
+    image: https://picsum.photos/640/400.webp?random=4
+    donationGoal: 2000

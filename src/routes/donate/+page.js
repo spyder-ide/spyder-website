@@ -1,68 +1,74 @@
-const buttonText = "Support This Project";
+import { donate } from "$lib/config";
 
-const content = {
+let content = {
   props: {
-    page: {
-      title: "Support Us",
-      intro: `Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-        Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-        incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis
-        molestiae quibusdam debitis aliquam.`
-    },
-    projects: {
-      title: "Projects",
-      intro: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo sint
-        nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur ad
-        fugiat. Laborum eaque deserunt recusandae odio voluptatibus corporis hic nemo
-        sint nesciunt facilis eum, vel consectetur similique qui ea ab consequuntur
-        ad fugiat.`,
-      content: [
-        {
-          image: "https://picsum.photos/640/400.webp?random=1",
-          title: "Spyder",
-          content:
-            `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
-              corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-              incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis
-              molestiae quibusdam debitis aliquam.`,
-          buttonText,
-        },
-        {
-          image: "https://picsum.photos/640/400.webp?random=2",
-          title: "Project 2",
-          content:
-            `Corrupti corporis quae unde cum, consectetur, voluptate placeat,
-              aspernatur incidunt quaerat tempore molestiae. Reiciendis quod minima
-              ex facilis molestiae quibusdam debitis aliquam. Lorem ipsum dolor sit
-              amet consectetur, adipisicing elit.`,
-          buttonText,
-        },
-        {
-          image: "https://picsum.photos/640/400.webp?random=3",
-          title: "Project 3",
-          content:
-            `Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
-              corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-              incidunt quaerat tempore molestiae.`,
-          buttonText,
-        },
-        {
-          image: "https://picsum.photos/640/400.webp?random=4",
-          title: "Project 4",
-          content:
-            `Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
-              corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-              incidunt quaerat tempore molestiae.`,
-          buttonText,
-        },
-      ]
-    },
+    projects: donate.projects,
+  },
+};
+
+/** @type {import('./$types').PageLoad} */
+export async function load({ fetch }) {
+  try {
+    const response = await fetch("/data/hubspot.json");
+    const hubspotData = await response.json();
+
+    // Create a map of project names to their deals and totals
+    const projectDonations = {};
+
+    // Initialize donation totals for each project
+    content.props.projects.forEach((project) => {
+      projectDonations[project.term] = {
+        deals: [],
+        total: 0,
+      };
+    });
+
+    // Sort deals into their respective projects
+    hubspotData.pipelineDeals.forEach((deal) => {
+      content.props.projects.forEach((project) => {
+        if (deal.properties.dealname.includes(project.term)) {
+          projectDonations[project.term].deals.push(deal);
+          projectDonations[project.term].total +=
+            parseFloat(deal.properties.amount) || 0;
+        }
+      });
+    });
+
+    // Add donation data to each project
+    const projectsWithDonations = content.props.projects.map((project) => ({
+      ...project,
+      donations: {
+        total: projectDonations[project.term].total,
+        deals: projectDonations[project.term].deals,
+        progress: project.donationGoal
+          ? (projectDonations[project.term].total / project.donationGoal) * 100
+          : null,
+      },
+    }));
+
+    return {
+      props: {
+        ...content.props,
+        projects: projectsWithDonations,
+      },
+      totalDonations: hubspotData.totalDonations,
+      pipelineDeals: hubspotData.pipelineDeals,
+      monthlyDeals: hubspotData.monthlyDeals,
+      oneTimeDeals: hubspotData.oneTimeDeals,
+      lastUpdated: hubspotData.lastUpdated,
+    };
+  } catch (err) {
+    console.error("Error loading HubSpot data:", err);
+    return {
+      props: content.props,
+      error: "Error loading donation data",
+      totalDonations: 0,
+      pipelineDeals: [],
+      monthlyDeals: [],
+      oneTimeDeals: [],
+      lastUpdated: null,
+    };
   }
 }
 
-export function load() {
-  return content;
-}
+export const prerender = true;

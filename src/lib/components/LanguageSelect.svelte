@@ -10,11 +10,11 @@
   let dropdownButton;
 
   function handleSelect(selectedLocale) {
+    isDropdownOpen = false;
     locale.set(selectedLocale);
     if (browser) {
       localStorage.setItem("preferred-locale", selectedLocale);
     }
-    isDropdownOpen = false;
   }
 
   function handleClickOutside(event) {
