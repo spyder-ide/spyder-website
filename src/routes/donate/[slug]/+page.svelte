@@ -4,6 +4,27 @@
   import { metadata } from "$lib/store";
   import { page } from "$app/stores";
   import { ogImage } from "$lib/config";
+  import { Icon } from 'svelte-icons-pack';
+  import { IoPersonOutline } from 'svelte-icons-pack/io';
+  import { IoCalendarOutline } from 'svelte-icons-pack/io';
+  import { IoCashOutline } from 'svelte-icons-pack/io';
+  import { Doughnut } from 'svelte-chartjs';
+  import {
+    Chart as ChartJS,
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    CategoryScale,
+  } from 'chart.js';
+
+  ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    CategoryScale
+  );
 
   import Metadata from "$lib/components/Metadata.svelte";
   import Button from "$lib/components/Button.svelte";
@@ -45,6 +66,50 @@
       document.removeEventListener("keydown", handleKeydown);
     };
   });
+
+  // Calculate percentages for pie chart
+  $: monthlyPercentage = project.donations?.monthly
+    ? (project.donations.monthly / project.donations.total) * 100
+    : 0;
+  $: oneTimePercentage = 100 - monthlyPercentage;
+
+  // Generate supporter icons
+  $: supporterIcons = project.donations?.deals.length > 10
+    ? 10
+    : project.donations?.deals.length;
+
+  // Chart.js data
+  $: chartData = {
+    labels: ['Monthly', 'One-time'],
+    datasets: [
+      {
+        data: [project.donations?.monthly || 0, project.donations?.oneTime || 0],
+        backgroundColor: ['#991b1b', '#450a0a'],
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  $: chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: 'right',
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const value = context.raw;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = ((value / total) * 100).toFixed(1);
+            return `$${value.toLocaleString()} (${percentage}%)`;
+          }
+        }
+      }
+    },
+    cutout: '40%',
+  };
 </script>
 
 <svelte:head>
@@ -72,50 +137,75 @@
           {project.title}
         </h1>
       </div>
-
-      {#if project.donations}
-        <div class="donations mb-12">
-          <p class="text-xl font-light">
-            Current donations: ${project.donations.total.toLocaleString()}
-            {#if project.donationGoal}
-              of ${project.donationGoal.toLocaleString()}
-              <div class="progress-bar mt-4">
-                <div
-                  class="progress"
-                  style="width: {Math.min(project.donations.progress, 100)}%"
-                />
-              </div>
-            {/if}
-          </p>
-          <div class="donation-breakdown mt-4">
-            <p class="text-lg font-light">
-              Monthly donations: ${project.donations.monthly.toLocaleString()}
-            </p>
-            <p class="text-lg font-light">
-              One-time donations: ${project.donations.oneTime.toLocaleString()}
-            </p>
-            <p class="text-lg font-light">
-              Total supporters: {project.donations.deals.length}
-            </p>
+      <div class="font-light text-xl">
+        Current donations: <strong class="font-bold">${project.donations.total.toLocaleString()}</strong>
+        {#if project.donationGoal}
+          of <strong class="font-bold">${project.donationGoal.toLocaleString()}</strong>
+          <div class="progress-bar mt-4">
+            <div
+              class="progress"
+              style="width: {Math.min(project.donations.progress, 100)}%"
+            />
           </div>
-        </div>
-      {/if}
+        {/if}
+      </div>
     </div>
 
-    {#if project.content}
-      <div class="content mb-16">
-        <p class="text-lg font-light">{project.content}</p>
+    <div class="md:flex md:gap-16">
+      <div class="md:w-1/2">
+        {#if project.content}
+          <div class="content mb-8">
+            <p class="text-lg font-light">{project.content}</p>
+          </div>
+          <button
+            type="button"
+            class="px-6 py-3 text-lg font-medium text-white bg-red-berry-900 rounded-lg hover:bg-red-berry-800"
+            on:click={toggleModal}
+          >
+            Donate Now
+          </button>
+        {/if}
       </div>
-    {/if}
+      <div class="md:w-1/2 text-right">
+        {#if project.donations}
+          <div class="donations md:-mt-4">
+            <div class="donation-breakdown space-y-8">
+              <div class="pie-chart-container">
+                <Doughnut
+                  data={chartData}
+                  options={chartOptions}
+                />
+                <div class="flex justify-between mt-4 text-sm">
+                  <div class="flex items-center">
+                    <Icon src={IoCalendarOutline} className="mr-2" size="1.2em" />
+                    <span>Monthly: ${project.donations.monthly.toLocaleString()}</span>
+                  </div>
+                  <div class="flex items-center">
+                    <Icon src={IoCashOutline} className="mr-2" size="1.2em" />
+                    <span>One-time: ${project.donations.oneTime.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
 
-    <div class="text-center">
-      <button
-        type="button"
-        class="px-6 py-3 text-lg font-medium text-white bg-red-berry-900 rounded-lg hover:bg-red-berry-800"
-        on:click={toggleModal}
-      >
-        Donate Now
-      </button>
+              <div class="supporters-container">
+                <div class="flex items-center justify-center gap-1">
+                  {#if project.donations.deals.length <= 10}
+                    {#each Array(supporterIcons) as _, i}
+                      <Icon src={IoPersonOutline} size="1.2em" />
+                    {/each}
+                  {:else}
+                    <Icon src={IoPersonOutline} size="1.2em"/>
+                    <span class="text-lg font-light">× {project.donations.deals.length}</span>
+                  {/if}
+                </div>
+                <p class="text-sm font-light mt-2">
+                  Total supporters: {project.donations.deals.length}
+                </p>
+              </div>
+            </div>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 </div>
@@ -169,5 +259,13 @@
 
   .modal-content {
     @apply flex-1 overflow-hidden;
+  }
+
+  .pie-chart-container {
+    @apply w-full max-w-64 mx-auto;
+  }
+
+  .supporters-container {
+    @apply text-center;
   }
 </style>
