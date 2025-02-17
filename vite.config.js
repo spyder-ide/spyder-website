@@ -10,8 +10,4 @@ export default defineConfig({
       allow: ['static']
     }
   },
-  build: {
-    target: 'esnext',
-    sourcemap: false,
-  },
 });
