@@ -9,5 +9,8 @@ export default defineConfig({
     fs: {
       allow: ['static', 'src']
     }
+  },
+  build: {
+    chunkSizeWarningLimit: 1500,
   }
 });
