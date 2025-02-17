@@ -11,19 +11,22 @@ export default function copyImages() {
     },
     writeBundle(options, bundle) {
       console.log('🔍 Scanning for blog posts...');
-      console.log('📦 Bundle contains:', Object.keys(bundle).map(key => `\n - ${key}`).join(''));
 
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
 
       for (const file of Object.values(bundle)) {
-        console.log(`🔎 Checking file: ${file.fileName} (${file.type})`);
+        // Look for mdsvex-processed blog posts
         if (
-          file.fileName.endsWith(".html") &&
-          file.fileName.startsWith("blog/")
+          file.fileName.startsWith('entries/pages/blog/') &&
+          file.fileName.endsWith('_page.md.js') &&
+          !file.fileName.includes('/_')  // Exclude dynamic route templates
         ) {
           console.log(`📝 Found blog post: ${file.fileName}`);
-          const dirName = path.dirname(file.fileName);
-          const fullDirPath = path.join(blogDir, dirName.split("blog/")[1]);
+
+          // Extract the blog post directory name from the file path
+          // e.g., "entries/pages/blog/my-post/_page.md.js" -> "my-post"
+          const blogPostDir = file.fileName.split('/blog/')[1].split('/_page.md.js')[0];
+          const fullDirPath = path.join(blogDir, blogPostDir);
 
           try {
             const media = fs
@@ -32,11 +35,12 @@ export default function copyImages() {
                 /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file),
               );
 
-            console.log(`📸 Found ${media.length} media files in ${dirName}`);
+            console.log(`📸 Found ${media.length} media files in ${blogPostDir}`);
 
             for (const medium of media) {
               const content = fs.readFileSync(path.join(fullDirPath, medium));
-              const outputPath = path.join(dirName, medium);
+              // Use blog/[post-name]/[image] structure for output
+              const outputPath = path.join('blog', blogPostDir, medium).replace(/\\/g, '/');
               console.log(`📦 Emitting: ${outputPath}`);
 
               this.emitFile({
