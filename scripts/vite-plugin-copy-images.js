@@ -11,22 +11,48 @@ export default function copyImages() {
     },
     writeBundle(options, bundle) {
       console.log('🔍 Scanning for blog posts...');
+      console.log('📂 Bundle options:', options);
 
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
+      console.log('📁 Looking in blog directory:', blogDir);
+
+      // Debug: List all files in the bundle
+      const bundleFiles = Object.values(bundle).map(f => f.fileName);
+      console.log('📑 All bundle files:', bundleFiles);
+
+      // Debug: List all blog post files in src/routes/blog
+      try {
+        const blogPosts = fs.readdirSync(blogDir, { withFileTypes: true })
+          .filter(dirent => dirent.isDirectory())
+          .map(dirent => dirent.name);
+        console.log('📚 Blog posts in src/routes/blog:', blogPosts);
+      } catch (error) {
+        console.error('❌ Error reading blog directory:', error);
+      }
 
       for (const file of Object.values(bundle)) {
-        // Look for mdsvex-processed blog posts
+        // Debug: Log each file we're checking
+        console.log(`🔎 Checking: ${file.fileName}`);
+        console.log(`   Starts with entries/pages/blog/? ${file.fileName.startsWith('entries/pages/blog/')}`);
+        console.log(`   Ends with _page.md.js? ${file.fileName.endsWith('_page.md.js')}`);
+        console.log(`   Includes /_? ${file.fileName.includes('/_')}`);
+
+        // Look for mdsvex-processed blog posts, but exclude the dynamic route template
         if (
           file.fileName.startsWith('entries/pages/blog/') &&
           file.fileName.endsWith('_page.md.js') &&
-          !file.fileName.includes('/_')  // Exclude dynamic route templates
+          !file.fileName.includes('/_page_/') // Only exclude the dynamic route template
         ) {
           console.log(`📝 Found blog post: ${file.fileName}`);
 
           // Extract the blog post directory name from the file path
           // e.g., "entries/pages/blog/my-post/_page.md.js" -> "my-post"
-          const blogPostDir = file.fileName.split('/blog/')[1].split('/_page.md.js')[0];
+          const blogPostDir = file.fileName
+            .split('/blog/')[1]
+            .split('/_page.md.js')[0];
+
           const fullDirPath = path.join(blogDir, blogPostDir);
+          console.log(`📂 Looking for media in: ${fullDirPath}`);
 
           try {
             const media = fs
@@ -39,7 +65,6 @@ export default function copyImages() {
 
             for (const medium of media) {
               const content = fs.readFileSync(path.join(fullDirPath, medium));
-              // Use blog/[post-name]/[image] structure for output
               const outputPath = path.join('blog', blogPostDir, medium).replace(/\\/g, '/');
               console.log(`📦 Emitting: ${outputPath}`);
 
