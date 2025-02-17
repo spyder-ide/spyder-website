@@ -2,23 +2,34 @@ import fs from "fs";
 import path from "path";
 
 export default function copyImages() {
+  let outDir;
+  let isBuild = false;
+  let isSSR = false;
+
   return {
     name: "copy-images",
     apply: 'build',
     enforce: 'post',
-    configResolved() {
+    configResolved(config) {
       console.log('🖼️  Copy Images plugin initialized');
+      outDir = config.build.outDir;
+      isBuild = config.command === 'build';
+      isSSR = !!config.build.ssr;
+      console.log(`Build mode: ${isBuild}, SSR: ${isSSR}, outDir: ${outDir}`);
     },
     writeBundle(options, bundle) {
+      // Skip if we're in SSR mode or not in build mode
+      if (isSSR || !isBuild) {
+        console.log('⏭️  Skipping image copy (SSR or not build mode)');
+        return;
+      }
+
       console.log('🔍 Scanning for blog posts...');
-      console.log('📂 Bundle options:', options);
 
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
+      const buildDir = path.join(process.cwd(), "build");
       console.log('📁 Looking in blog directory:', blogDir);
-
-      // Debug: List all files in the bundle
-      const bundleFiles = Object.values(bundle).map(f => f.fileName);
-      console.log('📑 All bundle files:', bundleFiles);
+      console.log('📁 Build directory:', buildDir);
 
       // Debug: List all blog post files in src/routes/blog
       try {
@@ -26,32 +37,12 @@ export default function copyImages() {
           .filter(dirent => dirent.isDirectory())
           .map(dirent => dirent.name);
         console.log('📚 Blog posts in src/routes/blog:', blogPosts);
-      } catch (error) {
-        console.error('❌ Error reading blog directory:', error);
-      }
 
-      for (const file of Object.values(bundle)) {
-        // Debug: Log each file we're checking
-        console.log(`🔎 Checking: ${file.fileName}`);
-        console.log(`   Starts with entries/pages/blog/? ${file.fileName.startsWith('entries/pages/blog/')}`);
-        console.log(`   Ends with _page.md.js? ${file.fileName.endsWith('_page.md.js')}`);
-        console.log(`   Includes /_? ${file.fileName.includes('/_')}`);
+        // Process each blog post directory
+        for (const blogPost of blogPosts) {
+          if (blogPost === '[page]' || blogPost === 'feed.xml') continue;
 
-        // Look for mdsvex-processed blog posts, but exclude the dynamic route template
-        if (
-          file.fileName.startsWith('entries/pages/blog/') &&
-          file.fileName.endsWith('_page.md.js') &&
-          !file.fileName.includes('/_page_/') // Only exclude the dynamic route template
-        ) {
-          console.log(`📝 Found blog post: ${file.fileName}`);
-
-          // Extract the blog post directory name from the file path
-          // e.g., "entries/pages/blog/my-post/_page.md.js" -> "my-post"
-          const blogPostDir = file.fileName
-            .split('/blog/')[1]
-            .split('/_page.md.js')[0];
-
-          const fullDirPath = path.join(blogDir, blogPostDir);
+          const fullDirPath = path.join(blogDir, blogPost);
           console.log(`📂 Looking for media in: ${fullDirPath}`);
 
           try {
@@ -61,24 +52,29 @@ export default function copyImages() {
                 /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file),
               );
 
-            console.log(`📸 Found ${media.length} media files in ${blogPostDir}`);
+            console.log(`📸 Found ${media.length} media files in ${blogPost}`);
 
             for (const medium of media) {
               const content = fs.readFileSync(path.join(fullDirPath, medium));
-              const outputPath = path.join('blog', blogPostDir, medium).replace(/\\/g, '/');
-              console.log(`📦 Emitting: ${outputPath}`);
+              const outputPath = path.join(buildDir, 'blog', blogPost, medium);
 
-              this.emitFile({
-                type: "asset",
-                fileName: outputPath,
-                source: content,
-              });
+              // Ensure the output directory exists
+              const outputDir = path.dirname(outputPath);
+              if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+              }
+
+              console.log(`📦 Copying to: ${outputPath}`);
+              fs.writeFileSync(outputPath, content);
             }
           } catch (error) {
             console.error(`❌ Error processing ${fullDirPath}:`, error);
           }
         }
+      } catch (error) {
+        console.error('❌ Error reading blog directory:', error);
       }
+
       console.log('✅ Copy Images plugin finished');
     },
   };
