@@ -12,6 +12,7 @@ export default function copyImages() {
           file.fileName.endsWith(".html") &&
           file.fileName.startsWith("blog/")
         ) {
+          console.log(`Found blog post: ${file.fileName}`);
           const dirName = path.dirname(file.fileName);
           const fullDirPath = path.join(blogDir, dirName.split("blog/")[1]);
 
@@ -23,6 +24,7 @@ export default function copyImages() {
 
           for (const medium of media) {
             const content = fs.readFileSync(path.join(fullDirPath, medium));
+            console.log(`Copying: ${path.join(dirName, medium)}`);
             this.emitFile({
               type: "asset",
               fileName: path.join(dirName, medium),

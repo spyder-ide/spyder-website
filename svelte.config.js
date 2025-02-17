@@ -5,6 +5,7 @@ import { visit } from "unist-util-visit";
 import rehypeTitleFigure from 'rehype-title-figure'
 import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
+import copyImages from './scripts/vite-plugin-copy-images.js';
 
 const classNamesOptions = {
   h2: "section",
@@ -55,20 +56,30 @@ const mdsvexOptions = {
   },
 };
 
+/** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
     adapter: adapter(),
     prerender: {
       handleHttpError: "warn",
-      handleMissingId: "warn",
+      handleMissingId: "ignore",
       entries: ["*"],
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",
     },
+    alias: {
+      $static: 'static'
+    }
   },
   extensions: [".svelte", ".md"],
-  preprocess: [mdsvex(mdsvexOptions), vitePreprocess()],
+  preprocess: [
+    vitePreprocess(),
+    mdsvex(mdsvexOptions)
+  ],
+  vitePlugin: {
+    inspector: true
+  },
   // Omit warning about screenreaders announcing <img> elements as an image
   onwarn: (warning, handler) => {
     // Fail the build on production if we have redundant words in the alt text
