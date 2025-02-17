@@ -102,6 +102,13 @@
         <button class="mb-8 pt-2" on:click={toggleMenu} aria-label="Close menu">
           <Icon src={AiOutlineClose} size="24" />
         </button>
+        <div class="md:hidden flex flex-col items-center gap-2 scale-[2] mt-8 mb-16">
+          <!-- Support button -->
+          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} />
+        </div>
         <nav class="text-center">
           {#each navigation as menu}
             <ul class="menu">
@@ -119,13 +126,6 @@
             </ul>
           {/each}
         </nav>
-        <div class="md:hidden flex flex-col items-center gap-2 scale-150 mt-8">
-          <!-- Support button -->
-          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
-
-          <!-- Language switch -->
-          <LanguageSelect languages={languageOptions} />
-        </div>
       </div>
     </div>
   {/if}
