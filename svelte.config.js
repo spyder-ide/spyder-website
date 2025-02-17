@@ -5,7 +5,6 @@ import { visit } from "unist-util-visit";
 import rehypeTitleFigure from 'rehype-title-figure'
 import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
-import copyImages from './scripts/vite-plugin-copy-images.js';
 
 const classNamesOptions = {
   h2: "section",
