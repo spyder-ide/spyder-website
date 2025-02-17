@@ -11,9 +11,12 @@ export default function copyImages() {
     },
     writeBundle(options, bundle) {
       console.log('🔍 Scanning for blog posts...');
+      console.log('📦 Bundle contains:', Object.keys(bundle).map(key => `\n - ${key}`).join(''));
+
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
 
       for (const file of Object.values(bundle)) {
+        console.log(`🔎 Checking file: ${file.fileName} (${file.type})`);
         if (
           file.fileName.endsWith(".html") &&
           file.fileName.startsWith("blog/")
