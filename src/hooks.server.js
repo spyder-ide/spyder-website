@@ -1,8 +1,7 @@
 import { existsSync, createReadStream } from "fs";
 import { join } from "path";
 import { locale } from 'svelte-i18n';
-
-export default join;
+import { building } from '$app/environment';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -11,11 +10,11 @@ export async function handle({ event, resolve }) {
     locale.set(lang);
   }
 
+  // Only handle image requests in development mode
   if (
+    !building &&
     event.url.pathname.startsWith("/blog/") &&
-    event.url.pathname.match(
-      /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i
-    )
+    event.url.pathname.match(/\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i)
   ) {
     const imagePath = join(process.cwd(), "src", "routes", event.url.pathname);
     if (existsSync(imagePath)) {
@@ -25,4 +24,12 @@ export async function handle({ event, resolve }) {
   }
 
   return resolve(event);
+}
+
+/** @type {import('@sveltejs/kit').HandleServerError} */
+export function handleError({ error }) {
+  return {
+    message: 'Internal Error',
+    code: error?.code ?? 'UNKNOWN'
+  };
 }

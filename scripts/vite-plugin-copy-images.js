@@ -4,33 +4,59 @@ import path from "path";
 export default function copyImages() {
   return {
     name: "copy-images",
-    writeBundle(object, bundle) {
+    enforce: 'post',
+    apply: 'build',
+
+    configResolved(config) {
+      console.log('🖼️  Copy Images plugin initialized');
+    },
+
+    generateBundle() {
+      console.log('🔍 Scanning for blog posts...');
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
 
-      for (const file of Object.values(bundle)) {
-        if (
-          file.fileName.endsWith(".html") &&
-          file.fileName.startsWith("blog/")
-        ) {
-          const dirName = path.dirname(file.fileName);
-          const fullDirPath = path.join(blogDir, dirName.split("blog/")[1]);
+      try {
+        const blogPosts = fs.readdirSync(blogDir, { withFileTypes: true })
+          .filter(dirent => dirent.isDirectory())
+          .map(dirent => dirent.name);
 
-          const media = fs
-            .readdirSync(fullDirPath)
-            .filter((file) =>
-              /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file),
-            );
+        console.log('📚 Blog posts found:', blogPosts);
 
-          for (const medium of media) {
-            const content = fs.readFileSync(path.join(fullDirPath, medium));
-            this.emitFile({
-              type: "asset",
-              fileName: path.join(dirName, medium),
-              source: content,
-            });
+        for (const blogPost of blogPosts) {
+          if (blogPost === '[page]' || blogPost === 'feed.xml') continue;
+
+          const fullDirPath = path.join(blogDir, blogPost);
+          console.log(`📂 Processing: ${blogPost}`);
+
+          try {
+            const media = fs
+              .readdirSync(fullDirPath)
+              .filter((file) =>
+                /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file)
+              );
+
+            console.log(`📸 Found ${media.length} media files in ${blogPost}`);
+
+            for (const medium of media) {
+              const content = fs.readFileSync(path.join(fullDirPath, medium));
+              const outputPath = path.join('blog', blogPost, medium);
+
+              console.log(`📦 Emitting: ${outputPath}`);
+              this.emitFile({
+                type: 'asset',
+                fileName: outputPath,
+                source: content
+              });
+            }
+          } catch (error) {
+            console.error(`❌ Error processing ${fullDirPath}:`, error);
           }
         }
+      } catch (error) {
+        console.error('❌ Error reading blog directory:', error);
       }
-    },
+
+      console.log('✅ Copy Images plugin finished');
+    }
   };
 }

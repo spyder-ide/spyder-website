@@ -7,11 +7,10 @@ export default defineConfig({
   plugins: [sveltekit(), copyImages()],
   server: {
     fs: {
-      allow: ['static']
+      allow: ['static', 'src']
     }
   },
   build: {
-    target: 'esnext',
-    sourcemap: false,
-  },
+    chunkSizeWarningLimit: 1500,
+  }
 });
