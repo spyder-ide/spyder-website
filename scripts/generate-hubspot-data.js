@@ -5,7 +5,6 @@ import path from "path";
 import { exists } from "./utils.js";
 
 dotenv.config();
-console.log("ENV:", process.env);
 
 const SPYDER_PIPELINE_ID = "691999256";
 
