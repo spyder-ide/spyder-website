@@ -8,6 +8,7 @@ export async function handle({ event, resolve }) {
   if (lang) {
     locale.set(lang);
   }
+}
 
 /** @type {import('@sveltejs/kit').HandleServerError} */
 export function handleError({ error }) {
