@@ -1,18 +1,17 @@
 projects:
   - id: 0
     term: Spyder
-    image: /assets/media/banner-donate.webp
+    image: /assets/media/banner-donate.svg
     donationLink: https://app.hubspot.com/payments/Pjm6SyqYNb?referrer=PAYMENT_LINK_EMBED&layout=embed-full
-    donationGoal: 5000
   - id: 1
     term: Lorem
-    image: /assets/media/placeholder.webp
+    image: /assets/media/placeholder.svg
     donationGoal: 1000
   - id: 2
     term: Ipsum
-    image: /assets/media/placeholder.webp
+    image: /assets/media/placeholder.svg
     donationGoal: 1500
   - id: 3
     term: Dolar
-    image: /assets/media/placeholder.webp
+    image: /assets/media/placeholder.svg
     donationGoal: 2000

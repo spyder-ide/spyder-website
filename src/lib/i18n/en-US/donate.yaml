@@ -12,6 +12,7 @@ page:
 projects:
 - id: 0
   title: Spyder IDE
+  collected: Collected funding
   content: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
     quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore
     molestiae. Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
@@ -19,6 +20,7 @@ projects:
     text: Support Spyder
 - id: 1
   title: Project One
+  collected: Collected so far
   content: Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     incidunt quaerat tempore molestiae. Reiciendis quod minima ex facilis molestiae
     quibusdam debitis aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing
@@ -27,6 +29,7 @@ projects:
     text: Support This Project
 - id: 2
   title: Project Two
+  collected: Raised
   content: Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
     unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore
@@ -35,6 +38,7 @@ projects:
     text: Support This Project
 - id: 3
   title: Project Three
+  collected: Raised so far
   content: Reiciendis quod minima ex facilis molestiae quibusdam debitis aliquam.
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
     unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore

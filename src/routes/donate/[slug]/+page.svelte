@@ -9,14 +9,7 @@
   import { BsCalendar } from "svelte-icons-pack/bs";
   import { BsCash } from "svelte-icons-pack/bs";
   import { Doughnut } from "svelte-chartjs";
-  import {
-    Chart as ChartJS,
-    Title,
-    Tooltip,
-    Legend,
-    ArcElement,
-    CategoryScale,
-  } from "chart.js";
+  import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from "chart.js";
 
   ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
@@ -30,8 +23,8 @@
 
   // Colors for light/dark modes
   const colors = {
-    light: ['#bebdb3', '#a4a093'],
-    dark: ['#888888', '#5d5d5d']
+    light: ["rgba(43, 45, 66, 1)", "rgba(43, 45, 66, 0.6)"],
+    dark: ["rgba(93, 93, 93, 1)", "rgba(93, 93, 93, 0.4)"],
   };
 
   $: metadata.setMetadata({
@@ -65,22 +58,22 @@
         while (hex.length < 4) hex = `0${hex}`;
         return hex;
       };
-      return array.reduce((acc, val) => acc + formatNum(val), '');
+      return array.reduce((acc, val) => acc + formatNum(val), "");
     }
 
     const timestamp = new Date().getTime();
     return "xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx".replace(/[xy]/g, (char) => {
       const rand = (timestamp + 16 * Math.random()) % 16 | 0;
-      return (char === "x" ? rand : (3 & rand | 8)).toString(16);
+      return (char === "x" ? rand : (3 & rand) | 8).toString(16);
     });
   }
 
   function getOrSetHubSpotUtk() {
     let utk = window.__hsUserToken;
     if (!utk) {
-      const cookies = document.cookie.split(';');
-      const utkCookie = cookies.find(c => c.trim().startsWith('hubspotutk='));
-      utk = utkCookie ? utkCookie.split('=')[1] : null;
+      const cookies = document.cookie.split(";");
+      const utkCookie = cookies.find((c) => c.trim().startsWith("hubspotutk="));
+      utk = utkCookie ? utkCookie.split("=")[1] : null;
     }
     if (!utk) {
       utk = generateUtk();
@@ -94,28 +87,28 @@
 
     const baseUrl = project.donationLink;
     const params = new URLSearchParams({
-      referrer: 'PAYMENT_LINK_EMBED',
-      layout: 'embed-full',
+      referrer: "PAYMENT_LINK_EMBED",
+      layout: "",
       parentPageUrl: `${window.location.origin}${window.location.pathname}`,
-      parentHubspotUtk: getOrSetHubSpotUtk()
+      parentHubspotUtk: getOrSetHubSpotUtk(),
     });
 
     if (window.hsVars) {
-      params.append('hsVars', JSON.stringify(window.hsVars));
+      params.append("hsVars", JSON.stringify(window.hsVars));
     }
 
-    const iframe = document.createElement('iframe');
+    const iframe = document.createElement("iframe");
     iframe.src = `${baseUrl}&${params.toString()}`;
-    iframe.style.width = '100%';
-    iframe.style.minWidth = '320px';
-    iframe.style.minHeight = '500px';
-    iframe.style.height = '100%';
-    iframe.style.border = 'none';
-    iframe.allow = 'payment *';
-    iframe.title = 'HubSpot Payment Form';
+    iframe.style.width = "100%";
+    iframe.style.minWidth = "320px";
+    iframe.style.minHeight = "500px";
+    iframe.style.height = "100%";
+    iframe.style.border = "none";
+    iframe.allow = "payment *";
+    iframe.title = "HubSpot Payment Form";
 
     // Clear container and add new iframe
-    iframeContainer.innerHTML = '';
+    iframeContainer.innerHTML = "";
     iframeContainer.appendChild(iframe);
 
     // Handle iframe resizing
@@ -127,15 +120,15 @@
       }
     };
 
-    window.addEventListener('message', messageHandler);
+    window.addEventListener("message", messageHandler);
   }
 
   onMount(() => {
-    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener("keydown", handleKeydown);
     return () => {
-      document.removeEventListener('keydown', handleKeydown);
+      document.removeEventListener("keydown", handleKeydown);
       if (messageHandler) {
-        window.removeEventListener('message', messageHandler);
+        window.removeEventListener("message", messageHandler);
       }
     };
   });
@@ -156,11 +149,8 @@
     labels: ["Monthly", "One-time"],
     datasets: [
       {
-        data: [
-          project.donations?.monthly || 0,
-          project.donations?.oneTime || 0,
-        ],
-        backgroundColor: $colourScheme === 'dark' ? colors.dark : colors.light,
+        data: [project.donations?.monthly || 0, project.donations?.oneTime || 0],
+        backgroundColor: $colourScheme === "dark" ? colors.dark : colors.light,
         borderWidth: 0,
       },
     ],
@@ -200,32 +190,21 @@
 <Metadata />
 
 <div class="container mt-32">
-  <div class="max-w-4xl mx-auto">
+  <div class="mx-auto max-w-4xl">
     <div class="project-header mb-16">
       <div class="image-container relative mb-8 overflow-hidden rounded-2xl">
-        <img
-          class="w-full aspect-square md:aspect-video object-cover"
-          src={project.image}
-          alt={project.title}
-        />
-        <h1 class="title z-10 absolute bottom-0 left-0">
+        <img class="aspect-square w-full object-cover md:aspect-video" src={project.image} alt={project.title} />
+        <h1 class="title absolute bottom-0 left-0 z-10">
           {project.title}
         </h1>
       </div>
-      <div class="font-light text-lg md:text-xl">
-        Current donations: <strong class="font-bold"
-          >${project.donations.total.toLocaleString()}</strong
-        >
+      <div class="text-lg font-extralight md:text-3xl">
+        Current donations: <strong class="font-semibold">${project.donations.total.toLocaleString()}</strong>
         {#if project.donationGoal}
-          of <strong class="font-bold"
-            >${project.donationGoal.toLocaleString()}</strong
-          >
+          of <strong class="font-semibold">${project.donationGoal.toLocaleString()}</strong>
           <div class="progress-bar-container relative">
             <div class="progress-bar mt-4">
-              <div
-                class="progress"
-                style="width: {progress}%"
-              />
+              <div class="progress" style="width: {progress}%" />
             </div>
             <div class="progress-bar-text" style="left: calc({progress}% - 32px)">
               {progress}%
@@ -235,7 +214,7 @@
       </div>
     </div>
 
-    <div class="md:flex space-y-16 md:space-y-0 md:gap-24">
+    <div class="space-y-16 md:flex md:gap-24 md:space-y-0">
       <div class="md:w-2/3">
         {#if project.content}
           <div class="content mb-16">
@@ -248,7 +227,7 @@
               icon="donate"
               iconSize={32}
               fontSize={18}
-            isLink={false}
+              isLink={false}
               on:click={toggleModal}
             />
           </div>
@@ -260,33 +239,26 @@
             <div class="donation-breakdown space-y-8">
               <div class="pie-chart-container">
                 <Doughnut data={chartData} options={chartOptions} />
-                <div class="flex justify-between mt-4 text-xs">
+                <div class="mt-4 flex justify-between text-xs">
                   <div class="flex items-center">
                     <Icon src={BsCalendar} className="mr-2" size="2em" />
-                    <span
-                      >{$_('donate.page.monthly')}: ${project.donations.monthly.toLocaleString()}</span
-                    >
+                    <span>{$_("donate.page.monthly")}: ${project.donations.monthly.toLocaleString()}</span>
                   </div>
                   <div class="flex items-center">
                     <Icon src={BsCash} className="mr-2" size="2em" />
-                    <span
-                      >{$_('donate.page.oneTime')}: ${project.donations.oneTime.toLocaleString()}</span
-                    >
+                    <span>{$_("donate.page.oneTime")}: ${project.donations.oneTime.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
 
               <div class="supporters-container">
                 <div class="flex items-center justify-center gap-1">
-                    {#each Array(supporterIcons) as _, i}
-                      <Icon
-                        src={BsPersonFill}
-                        size="1.2em"
-                      />
-                    {/each}
+                  {#each Array(supporterIcons) as _, i}
+                    <Icon src={BsPersonFill} size="1.2em" />
+                  {/each}
                 </div>
-                <p class="text-sm font-light mt-2">
-                  {$_('donate.page.supporters')}: {project.donations.deals.length}
+                <p class="mt-2 text-sm font-light">
+                  {$_("donate.page.supporters")}: {project.donations.deals.length}
                 </p>
               </div>
             </div>
@@ -298,8 +270,9 @@
 </div>
 
 {#if showModal}
-  <button
-    type="button"
+  <div
+    role="button"
+    tabindex="0"
     class="modal-backdrop"
     on:click={toggleModal}
     on:keydown={handleKeydown}
@@ -308,47 +281,42 @@
   <div class="modal">
     <button class="close-button" on:click={toggleModal}>×</button>
     <div class="modal-content">
-      <div
-        class="payments-iframe-container"
-        bind:this={iframeContainer}
-      ></div>
+      <div class="payments-iframe-container" bind:this={iframeContainer}></div>
     </div>
   </div>
 {/if}
 
 <style>
   .title {
-    @apply font-extralight text-5xl md:text-7xl text-red-berry-900 bg-white/60 backdrop-blur-sm w-full md:w-auto md:rounded-tr-2xl p-6;
+    @apply w-full bg-white/60 p-6 text-5xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl md:text-7xl;
   }
 
   .progress-bar {
-    @apply w-full h-4 bg-gray-200 rounded-full overflow-hidden dark:bg-spring-wood-200;
+    @apply h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-spring-wood-200;
   }
 
   .progress-bar-text {
-    @apply absolute top-5 left-0 text-sm text-center w-16;
+    @apply absolute left-0 top-5 w-16 text-center text-sm;
   }
 
   .progress {
-    @apply h-full bg-red-berry-800 dark:bg-red-berry-900 transition-all duration-500;
+    @apply h-full bg-red-berry-800 transition-all duration-500 dark:bg-red-berry-900;
   }
 
   .pie-chart-container {
-    @apply max-w-60 mx-auto;
+    @apply mx-auto max-w-60;
   }
 
   .modal-backdrop {
-    @apply fixed inset-0 bg-black backdrop-blur-lg bg-opacity-50 z-40;
+    @apply fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-lg cursor-pointer;
   }
 
   .modal {
-    @apply fixed inset-8 md:inset-20 lg:inset-40 max-w-2xl mx-auto p-4 pt-12 bg-white rounded-2xl z-50
-           flex flex-col overflow-hidden;
+    @apply fixed inset-8 z-50 flex flex-col overflow-hidden rounded-2xl bg-white p-4 pt-12 md:inset-20 lg:inset-40;
   }
 
   .close-button {
-    @apply absolute top-1 right-4 text-4xl text-neutral-500 hover:text-neutral-700
-           dark:text-neutral-400 dark:hover:text-neutral-200 z-10;
+    @apply absolute right-4 top-1 z-10 text-4xl text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200;
   }
 
   .modal-content {
@@ -356,7 +324,7 @@
   }
 
   .payments-iframe-container {
-    @apply w-full h-full;
+    @apply h-full w-full;
   }
 
   .supporters-container {
