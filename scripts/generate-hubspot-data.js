@@ -8,14 +8,15 @@ dotenv.config();
 
 const SPYDER_PIPELINE_ID = "691999256";
 
-function getLastUpdated() {
+async function getLastAvailableData() {
   try {
     console.log("Checking for HubSpot data...");
-    const currentData = JSON.parse(fs.readFileSync(
+    const currentData = await fs.readFile(
       path.join(process.cwd(), "static", "data", "hubspot.json"),
       "utf-8",
-    ));
-    return currentData;
+    );
+    const data = JSON.parse(currentData);
+    return data;
   } catch (error) {
     console.error("No previous data available?", error);
     return null;
@@ -35,12 +36,10 @@ async function fetchHubSpotData() {
     console.log(
       "Missing HubSpot token in environment variables. Checking for previous data...",
     );
-    const lastUpdated = getLastUpdated();
-    if (lastUpdated) {
-      console.log("Previous data found. we will use it as the last updated date.");
-      return {
-        lastUpdated,
-      };
+    const lastAvailable = await getLastAvailableData();
+    if (lastAvailable) {
+      console.log("Previous data found...");
+      return lastAvailable;
     } else {
       throw new Error(
         "Missing HubSpot token in environment variables and no previous data found",
