@@ -7,7 +7,6 @@ import { exists } from "./utils.js";
 dotenv.config();
 
 const SPYDER_PIPELINE_ID = "691999256";
-let lastAvailable = false;
 
 async function getLastAvailableData() {
   try {
