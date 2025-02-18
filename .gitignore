@@ -310,3 +310,6 @@ dist
 
 # Generated OG images
 static/assets/og
+
+# AI rules
+.cursorrules
