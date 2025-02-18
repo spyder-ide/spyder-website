@@ -8,6 +8,19 @@ dotenv.config();
 
 const SPYDER_PIPELINE_ID = "691999256";
 
+function getLastUpdated() {
+  try {
+    console.log("Checking for HubSpot data...");
+    const currentData = JSON.parse(fs.readFileSync(
+      path.join(process.cwd(), "static", "data", "hubspot.json"),
+      "utf-8",
+    ));
+    return currentData;
+  } catch (error) {
+    return null;
+  }
+}
+
 function reduceDeals(deals) {
   return deals.reduce(
     (acc, deal) => acc + (parseFloat(deal?.properties?.amount) || 0),
@@ -18,7 +31,20 @@ function reduceDeals(deals) {
 async function fetchHubSpotData() {
   const token = process.env.VITE_HUBSPOT_TOKEN;
   if (!token) {
-    throw new Error("Missing HubSpot token in environment variables");
+    console.log(
+      "Missing HubSpot token in environment variables. Checking for previous data...",
+    );
+    const lastUpdated = getLastUpdated();
+    if (lastUpdated) {
+      console.log("Previous data found. we will use it as the last updated date.");
+      return {
+        lastUpdated,
+      };
+    } else {
+      throw new Error(
+        "Missing HubSpot token in environment variables and no previous data found",
+      );
+    }
   }
 
   const hubspotClient = new Client({ accessToken: token });
