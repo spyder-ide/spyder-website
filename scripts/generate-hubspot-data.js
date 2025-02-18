@@ -7,10 +7,11 @@ import { exists } from "./utils.js";
 dotenv.config();
 
 const SPYDER_PIPELINE_ID = "691999256";
+let lastAvailable = false;
 
 async function getLastAvailableData() {
   try {
-    console.log("Checking for HubSpot data...");
+    console.log("Checking for existing HubSpot data...");
     const currentData = await fs.readFile(
       path.join(process.cwd(), "static", "data", "hubspot.json"),
       "utf-8",
@@ -18,7 +19,7 @@ async function getLastAvailableData() {
     const data = JSON.parse(currentData);
     return data;
   } catch (error) {
-    console.error("No previous data available?", error);
+    console.log("No previous data available");
     return null;
   }
 }
@@ -32,21 +33,19 @@ function reduceDeals(deals) {
 
 async function fetchHubSpotData() {
   const token = process.env.VITE_HUBSPOT_TOKEN;
+
+  // First check if we have a token
   if (!token) {
-    console.log(
-      "Missing HubSpot token in environment variables. Checking for previous data...",
-    );
-    const lastAvailable = await getLastAvailableData();
-    if (lastAvailable) {
-      console.log("Previous data found...");
-      return lastAvailable;
-    } else {
-      throw new Error(
-        "Missing HubSpot token in environment variables and no previous data found",
-      );
+    // Check for existing data
+    const existingData = await getLastAvailableData();
+    if (existingData) {
+      console.log(`No HubSpot token available. Using existing data from ${existingData.lastUpdated}`);
+      return null; // Signal that we should keep existing data
     }
+    throw new Error("No HubSpot token and no existing data found");
   }
 
+  // If we have a token, proceed with fetching new data
   const hubspotClient = new Client({ accessToken: token });
 
   let pipelineDealsFilter = {
@@ -81,13 +80,13 @@ async function fetchHubSpotData() {
 
       monthlyDeals = monthlyDeals.concat(
         res.results.filter((deal) =>
-          deal.properties.dealname.includes("Monthly")
+          deal.properties.dealname.toLowerCase().includes("monthly")
         ),
       );
 
       oneTimeDeals = oneTimeDeals.concat(
         res.results.filter((deal) =>
-          deal.properties.dealname.includes("One-time")
+          deal.properties.dealname.toLowerCase().includes("one-time")
         ),
       );
 
@@ -116,7 +115,12 @@ async function fetchHubSpotData() {
 async function generateHubSpotData() {
   try {
     // Fetch data from HubSpot
-    const data = await fetchHubSpotData();
+    const newData = await fetchHubSpotData();
+
+    // If fetchHubSpotData returns null, it means we should use existing data
+    if (newData === null) {
+      return;
+    }
 
     // Ensure the output directory exists
     const outputDir = path.join(process.cwd(), "static", "data");
@@ -124,17 +128,17 @@ async function generateHubSpotData() {
       await fs.mkdir(outputDir, { recursive: true });
     }
 
-    // Write the data to a JSON file
+    // Write the new data to a JSON file
     const outputPath = path.join(outputDir, "hubspot.json");
-    await fs.writeFile(outputPath, JSON.stringify(data, null, 2));
+    await fs.writeFile(outputPath, JSON.stringify(newData, null, 2));
 
     console.log(
-      "HubSpot data has been successfully downloaded and saved to:",
+      "HubSpot data has been successfully updated and saved to:",
       outputPath,
     );
   } catch (error) {
     console.error("Error generating HubSpot data:", error);
-    process.exit(1); // Exit with failure
+    process.exit(1);
   }
 }
 
