@@ -3,6 +3,16 @@ import { error } from "@sveltejs/kit";
 import { loadYamlSafely } from "$lib/utils/yaml";
 import rawDonateI18n from "$lib/i18n/en-US/donate.yaml?raw";
 
+export const prerender = true;
+
+// Generate entries for prerendering
+export function entries() {
+    // Get all project slugs from the config
+    return donate.projects.map(project => ({
+        slug: project.term.toLowerCase()
+    }));
+}
+
 /** @type {import('./$types').PageLoad} */
 export async function load({ params, fetch }) {
   const { slug } = params;
@@ -87,5 +97,3 @@ export async function load({ params, fetch }) {
     };
   }
 }
-
-export const prerender = true;
