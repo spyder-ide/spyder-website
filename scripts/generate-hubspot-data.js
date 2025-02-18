@@ -17,6 +17,7 @@ function getLastUpdated() {
     ));
     return currentData;
   } catch (error) {
+    console.error("No previous data available?", error);
     return null;
   }
 }
