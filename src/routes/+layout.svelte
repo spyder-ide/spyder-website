@@ -3,20 +3,16 @@
   import Header from "$lib/blocks/Header.svelte";
   import Footer from "$lib/blocks/Footer.svelte";
   import Loader from "$lib/components/Loader.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
-
   import "../app.css";
 </script>
 
-<Metadata prism={true}/>
-
 {#await waitLocale()}
   <div class="layout grid h-full">
-    <Header />
+    <div></div>
     <main class="grid grid-flow-row gap-16 xl:gap-32">
       <Loader />
     </main>
-    <Footer />
+    <div></div>
   </div>
 {:then}
   <div class="layout grid h-full">
