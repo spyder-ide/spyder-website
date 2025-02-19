@@ -4,26 +4,24 @@ import path from "path";
 export default function copyImages() {
   return {
     name: "copy-images",
-    enforce: 'post',
-    apply: 'build',
+    enforce: "post",
+    apply: "build",
 
     configResolved(config) {
-      console.log('🖼️  Copy Images plugin initialized');
+      console.log("🖼️  Copy Images plugin initialized");
     },
 
     generateBundle() {
-      console.log('🔍 Scanning for blog posts...');
+      console.log("🔍 Scanning for blog posts...");
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
 
       try {
         const blogPosts = fs.readdirSync(blogDir, { withFileTypes: true })
-          .filter(dirent => dirent.isDirectory())
-          .map(dirent => dirent.name);
-
-        console.log('📚 Blog posts found:', blogPosts);
+          .filter((dirent) => dirent.isDirectory())
+          .map((dirent) => dirent.name);
 
         for (const blogPost of blogPosts) {
-          if (blogPost === '[page]' || blogPost === 'feed.xml') continue;
+          if (blogPost === "[page]" || blogPost === "feed.xml") continue;
 
           const fullDirPath = path.join(blogDir, blogPost);
           console.log(`📂 Processing: ${blogPost}`);
@@ -39,13 +37,13 @@ export default function copyImages() {
 
             for (const medium of media) {
               const content = fs.readFileSync(path.join(fullDirPath, medium));
-              const outputPath = path.join('blog', blogPost, medium);
+              const outputPath = path.join("blog", blogPost, medium);
 
               console.log(`📦 Emitting: ${outputPath}`);
               this.emitFile({
-                type: 'asset',
+                type: "asset",
                 fileName: outputPath,
-                source: content
+                source: content,
               });
             }
           } catch (error) {
@@ -53,10 +51,10 @@ export default function copyImages() {
           }
         }
       } catch (error) {
-        console.error('❌ Error reading blog directory:', error);
+        console.error("❌ Error reading blog directory:", error);
       }
 
-      console.log('✅ Copy Images plugin finished');
-    }
+      console.log("✅ Copy Images plugin finished");
+    },
   };
 }

@@ -4,10 +4,11 @@
 
   import Loader from "./Loader.svelte";
 
-  export let icon;
-  export let size = "4rem";
+  export let iconName;
+  export let iconTheme = "bs";
+  export let size = "1.2rem";
 
-  let iconPromise = getIcon(icon);
+  let iconPromise = getIcon(iconName, iconTheme);
 </script>
 
 {#await iconPromise}
@@ -20,5 +21,5 @@
     <small>Icon not found</small>
   {/if}
 {:catch error}
-  <small>Error loading icon: {error}</small>
+  <small class="text-red-berry-900">Error loading icon: {error}</small>
 {/await}

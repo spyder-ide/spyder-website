@@ -15,6 +15,7 @@
   import Loader from "$lib/components/Loader.svelte";
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import LanguageSelect from "$lib/components/LanguageSelect.svelte";
+  import NavButton from "$lib/components/NavButton.svelte";
 
   let isMenuOpen = false;
   const mainNav = config.site.navigation || [];
@@ -49,11 +50,11 @@
       </a>
 
       <!-- Navigation (desktop) -->
-      <div class="flex items-center md:gap-12 justify-end">
+      <div class="flex items-center gap-2 lg:gap-12 justify-end">
         <!-- Navigation (links) -->
-        <nav class="hidden md:flex items-center gap-4 xl:gap-6">
+        <nav class="hidden md:flex items-center justify-end gap-4 xl:gap-6">
           {#each navigation as menu}
-            <ul class="menu flex items-center gap-4 xl:gap-6">
+            <ul class="menu flex items-center justify-end gap-2 lg:gap-4 xl:gap-6">
               {#each menu as item}
                 <li class="menu-item">
                   <a
@@ -69,8 +70,12 @@
           {/each}
         </nav>
 
-        <!-- Language switch -->
-        <LanguageSelect languages={languageOptions} />
+        <!-- Support button -->
+        <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+        <div class="hidden md:block">
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} />
+        </div>
 
         <!-- Theme switch (dark/light) -->
         <ColourSwitch />
@@ -92,8 +97,8 @@
     <div
       class="md:hidden fixed inset-0 z-50 bg-spring-wood-50 text-gray-700 dark:bg-mine-shaft-950 dark:text-spring-wood-50"
     >
-      <div class="container py-5 text-right">
-        <button class="mb-8 pt-2" on:click={toggleMenu} aria-label="Close menu">
+      <div class="container relative h-full flex flex-col items-center justify-center">
+        <button class="absolute top-7 right-8 text-red-berry-900" on:click={toggleMenu} aria-label="Close menu">
           <Icon src={AiOutlineClose} size="24" />
         </button>
         <nav class="text-center">
@@ -113,6 +118,10 @@
             </ul>
           {/each}
         </nav>
+        <div class="md:hidden flex flex-col items-center gap-2 scale-[2] mt-12">
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} showTextOnMobile={true} />
+        </div>
       </div>
     </div>
   {/if}
