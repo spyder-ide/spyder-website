@@ -1,5 +1,5 @@
 <script>
-  import { _, json } from "svelte-i18n"
+  import { _ } from "svelte-i18n"
 
   import { metadata } from "$lib/store";
   import { siteUrl, ogImageBlog, config } from "$lib/config";
