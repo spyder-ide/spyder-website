@@ -81,14 +81,21 @@
 
 <div class="container mt-32">
   <div class="mx-auto max-w-6xl">
-    <div class="project-header mb-16 flex flex-col gap-16 md:flex-row">
-      <div class="image-container relative mb-8 max-w-3xl overflow-hidden rounded-2xl aspect-4/3">
-        <img class="w-full h-full object-cover" src={project.image} alt={project.title} />
-        <h1 class="title absolute bottom-0 left-0 z-10">
-          {project.title}
-        </h1>
+    <div class="project-header grid grid-cols-1 gap-16 md:grid-cols-5">
+      <div class="md:col-span-3">
+        <div class="image-container relative mb-16 overflow-hidden rounded-2xl aspect-4/3">
+          <img class="w-full h-full object-cover" src={project.image} alt={project.title} />
+          <h1 class="title absolute bottom-0 left-0 z-10">
+            {project.title}
+          </h1>
+        </div>
+        {#if project.content}
+          <div class="content mb-16">
+            <p class="text-lg font-light">{project.content}</p>
+          </div>
+        {/if}
       </div>
-      <div class="text-lg font-light md:max-w-96">
+      <div class="text-lg font-light md:col-span-2">
         <strong class="text-7xl font-semibold">{project.donations.total.toLocaleString($locale, currencyOptions)}</strong><br />
         {project.collected}
         {#if project.donationGoal}
@@ -102,27 +109,18 @@
             <Chart {chartData} {chartOptions} {project} />
           </div>
         {/if}
-      </div>
-    </div>
-
-    <div class="space-y-16 md:flex md:gap-24 md:space-y-0">
-      <div class="md:w-2/3">
-        {#if project.content}
-          <div class="content mb-16">
-            <p class="text-lg font-light">{project.content}</p>
-          </div>
-          <div class="flex justify-center md:justify-start">
-            <Button
-              text={project.button.text}
-              highlight={true}
-              icon="donate"
-              iconSize={32}
-              fontSize={18}
-              isLink={false}
-              on:click={() => showModal = true}
-            />
-          </div>
-        {/if}
+        <div class="mt-16">
+          <Button
+            text={project.button.text}
+            highlight={true}
+            icon="donate"
+            iconSize={32}
+            textSize="xl"
+            fullwidth={true}
+            isLink={false}
+            on:click={() => showModal = true}
+          />
+        </div>
       </div>
     </div>
   </div>

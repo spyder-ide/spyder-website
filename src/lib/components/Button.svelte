@@ -106,7 +106,6 @@
   <button
     class:button
     class:w-full={fullwidth}
-    class:icon-link={!button}
     class:hover:text-red-berry-950={!button}
     class:dark:hover:text-neutral-100={!button}
     class:highlight={button && highlight}

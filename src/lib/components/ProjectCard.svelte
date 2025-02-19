@@ -47,7 +47,7 @@
       {/if}
       {#if project.button && href}
         <div class="button-container">
-          <Button text={project.button.text} highlight={true} icon="donate" iconSize={32} fontSize={18} {href} />
+          <Button text={project.button.text} highlight={true} icon="donate" iconSize={32} textSize="lg" {href} />
         </div>
       {/if}
     </div>
@@ -82,22 +82,6 @@
 
   .donations {
     @apply text-lg font-light;
-  }
-
-  .progress-bar-container {
-    @apply relative h-10 w-full overflow-hidden;
-  }
-
-  .progress-bar {
-    @apply mt-2 h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-spring-wood-200;
-  }
-
-  .progress-bar-text {
-    @apply absolute left-0 top-6 w-8 text-center text-xs;
-  }
-
-  .progress {
-    @apply h-full bg-red-berry-800 transition-all duration-500 dark:bg-red-berry-900;
   }
 
   .project-image {

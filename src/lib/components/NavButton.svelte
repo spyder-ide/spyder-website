@@ -7,7 +7,7 @@
 
   export let button;
   export let buttonText;
-  export let href;
+  export let href = "";
   export let supportIcon = false;
   export let dropDownIcon = !supportIcon;
   export let src = supportIcon ? BiSolidHeart : dropDownIcon ? BiChevronDown : null;
