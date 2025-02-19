@@ -21,5 +21,5 @@
     <small>Icon not found</small>
   {/if}
 {:catch error}
-  <small>Error loading icon: {error}</small>
+  <small class="text-red-berry-900">Error loading icon: {error}</small>
 {/await}

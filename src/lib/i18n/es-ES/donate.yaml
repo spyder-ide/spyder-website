@@ -1,5 +1,5 @@
 page:
-  title: Support Us
+  title: Apóyanos
   monthly: Monthly
   oneTime: One-time
   supporters: Total Supporters
@@ -7,14 +7,14 @@ page:
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
     quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
     Reiciendis quod minima ex facilis  quibusdam debitis aliquam.</p>
-    <p>We have made {totalDonations} in donations to date with {dealsCount} deals created
-    (last updated {lastUpdated}).</p>
+    <p>Hemos recaudado {totalDonations} en donaciones con {dealsCount} acuerdos creados
+    (última actualización {lastUpdated}).</p>
 
 projects:
 - id: 0
   title: Spyder IDE
-  collected: Pledged
-  separator: of
+  collected: Recaudados
+  separator: de
   content: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
     quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
     Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
@@ -22,8 +22,8 @@ projects:
     text: Support Spyder
 - id: 1
   title: Project One
-  collected: Collected so far
-  separator: of
+  collected: Recaudados hasta la fecha
+  separator: de
   content: Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
     Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -31,8 +31,8 @@ projects:
     text: Support This Project
 - id: 2
   title: Project Two
-  collected: Raised
-  separator: of
+  collected: Recaudados
+  separator: de
   content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
     unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
@@ -40,8 +40,8 @@ projects:
     text: Support This Project
 - id: 3
   title: Project Three
-  collected: Raised so far
-  separator: of
+  collected: Recaudados hasta la fecha
+  separator: de
   content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
     unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.

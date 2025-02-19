@@ -17,7 +17,7 @@ export async function load({ fetch }) {
 
     // Initialize donation totals for each project
     content.props.projects.forEach((project) => {
-      projectDonations[project.term] = {
+      projectDonations[project.slug] = {
         deals: [],
         total: 0,
       };
@@ -26,9 +26,9 @@ export async function load({ fetch }) {
     // Sort deals into their respective projects
     hubspotData.pipelineDeals.forEach((deal) => {
       content.props.projects.forEach((project) => {
-        if (deal.properties.dealname.includes(project.term)) {
-          projectDonations[project.term].deals.push(deal);
-          projectDonations[project.term].total +=
+        if (deal.properties.dealname.toLowerCase().includes(project.slug.toLowerCase())) {
+          projectDonations[project.slug].deals.push(deal);
+          projectDonations[project.slug].total +=
             parseFloat(deal.properties.amount) || 0;
         }
       });
@@ -38,10 +38,10 @@ export async function load({ fetch }) {
     const projectsWithDonations = content.props.projects.map((project) => ({
       ...project,
       donations: {
-        total: projectDonations[project.term].total,
-        deals: projectDonations[project.term].deals,
+        total: projectDonations[project.slug].total,
+        deals: projectDonations[project.slug].deals,
         progress: project.donationGoal
-          ? parseFloat(((projectDonations[project.term].total / project.donationGoal) * 100).toFixed(2))
+          ? parseFloat(((projectDonations[project.slug].total / project.donationGoal) * 100).toFixed(2))
           : null,
       },
     }));

@@ -1,5 +1,5 @@
 <script>
-  import { _, json } from "svelte-i18n";
+  import { _, json, locale } from "svelte-i18n";
   import { metadata } from "$lib/store";
   import { page } from "$app/stores";
   import { ogImage, config } from "$lib/config";
@@ -12,20 +12,16 @@
   const props = data.props;
   const totalDonations = data?.totalDonations ?? 0;
   const pipelineDeals = data?.pipelineDeals ?? [];
-  const lastUpdated = data?.lastUpdated
-    ? new Date(data.lastUpdated).toLocaleDateString()
-    : null;
 
   $: title = $_("config.site.title");
   $: description = $_("config.site.description");
   $: pageTitle = $_("donate.page.title");
   $: keywords = config.site?.keywords ?? [];
+  $: lastUpdated = data?.lastUpdated ? new Date(data.lastUpdated).toLocaleDateString($locale) : null;
 
   $: projects = Object.values(
     [...props.projects, ...$json("donate.projects")].reduce((acc, project) => {
-      acc[project.id] = acc[project.id]
-        ? { ...acc[project.id], ...project }
-        : project;
+      acc[project.id] = acc[project.id] ? { ...acc[project.id], ...project } : project;
       return acc;
     }, {}),
   );
@@ -49,25 +45,27 @@
 
 <div class="download container mt-32">
   <h1
-    class="text-4xl
-      xl:tracking-tight
-      xl:text-6xl
+    class="mb-16
       text-center
-      tracking-tight
+      text-4xl
       font-extralight
+      tracking-tight
       text-mine-shaft-600
       dark:text-mine-shaft-200
-      mb-16 md:mb-32"
+      md:mb-32
+      xl:text-6xl xl:tracking-tight"
   >
     {pageTitle}
   </h1>
 
-  <div class="intro text-center dark:text-neutral-200 text-lg md:text-xl font-light max-w-6xl mx-auto flex flex-col gap-4 mb-16 md:mb-32">
+  <div
+    class="intro mx-auto mb-16 flex max-w-6xl flex-col gap-4 text-center text-lg font-light dark:text-neutral-200 md:mb-32 md:text-xl"
+  >
     {@html $_("donate.page.intro", { values })}
   </div>
-  <div class="flex flex-wrap justify-center mt-16">
+  <div class="mt-16 flex flex-wrap justify-center">
     {#each projects as project}
-      <ProjectCard {project} href={`/donate/${project.term.toLowerCase()}`} />
+      <ProjectCard {project} href={`/donate/${project.slug.toLowerCase()}`} />
     {/each}
   </div>
 </div>

@@ -70,10 +70,9 @@
           {/each}
         </nav>
 
-        <div class="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">
-          <!-- Support button -->
-          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
-
+        <!-- Support button -->
+        <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+        <div class="hidden md:block">
           <!-- Language switch -->
           <LanguageSelect languages={languageOptions} />
         </div>
@@ -98,17 +97,10 @@
     <div
       class="md:hidden fixed inset-0 z-50 bg-spring-wood-50 text-gray-700 dark:bg-mine-shaft-950 dark:text-spring-wood-50"
     >
-      <div class="container py-5 text-right">
-        <button class="mb-8 pt-2" on:click={toggleMenu} aria-label="Close menu">
+      <div class="container relative h-full flex flex-col items-center justify-center">
+        <button class="absolute top-7 right-8 text-red-berry-900" on:click={toggleMenu} aria-label="Close menu">
           <Icon src={AiOutlineClose} size="24" />
         </button>
-        <div class="md:hidden flex flex-col items-center gap-2 scale-[2] mt-8 mb-16">
-          <!-- Support button -->
-          <NavButton buttonText="Support us" supportIcon href="/donate/"/>
-
-          <!-- Language switch -->
-          <LanguageSelect languages={languageOptions} />
-        </div>
         <nav class="text-center">
           {#each navigation as menu}
             <ul class="menu">
@@ -126,6 +118,10 @@
             </ul>
           {/each}
         </nav>
+        <div class="md:hidden flex flex-col items-center gap-2 scale-[2] mt-12">
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} showTextOnMobile={true} />
+        </div>
       </div>
     </div>
   {/if}
