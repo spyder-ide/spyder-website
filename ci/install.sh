@@ -14,7 +14,7 @@ if [ -n "$REVIEW_ID" ]; then
   SITE_URL="https://deploy-preview-${REVIEW_ID}--spyder-website-preview.netlify.app"
 else
   # Default to production URL if REVIEW_ID is empty or false
-  SITE_URL="https://www.spyder-ide.org/"
+  SITE_URL="https://www.spyder-ide.org"
 fi
 
 export PUBLIC_SITE_URL=$SITE_URL
