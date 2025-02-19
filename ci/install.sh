@@ -11,7 +11,7 @@ fc-cache -fv
 # Determine if REVIEW_ID is set to select the URL to export
 if [ -n "$REVIEW_ID" ]; then
   # Staging URL (Deploy Preview)
-  SITE_URL="https://deploy-preview-${REVIEW_ID}--spyder-svelte-website-preview.netlify.app/"
+  SITE_URL="https://deploy-preview-${REVIEW_ID}--spyder-website-preview.netlify.app"
 else
   # Default to production URL if REVIEW_ID is empty or false
   SITE_URL="https://www.spyder-ide.org/"
