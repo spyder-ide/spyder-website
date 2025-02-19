@@ -3,11 +3,12 @@
   import Header from "$lib/blocks/Header.svelte";
   import Footer from "$lib/blocks/Footer.svelte";
   import Loader from "$lib/components/Loader.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
   import "../app.css";
-
-  let loaded = false;
 </script>
+
+<Metadata prism={true}/>
 
 {#await waitLocale()}
   <div class="layout grid h-full">

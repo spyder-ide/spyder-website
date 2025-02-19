@@ -43,8 +43,6 @@
   }
 </script>
 
-<Metadata />
-
 <Hero id="hero-section" divider={true} />
 
 {#if blocks?.length}

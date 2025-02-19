@@ -50,8 +50,6 @@
 
 </script>
 
-<Metadata prism={true}/>
-
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
     <h1

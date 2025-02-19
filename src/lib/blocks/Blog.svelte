@@ -62,8 +62,6 @@
   }
 </script>
 
-<Metadata />
-
 {#await waitLocale()}
   <Loader />
 {:then}

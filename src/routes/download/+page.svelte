@@ -138,8 +138,6 @@
   }
 </script>
 
-<Metadata />
-
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}
     <h1
