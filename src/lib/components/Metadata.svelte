@@ -1,6 +1,5 @@
 <script>
     import { _, locale } from "svelte-i18n";
-    import { onMount } from "svelte";
     import { browser } from "$app/environment";
 
     import { base } from "$app/paths";
