@@ -2,12 +2,19 @@ import { existsSync, createReadStream } from "fs";
 import { join } from "path";
 import { locale } from 'svelte-i18n';
 import { building } from '$app/environment';
+import { metadata } from '$lib/store';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
   const lang = event.request.headers.get('accept-language')?.split(',')[0];
   if (lang) {
     locale.set(lang);
+  }
+
+  // Ensure metadata is available during SSG
+  if (building) {
+    const initialMetadata = metadata.getInitialMetadata();
+    event.locals.metadata = initialMetadata;
   }
 
   // Only handle image requests in development mode
@@ -23,7 +30,8 @@ export async function handle({ event, resolve }) {
     }
   }
 
-  return resolve(event);
+  const response = await resolve(event);
+  return response;
 }
 
 /** @type {import('@sveltejs/kit').HandleServerError} */

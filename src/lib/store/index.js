@@ -29,11 +29,25 @@ function createMetadata() {
     site: ""
   });
 
+  let initialMetadata = {
+    title: "",
+    description: "",
+    keywords: "",
+    author: "",
+    url: "",
+    image: "",
+    site: ""
+  };
+
   return {
     subscribe,
-    setMetadata: (metadata) => set(metadata),
-    reset: () =>
-      set({
+    setMetadata: (metadata) => {
+      initialMetadata = { ...initialMetadata, ...metadata };
+      set(initialMetadata);
+    },
+    getInitialMetadata: () => initialMetadata,
+    reset: () => {
+      initialMetadata = {
         title: "",
         description: "",
         keywords: "",
@@ -41,7 +55,9 @@ function createMetadata() {
         url: "",
         image: "",
         site: ""
-      }),
+      };
+      set(initialMetadata);
+    },
   };
 }
 
