@@ -58,11 +58,25 @@ const mdsvexOptions = {
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      // Prerender fallback strategy
+      fallback: '404.html',
+      precompress: true,
+      strict: true
+    }),
     prerender: {
-      handleHttpError: "warn",
+      handleHttpError: ({ path, referrer, message }) => {
+        // Ignore missing metadata during prerendering
+        if (path.includes('/blog/') && message.includes('metadata')) {
+          return;
+        }
+
+        // Log other errors as warnings
+        console.warn(`${path} referred by ${referrer}: ${message}`);
+      },
       handleMissingId: "ignore",
-      entries: ["*"],
+      entries: ["*", "/blog/*", "/download/*", "/about"],
+      origin: process.env.SITE_URL || "https://spyder-ide.org"
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",

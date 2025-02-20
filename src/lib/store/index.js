@@ -19,7 +19,7 @@ if (browser) {
 
 // Metadata
 function createMetadata() {
-  const { subscribe, set, update } = writable({
+  const initialMetadata = {
     title: "",
     description: "",
     keywords: "",
@@ -27,21 +27,22 @@ function createMetadata() {
     url: "",
     image: "",
     site: ""
-  });
+  };
+
+  const { subscribe, set, update } = writable(initialMetadata);
 
   return {
     subscribe,
-    setMetadata: (metadata) => set(metadata),
-    reset: () =>
-      set({
-        title: "",
-        description: "",
-        keywords: "",
-        author: "",
-        url: "",
-        image: "",
-        site: ""
-      }),
+    setMetadata: (metadata) => {
+      // Ensure all fields are strings to avoid SSR hydration issues
+      const processedMetadata = Object.entries(metadata).reduce((acc, [key, value]) => {
+        acc[key] = Array.isArray(value) ? value.join(", ") : String(value || "");
+        return acc;
+      }, {});
+
+      set({ ...initialMetadata, ...processedMetadata });
+    },
+    reset: () => set(initialMetadata)
   };
 }
 
