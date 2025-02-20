@@ -2,11 +2,10 @@
   import { _, json, waitLocale } from "svelte-i18n";
 
   import { page } from "$app/stores";
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
 
   import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
 
   import { ogImage as image, config, contributors } from "$lib/config";
   import {
@@ -14,6 +13,8 @@
     createContributorsMap,
     mergeContributorData,
   } from "$lib/utils";
+
+  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -95,21 +96,20 @@
     }
 
     // Update metadata
-    metadata.setMetadata({
+    metadata.set(createWebsiteMetadata({
       title: `${title} | ${pageTitle}`,
       description,
-      keywords: keywords.join(", "),
+      keywords,
       author,
-      image,
       url: $page.url.href,
-    });
+      image: image,
+    }));
   }
 </script>
 
 {#await waitLocale()}
   <Loader />
 {:then}
-  <Metadata />
   <div class="container">
     <h1
       class="text-4xl

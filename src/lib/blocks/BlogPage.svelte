@@ -1,8 +1,9 @@
 <script>
   import { _, json } from "svelte-i18n"
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
   import { siteUrl, ogImageBlog, config } from "$lib/config";
   import Blog from "$lib/blocks/Blog.svelte";
+  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -23,14 +24,14 @@
     author = $_('config.site.author');
 
     // Update metadata
-    metadata.setMetadata({
+    metadata.set(createWebsiteMetadata({
       title: `${title} | ${subtitle}`,
       description,
       keywords: keywords.join(", "),
       author,
       url: siteUrl,
       image: ogImageBlog,
-    });
+    }));
   }
 </script>
 

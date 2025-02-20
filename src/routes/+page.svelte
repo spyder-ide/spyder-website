@@ -1,12 +1,12 @@
 <script>
   import { _, json } from "svelte-i18n";
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
   import { siteUrl, ogImage, config, frontpage } from "$lib/config";
   import { mergeContentBlocks } from "$lib/utils/content";
+  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
 
   let blocks = [];
   let title = "";
@@ -29,21 +29,19 @@
       keywords = config.site.keywords || [];
 
       // Update metadata
-      metadata.setMetadata({
+      metadata.set(createWebsiteMetadata({
         title: title && subtitle ? `${title} | ${subtitle}` : title,
         description,
-        keywords: Array.isArray(keywords) ? keywords.join(", ") : "",
+        keywords,
         author,
         url: siteUrl,
         image: ogImage,
-      });
+      }));
     } catch (error) {
       console.error("Error loading content:", error);
     }
   }
 </script>
-
-<Metadata />
 
 <Hero id="hero-section" divider={true} />
 

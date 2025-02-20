@@ -4,11 +4,11 @@
 
   import { page } from "$app/stores";
 
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
   import { siteUrl, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
-  import Metadata from "$lib/components/Metadata.svelte";
+  import { createArticleMetadata } from "$lib/metadata/utils";
 
   /** @type {import('./$types').PageData} */
   // svelte-ignore unused-export-let
@@ -19,6 +19,7 @@
   // Props from markdown
   export let title;
   export let pub_date;
+  export let modified_date = undefined;
   export let author;
   export let tags;
   export let category;
@@ -38,19 +39,23 @@
 
   $: {
     siteTitle = $_('config.site.title');
-    metadata.setMetadata({
+    metadata.set(createArticleMetadata({
       title: `${siteTitle} | ${title}`,
       description: summary,
-      keywords: `${tags}, ${category}`,
+      summary,
+      pub_date,
+      modified_date,
       author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
+      tags,
+      category,
+      keywords: tags,
       url: $page.url.href,
-      image: customOgImagePath || ogImageBlog,
-    });
+      image: customOgImagePath,
+      prism: true
+    }));
   }
 
 </script>
-
-<Metadata prism={true}/>
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">

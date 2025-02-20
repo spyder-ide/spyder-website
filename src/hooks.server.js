@@ -2,7 +2,9 @@ import { existsSync, createReadStream } from "fs";
 import { join } from "path";
 import { locale } from 'svelte-i18n';
 import { building } from '$app/environment';
-import { metadata } from '$lib/store';
+import { metadata } from '$lib/store/metadata';
+import { createWebsiteMetadata, createArticleMetadata } from '$lib/metadata/utils';
+import { siteMetadata } from '$lib/metadata/config';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -13,8 +15,30 @@ export async function handle({ event, resolve }) {
 
   // Ensure metadata is available during SSG
   if (building) {
-    const initialMetadata = metadata.getInitialMetadata();
-    event.locals.metadata = initialMetadata;
+    // Check if it's a blog post
+    const isBlogPost = event.url.pathname.startsWith('/blog/') &&
+                      !event.url.pathname.endsWith('/feed.xml') &&
+                      !event.url.pathname.match(/\/\d+$/);
+
+    // Set appropriate metadata based on route
+    if (isBlogPost) {
+      const defaultArticleMetadata = createArticleMetadata({
+        title: siteMetadata.title,
+        description: siteMetadata.description,
+        author: siteMetadata.author,
+        pub_date: new Date().toISOString().split('T')[0],
+        summary: siteMetadata.description,
+        category: 'Blog',
+        tags: [],
+        url: event.url.href
+      });
+      event.locals.metadata = defaultArticleMetadata;
+    } else {
+      const defaultMetadata = createWebsiteMetadata({
+        url: event.url.href
+      });
+      event.locals.metadata = defaultMetadata;
+    }
   }
 
   // Only handle image requests in development mode

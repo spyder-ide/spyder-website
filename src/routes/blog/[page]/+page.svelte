@@ -1,10 +1,11 @@
 <script>
   import { _, json } from "svelte-i18n"
 
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
   import { siteUrl, ogImageBlog, config } from "$lib/config";
 
   import BlogPage from "$lib/blocks/BlogPage.svelte";
+  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -20,14 +21,14 @@
     author = $_('config.site.author');
     keywords = config.site.keywords;
 
-    metadata.setMetadata({
+    metadata.set(createWebsiteMetadata({
       title: `${title} | ${subtitle}`,
       description,
       keywords: keywords.join(", "),
       author,
       url: siteUrl,
       image: ogImageBlog,
-    });
+    }));
   }
 </script>
 

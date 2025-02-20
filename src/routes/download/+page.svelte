@@ -5,7 +5,7 @@
   import { browser } from "$app/environment";
   import { page } from "$app/stores";
 
-  import { metadata } from "$lib/store";
+  import { metadata } from "$lib/store/metadata";
   import { getOS } from "$lib/utils";
   import {
     ogImage as image,
@@ -15,7 +15,7 @@
 
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
+  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
   /** @typedef {Record<string, Record<string, ReleaseInfo>>} Releases */
@@ -122,14 +122,14 @@
     download = $json("download.action");
 
     // Update metadata
-    metadata.setMetadata({
+    metadata.set(createWebsiteMetadata({
       title: `${title} | ${download.name}`,
       description,
-      keywords: keywords.join(", "),
+      keywords,
       author,
-      image,
       url: $page.url.href,
-    });
+      image,
+    }));
 
     // Update Mac-specific data
     if (releases?.mac) {
@@ -137,8 +137,6 @@
     }
   }
 </script>
-
-<Metadata />
 
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}
