@@ -5,6 +5,7 @@ import { building } from '$app/environment';
 import { metadata } from '$lib/store/metadata';
 import { createWebsiteMetadata, createArticleMetadata } from '$lib/metadata/utils';
 import { siteMetadata } from '$lib/metadata/config';
+import { fetchMarkdownPosts } from '$lib/utils';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -22,17 +23,46 @@ export async function handle({ event, resolve }) {
 
     // Set appropriate metadata based on route
     if (isBlogPost) {
-      const defaultArticleMetadata = createArticleMetadata({
-        title: siteMetadata.title,
-        description: siteMetadata.description,
-        author: siteMetadata.author,
-        pub_date: new Date().toISOString().split('T')[0],
-        summary: siteMetadata.description,
-        category: 'Blog',
-        tags: [],
-        url: event.url.href
-      });
-      event.locals.metadata = defaultArticleMetadata;
+      // Get the slug from the URL
+      const slug = event.url.pathname.replace('/blog/', '').replace(/\/$/, '');
+
+      // Get all posts
+      const posts = await fetchMarkdownPosts();
+
+      // Find the current post
+      const currentPost = posts.find(post => post.path === slug);
+
+      if (currentPost) {
+        // Create metadata with the correct image path
+        const customOgImagePath = `/assets/og/${slug}.png`;
+        const defaultArticleMetadata = createArticleMetadata({
+          title: `${siteMetadata.title} | ${currentPost.meta.title}`,
+          description: currentPost.meta.summary,
+          summary: currentPost.meta.summary,
+          author: currentPost.meta.author,
+          pub_date: currentPost.meta.pub_date,
+          modified_date: currentPost.meta.modified_date,
+          tags: currentPost.meta.tags,
+          category: currentPost.meta.category,
+          url: event.url.href,
+          image: customOgImagePath,
+          prism: true
+        });
+        event.locals.metadata = defaultArticleMetadata;
+      } else {
+        // Fallback to default metadata if post not found
+        const defaultArticleMetadata = createArticleMetadata({
+          title: siteMetadata.title,
+          description: siteMetadata.description,
+          author: siteMetadata.author,
+          pub_date: new Date().toISOString().split('T')[0],
+          summary: siteMetadata.description,
+          category: 'Blog',
+          tags: [],
+          url: event.url.href
+        });
+        event.locals.metadata = defaultArticleMetadata;
+      }
     } else {
       const defaultMetadata = createWebsiteMetadata({
         url: event.url.href
