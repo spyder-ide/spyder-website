@@ -4,14 +4,12 @@
   import { browser } from "$app/environment";
   import { base } from "$app/paths";
 
-  import { metadata } from "$lib/store/metadata";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
 
-  import { siteUrl, ogImageBlog, config } from "$lib/config";
-  import { createWebsiteMetadata } from "$lib/metadata/utils";
+  import { config } from "$lib/config";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -24,17 +22,6 @@
   $: {
     socials = config.site.socials;
     site = `@${socials.twitter.split("/").pop()}`;
-
-    metadata.set(createWebsiteMetadata({
-      title: `${$_("config.site.title")} | ${$_("config.blog.title")}`,
-      description: $_("config.blog.description"),
-      author: $_("config.site.author"),
-      keywords: config.site.keywords.join(", "),
-      image: ogImageBlog,
-      site,
-      url: siteUrl,
-    }));
-
     ({ posts, pageNum, totalPages } = data.props);
 
     if (posts) {

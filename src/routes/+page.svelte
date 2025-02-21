@@ -1,9 +1,7 @@
 <script>
   import { _, json } from "svelte-i18n";
-  import { metadata } from "$lib/store/metadata";
-  import { siteUrl, ogImage, config, frontpage } from "$lib/config";
+  import { config, frontpage } from "$lib/config";
   import { mergeContentBlocks } from "$lib/utils/content";
-  import { createWebsiteMetadata } from "$lib/metadata/utils";
 
   import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
@@ -27,16 +25,6 @@
       author = $_("config.site.author") || "";
       description = $_("config.site.description") || "";
       keywords = config.site.keywords || [];
-
-      // Update metadata
-      metadata.set(createWebsiteMetadata({
-        title: title && subtitle ? `${title} | ${subtitle}` : title,
-        description,
-        keywords,
-        author,
-        url: siteUrl,
-        image: ogImage,
-      }));
     } catch (error) {
       console.error("Error loading content:", error);
     }

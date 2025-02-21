@@ -1,1 +1,1 @@
-export { colourScheme, osStore } from './app';
+export { colourScheme, osStore } from './store';

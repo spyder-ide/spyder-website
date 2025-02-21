@@ -4,11 +4,8 @@
 
   import { page } from "$app/stores";
 
-  import { metadata } from "$lib/store/metadata";
-  import { siteUrl, ogImageBlog } from "$lib/config";
+  import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
-
-  import { createArticleMetadata } from "$lib/metadata/utils";
 
   /** @type {import('./$types').PageData} */
   // svelte-ignore unused-export-let
@@ -17,16 +14,18 @@
   export let form;
 
   // Props from markdown
-  export let title;
-  export let pub_date;
-  export let modified_date = undefined;
-  export let author;
-  export let tags;
-  export let category;
-  export let summary;
+  export let title = "";
+  export let author = [];
+  // svelte-ignore unused-export-let
+  export let tags = [];
+  // svelte-ignore unused-export-let
+  export let category = "";
+  // svelte-ignore unused-export-let
+  export let pub_date = "";
+  // svelte-ignore unused-export-let
+  export let summary = "";
 
   // Initialize variables
-  let siteTitle;
   let authorsMetadata = [];
 
   const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
@@ -36,26 +35,39 @@
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
-
-  $: {
-    siteTitle = $_('config.site.title');
-    metadata.set(createArticleMetadata({
-      title: `${siteTitle} | ${title}`,
-      description: summary,
-      summary,
-      pub_date,
-      modified_date,
-      author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
-      tags,
-      category,
-      keywords: tags,
-      url: $page.url.href,
-      image: customOgImagePath,
-      prism: true
-    }));
-  }
-
 </script>
+
+<svelte:head>
+  <title>Spyder | {title}</title>
+  <meta name="description" content={summary} />
+  <meta name="keywords" content={tags} />
+  <meta name="author" content={author} />
+  <link rel="canonical" href={`${siteUrl}/blog/${slug}`} />
+  <meta property="og:image" content={customOgImagePath} />
+  {#if customOgImagePath.startsWith('https')}
+    <meta property="og:image:secure_url" content={customOgImagePath} />
+  {/if}
+  <meta property="og:title" content="Spyder | {title}" />
+  <meta property="og:description" content={summary} />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content={`${siteUrl}/blog/${slug}`} />
+  <meta property="og:site_name" content="Spyder IDE" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:article:published_time" content={pub_date} />
+  <meta property="og:article:section" content={category} />
+  <meta property="og:article:tag" content={tags} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@spyder_ide" />
+  <meta name="twitter:creator" content="@spyder_ide" />
+  <meta name="twitter:title" content="Spyder | {title}" />
+  <meta name="twitter:description" content={summary} />
+  <meta name="twitter:image" content={customOgImagePath} />
+  <meta name="twitter:image:alt" content={title} />
+  <meta property="article:published_time" content={pub_date} />
+  <meta property="article:tag" content={tags} />
+  <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href={`${siteUrl}/blog/feed.xml`} />
+  <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
+</svelte:head>
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
