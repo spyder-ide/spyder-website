@@ -5,14 +5,14 @@
 
   // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary, slug;
+  export let data, form, title, author, tags, category, pub_date, summary, slug, customOgImagePath;
 
   // Initialize variables
-  let customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
   let authorsMetadata = [];
   
   // Load authors metadata
   $: {
+    customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
     let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     if (postAuthors.length > 0) {
       fetchAuthorsMetadata(postAuthors).then(metadata => {
