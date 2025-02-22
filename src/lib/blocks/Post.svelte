@@ -22,27 +22,20 @@
   }
 </script>
 
-<SvelteSeo
-  title={`Spyder | ${title}`}
-  description={summary}
-  canonical={$page.data.slug}
-  keywords={tags}
-  openGraph={{
-    title: `Spyder | ${title}`,
-    description: summary,
-    image: $page.data.ogImage,
-    url: `${siteUrl}/blog/${$page.data.slug}`,
-    type: "article",
-    site_name: "Spyder",
-  }}
-  twitter={{
-    card: "summary_large_image",
-    site: "@spyder_ide",
-    title: `Spyder | ${title}`,
-    description: summary,
-    image: $page.data.ogImage,
-  }}
-/>
+<svelte:head>
+  <title>Spyder | {title}</title>
+  <meta property="og:title" content="Spyder | {title}" />
+  <meta property="og:description" content={summary} />
+  <meta property="og:image" content={$page.data.ogImage} />
+  <meta property="og:url" content={`${siteUrl}/blog/${$page.data.slug}`} />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Spyder" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@spyder_ide" />
+  <meta name="twitter:title" content="Spyder | {title}" />
+  <meta name="twitter:description" content={summary} />
+  <meta name="twitter:image" content={$page.data.ogImage} />
+</svelte:head>
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
