@@ -34,7 +34,7 @@
 <svelte:head>
   <title>Spyder | {title}</title>
   <meta name="description" content={summary} />
-  <meta name="keywords" content={tags.join(', ')} />
+  <meta name="keywords" content={tags} />
   <meta name="author" content={Array.isArray(author) ? author.join(', ') : author} />
 
   <!-- OpenGraph -->
