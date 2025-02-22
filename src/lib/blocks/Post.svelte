@@ -1,24 +1,40 @@
 <script>
-  import SvelteSeo from "svelte-seo";
-  import { siteUrl } from "$lib/config";
+  import { onMount } from "svelte";
+  import { page } from "$app/stores";
+  import { metadata } from "$lib/store";
+  import { siteUrl, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
-  // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary, slug;
+  export let data;
+  // svelte-ignore unused-export-let
+  export let form;
 
-  // Initialize variables
+  // Props from markdown
+  export let title;
+  export let pub_date;
+  export let author;
+  export let tags;
+  export let category;
+  export let summary;
+
   let authorsMetadata = [];
-  
-  // Load authors metadata
-  $: {
-    let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
-    if (postAuthors.length > 0) {
-      fetchAuthorsMetadata(postAuthors).then(metadata => {
-        authorsMetadata = metadata;
-      });
-    }
-  }
+  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
+  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
+
+  onMount(async () => {
+    const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
+    authorsMetadata = await fetchAuthorsMetadata(postAuthors);
+  });
+
+  $: metadata.setMetadata({
+    title: `Spyder | ${title}`,
+    description: summary,
+    keywords: `${tags}, ${category}`,
+    author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
+    url: $page.url.href,
+    image: customOgImagePath || ogImageBlog,
+  });
 </script>
 
 <svelte:head>
