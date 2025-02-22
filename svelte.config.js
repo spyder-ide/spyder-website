@@ -1,3 +1,4 @@
+// svelte.config.js
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
@@ -39,11 +40,12 @@ const escapeQuotes = () => {
   };
 }
 
+/** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [
     smartypants,
-    escapeQuotes,
+    escapeQuotes
   ],
   rehypePlugins: [
     blogImages,
@@ -52,42 +54,24 @@ const mdsvexOptions = {
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
-  }
+  },
 };
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter({
-      pages: 'build',
-      assets: 'build',
-      fallback: null,
-      precompress: false,
-      strict: true
-    }),
+    adapter: adapter(),
     prerender: {
       handleHttpError: "warn",
-      handleMissingId: "ignore",
+      handleMissingId: "warn",
       entries: ["*"],
-      origin: process.env.PUBLIC_SITE_URL || 'https://www.spyder-ide.org',
-      crawl: true,
-      handleMissingId: 'warn'
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",
     },
-    alias: {
-      $static: 'static'
-    }
   },
   extensions: [".svelte", ".md"],
-  preprocess: [
-    vitePreprocess(),
-    mdsvex(mdsvexOptions)
-  ],
-  vitePlugin: {
-    inspector: true
-  },
+  preprocess: [mdsvex(mdsvexOptions), vitePreprocess()],
   // Omit warning about screenreaders announcing <img> elements as an image
   onwarn: (warning, handler) => {
     // Omit the warning about redundant alt text if we are on development mode
@@ -97,7 +81,7 @@ const config = {
     }
 
     handler(warning);
-  }
+  },
 };
 
 export default config;
