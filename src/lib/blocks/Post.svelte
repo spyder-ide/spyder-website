@@ -22,13 +22,18 @@
 
   // Initialize variables
   let authorsMetadata = [];
+  let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
 
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
-  onMount(async () => {
-    const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
-    authorsMetadata = await fetchAuthorsMetadata(postAuthors);
-  });
+  // Fetch authors metadata during SSR
+  $: {
+    if (postAuthors.length > 0) {
+      fetchAuthorsMetadata(postAuthors).then(metadata => {
+        authorsMetadata = metadata;
+      });
+    }
+  }
 </script>
 
 <svelte:head>
