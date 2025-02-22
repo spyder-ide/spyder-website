@@ -13,8 +13,38 @@ export const colourScheme = writable(storedColourScheme);
 if (browser) {
   colourScheme.subscribe((value) => {
     localStorage.setItem("colourScheme", value);
+    console.log("Colour scheme set to", value);
   });
 }
+
+function createMetadata() {
+  const { subscribe, set, update } = writable({
+    title: "",
+    description: "",
+    keywords: "",
+    author: "",
+    url: "",
+    image: "",
+    site: ""
+  });
+
+  return {
+    subscribe,
+    setMetadata: (metadata) => set(metadata),
+    reset: () =>
+      set({
+        title: "",
+        description: "",
+        keywords: "",
+        author: "",
+        url: "",
+        image: "",
+        site: ""
+      }),
+  };
+}
+
+export const metadata = createMetadata();
 
 // Operating system store
 interface OSState {
