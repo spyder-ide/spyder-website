@@ -85,27 +85,18 @@ export function formattedPubDate(date, i18n = "en-US") {
  */
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
-    if (!browser) {
-      // During SSR, use direct import
-      const metadata = await import(`../../assets/authors/${author}/metadata.json`);
-      return {
-        src: `/assets/authors/${author}/${metadata.default.image}`,
-        name: metadata.default.name,
-      };
-    } else {
-      // In the browser, use fetch
-      const response = await (customFetch || fetch)(
-        `/assets/authors/${author}/metadata.json`,
+    // In the browser, use fetch
+    const response = await (customFetch || fetch)(
+      `/assets/authors/${author}/metadata.json`,
       );
       if (!response.ok) {
         throw new Error("Failed to load author metadata");
       }
       const metadata = await response.json();
       return {
-        src: `/assets/authors/${author}/${metadata.image}`,
-        name: metadata.name,
-      };
-    }
+      src: `/assets/authors/${author}/${metadata.image}`,
+      name: metadata.name,
+    };
   } catch (error) {
     console.error("Failed to load author metadata:", error);
     return null;

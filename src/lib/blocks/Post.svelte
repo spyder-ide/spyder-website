@@ -5,6 +5,8 @@
   import { siteUrl, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
+  import Metadata from "$lib/components/Metadata.svelte";
+
   // svelte-ignore unused-export-let
   export let data;
   // svelte-ignore unused-export-let
@@ -37,20 +39,7 @@
   });
 </script>
 
-<svelte:head>
-  <title>Spyder | {title}</title>
-  <meta property="og:title" content="Spyder | {title}" />
-  <meta property="og:description" content={summary} />
-  <meta property="og:image" content={`${siteUrl}/assets/og/${slug}.png`} />
-  <meta property="og:url" content={`${siteUrl}/blog/${slug}`} />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Spyder" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@spyder_ide" />
-  <meta name="twitter:title" content="Spyder | {title}" />
-  <meta name="twitter:description" content={summary} />
-  <meta name="twitter:image" content={`${siteUrl}/assets/og/${slug}.png`} />
-</svelte:head>
+<Metadata prism={true} />
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">

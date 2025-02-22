@@ -1,9 +1,9 @@
 <script>
-    import { base } from "$app/paths";
-    import { title, socials, siteUrl, blogSlug } from "$lib/config";
+    import { siteUrl } from "$lib/config";
     import { metadata } from "$lib/store";
 
-    const site = `@${socials.twitter.split("/").pop()}`;
+    const creator = `@spyder-ide`;
+    const site = `https://spyder-ide.org`;
     const untrailedUrl = $metadata.url.replace(/\/+$/, '');
 
     export let prism = false;
@@ -19,7 +19,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="Spyder's Blog"
-    href="{siteUrl}{blogSlug}/feed.xml"
+    href="{siteUrl}/blog/feed.xml"
   />
 
   <!-- Open Graph / Facebook -->
@@ -35,7 +35,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content={site} />
-  <meta name="twitter:creator" content={site} />
+  <meta name="twitter:creator" content={creator} />
   <meta name="twitter:title" content={$metadata.title} />
   <meta name="twitter:description" content={$metadata.description} />
   <meta name="twitter:image" content={$metadata.image} />
@@ -43,6 +43,6 @@
 
   {#if prism}
     <!-- Nord stylesheet for code blocks with prism -->
-    <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css" />
+    <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
   {/if}
 </svelte:head>
