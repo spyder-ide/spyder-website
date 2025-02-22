@@ -20,30 +20,29 @@ if (browser) {
 // Metadata store
 function createMetadata() {
   const { subscribe, set, update } = writable({
-    title: "",
-    description: "",
-    keywords: "",
-    author: "",
+    title: "Spyder IDE",
+    description: "Scientific Python Development Environment",
+    keywords: "python, ide, science, development",
+    author: "Spyder Website Contributors",  
     url: "",
     image: "",
-    site: "",
+    site: "@spyder-ide",
     isLoading: true
   });
 
   return {
     subscribe,
-    setMetadata: (metadata) => set(metadata),
-    reset: () =>
-      set({
-        title: "",
-        description: "",
-        keywords: "",
-        author: "",
-        url: "",
-        image: "",
-        site: "",
-        isLoading: true
-      }),
+    setMetadata: (metadata) => set({ ...metadata, isLoading: false }),
+    reset: () => set({
+      title: "Spyder IDE",
+      description: "Scientific Python Development Environment",
+      keywords: "python, ide, science, development",
+      author: "Spyder Website Contributors",
+      url: "",
+      image: "",
+      site: "@spyder-ide",
+      isLoading: true
+    })
   };
 }
 
