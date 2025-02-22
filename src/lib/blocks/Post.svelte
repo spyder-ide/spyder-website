@@ -1,18 +1,11 @@
 <script>
-  import { _ } from 'svelte-i18n';
-  import { onMount } from "svelte";
-
   import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
-  /** @type {import('./$types').PageData} */
-  // svelte-ignore unused-export-let
-  export let data;
-  // svelte-ignore unused-export-let
-  export let form;
-
   // Props from markdown
-  export let title = "";
+  // svelte-ignore unused-export-let
+  export let data, form;
+  export let title = data.title;
   export let author = [];
   export let tags = [];
   export let category = "";
@@ -21,13 +14,14 @@
   export let slug = "";
 
   // Initialize variables
+  let customOgImagePath;
   let authorsMetadata = [];
   let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
 
-  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   // Fetch authors metadata during SSR
   $: {
+    customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
     if (postAuthors.length > 0) {
       fetchAuthorsMetadata(postAuthors).then(metadata => {
         authorsMetadata = metadata;
