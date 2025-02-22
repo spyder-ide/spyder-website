@@ -2,7 +2,7 @@
   import { _ } from 'svelte-i18n';
   import { onMount } from "svelte";
 
-  //import { siteUrl } from "$lib/config";
+  import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
   /** @type {import('./$types').PageData} */
@@ -19,10 +19,11 @@
   export let pub_date = "";
   export let summary = "";
   export let slug = "";
-  let siteUrl = "https://deploy-preview-49--spyder-website-preview.netlify.app";
 
   // Initialize variables
   let authorsMetadata = [];
+
+  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
@@ -36,9 +37,9 @@
   <meta name="keywords" content={tags} />
   <meta name="author" content={author} />
   <link rel="canonical" href={`${siteUrl}/blog/${slug}`} />
-  <meta property="og:image" content={`${siteUrl}/assets/og/${slug}.png`} />
-  {#if `${siteUrl}/assets/og/${slug}.png`.startsWith('https')}
-    <meta property="og:image:secure_url" content={`${siteUrl}/assets/og/${slug}.png`} />
+  <meta property="og:image" content={customOgImagePath} />
+  {#if customOgImagePath.startsWith('https')}
+    <meta property="og:image:secure_url" content={customOgImagePath} />
   {/if}
   <meta property="og:title" content="Spyder | {title}" />
   <meta property="og:description" content={summary} />
@@ -54,7 +55,7 @@
   <meta name="twitter:creator" content="@spyder_ide" />
   <meta name="twitter:title" content="Spyder | {title}" />
   <meta name="twitter:description" content={summary} />
-  <meta name="twitter:image" content={`${siteUrl}/assets/og/${slug}.png`} />
+  <meta name="twitter:image" content={customOgImagePath} />
   <meta name="twitter:image:alt" content={title} />
   <meta property="article:published_time" content={pub_date} />
   <meta property="article:tag" content={tags} />
