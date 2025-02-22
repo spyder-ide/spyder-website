@@ -27,6 +27,7 @@ function createMetadata() {
     url: "",
     image: "",
     site: "",
+    isLoading: true
   });
 
   return {
@@ -41,6 +42,7 @@ function createMetadata() {
         url: "",
         image: "",
         site: "",
+        isLoading: true
       }),
   };
 }

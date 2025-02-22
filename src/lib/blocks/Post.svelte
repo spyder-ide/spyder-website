@@ -21,22 +21,38 @@
   export let summary;
 
   let authorsMetadata = [];
+  let isMetadataReady = false;
   const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
+
+  // Initialize metadata with loading state
+  metadata.setMetadata({
+    title: `Spyder | ${title}`,
+    description: summary,
+    keywords: `${tags}, ${category}`,
+    author: author || '',
+    url: $page.url.href,
+    image: customOgImagePath || ogImageBlog,
+    isLoading: true
+  });
 
   onMount(async () => {
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
+    isMetadataReady = true;    
   });
 
-  $: metadata.setMetadata({
-    title: `Spyder | ${title}`,
-    description: summary,
-    keywords: `${tags}, ${category}`,
-    author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
-    url: $page.url.href,
-    image: customOgImagePath || ogImageBlog,
-  });
+  $: if (isMetadataReady) {
+    metadata.setMetadata({
+      title: `Spyder | ${title}`,
+      description: summary,
+      keywords: `${tags}, ${category}`,
+      author: authorsMetadata.map(a => a.name).join(', ') || (author || ''),
+      url: $page.url.href,
+      image: customOgImagePath || ogImageBlog,
+      isLoading: false
+    });
+  }
 </script>
 
 <Metadata prism={true} />
