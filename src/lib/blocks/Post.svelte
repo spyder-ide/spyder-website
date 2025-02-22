@@ -2,8 +2,6 @@
   import { _ } from 'svelte-i18n';
   import { onMount } from "svelte";
 
-  import { page } from "$app/stores";
-
   import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
 
@@ -16,19 +14,15 @@
   // Props from markdown
   export let title = "";
   export let author = [];
-  // svelte-ignore unused-export-let
   export let tags = [];
-  // svelte-ignore unused-export-let
   export let category = "";
-  // svelte-ignore unused-export-let
   export let pub_date = "";
-  // svelte-ignore unused-export-let
   export let summary = "";
+  export let slug = "";
 
   // Initialize variables
   let authorsMetadata = [];
 
-  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {

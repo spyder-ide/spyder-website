@@ -15,7 +15,7 @@ export async function GET() {
   const feedItems = posts.map(post => `
     <item>
       <title>${post.meta.title}</title>
-      <link>${siteUrl}blog/${post.path}</link>
+      <link>${siteUrl}/blog/${post.path}</link>
       <description>${post.meta.summary || ''}</description>
       <category>${post.meta.category || ''}</category>
       <pubDate>${new Date(post.meta.pub_date).toUTCString()}</pubDate>
@@ -27,7 +27,7 @@ export async function GET() {
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel>
         <title>${blogTitle}</title>
-        <link>${siteUrl}blog</link>
+        <link>${siteUrl}/blog</link>
         <description>${description}</description>
         <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml"/>
         ${feedItems}

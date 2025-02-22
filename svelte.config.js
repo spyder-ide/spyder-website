@@ -43,7 +43,7 @@ const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [
     smartypants,
-    escapeQuotes
+    escapeQuotes,
   ],
   rehypePlugins: [
     blogImages,
@@ -52,7 +52,7 @@ const mdsvexOptions = {
   ],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
-  },
+  }
 };
 
 /** @type {import('@sveltejs/kit').Config} */
