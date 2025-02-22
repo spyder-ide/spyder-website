@@ -6,11 +6,11 @@
 
   // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary;
+  export let data, form, title, author, tags, category, pub_date, summary, slug;
 
   // Initialize variables
   let authorsMetadata = [];
-  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
+  slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
   
   // Load authors metadata
