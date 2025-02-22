@@ -10,8 +10,12 @@ export default defineConfig({
       allow: ['static', 'src']
     }
   },
+  ssr: {
+    noExternal: ['svelte-icons-pack'],
+  },
   build: {
     chunkSizeWarningLimit: 1500,
-    sourcemap: false,
+    ssrEmitAssets: true,
+    sourcemap: true,
   }
 });

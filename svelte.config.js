@@ -58,11 +58,20 @@ const mdsvexOptions = {
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      pages: 'build',
+      assets: 'build',
+      fallback: null,
+      precompress: false,
+      strict: true
+    }),
     prerender: {
       handleHttpError: "warn",
       handleMissingId: "ignore",
       entries: ["*"],
+      origin: process.env.PUBLIC_SITE_URL || 'https://www.spyder-ide.org',
+      crawl: true,
+      handleMissingId: 'warn'
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",

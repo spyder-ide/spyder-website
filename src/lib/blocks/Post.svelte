@@ -1,6 +1,7 @@
 <script>
   import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
+  import { browser } from '$app/environment';
 
   // Props from markdown
   // svelte-ignore unused-export-let
@@ -14,14 +15,12 @@
   export let slug = "";
 
   // Initialize variables
-  let customOgImagePath;
+  let customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
   let authorsMetadata = [];
   let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
 
-
-  // Fetch authors metadata during SSR
+  // Load authors metadata
   $: {
-    customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
     if (postAuthors.length > 0) {
       fetchAuthorsMetadata(postAuthors).then(metadata => {
         authorsMetadata = metadata;
