@@ -2,17 +2,19 @@
   import SvelteSeo from "svelte-seo";
   import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
+  import { page } from "$app/stores";
 
   // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary, slug, customOgImagePath;
+  export let data, form, title, author, tags, category, pub_date, summary;
 
   // Initialize variables
   let authorsMetadata = [];
+  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
+  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
   
   // Load authors metadata
   $: {
-    customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
     let postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     if (postAuthors.length > 0) {
       fetchAuthorsMetadata(postAuthors).then(metadata => {
