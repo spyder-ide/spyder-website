@@ -3,6 +3,8 @@ import { join } from "path";
 import { locale } from 'svelte-i18n';
 import { building } from '$app/environment';
 
+export default join;
+
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
   const lang = event.request.headers.get('accept-language')?.split(',')[0];
