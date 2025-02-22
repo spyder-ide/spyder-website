@@ -6,12 +6,10 @@
 
   // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary, slug;
+  export let data, form, title, author, tags, category, pub_date, summary;
 
   // Initialize variables
   let authorsMetadata = [];
-  slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
-  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
   
   // Load authors metadata
   $: {
@@ -27,13 +25,13 @@
 <SvelteSeo
   title={`Spyder | ${title}`}
   description={summary}
-  canonical={`${siteUrl}/blog/${slug}`}
+  canonical={$page.data.slug}
   keywords={tags}
   openGraph={{
     title: `Spyder | ${title}`,
     description: summary,
-    image: customOgImagePath,
-    url: `${siteUrl}/blog/${slug}`,
+    image: $page.data.ogImage,
+    url: `${siteUrl}/blog/${$page.data.slug}`,
     type: "article",
     site_name: "Spyder",
   }}
@@ -42,7 +40,7 @@
     site: "@spyder_ide",
     title: `Spyder | ${title}`,
     description: summary,
-    image: customOgImagePath,
+    image: $page.data.ogImage,
   }}
 />
 
