@@ -10,3 +10,5 @@ export async function load({ url }) {
     slug
   };
 } 
+
+export const prerender = true;
