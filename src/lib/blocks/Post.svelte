@@ -52,9 +52,7 @@
   <meta property="og:locale" content="en_US" />
   <meta property="article:published_time" content={pub_date} />
   <meta property="article:section" content={category} />
-  {#each tags as tag}
-    <meta property="article:tag" content={tag} />
-  {/each}
+  <meta property="article:tag" content={tags} />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -89,7 +87,7 @@
           "name": "Spyder IDE",
           "logo": {
             "@type": "ImageObject",
-            "url": "${siteUrl}/assets/images/spyder-logo.png"
+            "url": "${siteUrl}/assets/media/spyder-logomark.png"
           }
         },
         "mainEntityOfPage": {
