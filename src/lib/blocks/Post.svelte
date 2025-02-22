@@ -2,11 +2,10 @@
   import SvelteSeo from "svelte-seo";
   import { siteUrl } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
-  import { page } from "$app/stores";
 
   // Props from markdown
   // svelte-ignore unused-export-let
-  export let data, form, title, author, tags, category, pub_date, summary;
+  export let data, form, title, author, tags, category, pub_date, summary, slug;
 
   // Initialize variables
   let authorsMetadata = [];
@@ -26,15 +25,15 @@
   <title>Spyder | {title}</title>
   <meta property="og:title" content="Spyder | {title}" />
   <meta property="og:description" content={summary} />
-  <meta property="og:image" content={$page.data.ogImage} />
-  <meta property="og:url" content={`${siteUrl}/blog/${$page.data.slug}`} />
+  <meta property="og:image" content={`${siteUrl}/assets/og/${slug}.png`} />
+  <meta property="og:url" content={`${siteUrl}/blog/${slug}`} />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Spyder" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@spyder_ide" />
   <meta name="twitter:title" content="Spyder | {title}" />
   <meta name="twitter:description" content={summary} />
-  <meta name="twitter:image" content={$page.data.ogImage} />
+  <meta name="twitter:image" content={`${siteUrl}/assets/og/${slug}.png`} />
 </svelte:head>
 
 <article class="container">

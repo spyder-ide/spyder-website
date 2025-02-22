@@ -7,6 +7,7 @@ tags: Feature, Spyder6
 category: Releases
 pub_date: 2024-12-28
 summary: "Spyder's lead maintainer, Carlos Cordoba, shares his insights on the projects and features he helped develop for Spyder 6.0, particularly UI/UX and where the IDE is headed next."
+slug: spyder-6-carlos
 ---
 
 I started out using Spyder just like many of you, employing it for my research in modeling and simulation of physical systems all the way back in late 2009, shortly after it was first publicly released.
