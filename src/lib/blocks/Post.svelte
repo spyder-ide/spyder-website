@@ -34,22 +34,29 @@
 <svelte:head>
   <title>Spyder | {title}</title>
   <meta name="description" content={summary} />
-  <meta name="keywords" content={tags} />
-  <meta name="author" content={author} />
-  <link rel="canonical" href={`${siteUrl}/blog/${slug}`} />
+  <meta name="keywords" content={tags.join(', ')} />
+  <meta name="author" content={Array.isArray(author) ? author.join(', ') : author} />
+
+  <!-- OpenGraph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Spyder | {title}" />
+  <meta property="og:description" content={summary} />
+  <meta property="og:url" content={`${siteUrl}/blog/${slug}`} />
   <meta property="og:image" content={customOgImagePath} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   {#if customOgImagePath.startsWith('https')}
     <meta property="og:image:secure_url" content={customOgImagePath} />
   {/if}
-  <meta property="og:title" content="Spyder | {title}" />
-  <meta property="og:description" content={summary} />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content={`${siteUrl}/blog/${slug}`} />
   <meta property="og:site_name" content="Spyder IDE" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:article:published_time" content={pub_date} />
-  <meta property="og:article:section" content={category} />
-  <meta property="og:article:tag" content={tags} />
+  <meta property="article:published_time" content={pub_date} />
+  <meta property="article:section" content={category} />
+  {#each tags as tag}
+    <meta property="article:tag" content={tag} />
+  {/each}
+
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@spyder_ide" />
   <meta name="twitter:creator" content="@spyder_ide" />
@@ -57,10 +64,41 @@
   <meta name="twitter:description" content={summary} />
   <meta name="twitter:image" content={customOgImagePath} />
   <meta name="twitter:image:alt" content={title} />
-  <meta property="article:published_time" content={pub_date} />
-  <meta property="article:tag" content={tags} />
+
+  <!-- Canonical and RSS -->
+  <link rel="canonical" href={`${siteUrl}/blog/${slug}`} />
   <link rel="alternate" type="application/rss+xml" title="Spyder's Blog" href={`${siteUrl}/blog/feed.xml`} />
   <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
+
+  <!-- JSON-LD Structured Data -->
+  {@html `
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "${title}",
+        "description": "${summary}",
+        "image": "${customOgImagePath}",
+        "datePublished": "${pub_date}",
+        "author": ${JSON.stringify(Array.isArray(author) ? author.map(a => ({
+          "@type": "Person",
+          "name": a
+        })) : [{ "@type": "Person", "name": author }])},
+        "publisher": {
+          "@type": "Organization",
+          "name": "Spyder IDE",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "${siteUrl}/assets/images/spyder-logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "${siteUrl}/blog/${slug}"
+        }
+      }
+    </script>
+  `}
 </svelte:head>
 
 <article class="container">
