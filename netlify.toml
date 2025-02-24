@@ -30,9 +30,6 @@
       connect-src 'self';
       """
 
-[[plugins]]
-  package = "@sveltejs/adapter-static"
-
 [build.processing]
   skip_processing = false
 
