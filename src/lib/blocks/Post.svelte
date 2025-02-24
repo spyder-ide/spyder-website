@@ -5,35 +5,38 @@
   import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  // svelte-ignore unused-export-let
-  export let data;
-  // svelte-ignore unused-export-let
-  export let form;
+  /** @type {string} */
+  export let title = '';
+  /** @type {string} */
+  export let pub_date = '';
+  /** @type {string[]} */
+  export let author = [];
+  /** @type {string[]} */
+  export let tags = [];
+  /** @type {string} */
+  export let category = '';
+  /** @type {string} */
+  export let summary = '';
+  /** @type {string} */
+  export let slug = '';
 
-  // Props from markdown frontmatter
-  export let title;
-  export let pub_date;
-  export let author;
-  export let tags;
-  export let category;
-  export let summary;
-  export let slug;
-
+  /** @type {Array<{name: string, src?: string}>} */
   let authorsMetadata = [];
-  const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {
-    const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
+    const postAuthors = author || [];
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
-  $: authorString = Array.isArray(author) ? author.join(', ') : (author || '');
+  $: authorString = author?.join(', ') || '';
+  $: customOgImagePath = slug ? `${siteUrl}/assets/og/${slug}.png` : '';
+  $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
 </script>
 
 <Metadata
   title={`Spyder | ${title}`}
   description={summary}
-  keywords={`${tags}, ${category}`}
+  keywords={keywordsString}
   author={authorString}
   url={$page.url.href}
   image={customOgImagePath || ogImageBlog}
@@ -62,13 +65,13 @@
     </div>
     <div class="max-w-[72ch] mx-auto flex flex-col items-center gap-4 mt-20">
       <div class="flex gap-8">
-        {#each authorsMetadata as author}
+        {#each authorsMetadata as authorMeta}
           <div class="flex flex-col items-center gap-2">
-            {#if author.src}
-              <img class="w-24 h-24 rounded-full object-cover" src={author.src} alt={author.name} />
+            {#if authorMeta.src}
+              <img class="w-24 h-24 rounded-full object-cover" src={authorMeta.src} alt={authorMeta.name} />
             {/if}
             <div class="font-light text-center w-36">
-              {author.name}
+              {authorMeta.name}
             </div>
           </div>
         {/each}

@@ -40,12 +40,37 @@ const escapeQuotes = () => {
   };
 }
 
+const processMetadata = () => {
+  return (tree, file) => {
+    const { data } = file;
+    if (!data.fm) return;
+
+    // Ensure tags is always an array
+    if (typeof data.fm.tags === 'string') {
+      data.fm.tags = data.fm.tags.split(',').map(tag => tag.trim());
+    } else if (!Array.isArray(data.fm.tags)) {
+      data.fm.tags = [];
+    }
+
+    // Ensure author is properly formatted
+    if (typeof data.fm.author === 'string') {
+      data.fm.author = [data.fm.author];
+    } else if (!Array.isArray(data.fm.author)) {
+      data.fm.author = [];
+    }
+
+    // Update the frontmatter with processed data
+    file.data.fm = data.fm;
+  };
+};
+
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [
     smartypants,
-    escapeQuotes
+    escapeQuotes,
+    processMetadata
   ],
   rehypePlugins: [
     blogImages,
