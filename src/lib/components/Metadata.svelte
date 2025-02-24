@@ -18,14 +18,6 @@
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
-    <link rel="canonical" href={untrailedUrl} />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="Spyder's Blog"
-      href="{siteUrl}/blog/feed.xml"
-    />
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={untrailedUrl} />
@@ -35,7 +27,6 @@
     <meta property="og:image:secure_url" content={image} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Spyder IDE" />
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content={site} />
@@ -44,9 +35,15 @@
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
     <meta name="twitter:image:alt" content={title} />
-
     {#if prism}
       <!-- Nord stylesheet for code blocks with prism -->
       <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
     {/if}
+    <link rel="canonical" href={untrailedUrl} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Spyder's Blog"
+      href="{siteUrl}/blog/feed.xml"
+    />
 </svelte:head>
