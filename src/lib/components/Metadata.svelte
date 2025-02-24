@@ -9,7 +9,7 @@
     export let image: string = '';
     export let prism: boolean = false;
 
-    const site = `@spyder-ide`;
+    const site = `@Spyder_IDE`;
     $: untrailedUrl = url?.replace(/\/+$/, '') || '';
     $: absoluteUrl = untrailedUrl.startsWith('http') ? untrailedUrl : `${siteUrl}${untrailedUrl}`;
     $: absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
@@ -35,7 +35,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Spyder_IDE" />
+    <meta name="twitter:site" content={site} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteImage} />
