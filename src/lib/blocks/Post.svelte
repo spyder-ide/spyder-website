@@ -29,8 +29,9 @@
   });
 
   $: authorString = author?.join(', ') || '';
-  $: customOgImagePath = slug ? `${siteUrl}/assets/og/${slug}.png` : '';
+  $: customOgImagePath = slug ? `/assets/og/${slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
+  $: currentUrl = $page.url.href;
 </script>
 
 <Metadata
@@ -38,7 +39,7 @@
   description={summary}
   keywords={keywordsString}
   author={authorString}
-  url={$page.url.href}
+  url={currentUrl}
   image={customOgImagePath || ogImageBlog}
   prism={true}
 />

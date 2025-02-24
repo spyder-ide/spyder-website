@@ -11,38 +11,46 @@
 
     const site = `@spyder-ide`;
     $: untrailedUrl = url?.replace(/\/+$/, '') || '';
+    $: absoluteUrl = untrailedUrl.startsWith('http') ? untrailedUrl : `${siteUrl}${untrailedUrl}`;
+    $: absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 </script>
 
 <svelte:head>
+    <!-- Essential Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
+    <link rel="canonical" href={absoluteUrl} />
+
     <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spyder IDE" />
+    <meta property="og:url" content={absoluteUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:secure_url" content={absoluteImage} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Spyder IDE" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={untrailedUrl} />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content={site} />
     <meta name="twitter:creator" content={site} />
+    <meta name="twitter:url" content={absoluteUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={absoluteImage} />
     <meta name="twitter:image:alt" content={title} />
+
+    <!-- Additional Meta -->
     {#if prism}
-      <!-- Nord stylesheet for code blocks with prism -->
-      <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
+        <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
     {/if}
-    <link rel="canonical" href={untrailedUrl} />
     <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="Spyder's Blog"
-      href="{siteUrl}/blog/feed.xml"
+        rel="alternate"
+        type="application/rss+xml"
+        title="Spyder's Blog"
+        href="{siteUrl}/blog/feed.xml"
     />
 </svelte:head>
