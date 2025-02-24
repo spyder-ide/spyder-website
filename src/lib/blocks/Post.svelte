@@ -1,10 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { page } from "$app/stores";
-  import { metadata } from "$lib/store";
-  import { siteUrl, ogImageBlog } from "$lib/config";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
-
+  import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
 
   // svelte-ignore unused-export-let
@@ -12,35 +10,35 @@
   // svelte-ignore unused-export-let
   export let form;
 
-  // Props from markdown
+  // Props from markdown frontmatter
   export let title;
   export let pub_date;
   export let author;
   export let tags;
   export let category;
   export let summary;
+  export let slug;
 
   let authorsMetadata = [];
-  const slug = $page.url.pathname.replace(`/blog`, '').replaceAll('/', '');
   const customOgImagePath = `${siteUrl}/assets/og/${slug}.png`;
 
   onMount(async () => {
     const postAuthors = Array.isArray(author) ? author : (author ? [author] : []);
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
-    // Set initial metadata immediately
-    metadata.setMetadata({
-      title: `Spyder | ${title}`,
-      description: summary,
-      keywords: `${tags}, ${category}`,
-      author: Array.isArray(author) ? author.join(', ') : (author || ''),
-      url: $page.url.href,
-      image: customOgImagePath || ogImageBlog,
-      isLoading: false
-    });
   });
+
+  $: authorString = Array.isArray(author) ? author.join(', ') : (author || '');
 </script>
 
-<Metadata prism={true} />
+<Metadata
+  title={`Spyder | ${title}`}
+  description={summary}
+  keywords={`${tags}, ${category}`}
+  author={authorString}
+  url={$page.url.href}
+  image={customOgImagePath || ogImageBlog}
+  prism={true}
+/>
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
