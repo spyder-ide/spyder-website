@@ -30,14 +30,12 @@
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={absoluteImage} />
-    <meta property="og:image:secure_url" content={absoluteImage} />
+    <meta property="og:image:type" content="image/png">
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content={site} />
-    <meta name="twitter:creator" content={site} />
-    <meta name="twitter:url" content={absoluteUrl} />
+    <meta name="twitter:site" content="@Spyder_IDE" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteImage} />
