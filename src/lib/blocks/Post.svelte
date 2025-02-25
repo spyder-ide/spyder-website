@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
-  import { siteUrl, ogImageBlog } from "$lib/config";
+  import { ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
 
   /** @type {string} */
