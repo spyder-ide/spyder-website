@@ -81,32 +81,39 @@ export function formattedPubDate(date, i18n = "en-US") {
  * Fetches metadata for a single author
  * @param {string} author - Author identifier
  * @param {Function} [customFetch] - Optional custom fetch function for testing
- * @returns {Promise<{src: string, name: string}|null>} Author metadata or null if fetch fails
+ * @returns {Promise<{src: string, name: string}>} Author metadata
  */
 export async function fetchAuthorMetadata(author, customFetch) {
+  // Default fallback data - will be used if we can't fetch actual data
+  const fallbackAuthorData = {
+    src: `/assets/authors/${author}/profile.jpg`, // Default image name
+    name: author // Use author ID as name
+  };
+
   try {
-    // In the browser, use fetch
-    const response = await (customFetch || fetch)(
-      `/assets/authors/${author}/metadata.json`,
-      );
-      if (!response.ok) {
-        throw new Error("Failed to load author metadata");
-      }
-      const metadata = await response.json();
-      return {
+    // In the browser, use fetch to get the data
+    const fetchFunc = customFetch || fetch;
+    const response = await fetchFunc(`/assets/authors/${author}/metadata.json`);
+    
+    if (!response.ok) {
+      throw new Error("Failed to load author metadata");
+    }
+    
+    const metadata = await response.json();
+    return {
       src: `/assets/authors/${author}/${metadata.image}`,
       name: metadata.name,
     };
   } catch (error) {
     console.error("Failed to load author metadata:", error);
-    return null;
+    return fallbackAuthorData;
   }
 }
 
 /**
  * Fetches metadata for multiple authors
  * @param {string[]} authors - Array of author identifiers
- * @returns {Promise<Array<{src: string, name: string}|null>>} Array of author metadata
+ * @returns {Promise<Array<{src: string, name: string}>>} Array of author metadata
  */
 export async function fetchAuthorsMetadata(authors) {
   if (!authors || !Array.isArray(authors)) {

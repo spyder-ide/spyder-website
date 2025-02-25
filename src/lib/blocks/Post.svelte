@@ -1,18 +1,33 @@
 <script>
-  import { onMount } from "svelte";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
   import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
+  import { browser } from "$app/environment";
 
   export let title, pub_date, author, tags, category, summary, slug;
 
   let authorsMetadata = [];
-
-  onMount(async () => {
-    const postAuthors = author || [];
-    authorsMetadata = await fetchAuthorsMetadata(postAuthors);
+  
+  // Convert to async/await pattern for better SSR compatibility
+  async function loadAuthorData() {
+    try {
+      const postAuthors = author || [];
+      return await fetchAuthorsMetadata(postAuthors);
+    } catch (error) {
+      console.error('Error loading author metadata:', error);
+      return [];
+    }
+  }
+  
+  // Load author data immediately for SSR, not just in onMount
+  $: authorDataPromise = loadAuthorData();
+  
+  // Update authorsMetadata when the promise resolves
+  $: authorDataPromise.then(data => {
+    authorsMetadata = data;
   });
 
+  // Compute derived values for metadata
   $: authorString = author?.join(', ') || '';
   $: customOgImagePath = slug ? `/assets/og/${slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;

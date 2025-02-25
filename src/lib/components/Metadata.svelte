@@ -1,5 +1,6 @@
 <script lang="ts">
     import { siteUrl } from "$lib/config";
+    import { dev } from "$app/environment";
 
     export let title: string = 'Spyder';
     export let description: string = '';
@@ -13,6 +14,16 @@
     $: untrailedUrl = url?.replace(/\/+$/, '') || '';
     $: absoluteUrl = untrailedUrl.startsWith('http') ? untrailedUrl : `${siteUrl}${untrailedUrl}`;
     $: absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
+    
+    // Debug log in development mode only
+    if (dev) {
+        console.log('Metadata component rendering with:', { 
+            title, 
+            description, 
+            url: absoluteUrl, 
+            image: absoluteImage 
+        });
+    }
 </script>
 
 <svelte:head>
