@@ -5,9 +5,22 @@
   import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  export let title, pub_date, author, tags, category, summary, data;
-  export const form = data;
+  /** @type {string} */
+  export let title = '';
+  /** @type {string} */
+  export let pub_date = '';
+  /** @type {string[]} */
+  export let author = [];
+  /** @type {string[]} */
+  export let tags = [];
+  /** @type {string} */
+  export let category = '';
+  /** @type {string} */
+  export let summary = '';
+  /** @type {string} */
+  export let slug = '';
 
+  /** @type {Array<{name: string, src?: string}>} */
   let authorsMetadata = [];
 
   onMount(async () => {
@@ -15,11 +28,10 @@
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
-  $: console.log("From component:", `slug: ${data.slug}, url: ${data.url}`);
   $: authorString = author?.join(', ') || '';
-  $: customOgImagePath = data.slug ? `/assets/og/${data.slug}.png` : '';
+  $: customOgImagePath = slug ? `/assets/og/${slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
-  $: currentUrl = data.url;
+  $: currentUrl = $page.url.href;
 </script>
 
 <Metadata
