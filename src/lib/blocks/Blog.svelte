@@ -8,9 +8,8 @@
 
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
 
-  import { config, siteUrl, ogImageBlog } from "$lib/config";
+  import { config } from "$lib/config";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -20,37 +19,32 @@
   let postsWithAuthor = [];
   let site, socials, posts;
 
-  // Helper function to load author metadata for posts
-  async function loadPostsWithAuthor(posts) {
-    try {
-      return await Promise.all(
-        posts.map(async (post) => {
-          try {
-            // Ensure post.meta.author is an array
-            const authorsArray = Array.isArray(post.meta.author)
-              ? post.meta.author
-              : [post.meta.author];
-            const authorMetadata = await fetchAuthorsMetadata(authorsArray);
-            return { ...post, authorMetadata };
-          } catch (error) {
-            console.error($_("config.blog.metadataError"), error);
-            return { ...post, authorMetadata: [] };
-          }
-        }),
-      );
-    } catch (error) {
-      console.error('Error loading posts with author:', error);
-      return posts.map(post => ({ ...post, authorMetadata: [] }));
-    }
-  }
-
   $: {
     socials = config.site.socials;
     site = `@${socials.twitter.split("/").pop()}`;
     ({ posts, pageNum, totalPages } = data.props);
 
     if (posts) {
-      postsWithAuthor = loadPostsWithAuthor(posts);
+      postsWithAuthor = (async () => {
+        return Promise.all(
+          posts.map(async (post) => {
+            if (browser) {
+              try {
+                // Ensure post.meta.author is an array
+                const authorsArray = Array.isArray(post.meta.author)
+                  ? post.meta.author
+                  : [post.meta.author];
+                const authorMetadata = await fetchAuthorsMetadata(authorsArray);
+                return { ...post, authorMetadata };
+              } catch (error) {
+                console.error($_("config.blog.metadataError"), error);
+                return { ...post, authorMetadata: [] };
+              }
+            }
+            return post;
+          }),
+        );
+      })();
     }
   }
 </script>

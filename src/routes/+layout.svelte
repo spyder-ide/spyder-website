@@ -2,6 +2,7 @@
   import "../app.css";
   
   import { waitLocale } from "svelte-i18n";
+  import { page } from "$app/stores";
 
   import Header from "$lib/blocks/Header.svelte";
   import Footer from "$lib/blocks/Footer.svelte";
