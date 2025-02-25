@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
   import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
@@ -15,7 +14,6 @@
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
 
-  $: console.log("From component:", `slug: ${data.slug}, url: ${data.url}`);
   $: authorString = author?.join(', ') || '';
   $: customOgImagePath = data.slug ? `/assets/og/${data.slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
