@@ -86,11 +86,6 @@ const mdsvexOptions = {
 const config = {
   kit: {
     adapter: adapter(),
-    strict: true,
-    pages: 'build',
-    assets: 'build',
-    fallback: null,
-    precompress: true,
     prerender: {
       handleHttpError: "warn",
       handleMissingId: "warn",
