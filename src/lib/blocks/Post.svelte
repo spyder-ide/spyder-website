@@ -1,26 +1,11 @@
 <script>
   import { onMount } from "svelte";
-  import { page } from "$app/stores";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
   import { siteUrl, ogImageBlog } from "$lib/config";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  /** @type {string} */
-  export let title = '';
-  /** @type {string} */
-  export let pub_date = '';
-  /** @type {string[]} */
-  export let author = [];
-  /** @type {string[]} */
-  export let tags = [];
-  /** @type {string} */
-  export let category = '';
-  /** @type {string} */
-  export let summary = '';
-  /** @type {string} */
-  export let slug = '';
+  export let title, pub_date, author, tags, category, summary, slug;
 
-  /** @type {Array<{name: string, src?: string}>} */
   let authorsMetadata = [];
 
   onMount(async () => {
@@ -31,7 +16,7 @@
   $: authorString = author?.join(', ') || '';
   $: customOgImagePath = slug ? `/assets/og/${slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
-  $: currentUrl = $page.url.href;
+  $: currentUrl = siteUrl && slug ? `${siteUrl}/blog/${slug}` : '';
 </script>
 
 <Metadata
