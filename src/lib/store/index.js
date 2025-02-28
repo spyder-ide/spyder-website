@@ -17,36 +17,6 @@ if (browser) {
   });
 }
 
-// Metadata store
-function createMetadata() {
-  const { subscribe, set, update } = writable({
-    title: "Spyder IDE",
-    description: "Scientific Python Development Environment",
-    keywords: "python, ide, science, development",
-    author: "Spyder Website Contributors",  
-    url: "",
-    image: "",
-    site: "@spyder-ide",
-    isLoading: true
-  });
-
-  return {
-    subscribe,
-    setMetadata: (metadata) => set({ ...metadata, isLoading: false }),
-    reset: () => set({
-      title: "Spyder IDE",
-      description: "Scientific Python Development Environment",
-      keywords: "python, ide, science, development",
-      author: "Spyder Website Contributors",
-      url: "",
-      image: "",
-      site: "@spyder-ide",
-      isLoading: true
-    })
-  };
-}
-
-export const metadata = createMetadata();
 export const osStore = writable({ loading: true });
 
 if (browser) {
