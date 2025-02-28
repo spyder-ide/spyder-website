@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import matter from "gray-matter";
 import { config, siteUrl, ogImageBlog } from "$lib/config";
 
 /**
@@ -12,6 +12,7 @@ function extractMarkdownMetadata(slug) {
   let postTitle = "";
   let description = "";
   let tags = "";
+  let author = "";
 
   try {
     const markdownPath = path.join(
@@ -25,33 +26,35 @@ function extractMarkdownMetadata(slug) {
 
     if (fs.existsSync(markdownPath)) {
       const fileContent = fs.readFileSync(markdownPath, "utf8");
-      const frontmatterMatch = fileContent.match(/^---\n([\s\S]*?)\n---/);
+      
+      // Use gray-matter to parse frontmatter, consistent with fetchMarkdownPostsMetadata
+      const { data: metadata } = matter(fileContent);
 
-      if (frontmatterMatch) {
-        try {
-          const frontmatter = yaml.load(frontmatterMatch[1]);
-
-          if (frontmatter.title) {
-            postTitle = frontmatter.title;
-          }
-
-          if (frontmatter.summary) {
-            description = frontmatter.summary;
-          }
-
-          if (frontmatter.tags) {
-            tags = frontmatter.tags;
-          }
-        } catch (e) {
-          console.error(`Error parsing frontmatter for ${slug}:`, e);
-        }
+      // Check for required fields, similar to fetchMarkdownPostsMetadata validation
+      if (!metadata.title) {
+        console.warn(`Warning: File ${markdownPath} is missing title metadata.`);
       }
+      
+      if (!metadata.author) {
+        console.warn(`Warning: File ${markdownPath} is missing author metadata.`);
+      }
+      
+      if (!metadata.pub_date) {
+        console.warn(`Warning: File ${markdownPath} is missing pub_date metadata.`);
+      }
+
+      postTitle = metadata.title || "";
+      description = metadata.summary || "";
+      tags = metadata.tags || "";
+      author = metadata.author || "";
+    } else {
+      console.warn(`Blog post file not found for slug: ${slug}`);
     }
   } catch (error) {
     console.error('Error extracting markdown metadata:', error);
   }
 
-  return { postTitle, description, tags };
+  return { postTitle, description, tags, author };
 }
 
 /**
@@ -65,7 +68,7 @@ export function injectMetaTags(html, url) {
     return html;
   }
 
-  // Filter out pagination routes to prevent log messages
+  // Filter out pagination routes
   const pathSegments = url.pathname.split('/').filter(Boolean);
   const isPaginationRoute = 
     (pathSegments.length === 2 && pathSegments[1] === '*') || 
@@ -82,12 +85,12 @@ export function injectMetaTags(html, url) {
     // Check if the HTML already has OpenGraph tags
     if (html.includes('<meta property="og:type" content="website" />') || 
         html.includes('<meta property="og:type" content="website">')) {
-      console.log(`Skipping meta tag injection for ${url.pathname} - OG tags already present`);
+      // Silently skip without logging
       return html;
     }
 
     // Get metadata from markdown file
-    const { postTitle, description, tags } = extractMarkdownMetadata(slug);
+    const { postTitle, description, tags, author } = extractMarkdownMetadata(slug);
 
     // If we couldn't find the title in frontmatter, try extracting from h1
     let title = postTitle;
@@ -130,7 +133,7 @@ export function injectMetaTags(html, url) {
 
     // Fallback description if still empty
     if (!finalDescription) {
-      finalDescription = `Spyder IDE blog post - ${title}`;
+      finalDescription = title;
     }
 
     // Fallback tags if still empty
@@ -154,10 +157,10 @@ export function injectMetaTags(html, url) {
     const safeDescription = finalDescription.replace(/"/g, "&quot;");
     const safeTitle = title.replace(/"/g, "&quot;");
 
-    console.log(`Injecting meta tags for ${url.pathname}`);
+    // Only log for actual blog posts, not pagination routes
+    console.log(`Injecting meta tags for blog post: ${slug}`);
 
     const metaTags = `
-    <!-- Start of meta tags -->
     <title>${safeTitle}</title>
     <link rel="canonical" href="${absoluteUrl}" />
     <meta name="description" content="${safeDescription}" />
@@ -183,13 +186,12 @@ export function injectMetaTags(html, url) {
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
-    <!-- End of meta tags -->
     `;
 
     // Inject meta tags into the head
-    return html.replace("</head>", `${metaTags}\n</head>`);
+    return html.replace("<head>", `<head>\n\n${metaTags}\n\n`);
   } catch (error) {
     console.error("Error injecting meta tags:", error);
     return html;
   }
-} 
+}
