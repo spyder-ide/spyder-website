@@ -61,7 +61,8 @@
                     class:before:bg-red-berry-900={$page.url.pathname ===
                       item.href}
                     href={item.href}
-                    target={item.target}>{item.text}</a
+                    target={item.target}
+                    data-sveltekit-preload-data>{item.text}</a
                   >
                 </li>
               {/each}

@@ -33,6 +33,3 @@ export const load = async () => {
     i18n: { ready: true }
   };
 };
-
-export const prerender = true;
-export const trailingSlash = "always";

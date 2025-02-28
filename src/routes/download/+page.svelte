@@ -3,19 +3,11 @@
   import { onMount } from "svelte";
 
   import { browser } from "$app/environment";
-  import { page } from "$app/stores";
-
-  import { metadata } from "$lib/store";
   import { getOS } from "$lib/utils";
-  import {
-    ogImage as image,
-    config,
-    releases
-   } from "$lib/config";
+  import { releases } from "$lib/config";
 
   import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
   /** @typedef {Record<string, Record<string, ReleaseInfo>>} Releases */
@@ -30,7 +22,6 @@
   let result;
 
   // Page content
-  let title, description, author, keywords;
   let pageTitle, pageSubtitle, pageSubtitleAlt;
   let download, buttonText;
 
@@ -69,7 +60,7 @@
     const os = params.get("os");
     const arch = params.get("arch");
 
-    return (os && arch) ? { os, arch } : false;
+    return os && arch ? { os, arch } : false;
   };
 
   /**
@@ -112,24 +103,10 @@
 
     // Load translations
     buttonText = $_("download.button.message");
-    title = $_("config.site.title");
-    description = $_("config.site.description");
-    author = $_("config.site.author");
-    keywords = config.site.keywords;
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");
     pageSubtitleAlt = $_("download.alternative");
     download = $json("download.action");
-
-    // Update metadata
-    metadata.setMetadata({
-      title: `${title} | ${download.name}`,
-      description,
-      keywords: keywords.join(", "),
-      author,
-      image,
-      url: $page.url.href,
-    });
 
     // Update Mac-specific data
     if (releases?.mac) {
@@ -137,8 +114,6 @@
     }
   }
 </script>
-
-<Metadata />
 
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}
@@ -196,7 +171,9 @@
   {/if}
 
   {#if osButtons?.length}
-    <div class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4">
+    <div
+      class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
+    >
       {#each osButtons as button}
         <Button {...button} />
       {/each}

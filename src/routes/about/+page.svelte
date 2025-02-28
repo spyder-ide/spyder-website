@@ -1,14 +1,10 @@
 <script>
   import { _, json, waitLocale } from "svelte-i18n";
 
-  import { page } from "$app/stores";
-  import { metadata } from "$lib/store";
-
   import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
 
-  import { ogImage as image, config, contributors } from "$lib/config";
+  import {contributors } from "$lib/config";
   import {
     processContributors,
     createContributorsMap,
@@ -19,7 +15,7 @@
   export let data;
 
   // Page metadata
-  let title, author, description, keywords;
+  let title, author, description;
 
   // Page content
   let pageIntro,
@@ -43,12 +39,6 @@
   const allContributors = data.contributors;
 
   $: {
-    // Load page metadata
-    title = $_("config.site.title");
-    author = $_("config.site.author");
-    description = $_("config.site.description");
-    keywords = config.site.keywords;
-
     // Load page content
     pageIntro = $_("about.pageIntro");
     pageTitle = $_("about.pageTitle");
@@ -93,23 +83,12 @@
       updatedPast = processedContributors.updatedPast;
       remainingContributors = processedContributors.remainingContributors;
     }
-
-    // Update metadata
-    metadata.setMetadata({
-      title: `${title} | ${pageTitle}`,
-      description,
-      keywords: keywords.join(", "),
-      author,
-      image,
-      url: $page.url.href,
-    });
   }
 </script>
 
 {#await waitLocale()}
   <Loader />
 {:then}
-  <Metadata />
   <div class="container">
     <h1
       class="text-4xl
