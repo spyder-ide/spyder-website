@@ -70,7 +70,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   .dropdownButton {
     @apply inline-flex
       min-w-24

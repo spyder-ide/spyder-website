@@ -155,7 +155,7 @@
   {/key}
 </div>
 
-<style>
+<style lang="postcss">
   .tabs-header {
     position: relative;
     z-index: 1;
