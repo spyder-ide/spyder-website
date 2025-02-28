@@ -18,16 +18,18 @@
   $: customOgImagePath = data.slug ? `/assets/og/${data.slug}.png` : '';
   $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
   $: currentUrl = data.url;
+  $: fullTitle = `Spyder | ${title}`;
+  $: absoluteImageUrl = customOgImagePath ? `${siteUrl}${customOgImagePath}` : ogImageBlog;
+  $: absoluteUrl = currentUrl ? `${siteUrl}${currentUrl}` : siteUrl;
 </script>
 
-<Metadata
-  title={`Spyder | ${title}`}
+<Metadata 
+  title={fullTitle}
   description={summary}
   keywords={keywordsString}
   author={authorString}
-  url={currentUrl}
-  image={customOgImagePath || ogImageBlog}
-  prism={true}
+  url={absoluteUrl}
+  image={absoluteImageUrl}
 />
 
 <article class="container">

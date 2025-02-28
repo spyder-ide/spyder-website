@@ -3,7 +3,7 @@ import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
 import { visit } from "unist-util-visit";
-import rehypeTitleFigure from 'rehype-title-figure'
+import rehypeTitleFigure from "rehype-title-figure";
 import smartypants from "remark-smartypants";
 import classNames from "rehype-class-names";
 
@@ -12,7 +12,7 @@ const classNamesOptions = {
   h3: "subsection",
   h4: "subsubsection",
   a: "link",
-  figure: "figure"
+  figure: "figure",
 };
 
 const blogImages = () => {
@@ -32,13 +32,13 @@ const blogImages = () => {
 
 const escapeQuotes = () => {
   return (tree) => {
-    visit(tree, 'image', (node) => {
+    visit(tree, "image", (node) => {
       if (node.alt) {
-        node.alt = node.alt.replace(/"/g, '&quot;');
+        node.alt = node.alt.replace(/"/g, "&quot;");
       }
     });
   };
-}
+};
 
 const processMetadata = () => {
   return (tree, file) => {
@@ -46,14 +46,14 @@ const processMetadata = () => {
     if (!data.fm) return;
 
     // Ensure tags is always an array
-    if (typeof data.fm.tags === 'string') {
-      data.fm.tags = data.fm.tags.split(',').map(tag => tag.trim());
+    if (typeof data.fm.tags === "string") {
+      data.fm.tags = data.fm.tags.split(",").map((tag) => tag.trim());
     } else if (!Array.isArray(data.fm.tags)) {
       data.fm.tags = [];
     }
 
     // Ensure author is properly formatted
-    if (typeof data.fm.author === 'string') {
+    if (typeof data.fm.author === "string") {
       data.fm.author = [data.fm.author];
     } else if (!Array.isArray(data.fm.author)) {
       data.fm.author = [];
@@ -67,11 +67,7 @@ const processMetadata = () => {
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
-  remarkPlugins: [
-    smartypants,
-    escapeQuotes,
-    processMetadata
-  ],
+  remarkPlugins: [smartypants, escapeQuotes, processMetadata],
   rehypePlugins: [
     blogImages,
     rehypeTitleFigure,
@@ -85,10 +81,13 @@ const mdsvexOptions = {
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      precompress: false,
+      strict: true,
+    }),
     prerender: {
       handleHttpError: "warn",
-      handleMissingId: "warn",
+      handleMissingId: "ignore",
       entries: ["*"],
     },
     paths: {
@@ -100,8 +99,10 @@ const config = {
   // Omit warning about screenreaders announcing <img> elements as an image
   onwarn: (warning, handler) => {
     // Omit the warning about redundant alt text if we are on development mode
-    if (warning.code === 'a11y-img-redundant-alt' &&
-        warning.message.includes('Screenreaders already announce')) {
+    if (
+      warning.code === "a11y-img-redundant-alt" &&
+      warning.message.includes("Screenreaders already announce")
+    ) {
       return;
     }
 

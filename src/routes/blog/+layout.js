@@ -9,5 +9,3 @@ export const load = async ({ url, route }) => {
         slug
     };
 };
-
-export const prerender = true; 

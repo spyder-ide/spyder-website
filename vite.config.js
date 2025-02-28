@@ -5,7 +5,15 @@ import copyImages from "./scripts/vite-plugin-copy-images";
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
-  plugins: [sveltekit(), copyImages()],
+  plugins: [
+    sveltekit({
+      // Ensure head tags are properly processed
+      compilerOptions: {
+        hydratable: true
+      }
+    }), 
+    copyImages()
+  ],
   server: {
     fs: {
       allow: ['static']
@@ -14,6 +22,6 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1500,
     ssrEmitAssets: true,
-    sourcemap: false,
+    sourcemap: false
   },
 });
