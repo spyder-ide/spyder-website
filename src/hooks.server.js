@@ -2,7 +2,7 @@ import { existsSync, createReadStream } from "fs";
 import { join } from "path";
 import { locale } from 'svelte-i18n';
 import { building } from '$app/environment';
-import { injectMetaTags } from "$lib/utils";
+import { injectMetaTags } from "$lib/server/metaTagsInjector";
 
 export default join;
 
@@ -40,7 +40,7 @@ export async function handle({ event, resolve }) {
       (pathSegments.length === 2 && !isNaN(parseInt(pathSegments[1])));
     
     if (isPageRoute) {
-      console.log(`Skipping meta tag injection for pagination route: ${event.url.pathname}`);
+      //console.log(`Skipping meta tag injection for pagination route: ${event.url.pathname}`);
       return response;
     }
     
@@ -51,7 +51,7 @@ export async function handle({ event, resolve }) {
       const html = await clonedResponse.text();
       
       // Inject meta tags for blog posts
-      const transformedHtml = await injectMetaTags(html, event.url);
+      const transformedHtml = injectMetaTags(html, event.url);
       
       // Return the transformed response
       return new Response(transformedHtml, {

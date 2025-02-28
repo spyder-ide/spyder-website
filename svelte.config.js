@@ -88,7 +88,7 @@ const config = {
     prerender: {
       handleHttpError: "warn",
       handleMissingId: "ignore",
-      entries: ["*", "/blog/*"],
+      entries: ["*"],
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",
