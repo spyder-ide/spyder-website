@@ -19,6 +19,7 @@
     "cookie": "^1.0.2",
     "gh-pages": "^6.1.1",
     "gray-matter": "^4.0.3",
+    "html-minifier-terser": "^7.2.0",
     "js-yaml": "^4.1.0",
     "mdsvex": "^0.12.3",
     "postcss": "^8.4.47",

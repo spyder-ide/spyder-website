@@ -83,12 +83,12 @@ const config = {
   kit: {
     adapter: adapter({
       precompress: false,
-      strict: true,
+      strict: false, // Allow dynamic routes
     }),
     prerender: {
       handleHttpError: "warn",
       handleMissingId: "ignore",
-      entries: ["*"],
+      entries: ["*", "/blog/*"],
     },
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",

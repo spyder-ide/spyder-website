@@ -1,10 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
-  import { siteUrl, ogImageBlog } from "$lib/config";
-  import Metadata from "$lib/components/Metadata.svelte";
 
-  export let title, pub_date, author, tags, category, summary, data;
+  export let data, title, pub_date, author;
   export const form = data;
 
   let authorsMetadata = [];
@@ -13,24 +11,7 @@
     const postAuthors = author || [];
     authorsMetadata = await fetchAuthorsMetadata(postAuthors);
   });
-
-  $: authorString = author?.join(', ') || '';
-  $: customOgImagePath = data.slug ? `/assets/og/${data.slug}.png` : '';
-  $: keywordsString = tags?.length ? `${tags.join(', ')}, ${category}` : category;
-  $: currentUrl = data.url;
-  $: fullTitle = `Spyder | ${title}`;
-  $: absoluteImageUrl = customOgImagePath ? `${siteUrl}${customOgImagePath}` : ogImageBlog;
-  $: absoluteUrl = currentUrl ? `${siteUrl}${currentUrl}` : siteUrl;
 </script>
-
-<Metadata 
-  title={fullTitle}
-  description={summary}
-  keywords={keywordsString}
-  author={authorString}
-  url={absoluteUrl}
-  image={absoluteImageUrl}
-/>
 
 <article class="container">
   <div class="my-20 xl:mt-32 xl:mb-20">
