@@ -160,36 +160,36 @@ export function injectMetaTags(html, url) {
     // Only log for actual blog posts, not pagination routes
     console.log(`Injecting meta tags for blog post: ${slug}`);
 
-    const metaTags = `
-    <title>${safeTitle}</title>
-    <link rel="canonical" href="${absoluteUrl}" />
-    <meta name="description" content="${safeDescription}" />
-    <meta name="keywords" content="${finalTags}" />
-    <meta name="robots" content="index, follow" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Spyder_IDE" />
-    <meta name="twitter:title" content="${safeTitle}" />
-    <meta name="twitter:description" content="${safeDescription}" />
-    <meta name="twitter:image" content="${absoluteImageUrl}" />
-    <meta name="twitter:image:alt" content="${safeTitle}" />
+    const metaTags = `<!-- Start of SEO meta tags -->
+<title>${safeTitle}</title>
+<link rel="canonical" href="${absoluteUrl}" />
+<meta name="description" content="${safeDescription}" />
+<meta name="keywords" content="${finalTags}" />
+<meta name="robots" content="index, follow" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Spyder IDE" />
-    <meta property="og:url" content="${absoluteUrl}" />
-    <meta property="og:title" content="${safeTitle}" />
-    <meta property="og:description" content="${safeDescription}" />
-    <meta property="og:image" content="${absoluteImageUrl}" />
-    <meta property="og:image:type" content="image/png">
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="en_US" />
-    `;
+<!-- Twitter Card tags -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@Spyder_IDE" />
+<meta name="twitter:title" content="${safeTitle}" />
+<meta name="twitter:description" content="${safeDescription}" />
+<meta name="twitter:image" content="${absoluteImageUrl}" />
+<meta name="twitter:image:alt" content="${safeTitle}" />
+
+<!-- Open Graph / Facebook tags -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Spyder IDE" />
+<meta property="og:url" content="${absoluteUrl}" />
+<meta property="og:title" content="${safeTitle}" />
+<meta property="og:description" content="${safeDescription}" />
+<meta property="og:image" content="${absoluteImageUrl}" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<!-- End of SEO meta tags -->`;
 
     // Inject meta tags into the head
-    return html.replace("<head>", `<head>\n\n${metaTags}\n\n`);
+    return html.replace("<head>", `<head>\n${metaTags}\n`);
   } catch (error) {
     console.error("Error injecting meta tags:", error);
     return html;
