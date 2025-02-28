@@ -13,6 +13,7 @@ function extractMarkdownMetadata(slug) {
   let description = "";
   let tags = "";
   let author = "";
+  let pubDate = "";
 
   try {
     const markdownPath = path.join(
@@ -47,6 +48,7 @@ function extractMarkdownMetadata(slug) {
       description = metadata.summary || "";
       tags = metadata.tags || "";
       author = metadata.author || "";
+      pubDate = metadata.pub_date || "";
     } else {
       console.warn(`Blog post file not found for slug: ${slug}`);
     }
@@ -54,7 +56,7 @@ function extractMarkdownMetadata(slug) {
     console.error('Error extracting markdown metadata:', error);
   }
 
-  return { postTitle, description, tags, author };
+  return { postTitle, description, tags, author, pubDate };
 }
 
 /**
@@ -90,7 +92,7 @@ export function injectMetaTags(html, url) {
     }
 
     // Get metadata from markdown file
-    const { postTitle, description, tags, author } = extractMarkdownMetadata(slug);
+    const { postTitle, description, tags, author, pubDate } = extractMarkdownMetadata(slug);
 
     // If we couldn't find the title in frontmatter, try extracting from h1
     let title = postTitle;
@@ -146,19 +148,36 @@ export function injectMetaTags(html, url) {
     const customOgImagePath = slug
       ? `/assets/og/${slug}.png`
       : "/assets/media/website_screenshot.png";
-    const absoluteImageUrl = customOgImagePath
-      ? `${siteUrl}${customOgImagePath}`
-      : ogImageBlog;
+    
+    // Verify image exists, fall back to default if not
+    let finalImagePath = customOgImagePath;
+    const localImagePath = path.join(process.cwd(), 'static', customOgImagePath);
+    
+    if (!fs.existsSync(localImagePath)) {
+      console.warn(`Warning: OG image not found for ${slug}. Using default.`);
+      finalImagePath = "/assets/media/website_screenshot.png";
+    }
+    
+    const absoluteImageUrl = `${siteUrl}${finalImagePath}`;
 
     // Generate absolute URL for the post
     const absoluteUrl = `${siteUrl}/blog/${slug}`;
 
     // Create the meta tag string - with escaping for special characters
-    const safeDescription = finalDescription.replace(/"/g, "&quot;");
-    const safeTitle = title.replace(/"/g, "&quot;");
+    // Enforce Twitter character limits
+    const limitedTitle = title.length > 70 ? `${title.substring(0, 67)}...` : title;
+    const limitedDescription = finalDescription.length > 200 
+      ? `${finalDescription.substring(0, 197)}...` 
+      : finalDescription;
+    
+    const safeTitle = limitedTitle.replace(/"/g, "&quot;");
+    const safeDescription = limitedDescription.replace(/"/g, "&quot;");
 
     // Only log for actual blog posts, not pagination routes
     console.log(`Injecting meta tags for blog post: ${slug}`);
+
+    // Format publication date for meta tags if available
+    const formattedDate = pubDate ? new Date(pubDate).toISOString() : "";
 
     const metaTags = `<!-- Start of SEO meta tags -->
 <title>${safeTitle}</title>
@@ -166,26 +185,31 @@ export function injectMetaTags(html, url) {
 <meta name="description" content="${safeDescription}" />
 <meta name="keywords" content="${finalTags}" />
 <meta name="robots" content="index, follow" />
+${formattedDate ? `<meta name="article:published_time" content="${formattedDate}" />` : ''}
 
 <!-- Twitter Card tags -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@Spyder_IDE" />
+<meta name="twitter:creator" content="@Spyder_IDE" />
 <meta name="twitter:title" content="${safeTitle}" />
 <meta name="twitter:description" content="${safeDescription}" />
 <meta name="twitter:image" content="${absoluteImageUrl}" />
 <meta name="twitter:image:alt" content="${safeTitle}" />
+<meta name="twitter:domain" content="${siteUrl.replace(/^https?:\/\//, '')}" />
 
 <!-- Open Graph / Facebook tags -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
 <meta property="og:site_name" content="Spyder IDE" />
 <meta property="og:url" content="${absoluteUrl}" />
 <meta property="og:title" content="${safeTitle}" />
 <meta property="og:description" content="${safeDescription}" />
 <meta property="og:image" content="${absoluteImageUrl}" />
+<meta property="og:image:secure_url" content="${absoluteImageUrl}" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="en_US" />
+${formattedDate ? `<meta property="article:published_time" content="${formattedDate}" />` : ''}
 <!-- End of SEO meta tags -->`;
 
     // Inject meta tags into the head
