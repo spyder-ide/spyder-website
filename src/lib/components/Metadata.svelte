@@ -16,14 +16,12 @@
 </script>
 
 <svelte:head>
-    <meta name="robots" content="index, follow" />
     <!-- Essential Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content={author} />
     <link rel="canonical" href={absoluteUrl} />
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Spyder IDE" />
@@ -35,7 +33,6 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content={site} />
@@ -43,10 +40,9 @@
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={absoluteImage} />
     <meta name="twitter:image:alt" content={title} />
-
     <!-- Additional Meta -->
     {#if prism}
-        <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
+    <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
     {/if}
     <link
         rel="alternate"

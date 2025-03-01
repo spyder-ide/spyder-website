@@ -314,3 +314,8 @@ static/assets/og
 .cursorrules
 .cursorignore
 .cursor/
+
+# Prettier
+.prettierrc
+.prettierignore
+.prettierrc.*

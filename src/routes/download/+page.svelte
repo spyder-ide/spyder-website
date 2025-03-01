@@ -1,13 +1,15 @@
 <script>
-  import { _, json } from "svelte-i18n";
   import { onMount } from "svelte";
+  import { _, json } from "svelte-i18n";
 
   import { browser } from "$app/environment";
-  import { getOS } from "$lib/utils";
   import { releases } from "$lib/config";
+  import { getOS } from "$lib/utils";
 
-  import Loader from "$lib/components/Loader.svelte";
   import Button from "$lib/components/Button.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
+  export let data;
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
   /** @typedef {Record<string, Record<string, ReleaseInfo>>} Releases */
@@ -20,7 +22,7 @@
   let downloadUrl = "";
   let osButtons = [];
   let result;
-
+  let metadata;
   // Page content
   let pageTitle, pageSubtitle, pageSubtitleAlt;
   let download, buttonText;
@@ -112,8 +114,12 @@
     if (releases?.mac) {
       macs = Object.entries(releases.mac);
     }
+
+    metadata = { ...data.metadata, title: `${data.metadata.title} | ${data.metadata.subtitle}` };
   }
 </script>
+
+<Metadata {...metadata} />
 
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}

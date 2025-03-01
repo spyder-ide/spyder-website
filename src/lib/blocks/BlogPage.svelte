@@ -1,6 +1,6 @@
 <script>
-  import { _ } from "svelte-i18n";
   import Blog from "$lib/blocks/Blog.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -14,5 +14,7 @@
     totalPages = data.props.totalPages;
   }
 </script>
+
+<Metadata {...data.metadata} />
 
 <Blog {data} {pageNum} {totalPages} />

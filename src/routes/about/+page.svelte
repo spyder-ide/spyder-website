@@ -1,21 +1,19 @@
 <script>
   import { _, json, waitLocale } from "svelte-i18n";
 
-  import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
-  import {contributors } from "$lib/config";
+  import { contributors } from "$lib/config";
   import {
-    processContributors,
-    createContributorsMap,
-    mergeContributorData,
+      createContributorsMap,
+      mergeContributorData,
+      processContributors,
   } from "$lib/utils";
 
   /** @type {import('./$types').PageData} */
   export let data;
-
-  // Page metadata
-  let title, author, description;
 
   // Page content
   let pageIntro,
@@ -23,7 +21,8 @@
     currentTitle,
     pastTitle,
     remainingTitle,
-    remainingIntro;
+    remainingIntro,
+    pageMetadata;
 
   // Contributor data
   let currentRawContributors, pastRawContributors;
@@ -83,8 +82,16 @@
       updatedPast = processedContributors.updatedPast;
       remainingContributors = processedContributors.remainingContributors;
     }
+
+    // Set page metadata
+    pageMetadata = {
+      ...data.metadata,
+      description: pageIntro,
+    };
   }
 </script>
+
+<Metadata {...pageMetadata} />
 
 {#await waitLocale()}
   <Loader />

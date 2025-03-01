@@ -1,22 +1,26 @@
 <script>
-  import { json } from "svelte-i18n";
   import { frontpage } from "$lib/config";
   import { mergeContentBlocks } from "$lib/utils/content";
+  import { _, json } from "svelte-i18n";
 
-  import Hero from "$lib/blocks/Hero.svelte";
   import ContentBlock from "$lib/blocks/ContentBlock.svelte";
+  import Hero from "$lib/blocks/Hero.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
+
+  export let data;
 
   let blocks = [];
+  let metadata = {};
   
-  $: if ($json) {
-    try {
+  $: {
       const translatedBlocks = $json("frontpage") || [];
+      const subtitle = $_("config.site.subtitle") || data.metadata.subtitle;
       blocks = mergeContentBlocks(frontpage, translatedBlocks);
-    } catch (error) {
-      console.error("Error loading content:", error);
-    }
+      metadata = { ...data.metadata, title: `${data.metadata.title} | ${subtitle}` };
   }
 </script>
+
+<Metadata {...metadata} />
 
 <Hero id="hero-section" divider={true} />
 
