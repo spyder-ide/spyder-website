@@ -10,13 +10,13 @@
   export let data;
 
   let blocks = [];
-  let metadata = {};
+  let metadata = data.metadata || {};
   
   $: {
       const translatedBlocks = $json("frontpage") || [];
       const subtitle = $_("config.site.subtitle") || data.metadata.subtitle;
       blocks = mergeContentBlocks(frontpage, translatedBlocks);
-      metadata = { ...data.metadata, title: `${data.metadata.title} | ${subtitle}` };
+      metadata = { title: `${data.metadata.title} | ${subtitle}` };
   }
 </script>
 
