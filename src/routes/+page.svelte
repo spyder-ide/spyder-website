@@ -11,13 +11,12 @@
 
   let blocks = [];
   let metadata = data.metadata || {};
+
+  const subtitle = $_("config.site.subtitle") || data.metadata.subtitle;
+  const translatedBlocks = $json("frontpage") || [];
   
-  $: {
-      const translatedBlocks = $json("frontpage") || [];
-      const subtitle = $_("config.site.subtitle") || data.metadata.subtitle;
-      blocks = mergeContentBlocks(frontpage, translatedBlocks);
-      metadata = { title: `${data.metadata.title} | ${subtitle}` };
-  }
+  $: blocks = mergeContentBlocks(frontpage, translatedBlocks);
+  $: metadata = { title: `${data.metadata.title} | ${subtitle}` };
 </script>
 
 <Metadata {...metadata} />
