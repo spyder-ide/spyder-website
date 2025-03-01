@@ -3,7 +3,7 @@ import { browser } from "$app/environment";
 import { base } from "$app/paths";
 import { getOS, getOSButtons } from "$lib/utils";
 
-// Colour scheme
+// Color scheme store
 const storedColourScheme = browser
   ? localStorage.getItem("colourScheme") || "light"
   : "light";
@@ -17,37 +17,6 @@ if (browser) {
   });
 }
 
-// Metadata
-function createMetadata() {
-  const { subscribe, set, update } = writable({
-    title: "",
-    description: "",
-    keywords: "",
-    author: "",
-    url: "",
-    image: "",
-    site: ""
-  });
-
-  return {
-    subscribe,
-    setMetadata: (metadata) => set(metadata),
-    reset: () =>
-      set({
-        title: "",
-        description: "",
-        keywords: "",
-        author: "",
-        url: "",
-        image: "",
-        site: ""
-      }),
-  };
-}
-
-export const metadata = createMetadata();
-
-// Operating system
 export const osStore = writable({ loading: true });
 
 if (browser) {

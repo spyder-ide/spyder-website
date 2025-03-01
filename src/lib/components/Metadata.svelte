@@ -1,59 +1,53 @@
-<script>
-    import { _, locale } from "svelte-i18n";
+<script lang="ts">
+    import { siteUrl } from "$lib/config";
 
-    import { base } from "$app/paths";
+    export let title: string = 'Spyder';
+    export let description: string = '';
+    export let keywords: string = '';
+    export let author: string = '';
+    export let url: string = '';
+    export let image: string = '';
+    export let prism: boolean = false;
 
-    import { metadata } from "$lib/store";
-    import { siteUrl, config } from "$lib/config";
-
-    let site, title, socials, localeCode;
-    const untrailedUrl = $metadata.url.replace(/\/+$/, '');
-
-    $: {
-      socials = config.site.socials;
-      site = `@${socials.twitter.split("/").pop()}`;
-      localeCode = $locale.replace('-', '_');
-    }
-
-    export let prism = false;
+    const site = `@Spyder_IDE`;
+    $: untrailedUrl = url?.replace(/\/+$/, '') || '';
+    $: absoluteUrl = untrailedUrl.startsWith('http') ? untrailedUrl : `${siteUrl}${untrailedUrl}`;
+    $: absoluteImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 </script>
 
 <svelte:head>
-  <title>{$metadata.title || title}</title>
-  <meta name="description" content={$metadata.description} />
-  <meta name="keywords" content={$metadata.keywords} />
-  <meta name="author" content={$metadata.author} />
-  <link rel="canonical" href={untrailedUrl} />
-  <link
-    rel="alternate"
-    type="application/rss+xml"
-    title="Spyder's Blog"
-    href="{siteUrl}/blog/feed.xml"
-  />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={untrailedUrl} />
-  <meta property="og:title" content={$metadata.title} />
-  <meta property="og:description" content={$metadata.description} />
-  <meta property="og:image" content={$metadata.image} />
-  {#if $metadata.image.startsWith("https")}
-    <meta property="og:image:secure_url" content={$metadata.image} />
-  {/if}
-  <meta property="og:locale" content={localeCode} />
-  <meta property="og:site_name" content="Spyder IDE" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content={site} />
-  <meta name="twitter:creator" content={site} />
-  <meta name="twitter:title" content={$metadata.title} />
-  <meta name="twitter:description" content={$metadata.description} />
-  <meta name="twitter:image" content={$metadata.image} />
-  <meta name="twitter:image:alt" content={$metadata.title} />
-
-  {#if prism}
-    <!-- Nord stylesheet for code blocks with prism -->
-    <link rel="stylesheet" href="{base}/assets/vendor/prism/prism-nord.css" />
-  {/if}
+    <!-- Essential Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={author} />
+    <link rel="canonical" href={absoluteUrl} />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Spyder IDE" />
+    <meta property="og:url" content={absoluteUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteImage} />
+    <meta name="twitter:image:alt" content={title} />
+    <!-- Additional Meta -->
+    {#if prism}
+    <link rel="stylesheet" href="/assets/vendor/prism/prism-nord.css" />
+    {/if}
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="Spyder's Blog"
+        href="{siteUrl}/blog/feed.xml"
+    />
 </svelte:head>

@@ -2,6 +2,9 @@ import { existsSync, createReadStream } from "fs";
 import { join } from "path";
 import { locale } from 'svelte-i18n';
 import { building } from '$app/environment';
+import { injectMetaTags } from "$lib/server/metaTagsInjector";
+
+export default join;
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -23,7 +26,43 @@ export async function handle({ event, resolve }) {
     }
   }
 
-  return resolve(event);
+  // Get the response
+  const response = await resolve(event);
+  
+  // Only process HTML responses during prerendering for blog posts
+  if (building && event.url.pathname.startsWith('/blog/')) {
+    // Skip pagination routes and wildcard route
+    const pathSegments = event.url.pathname.split('/').filter(Boolean);
+    const isPageRoute = 
+      // Check for /blog/* pattern (wildcard route)
+      (pathSegments.length === 2 && pathSegments[1] === '*') ||
+      // Check for /blog/1, /blog/2, etc. (pagination routes)
+      (pathSegments.length === 2 && !isNaN(parseInt(pathSegments[1])));
+    
+    if (isPageRoute) {
+      //console.log(`Skipping meta tag injection for pagination route: ${event.url.pathname}`);
+      return response;
+    }
+    
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('text/html')) {
+      // Clone the response to get its body as text
+      const clonedResponse = response.clone();
+      const html = await clonedResponse.text();
+      
+      // Inject meta tags for blog posts
+      const transformedHtml = injectMetaTags(html, event.url);
+      
+      // Return the transformed response
+      return new Response(transformedHtml, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers
+      });
+    }
+  }
+
+  return response;
 }
 
 /** @type {import('@sveltejs/kit').HandleServerError} */

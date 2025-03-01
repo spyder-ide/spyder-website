@@ -1,5 +1,14 @@
+import yaml from "js-yaml";
+
 import { browser } from "$app/environment";
-import { blogPageSize, blogPageStart, releases } from "$lib/config";
+import {
+  blogPageSize,
+  blogPageStart,
+  releases,
+  siteUrl,
+  ogImageBlog,
+  config,
+} from "$lib/config";
 
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
@@ -85,8 +94,9 @@ export function formattedPubDate(date, i18n = "en-US") {
  */
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
+    // In the browser, use fetch
     const response = await (customFetch || fetch)(
-      `/assets/authors/${author}/metadata.json`,
+      `/assets/authors/${author}/metadata.json`
     );
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
@@ -114,9 +124,9 @@ export async function fetchAuthorsMetadata(authors) {
   }
 
   const metadataList = await Promise.all(
-    authors.map((author) => fetchAuthorMetadata(author)),
+    authors.map((author) => fetchAuthorMetadata(author))
   );
-  return metadataList;
+  return metadataList.filter(Boolean); // Remove null entries
 }
 
 /**
@@ -229,7 +239,7 @@ export const processContributors = (current, past, all) => {
   const remainingContributors = all.filter(
     (contributor) =>
       !current.some((c) => c.id === contributor.id) &&
-      !past.some((p) => p.id === contributor.id),
+      !past.some((p) => p.id === contributor.id)
   );
 
   return {
@@ -253,7 +263,7 @@ export const getContributors = async (
   dataSrc = dataURL || "",
   token = githubToken || undefined,
   startPage = 1,
-  maxPages = 3,
+  maxPages = 3
 ) => {
   let headers, response;
   let contributors = [];
@@ -345,8 +355,5 @@ export async function loadBlogPage(page = blogPageStart) {
  */
 export async function generateBlogEntries() {
   const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
-  return Array.from(
-    { length: totalPages },
-    (_, i) => ({ page: `${i + 1}` }),
-  );
+  return Array.from({ length: totalPages }, (_, i) => ({ page: `${i + 1}` }));
 }

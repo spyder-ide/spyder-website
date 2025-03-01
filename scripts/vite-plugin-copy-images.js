@@ -18,6 +18,7 @@ export default function copyImages() {
       try {
         const blogPosts = fs.readdirSync(blogDir, { withFileTypes: true })
           .filter(dirent => dirent.isDirectory())
+          .filter(dirent => dirent.name !== '[page]' && dirent.name !== 'feed.xml')
           .map(dirent => dirent.name);
 
         console.log('📚 Blog posts found:', blogPosts);

@@ -309,3 +309,13 @@ dist
 
 # Generated OG images
 static/assets/og
+
+# Cursor
+.cursorrules
+.cursorignore
+.cursor/
+
+# Prettier
+.prettierrc
+.prettierignore
+.prettierrc.*

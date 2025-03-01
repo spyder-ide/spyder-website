@@ -113,7 +113,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   button {
     @apply w-full h-full;
   }

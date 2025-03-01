@@ -13,7 +13,7 @@
   </svg>
 </div>
 
-<style>
+<style lang="postcss">
   .spinner {
     animation: spinnerMove 1.2s cubic-bezier(0.52, 0.6, 0.25, 0.99) infinite;
   }
