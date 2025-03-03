@@ -11,13 +11,13 @@ site:
     - Data-Analytics
     - Programming
   navigation:
-    - - href: /download/
+    - - href: /download
         target: _self
-      - href: /about/
+      - href: /about
         target: _self
-      - href: /blog/
+      - href: /blog
         target: _self
-      - href: https://docs.spyder-ide.org/
+      - href: https://docs.spyder-ide.org
         target: _blank
   heroImages:
     dark: /assets/media/screenshot_dark.webp
@@ -25,11 +25,11 @@ site:
   githubButton:
     highlight: false
     icon: github
-    href: https://github.com/spyder-ide/spyder/
+    href: https://github.com/spyder-ide/spyder
   socials:
     github: https://github.com/spyder-ide/spyder
     twitter: https://twitter.com/spyder_ide
-    facebook: https://www.facebook.com/SpyderIDE/
+    facebook: https://www.facebook.com/SpyderIDE
     mastodon: https://fosstodon.org/@Spyder
     instagram: https://instagram.com/spyderide
     rss: https://www.spyder-ide.org/blog/feed.xml
