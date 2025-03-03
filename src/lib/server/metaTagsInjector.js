@@ -180,9 +180,13 @@ export function injectMetaTags(html, url) {
       finalImagePath = "/assets/media/website_screenshot.png";
     }
 
-    const absoluteImageUrl = `${siteUrl}${finalImagePath}`;
+    // Make sure the image URL is absolute and doesn't have any special characters
+    const absoluteImageUrl = `${siteUrl}${finalImagePath.replace(
+      /\s/g,
+      "%20"
+    )}`;
 
-    // Generate absolute URL for the post
+    // Generate absolute URL for the post - ensure no trailing slash
     const absoluteUrl = `${siteUrl}/blog/${slug}`;
 
     // Create the meta tag string - with escaping for special characters

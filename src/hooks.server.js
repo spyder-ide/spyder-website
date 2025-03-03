@@ -13,9 +13,16 @@ export async function handle({ event, resolve }) {
     locale.set(lang);
   }
 
-  // Only handle image requests in development mode
+  // Check for social media crawlers
+  const userAgent = event.request.headers.get("user-agent") || "";
+  const isSocialMediaCrawler =
+    userAgent.includes("Twitterbot") ||
+    userAgent.includes("facebookexternalhit") ||
+    userAgent.includes("LinkedInBot");
+
+  // Handle image requests for both development and crawlers
   if (
-    !building &&
+    (!building || isSocialMediaCrawler) &&
     event.url.pathname.startsWith("/blog/") &&
     event.url.pathname.match(
       /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i
@@ -31,8 +38,11 @@ export async function handle({ event, resolve }) {
   // Get the response
   const response = await resolve(event);
 
-  // Only process HTML responses during prerendering for blog posts
-  if (building && event.url.pathname.startsWith("/blog/")) {
+  // Process HTML responses for social media crawlers or during prerendering
+  if (
+    (building || isSocialMediaCrawler) &&
+    event.url.pathname.startsWith("/blog/")
+  ) {
     // Skip pagination routes and wildcard route
     const pathSegments = event.url.pathname.split("/").filter(Boolean);
 
@@ -61,11 +71,17 @@ export async function handle({ event, resolve }) {
       // Inject meta tags for blog posts
       const transformedHtml = injectMetaTags(html, event.url);
 
+      // Create a new Response with proper caching headers for social media
+      const newHeaders = new Headers(response.headers);
+      if (isSocialMediaCrawler) {
+        newHeaders.set("Cache-Control", "public, max-age=3600");
+      }
+
       // Return the transformed response
       return new Response(transformedHtml, {
         status: response.status,
         statusText: response.statusText,
-        headers: response.headers,
+        headers: newHeaders,
       });
     }
   }
