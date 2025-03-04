@@ -4,6 +4,27 @@ import matter from "gray-matter";
 import path from "path";
 
 /**
+ * Configuration for meta tags injector
+ * @typedef {Object} InjectorConfig
+ * @property {boolean} logging - Whether to enable debug logging
+ */
+
+/** @type {InjectorConfig} */
+const INJECTOR_CONFIG = {
+  logging: true,
+};
+
+/**
+ * Debug logger that only logs when logging is enabled
+ * @param {...any} args - Arguments to pass to console.log
+ */
+function debugLog(...args) {
+  if (INJECTOR_CONFIG.logging) {
+    console.log(...args);
+  }
+}
+
+/**
  * Extracts metadata from a markdown file
  * @param {string} slug - The slug/identifier for the blog post
  * @returns {Object} - Object containing extracted metadata
@@ -66,13 +87,59 @@ function extractMarkdownMetadata(slug) {
 }
 
 /**
+ * Truncates a string to a specified character limit while preserving whole words
+ * @param {string} text - The text to truncate
+ * @param {number} maxLength - Maximum character length
+ * @param {string} [ellipsis="..."] - The ellipsis to append to truncated text
+ * @returns {string} - The truncated string
+ */
+function truncateByWords(text, maxLength, ellipsis = "...") {
+  if (!text || text.length <= maxLength) {
+    return text;
+  }
+
+  const words = text.split(" ");
+  let result = "";
+  let currentLength = 0;
+
+  // Add words one by one until we reach close to the limit
+  for (const word of words) {
+    // +1 for the space character
+    if (currentLength + word.length + 1 <= maxLength - ellipsis.length) {
+      result += (result ? " " : "") + word;
+      currentLength += word.length + (result ? 1 : 0);
+    } else {
+      break;
+    }
+  }
+
+  debugLog(
+    `Truncated text from ${text.length} to ${
+      result.length + ellipsis.length
+    } chars`
+  );
+  return result + ellipsis;
+}
+
+/**
+ * Safely escapes text for use in HTML attributes
+ * @param {string} text - The text to escape
+ * @returns {string} - The escaped text
+ */
+function escapeHtmlAttribute(text) {
+  return text.replace(/"/g, "&quot;");
+}
+
+/**
  * Injects meta tags into the HTML head for blog posts during prerendering
  * @param {string} html - The HTML to transform
  * @param {URL} url - The URL of the request
  * @returns {string} - Transformed HTML with meta tags
  */
 export function injectMetaTags(html, url) {
+  // Skip if not a blog post URL
   if (!url.pathname.startsWith("/blog/") || url.pathname === "/blog/") {
+    debugLog(`[Injector] Skipping non-blog URL: ${url.pathname}`);
     return html;
   }
 
@@ -83,23 +150,29 @@ export function injectMetaTags(html, url) {
     (pathSegments.length === 2 && !isNaN(parseInt(pathSegments[1])));
 
   if (isPaginationRoute) {
+    debugLog(`[Injector] Skipping pagination route: ${url.pathname}`);
     return html;
   }
 
   try {
     // Extract the slug from the URL and normalize it (remove trailing slash)
     let slug = pathSegments[1];
+
     // Remove trailing slash if present
     if (slug && slug.endsWith("/")) {
       slug = slug.slice(0, -1);
     }
+
+    debugLog(`[Injector] Processing blog post: ${slug}`);
 
     // Check if the HTML already has OpenGraph tags
     if (
       html.includes('<meta property="og:type" content="website" />') ||
       html.includes('<meta property="og:type" content="website">')
     ) {
-      // Silently skip without logging
+      debugLog(
+        `[Injector] Skipping - OpenGraph tags already present for: ${slug}`
+      );
       return html;
     }
 
@@ -114,6 +187,7 @@ export function injectMetaTags(html, url) {
       const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
       if (h1Match) {
         title = h1Match[1].trim().replace(/<\/?[^>]+(>|$)/g, "");
+        debugLog(`[Injector] Extracted title from H1: ${title}`);
       }
     }
 
@@ -121,6 +195,7 @@ export function injectMetaTags(html, url) {
     if (!title) {
       const titleMatch = html.match(/<title>(.*?)<\/title>/);
       title = titleMatch ? titleMatch[1].replace("Spyder | ", "") : "";
+      debugLog(`[Injector] Extracted title from title tag: ${title}`);
     }
 
     // Set the final title with proper format
@@ -143,10 +218,7 @@ export function injectMetaTags(html, url) {
             /<\/?[^>]+(>|$)/g,
             ""
           );
-          // Limit to reasonable size for meta description
-          if (finalDescription.length > 160) {
-            finalDescription = finalDescription.substring(0, 157) + "...";
-          }
+          debugLog(`[Injector] Extracted description from first paragraph`);
         }
       }
     }
@@ -154,12 +226,14 @@ export function injectMetaTags(html, url) {
     // Fallback description if still empty
     if (!finalDescription) {
       finalDescription = title;
+      debugLog(`[Injector] Using title as fallback for description`);
     }
 
     // Fallback tags if still empty
     let finalTags = tags;
     if (!finalTags) {
       finalTags = config.site.siteKeywords;
+      debugLog(`[Injector] Using default site keywords for tags`);
     }
 
     // Generate image URL
@@ -190,18 +264,14 @@ export function injectMetaTags(html, url) {
     const absoluteUrl = `${siteUrl}/blog/${slug}`;
 
     // Create the meta tag string - with escaping for special characters
-    // Enforce Twitter character limits
-    const limitedTitle =
-      title.length > 70 ? `${title.substring(0, 67)}...` : title;
-    const limitedDescription =
-      finalDescription.length > 200
-        ? `${finalDescription.substring(0, 197)}...`
-        : finalDescription;
+    // Enforce Twitter character limits using word-based truncation
+    const limitedTitle = truncateByWords(title, 70, "...");
+    const limitedDescription = truncateByWords(finalDescription, 200, "...");
 
-    const safeTitle = limitedTitle.replace(/"/g, "&quot;");
-    const safeDescription = limitedDescription.replace(/"/g, "&quot;");
+    const safeTitle = escapeHtmlAttribute(limitedTitle);
+    const safeDescription = escapeHtmlAttribute(limitedDescription);
 
-    // Only log for actual blog posts, not pagination routes
+    // Log for actual blog posts
     console.log(`🏗️ [Injector] working on post: ${slug}`);
 
     // Format publication date for meta tags if available
@@ -249,9 +319,11 @@ ${
 <!-- End of SEO meta tags -->`;
 
     // Inject meta tags into the head
-    return html.replace("<head>", `<head>\n${metaTags}\n`);
+    const result = html.replace("<head>", `<head>\n${metaTags}\n`);
+    debugLog(`[Injector] Successfully injected meta tags for: ${slug}`);
+    return result;
   } catch (error) {
-    console.error("Error injecting meta tags:", error);
+    console.error("Error injecting meta tags:", error, error.stack);
     return html;
   }
 }
