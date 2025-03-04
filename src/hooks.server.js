@@ -20,9 +20,9 @@ export async function handle({ event, resolve }) {
     userAgent.includes("facebookexternalhit") ||
     userAgent.includes("LinkedInBot");
 
-  // Handle image requests for both development and crawlers
+  // Handle image requests in development mode - don't change this original logic for images
   if (
-    (!building || isSocialMediaCrawler) &&
+    !building &&
     event.url.pathname.startsWith("/blog/") &&
     event.url.pathname.match(
       /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i
