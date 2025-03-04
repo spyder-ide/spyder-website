@@ -15,56 +15,94 @@ const classNamesOptions = {
   figure: "figure",
 };
 
+// Function to transform image paths correctly for blog posts
 const blogImages = () => {
   return (tree, file) => {
-    visit(tree, "image", (node) => {
-      // Get the blog post slug from the file path
-      const routePath = file.filename.split("routes")[1] || "";
-      const blogMatch = routePath.match(/\/blog\/([^/]+)/);
+    // Get the blog post slug from the file path
+    const routePath = file.filename.split("routes")[1] || "";
+    const blogMatch = routePath.match(/\/blog\/([^/]+)/);
 
-      console.log(
-        `[BlogImages] Processing image: ${node.url} in file: ${file.filename}`
-      );
+    console.log(`[BlogImages] Processing file: ${file.filename}`);
 
-      if (blogMatch && blogMatch[1]) {
-        const slug = blogMatch[1];
-        console.log(`[BlogImages] Detected blog slug: ${slug}`);
+    // Only process blog post files
+    if (blogMatch && blogMatch[1]) {
+      const slug = blogMatch[1];
+      console.log(`[BlogImages] Detected blog slug: ${slug}`);
 
+      // Process both image nodes and raw HTML nodes
+      // First, handle regular image nodes
+      visit(tree, "image", (node) => {
         // Store the original URL for debugging
         const originalUrl = node.url;
 
-        // Handle paths with or without './' prefix
-        if (node.url.startsWith("./")) {
-          // Handle relative paths with './' prefix
-          const imgName = node.url.slice(2);
-          // Point to the slug directory
-          node.url = `/blog/${slug}/${imgName}`;
-          console.log(
-            `[BlogImages] Transformed ./ path to: ${node.url} (was: ${originalUrl})`
-          );
-        } else if (node.url.startsWith("/")) {
-          // Handle absolute paths - keep as is
+        // Skip external URLs
+        if (node.url.startsWith("http")) {
+          console.log(`[BlogImages] Keeping external URL: ${node.url}`);
+          return;
+        }
+
+        // Skip absolute paths outside of blog
+        if (node.url.startsWith("/") && !node.url.startsWith("/blog/")) {
           console.log(`[BlogImages] Keeping absolute path: ${node.url}`);
-        } else if (node.url.startsWith("http")) {
-          // Handle URLs - keep as is
-          console.log(`[BlogImages] Keeping URL: ${node.url}`);
-        } else {
-          // Handle relative paths without './' prefix - IMPORTANT: This is the case that's failing on Netlify
-          // Always prefix with slug for blog images
-          node.url = `/blog/${slug}/${node.url}`;
+          return;
+        }
+
+        // For all other cases, ensure the image has the correct blog post slug prefix
+        const cleanPath = node.url.startsWith("./")
+          ? node.url.slice(2)
+          : node.url;
+
+        // Always use the pattern /blog/[slug]/[image.png]
+        if (node.url.startsWith(`/blog/${slug}/`)) {
           console.log(
-            `[BlogImages] Transformed relative path to: ${node.url} (was: ${originalUrl})`
+            `[BlogImages] URL already has correct format: ${node.url}`
+          );
+        } else {
+          node.url = `/blog/${slug}/${cleanPath}`;
+          console.log(
+            `[BlogImages] Transformed to: ${node.url} (was: ${originalUrl})`
           );
         }
-      } else if (node.url.startsWith("./")) {
-        // Fallback for other routes
-        const route = routePath.split("/").slice(0, -1).join("/");
-        node.url = `${route}/${node.url.slice(2)}`;
-        console.log(`[BlogImages] Fallback transformation to: ${node.url}`);
-      }
+      });
 
-      console.log(`[BlogImages] Final image path: ${node.url}`);
-    });
+      // Then handle raw HTML to catch any embedded <img> tags
+      visit(tree, "html", (node) => {
+        if (node.value && node.value.includes("<img")) {
+          const originalHtml = node.value;
+
+          // Simple regex to transform image src attributes
+          // This is a basic approach - for a production system you'd want to use a proper HTML parser
+          node.value = node.value.replace(/src="([^"]+)"/g, (match, src) => {
+            // Skip external URLs and absolute paths
+            if (
+              src.startsWith("http") ||
+              (src.startsWith("/") && !src.startsWith("/blog/"))
+            ) {
+              return match;
+            }
+
+            // Clean the path
+            const cleanPath = src.startsWith("./") ? src.slice(2) : src;
+
+            // Create the new src with blog slug
+            const newSrc = `/blog/${slug}/${cleanPath}`;
+
+            console.log(
+              `[BlogImages] Transformed HTML img: ${src} -> ${newSrc}`
+            );
+            return `src="${newSrc}"`;
+          });
+
+          if (originalHtml !== node.value) {
+            console.log("[BlogImages] HTML node was transformed");
+          }
+        }
+      });
+    } else {
+      console.log(
+        `[BlogImages] Not a blog post, skipping image path transformation`
+      );
+    }
   };
 };
 
