@@ -49,9 +49,9 @@ const blogImages = () => {
           // Handle URLs - keep as is
           console.log(`[BlogImages] Keeping URL: ${node.url}`);
         } else {
-          // Handle relative paths without './' prefix
-          const imgName = node.url;
-          node.url = `/blog/${slug}/${imgName}`;
+          // Handle relative paths without './' prefix - IMPORTANT: This is the case that's failing on Netlify
+          // Always prefix with slug for blog images
+          node.url = `/blog/${slug}/${node.url}`;
           console.log(
             `[BlogImages] Transformed relative path to: ${node.url} (was: ${originalUrl})`
           );

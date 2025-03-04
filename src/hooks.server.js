@@ -22,7 +22,7 @@ function debugLog(...args) {
 /**
  * Handle image requests in development mode
  * @param {URL} url The request URL
- * @returns {Response|undefined} A response with the image or undefined if not found
+ * @returns {Promise<Response|undefined>} A response with the image or undefined if not found
  */
 async function handleImageRequest(url) {
   // Extract the path parts and get the full pathname
@@ -46,8 +46,8 @@ async function handleImageRequest(url) {
   const possiblePaths = [];
 
   // Case 1: Standard URL format - /blog/[slug]/[image.png]
-  if (pathParts.length >= 3) {
-    const slug = pathParts[1]; // 'blog' is at index 0, so slug is at index 1
+  if (pathParts.length >= 3 && pathParts[0] === "blog") {
+    const slug = pathParts[1];
     // Primary path: /src/routes/blog/[slug]/[image.png]
     const primaryPath = join(
       process.cwd(),
@@ -59,10 +59,14 @@ async function handleImageRequest(url) {
     );
     possiblePaths.push(primaryPath);
     debugLog(`[Debug] 🎯 Primary path (using slug "${slug}"): ${primaryPath}`);
-  }
 
+    // In case the image wasn't found with slug prefix, try as a global image
+    possiblePaths.push(
+      join(process.cwd(), "src", "routes", "blog", imageFileName)
+    );
+  }
   // Case 2: Direct URL format - /blog/[image.png]
-  else if (pathParts.length === 2) {
+  else if (pathParts.length === 2 && pathParts[0] === "blog") {
     // Try to infer the slug from available blog posts
     const blogDir = join(process.cwd(), "src", "routes", "blog");
     let blogPosts = [];
@@ -75,12 +79,15 @@ async function handleImageRequest(url) {
         )
         .map((dirent) => dirent.name);
 
+      debugLog(`[Debug] 📚 Found blog posts: ${blogPosts.join(", ")}`);
+
       // For each blog post directory, check if it contains the requested image
       for (const blogPost of blogPosts) {
         const potentialPath = join(blogDir, blogPost, imageFileName);
+        debugLog(`[Debug] 🔍 Checking in blog post: ${blogPost}`);
         if (existsSync(potentialPath)) {
           debugLog(
-            `[Debug] 🔍 Found image in blog post directory: ${blogPost}`
+            `[Debug] ✅ Found image in blog post directory: ${blogPost}`
           );
           possiblePaths.push(potentialPath);
           break; // Stop after finding the first match
@@ -94,7 +101,7 @@ async function handleImageRequest(url) {
     }
   }
 
-  // Add a few fallback paths
+  // Add fallback paths
   possiblePaths.push(
     join(process.cwd(), "static", pathname),
     join(process.cwd(), "static", "blog", imageFileName)
