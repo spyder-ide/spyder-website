@@ -15,7 +15,7 @@ import { locale } from "svelte-i18n";
 
 /** @type {ServerConfig} */
 const CONFIG = {
-  logging: true,
+  logging: false,
   mediaExtensions: [
     "png",
     "jpg",
