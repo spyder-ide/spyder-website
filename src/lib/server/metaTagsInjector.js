@@ -202,13 +202,13 @@ export function injectMetaTags(html, url) {
     const safeDescription = limitedDescription.replace(/"/g, "&quot;");
 
     // Only log for actual blog posts, not pagination routes
-    console.log(`Injecting meta tags for blog post: ${slug}`);
+    console.log(`🏗️ [Injector] working on post: ${slug}`);
 
     // Format publication date for meta tags if available
     const formattedDate = pubDate ? new Date(pubDate).toISOString() : "";
 
     const metaTags = `<!-- Start of SEO meta tags -->
-<title>${safeTitle}</title>
+<title>${title}</title>
 <link rel="canonical" href="${absoluteUrl}" />
 <meta name="description" content="${safeDescription}" />
 <meta name="keywords" content="${finalTags}" />

@@ -4,19 +4,106 @@ import { createReadStream, existsSync, readdirSync } from "fs";
 import { join } from "path";
 import { locale } from "svelte-i18n";
 
-export default join;
+/**
+ * Configuration for the server hooks
+ * @typedef {Object} ServerConfig
+ * @property {boolean} logging - Whether to enable debug logging
+ * @property {string[]} mediaExtensions - File extensions to consider as media files
+ * @property {string[]} ignoredBlogDirs - Blog directories to ignore when scanning
+ * @property {string[]} socialCrawlers - User agent strings for social media crawlers
+ */
 
-// Debug logging configuration - set to true to enable all debug logs
-const LOGGING = false;
+/** @type {ServerConfig} */
+const CONFIG = {
+  logging: true,
+  mediaExtensions: [
+    "png",
+    "jpg",
+    "jpeg",
+    "gif",
+    "svg",
+    "webp",
+    "webm",
+    "mp4",
+    "ogv",
+    "mp3",
+    "ogg",
+  ],
+  ignoredBlogDirs: ["[page]", "feed.xml"],
+  socialCrawlers: ["Twitterbot", "facebookexternalhit", "LinkedInBot"],
+};
 
 /**
- * Debug logger that only logs when DEBUG_LOGGING is enabled
- * @param {string} message The message to log
+ * Creates a media file regex pattern for matching URLs
+ * @returns {RegExp} A regex pattern for matching media file extensions
+ */
+function getMediaFilePattern() {
+  return new RegExp(`\\.(${CONFIG.mediaExtensions.join("|")})$`, "i");
+}
+
+/**
+ * Debug logger that only logs when logging is enabled
+ * @param {...any} args - Arguments to pass to console.log
  */
 function debugLog(...args) {
-  if (LOGGING) {
+  if (CONFIG.logging) {
     console.log(...args);
   }
+}
+
+/**
+ * Gets the path to the blog directory
+ * @returns {string} The absolute path to the blog directory
+ */
+function getBlogDirectoryPath() {
+  return join(process.cwd(), "src", "routes", "blog");
+}
+
+/**
+ * Gets a list of blog post directories
+ * @returns {string[]} List of blog post directory names
+ */
+function getBlogPosts() {
+  try {
+    const blogDir = getBlogDirectoryPath();
+    return readdirSync(blogDir, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .filter((dirent) => !CONFIG.ignoredBlogDirs.includes(dirent.name))
+      .map((dirent) => dirent.name);
+  } catch (error) {
+    console.error("❌ Error reading blog directory:", error);
+    return [];
+  }
+}
+
+/**
+ * Extract and normalize path segments from a URL pathname
+ * @param {string} pathname - The URL pathname
+ * @returns {string[]} Array of path segments
+ */
+function getPathSegments(pathname) {
+  const segments = pathname.split("/").filter(Boolean);
+
+  // Normalize path segments (remove trailing slashes)
+  if (segments.length > 1 && segments[1].endsWith("/")) {
+    segments[1] = segments[1].slice(0, -1);
+  }
+
+  return segments;
+}
+
+/**
+ * Checks if the URL is for a blog pagination route
+ * @param {string[]} pathSegments - The URL path segments
+ * @returns {boolean} Whether the URL is for a pagination route
+ */
+function isPaginationRoute(pathSegments) {
+  return (
+    // Check for /blog/* pattern (wildcard route)
+    (pathSegments.length === 2 && pathSegments[1] === "*") ||
+    // Check for /blog/1, /blog/2, etc. (pagination routes)
+    (pathSegments.length === 2 && !isNaN(parseInt(pathSegments[1])))
+  );
 }
 
 /**
@@ -27,20 +114,20 @@ function debugLog(...args) {
 async function handleImageRequest(url) {
   // Extract the path parts and get the full pathname
   const pathname = url.pathname;
-  const pathParts = pathname.split("/").filter(Boolean);
+  const pathParts = getPathSegments(pathname);
 
-  debugLog(`\n[Debug] 🔍 Image request for: ${pathname}`);
-  debugLog(`[Debug] 📊 Path parts: ${JSON.stringify(pathParts)}`);
+  debugLog("🔍 Image request for:", pathname);
+  debugLog("📊 Path parts:", JSON.stringify(pathParts));
 
   // Early return if we don't have enough path parts
   if (pathParts.length < 2) {
-    debugLog(`[Debug] ⚠️ Not enough path parts, skipping image handler`);
+    debugLog("⚠️ Not enough path parts, skipping image handler");
     return;
   }
 
   // Extract the image filename
   const imageFileName = pathParts[pathParts.length - 1];
-  debugLog(`[Debug] 🖼️ Image filename: ${imageFileName}`);
+  debugLog("🖼️ Image filename:", imageFileName);
 
   // Initialize the possible paths array
   const possiblePaths = [];
@@ -48,17 +135,10 @@ async function handleImageRequest(url) {
   // Case 1: Standard URL format - /blog/[slug]/[image.png]
   if (pathParts.length >= 3 && pathParts[0] === "blog") {
     const slug = pathParts[1];
-    debugLog(`[Debug] 🎯 Using slug "${slug}" for image search`);
+    debugLog("🎯 Using slug", slug, "for image search");
 
     // Check in source directory
-    const primaryPath = join(
-      process.cwd(),
-      "src",
-      "routes",
-      "blog",
-      slug,
-      imageFileName
-    );
+    const primaryPath = join(getBlogDirectoryPath(), slug, imageFileName);
     possiblePaths.push(primaryPath);
 
     // Check in build output locations (added to be compatible with our Vite plugins)
@@ -77,16 +157,14 @@ async function handleImageRequest(url) {
       )
     );
 
-    debugLog(`[Debug] 🎯 Primary path: ${primaryPath}`);
+    debugLog("🎯 Primary path:", primaryPath);
 
     // In case the image wasn't found with slug prefix, try as a global image
-    possiblePaths.push(
-      join(process.cwd(), "src", "routes", "blog", imageFileName)
-    );
+    possiblePaths.push(join(getBlogDirectoryPath(), imageFileName));
   }
   // Case 2: Direct URL format - /blog/[image.png]
   else if (pathParts.length === 2 && pathParts[0] === "blog") {
-    debugLog(`[Debug] 🚀 Direct URL format detected: ${pathname}`);
+    debugLog("🚀 Direct URL format detected:", pathname);
 
     // First try to determine which blog post the request is for
     // Extract referrer to see if it contains a blog slug
@@ -95,60 +173,44 @@ async function handleImageRequest(url) {
 
     if (referrer) {
       const refererUrl = new URL(referrer);
-      const refererPathParts = refererUrl.pathname.split("/").filter(Boolean);
+      const refererPathParts = getPathSegments(refererUrl.pathname);
       if (refererPathParts.length >= 2 && refererPathParts[0] === "blog") {
         refererSlug = refererPathParts[1];
-        debugLog(`[Debug] 🎯 Found slug from referrer: ${refererSlug}`);
+        debugLog("🎯 Found slug from referrer:", refererSlug);
 
         // Try the referrer slug first
         const slugPath = join(
-          process.cwd(),
-          "src",
-          "routes",
-          "blog",
+          getBlogDirectoryPath(),
           refererSlug,
           imageFileName
         );
         possiblePaths.push(slugPath);
-        debugLog(`[Debug] 🔍 Checking referrer path: ${slugPath}`);
+        debugLog("🔍 Checking referrer path:", slugPath);
       }
     }
 
     // Check all blog post directories as a fallback
-    const blogDir = join(process.cwd(), "src", "routes", "blog");
-    let blogPosts = [];
+    const blogDir = getBlogDirectoryPath();
+    const blogPosts = getBlogPosts();
 
-    try {
-      blogPosts = readdirSync(blogDir, { withFileTypes: true })
-        .filter((dirent) => dirent.isDirectory())
-        .filter(
-          (dirent) => dirent.name !== "[page]" && dirent.name !== "feed.xml"
-        )
-        .map((dirent) => dirent.name);
+    debugLog("📚 Found blog posts:", blogPosts.join(", "));
 
-      debugLog(`[Debug] 📚 Found blog posts: ${blogPosts.join(", ")}`);
+    // For each blog post directory, check if it contains the requested image
+    for (const blogPost of blogPosts) {
+      // Skip if this is the referrer slug we already checked
+      if (blogPost === refererSlug) continue;
 
-      // For each blog post directory, check if it contains the requested image
-      for (const blogPost of blogPosts) {
-        // Skip if this is the referrer slug we already checked
-        if (blogPost === refererSlug) continue;
-
-        const potentialPath = join(blogDir, blogPost, imageFileName);
-        debugLog(`[Debug] 🔍 Checking in blog post: ${blogPost}`);
-        if (existsSync(potentialPath)) {
-          debugLog(
-            `[Debug] ✅ Found image in blog post directory: ${blogPost}`
-          );
-          possiblePaths.push(potentialPath);
-          break; // Stop after finding the first match
-        }
+      const potentialPath = join(blogDir, blogPost, imageFileName);
+      debugLog("🔍 Checking in blog post:", blogPost);
+      if (existsSync(potentialPath)) {
+        debugLog("✅ Found image in blog post directory:", blogPost);
+        possiblePaths.push(potentialPath);
+        break; // Stop after finding the first match
       }
-
-      // Fallback - try in the base blog directory
-      possiblePaths.push(join(blogDir, imageFileName));
-    } catch (error) {
-      console.error(`[Debug] ❌ Error accessing blog directories:`, error);
     }
+
+    // Fallback - try in the base blog directory
+    possiblePaths.push(join(blogDir, imageFileName));
   }
 
   // Add fallback paths
@@ -158,19 +220,19 @@ async function handleImageRequest(url) {
   );
 
   // Try all possible paths
-  debugLog(`[Debug] 🔎 Trying ${possiblePaths.length} possible paths...`);
+  debugLog("🔎 Trying", possiblePaths.length, "possible paths...");
   for (const imagePath of possiblePaths) {
-    debugLog(`[Debug] 🔍 Checking path: ${imagePath}`);
+    debugLog("🔍 Checking path:", imagePath);
     if (existsSync(imagePath)) {
-      debugLog(`[Debug] ✅ Found image at: ${imagePath}`);
+      debugLog("✅ Found image at:", imagePath);
       const stream = createReadStream(imagePath);
       return new Response(stream);
     }
   }
 
-  debugLog(`[Debug] ❌ No image found for: ${pathname}`);
+  debugLog("❌ No image found for:", pathname);
   debugLog(
-    `[Debug] 💡 Tip: Make sure the image file exists in the correct blog post directory.`
+    "💡 Tip: Make sure the image file exists in the correct blog post directory."
   );
   return;
 }
@@ -184,24 +246,33 @@ async function handleImageRequest(url) {
  */
 function transformImageUrls(html, url) {
   // Only process blog posts
-  const pathParts = url.pathname.split("/").filter(Boolean);
+  const pathParts = getPathSegments(url.pathname);
   if (pathParts.length < 2 || pathParts[0] !== "blog") {
+    debugLog("⏭️ Not a blog post, skipping image URL transformation");
     return html;
   }
 
   const slug = pathParts[1];
-  debugLog(`[Debug] 🔄 Transforming image URLs in HTML for slug: ${slug}`);
+  debugLog("🔄 Transforming image URLs in HTML for slug:", slug);
+
+  // Debug: Check if any IMG tags exist
+  const imgTagCount = (html.match(/<img[^>]*>/gi) || []).length;
+  debugLog(`📊 Found ${imgTagCount} total image tags in HTML`);
 
   // Use regex to find <img> tags with relative paths
-  return html.replace(
+  const result = html.replace(
     /<img\s+([^>]*)src="([^"]+)"([^>]*)>/gi,
     (match, beforeSrc, src, afterSrc) => {
+      // Debug: Log all found image sources
+      debugLog("🔍 Found image with src:", src);
+
       // Skip external URLs and already prefixed paths
       if (
         src.startsWith("http") ||
         src.startsWith("/blog/") ||
         src.startsWith("/assets/")
       ) {
+        debugLog("⏭️ Skipping prefixed or external image:", src);
         return match;
       }
 
@@ -211,10 +282,29 @@ function transformImageUrls(html, url) {
       // Create the new src with blog slug
       const newSrc = `/blog/${slug}/${cleanPath}`;
 
-      debugLog(`[Debug] 🔄 Transforming HTML image: ${src} -> ${newSrc}`);
+      debugLog("🔄 Transforming HTML image:", src, "->", newSrc);
       return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`;
     }
   );
+
+  // Debug: Check if any transformations were made
+  if (result === html) {
+    debugLog("⚠️ No image transformations were applied to HTML");
+  } else {
+    debugLog("✅ HTML was transformed with new image paths");
+  }
+
+  return result;
+}
+
+/**
+ * Checks if a request is from a social media crawler
+ * @param {Request} request - The original request
+ * @returns {boolean} Whether the request is from a social media crawler
+ */
+function isSocialCrawler(request) {
+  const userAgent = request.headers.get("user-agent") || "";
+  return CONFIG.socialCrawlers.some((crawler) => userAgent.includes(crawler));
 }
 
 /**
@@ -224,53 +314,12 @@ function transformImageUrls(html, url) {
  * @param {URL} url The request URL
  * @returns {Response} The processed response
  */
-async function handleMetaTags(request, response, url) {
-  const userAgent = request.headers.get("user-agent") || "";
-  const isSocialMediaCrawler =
-    userAgent.includes("Twitterbot") ||
-    userAgent.includes("facebookexternalhit") ||
-    userAgent.includes("LinkedInBot");
+async function transformHtml(request, response, url) {
+  const isSocialMediaCrawler = isSocialCrawler(request);
 
-  // Skip if not building and not a social media crawler
-  if (!building && !isSocialMediaCrawler) {
-    // Check if this is a HTML response for a blog post
-    const contentType = response.headers.get("content-type");
-    if (
-      contentType &&
-      contentType.includes("text/html") &&
-      url.pathname.startsWith("/blog/") &&
-      !building
-    ) {
-      // In development mode, transform image URLs in HTML responses
-      const clonedResponse = response.clone();
-      const html = await clonedResponse.text();
-      const transformedHtml = transformImageUrls(html, url);
-
-      return new Response(transformedHtml, {
-        status: response.status,
-        statusText: response.statusText,
-        headers: response.headers,
-      });
-    }
-
-    return response;
-  }
-
-  // Skip pagination routes and wildcard route
-  const pathSegments = url.pathname.split("/").filter(Boolean);
-
-  // Normalize path segments (remove trailing slashes)
-  if (pathSegments.length > 1 && pathSegments[1].endsWith("/")) {
-    pathSegments[1] = pathSegments[1].slice(0, -1);
-  }
-
-  const isPageRoute =
-    // Check for /blog/* pattern (wildcard route)
-    (pathSegments.length === 2 && pathSegments[1] === "*") ||
-    // Check for /blog/1, /blog/2, etc. (pagination routes)
-    (pathSegments.length === 2 && !isNaN(parseInt(pathSegments[1])));
-
-  if (isPageRoute) {
+  // Skip pagination routes
+  const pathSegments = getPathSegments(url.pathname);
+  if (isPaginationRoute(pathSegments)) {
     return response;
   }
 
@@ -280,9 +329,29 @@ async function handleMetaTags(request, response, url) {
     const clonedResponse = response.clone();
     const html = await clonedResponse.text();
 
-    // First transform image URLs, then inject meta tags
-    let transformedHtml = transformImageUrls(html, url);
-    transformedHtml = injectMetaTags(transformedHtml, url);
+    let transformedHtml = html;
+
+    // Only transform image URLs in development mode
+    if (!building) {
+      debugLog("🛠️ Development mode: transforming relative image URLs");
+      transformedHtml = transformImageUrls(transformedHtml, url);
+    }
+
+    // Only inject meta tags during build or for social media crawlers
+    if (building || isSocialMediaCrawler) {
+      debugLog("🏗️ injecting meta tags in route:", url.pathname);
+      transformedHtml = injectMetaTags(transformedHtml, url);
+    } else {
+      debugLog(
+        "⏭️ Development mode for normal browser: skipping meta tag injection"
+      );
+    }
+
+    // Skip returning a modified response if we didn't change anything
+    if (transformedHtml === html) {
+      debugLog("↩️ No transformations applied, returning original response");
+      return response;
+    }
 
     // Create a new Response with proper caching headers for social media
     const newHeaders = new Headers(response.headers);
@@ -291,6 +360,7 @@ async function handleMetaTags(request, response, url) {
     }
 
     // Return the transformed response
+    debugLog("✅ Returning transformed HTML response");
     return new Response(transformedHtml, {
       status: response.status,
       statusText: response.statusText,
@@ -302,7 +372,7 @@ async function handleMetaTags(request, response, url) {
 }
 
 /**
- * Handle locale setting
+ * Handle locale setting based on the Accept-Language header
  * @param {Request} request The original request
  */
 function handleLocale(request) {
@@ -312,7 +382,10 @@ function handleLocale(request) {
   }
 }
 
-/** @type {import('@sveltejs/kit').Handle} */
+/**
+ * SvelteKit server hook to handle requests
+ * @type {import('@sveltejs/kit').Handle}
+ */
 export async function handle({ event, resolve }) {
   // 1. Set locale based on Accept-Language header
   handleLocale(event.request);
@@ -321,10 +394,9 @@ export async function handle({ event, resolve }) {
   if (
     !building &&
     event.url.pathname.startsWith("/blog/") &&
-    event.url.pathname.match(
-      /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i
-    )
+    event.url.pathname.match(getMediaFilePattern())
   ) {
+    debugLog("🔍 Handling potential image request");
     const imageResponse = await handleImageRequest(event.url);
     if (imageResponse) {
       return imageResponse;
@@ -334,15 +406,18 @@ export async function handle({ event, resolve }) {
   // 3. Process the request with the SvelteKit middleware
   const response = await resolve(event);
 
-  // 4. Process HTML responses for meta tags
+  // 4. Process HTML responses for blog posts
   if (event.url.pathname.startsWith("/blog/")) {
-    return handleMetaTags(event.request, response, event.url);
+    return transformHtml(event.request, response, event.url);
   }
 
   return response;
 }
 
-/** @type {import('@sveltejs/kit').HandleServerError} */
+/**
+ * SvelteKit server error handler
+ * @type {import('@sveltejs/kit').HandleServerError}
+ */
 export function handleError({ error }) {
   return {
     message: "Internal Error",
