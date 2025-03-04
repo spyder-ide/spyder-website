@@ -11,7 +11,9 @@ export const load = async ({ url, route }) => {
   return {
     url: url.href,
     slug,
+    baseUrl: `/blog/${slug}`,
   };
 };
 
+export const trailingSlash = "never";
 export const prerender = true;

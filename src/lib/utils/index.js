@@ -1,14 +1,5 @@
-import yaml from "js-yaml";
-
 import { browser } from "$app/environment";
-import {
-  blogPageSize,
-  blogPageStart,
-  releases,
-  siteUrl,
-  ogImageBlog,
-  config,
-} from "$lib/config";
+import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
@@ -356,4 +347,30 @@ export async function loadBlogPage(page = blogPageStart) {
 export async function generateBlogEntries() {
   const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
   return Array.from({ length: totalPages }, (_, i) => ({ page: `${i + 1}` }));
+}
+
+/**
+ * Gets the correct image URL for a blog post image regardless of trailing slash configuration
+ * @param {string} slug - The blog post slug
+ * @param {string} imagePath - The relative image path (e.g., "./image.png" or "image.png")
+ * @returns {string} The properly formatted image URL
+ */
+export function getBlogImageUrl(slug, imagePath) {
+  if (!slug || !imagePath) return "";
+
+  // Handle absolute URLs (http://, https://, etc.)
+  if (imagePath.startsWith("http")) {
+    return imagePath;
+  }
+
+  // Handle absolute paths
+  if (imagePath.startsWith("/")) {
+    return imagePath;
+  }
+
+  // Handle relative paths with or without leading ./
+  const cleanPath = imagePath.startsWith("./") ? imagePath.slice(2) : imagePath;
+
+  // Create an absolute path that works with trailingSlash 'never'
+  return `/blog/${slug}/${cleanPath}`;
 }

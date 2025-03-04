@@ -2,10 +2,10 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
-import { visit } from "unist-util-visit";
+import classNames from "rehype-class-names";
 import rehypeTitleFigure from "rehype-title-figure";
 import smartypants from "remark-smartypants";
-import classNames from "rehype-class-names";
+import { visit } from "unist-util-visit";
 
 const classNamesOptions = {
   h2: "section",
@@ -18,14 +18,52 @@ const classNamesOptions = {
 const blogImages = () => {
   return (tree, file) => {
     visit(tree, "image", (node) => {
-      if (node.url.startsWith("./")) {
-        const route = file.filename
-          .split("routes")[1]
-          .split("/")
-          .slice(0, -1)
-          .join("/");
+      // Get the blog post slug from the file path
+      const routePath = file.filename.split("routes")[1] || "";
+      const blogMatch = routePath.match(/\/blog\/([^/]+)/);
+
+      console.log(
+        `[BlogImages] Processing image: ${node.url} in file: ${file.filename}`
+      );
+
+      if (blogMatch && blogMatch[1]) {
+        const slug = blogMatch[1];
+        console.log(`[BlogImages] Detected blog slug: ${slug}`);
+
+        // Store the original URL for debugging
+        const originalUrl = node.url;
+
+        // Handle paths with or without './' prefix
+        if (node.url.startsWith("./")) {
+          // Handle relative paths with './' prefix
+          const imgName = node.url.slice(2);
+          // Point to the slug directory
+          node.url = `/blog/${slug}/${imgName}`;
+          console.log(
+            `[BlogImages] Transformed ./ path to: ${node.url} (was: ${originalUrl})`
+          );
+        } else if (node.url.startsWith("/")) {
+          // Handle absolute paths - keep as is
+          console.log(`[BlogImages] Keeping absolute path: ${node.url}`);
+        } else if (node.url.startsWith("http")) {
+          // Handle URLs - keep as is
+          console.log(`[BlogImages] Keeping URL: ${node.url}`);
+        } else {
+          // Handle relative paths without './' prefix
+          const imgName = node.url;
+          node.url = `/blog/${slug}/${imgName}`;
+          console.log(
+            `[BlogImages] Transformed relative path to: ${node.url} (was: ${originalUrl})`
+          );
+        }
+      } else if (node.url.startsWith("./")) {
+        // Fallback for other routes
+        const route = routePath.split("/").slice(0, -1).join("/");
         node.url = `${route}/${node.url.slice(2)}`;
+        console.log(`[BlogImages] Fallback transformation to: ${node.url}`);
       }
+
+      console.log(`[BlogImages] Final image path: ${node.url}`);
     });
   };
 };
