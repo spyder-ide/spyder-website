@@ -1,13 +1,21 @@
 import fs from "fs";
 import path from "path";
 
+const LOGGING = false;
+
+function debugLog(message) {
+  if (LOGGING) {
+    console.log(message);
+  }
+}
+
 export default function copyImages() {
   // Store build info
   let outDir;
 
   // Extract the image processing logic to a separate function
   function processImages(emitFile) {
-    console.log("🔍 Scanning for blog posts...");
+    debugLog("🔍 Scanning for blog posts...");
     const blogDir = path.join(process.cwd(), "src", "routes", "blog");
 
     try {
@@ -19,7 +27,7 @@ export default function copyImages() {
         )
         .map((dirent) => dirent.name);
 
-      console.log(`📚 Found ${blogPosts.length} blog posts`);
+      debugLog(`📚 Found ${blogPosts.length} blog posts`);
 
       let totalMediaCount = 0;
 
@@ -27,7 +35,7 @@ export default function copyImages() {
         if (blogPost === "[page]" || blogPost === "feed.xml") continue;
 
         const fullDirPath = path.join(blogDir, blogPost);
-        console.log(`📂 Processing: ${blogPost}`);
+        debugLog(`📂 Processing: ${blogPost}`);
 
         try {
           const media = fs
@@ -36,7 +44,7 @@ export default function copyImages() {
               /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(file)
             );
 
-          console.log(`📸 Found ${media.length} media files in ${blogPost}`);
+          debugLog(`📸 Found ${media.length} media files in ${blogPost}`);
           totalMediaCount += media.length;
 
           for (const medium of media) {
@@ -44,7 +52,7 @@ export default function copyImages() {
 
             // Standard location: /blog/[slug]/[image]
             const outputPath = path.join("blog", blogPost, medium);
-            console.log(`📦 Emitting: ${outputPath}`);
+            debugLog(`📦 Emitting: ${outputPath}`);
 
             if (emitFile) {
               try {
@@ -53,7 +61,7 @@ export default function copyImages() {
                   fileName: outputPath,
                   source: content,
                 });
-                console.log(`📦 Emitted as: ${outputPath} (ID: ${fileId})`);
+                debugLog(`📦 Emitted as: ${outputPath} (ID: ${fileId})`);
               } catch (error) {
                 console.error(`❌ Error emitting file: ${outputPath}`, error);
               }
@@ -72,13 +80,13 @@ export default function copyImages() {
                   // Create directory if it doesn't exist
                   if (!fs.existsSync(buildLoc)) {
                     fs.mkdirSync(buildLoc, { recursive: true });
-                    console.log(`📁 Created directory: ${buildLoc}`);
+                    debugLog(`📁 Created directory: ${buildLoc}`);
                   }
 
                   // Copy the file
                   const outputFilePath = path.join(buildLoc, medium);
                   fs.writeFileSync(outputFilePath, content);
-                  console.log(`📋 Manually copied to: ${outputFilePath}`);
+                  debugLog(`📋 Manually copied to: ${outputFilePath}`);
                 } catch (copyError) {
                   console.error(`❌ Error copying to ${buildLoc}:`, copyError);
                 }
@@ -92,22 +100,22 @@ export default function copyImages() {
         }
       }
 
-      console.log(`📊 Total media files processed: ${totalMediaCount}`);
+      debugLog(`📊 Total media files processed: ${totalMediaCount}`);
     } catch (error) {
       console.error("❌ Error reading blog directory:", error);
     }
 
-    console.log("✅ Copy Images plugin finished");
+    debugLog("✅ Copy Images plugin finished");
 
     // Also manually ensure images are in the build directory
     try {
       if (outDir) {
-        console.log(`🔍 Checking build directory: ${outDir}`);
+        debugLog(`🔍 Checking build directory: ${outDir}`);
         const buildBlogDir = path.join(process.cwd(), outDir, "blog");
 
         // Create the directory if it doesn't exist
         if (!fs.existsSync(buildBlogDir)) {
-          console.log(
+          debugLog(
             `📁 Creating blog directory in build output: ${buildBlogDir}`
           );
           fs.mkdirSync(buildBlogDir, { recursive: true });
@@ -124,15 +132,15 @@ export default function copyImages() {
     apply: "build", // Only run during build
 
     configResolved(config) {
-      console.log("🖼️  Copy Images plugin initialized");
-      console.log(`🔧 Build mode: ${config.mode}`);
-      console.log(`📁 Output directory: ${config.build.outDir}`);
+      debugLog("🖼️  Copy Images plugin initialized");
+      debugLog(`🔧 Build mode: ${config.mode}`);
+      debugLog(`📁 Output directory: ${config.build.outDir}`);
       outDir = config.build.outDir || "build";
     },
 
     configureServer(server) {
       // During development, just watch the blog image files
-      console.log("🔍 Setting up blog image watcher for development mode...");
+      debugLog("🔍 Setting up blog image watcher for development mode...");
 
       // Watch for changes in blog directory
       const blogDir = path.join(process.cwd(), "src", "routes", "blog");
@@ -143,22 +151,20 @@ export default function copyImages() {
         )
       );
 
-      console.log(
+      debugLog(
         "📝 Development mode: Images will be served from their source location"
       );
     },
 
     generateBundle(options, bundle) {
       // In build mode, process and emit the files
-      console.log("🔨 Generating bundle - copying blog images...");
-      console.log(`📦 Output path: ${options.dir || "default output"}`);
+      debugLog("🔨 Generating bundle - copying blog images...");
+      debugLog(`📦 Output path: ${options.dir || "default output"}`);
 
       processImages((fileInfo) => {
         try {
           const result = this.emitFile(fileInfo);
-          console.log(
-            `✅ Successfully emitted: ${fileInfo.fileName} (${result})`
-          );
+          debugLog(`✅ Successfully emitted: ${fileInfo.fileName} (${result})`);
           return result;
         } catch (error) {
           console.error(`❌ Failed to emit ${fileInfo.fileName}:`, error);
@@ -166,15 +172,15 @@ export default function copyImages() {
         }
       });
 
-      console.log("🏁 Image copying complete!");
+      debugLog("🏁 Image copying complete!");
     },
 
     closeBundle() {
-      console.log("🧹 Finalizing image copying process...");
+      debugLog("🧹 Finalizing image copying process...");
 
       // Additional verification step after the bundle is closed
       if (outDir) {
-        console.log(`🔍 Checking final build output in: ${outDir}`);
+        debugLog(`🔍 Checking final build output in: ${outDir}`);
 
         try {
           // Try multiple potential build directories
@@ -192,7 +198,7 @@ export default function copyImages() {
           let foundBlogDir = false;
 
           for (const buildDir of possibleBuildDirs) {
-            console.log(`🔍 Checking build directory: ${buildDir}`);
+            debugLog(`🔍 Checking build directory: ${buildDir}`);
 
             if (fs.existsSync(buildDir)) {
               const blogDir = path.join(buildDir, "blog");
@@ -204,7 +210,7 @@ export default function copyImages() {
                     .filter((dirent) => dirent.isDirectory())
                     .map((dirent) => dirent.name);
 
-                  console.log(
+                  debugLog(
                     `📁 Found ${blogDirs.length} blog directories in: ${blogDir}`
                   );
 
@@ -222,7 +228,7 @@ export default function copyImages() {
                     );
 
                     if (mediaFiles.length > 0) {
-                      console.log(
+                      debugLog(
                         `📸 Found ${mediaFiles.length} media files in ${slug}`
                       );
                       imageCount += mediaFiles.length;
@@ -230,11 +236,11 @@ export default function copyImages() {
                   }
 
                   if (imageCount > 0) {
-                    console.log(
+                    debugLog(
                       `📊 Total of ${imageCount} images found in blog posts`
                     );
                   } else {
-                    console.log(
+                    debugLog(
                       `⚠️ No images found in any blog posts in: ${blogDir}`
                     );
                   }
@@ -245,11 +251,11 @@ export default function copyImages() {
                   );
                 }
               } else {
-                console.log(`⚠️ Blog directory not found in build: ${blogDir}`);
+                debugLog(`⚠️ Blog directory not found in build: ${blogDir}`);
 
                 // Try to create it if it doesn't exist
                 try {
-                  console.log(`📁 Creating blog directory: ${blogDir}`);
+                  debugLog(`📁 Creating blog directory: ${blogDir}`);
                   fs.mkdirSync(blogDir, { recursive: true });
                 } catch (err) {
                   console.error(
@@ -259,19 +265,19 @@ export default function copyImages() {
                 }
               }
             } else {
-              console.log(`⚠️ Build directory not found: ${buildDir}`);
+              debugLog(`⚠️ Build directory not found: ${buildDir}`);
             }
           }
 
           if (!foundBlogDir) {
-            console.log(`❌ No blog directories found in any build location`);
+            debugLog(`❌ No blog directories found in any build location`);
           }
         } catch (error) {
           console.error("❌ Error verifying final build:", error);
         }
       }
 
-      console.log("🎉 Copy Images plugin completely finished");
+      debugLog("🎉 Copy Images plugin completely finished");
     },
   };
 }

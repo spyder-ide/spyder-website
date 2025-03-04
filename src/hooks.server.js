@@ -7,14 +7,14 @@ import { locale } from "svelte-i18n";
 export default join;
 
 // Debug logging configuration - set to true to enable all debug logs
-const DEBUG_LOGGING = true;
+const LOGGING = false;
 
 /**
  * Debug logger that only logs when DEBUG_LOGGING is enabled
  * @param {string} message The message to log
  */
 function debugLog(...args) {
-  if (DEBUG_LOGGING) {
+  if (LOGGING) {
     console.log(...args);
   }
 }

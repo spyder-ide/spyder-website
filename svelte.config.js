@@ -15,6 +15,14 @@ const classNamesOptions = {
   figure: "figure",
 };
 
+const LOGGING = false;
+
+function debugLog(message) {
+  if (LOGGING) {
+    console.log(message);
+  }
+}
+
 // Function to transform image paths correctly for blog posts
 const blogImages = () => {
   return (tree, file) => {
@@ -22,12 +30,12 @@ const blogImages = () => {
     const routePath = file.filename.split("routes")[1] || "";
     const blogMatch = routePath.match(/\/blog\/([^/]+)/);
 
-    console.log(`[BlogImages] Processing file: ${file.filename}`);
+    debugLog(`[BlogImages] Processing file: ${file.filename}`);
 
     // Only process blog post files
     if (blogMatch && blogMatch[1]) {
       const slug = blogMatch[1];
-      console.log(`[BlogImages] Detected blog slug: ${slug}`);
+      debugLog(`[BlogImages] Detected blog slug: ${slug}`);
 
       // Process both image nodes and raw HTML nodes
       // First, handle regular image nodes
@@ -37,13 +45,13 @@ const blogImages = () => {
 
         // Skip external URLs
         if (node.url.startsWith("http")) {
-          console.log(`[BlogImages] Keeping external URL: ${node.url}`);
+          debugLog(`[BlogImages] Keeping external URL: ${node.url}`);
           return;
         }
 
         // Skip absolute paths outside of blog
         if (node.url.startsWith("/") && !node.url.startsWith("/blog/")) {
-          console.log(`[BlogImages] Keeping absolute path: ${node.url}`);
+          debugLog(`[BlogImages] Keeping absolute path: ${node.url}`);
           return;
         }
 
@@ -54,12 +62,10 @@ const blogImages = () => {
 
         // Always use the pattern /blog/[slug]/[image.png]
         if (node.url.startsWith(`/blog/${slug}/`)) {
-          console.log(
-            `[BlogImages] URL already has correct format: ${node.url}`
-          );
+          debugLog(`[BlogImages] URL already has correct format: ${node.url}`);
         } else {
           node.url = `/blog/${slug}/${cleanPath}`;
-          console.log(
+          debugLog(
             `[BlogImages] Transformed to: ${node.url} (was: ${originalUrl})`
           );
         }
@@ -87,19 +93,17 @@ const blogImages = () => {
             // Create the new src with blog slug
             const newSrc = `/blog/${slug}/${cleanPath}`;
 
-            console.log(
-              `[BlogImages] Transformed HTML img: ${src} -> ${newSrc}`
-            );
+            debugLog(`[BlogImages] Transformed HTML img: ${src} -> ${newSrc}`);
             return `src="${newSrc}"`;
           });
 
           if (originalHtml !== node.value) {
-            console.log("[BlogImages] HTML node was transformed");
+            debugLog("[BlogImages] HTML node was transformed");
           }
         }
       });
     } else {
-      console.log(
+      debugLog(
         `[BlogImages] Not a blog post, skipping image path transformation`
       );
     }
