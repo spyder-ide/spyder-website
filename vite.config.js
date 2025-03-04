@@ -6,6 +6,7 @@ import htmlTransform from "./scripts/vite-plugin-html-transform";
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
+  //plugins: [sveltekit(), copyImages()],
   plugins: [sveltekit(), copyImages(), htmlTransform()],
   server: {
     fs: {

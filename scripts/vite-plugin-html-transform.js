@@ -3,7 +3,7 @@ import path from "path";
 
 /**
  * Vite plugin to transform HTML files in the build output
- * This will fix image paths in blog posts
+ * This should fix image paths in blog posts
  */
 export default function htmlTransform() {
   let outDir;
@@ -23,11 +23,7 @@ export default function htmlTransform() {
       console.log("🔍 Starting HTML transformation for flat blog files...");
 
       // Try multiple potential blog directories
-      const buildPaths = [
-        path.join(process.cwd(), outDir),
-        path.join(process.cwd(), "build"),
-        path.join(process.cwd(), ".svelte-kit", "output", "client"),
-      ];
+      const buildPaths = [path.join(process.cwd(), "build")];
 
       for (const buildPath of buildPaths) {
         const blogDir = path.join(buildPath, "blog");
@@ -51,6 +47,7 @@ export default function htmlTransform() {
           let transformCount = 0;
 
           for (const htmlFile of htmlFiles) {
+            console.log(`🔍 Processing ${htmlFile}`);
             const slug = htmlFile.replace(".html", "");
             const htmlPath = path.join(blogDir, htmlFile);
 
@@ -68,6 +65,9 @@ export default function htmlTransform() {
                   src.startsWith(`/blog/${slug}/`) ||
                   (src.startsWith("/") && !src.startsWith("/blog/"))
                 ) {
+                  console.log(
+                    `🔍 Skipping external URL or already correct path: ${src}`
+                  );
                   return match;
                 }
 
@@ -77,7 +77,7 @@ export default function htmlTransform() {
                   console.log(
                     `🖼️ Fixed relative path in ${slug}: ${src} -> ${newSrc}`
                   );
-                  return `<img ${attrs}src="${newSrc}"`;
+                  return `<img ${attrs} src="${newSrc}"`;
                 }
 
                 // Handle incorrect /blog/ paths (without slug)
@@ -90,7 +90,7 @@ export default function htmlTransform() {
                   console.log(
                     `🖼️ Fixed blog path in ${slug}: ${src} -> ${newSrc}`
                   );
-                  return `<img ${attrs}src="${newSrc}"`;
+                  return `<img ${attrs} src="${newSrc}"`;
                 }
 
                 return match;

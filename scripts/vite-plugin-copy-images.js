@@ -65,15 +65,6 @@ export default function copyImages() {
               // Ensure we also manually copy the files to common build directories
               const buildLocations = [
                 path.join(process.cwd(), "build", "blog", blogPost),
-                path.join(
-                  process.cwd(),
-                  ".svelte-kit",
-                  "output",
-                  "client",
-                  "blog",
-                  blogPost
-                ),
-                path.join(process.cwd(), "build", "client", "blog", blogPost),
               ];
 
               for (const buildLoc of buildLocations) {
@@ -136,7 +127,7 @@ export default function copyImages() {
       console.log("🖼️  Copy Images plugin initialized");
       console.log(`🔧 Build mode: ${config.mode}`);
       console.log(`📁 Output directory: ${config.build.outDir}`);
-      outDir = config.build.outDir || ".svelte-kit/output/client";
+      outDir = config.build.outDir || "build";
     },
 
     configureServer(server) {
