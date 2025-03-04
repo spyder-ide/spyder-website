@@ -15,115 +15,105 @@ export default function htmlTransform() {
 
     configResolved(config) {
       console.log("🔄 HTML Transform plugin initialized");
-      outDir = config.build.outDir || ".svelte-kit/output/client";
+      outDir = config.build.outDir || "build";
       console.log(`📁 Build output directory: ${outDir}`);
     },
 
     async closeBundle() {
-      console.log("🔍 Starting HTML transformation...");
+      console.log("🔍 Starting HTML transformation for flat blog files...");
 
-      // Process blog post HTML files
-      const blogDir = path.join(process.cwd(), outDir, "blog");
+      // Try multiple potential blog directories
+      const buildPaths = [
+        path.join(process.cwd(), outDir),
+        path.join(process.cwd(), "build"),
+        path.join(process.cwd(), ".svelte-kit", "output", "client"),
+      ];
 
-      if (!fs.existsSync(blogDir)) {
-        console.log(`❌ Blog directory not found in build output: ${blogDir}`);
+      for (const buildPath of buildPaths) {
+        const blogDir = path.join(buildPath, "blog");
 
-        // Try alternative location
-        const altBlogDir = path.join(process.cwd(), "build", "blog");
-        if (fs.existsSync(altBlogDir)) {
-          console.log(
-            `✅ Found blog directory at alternative location: ${altBlogDir}`
-          );
-          transformBlogHtml(altBlogDir);
-        } else {
-          console.log(`❌ Could not find blog directory in build output`);
+        if (!fs.existsSync(blogDir)) {
+          console.log(`❌ Blog directory not found at: ${blogDir}`);
+          continue;
         }
-        return;
+
+        console.log(`✅ Found blog directory at: ${blogDir}`);
+
+        try {
+          // Get all HTML files directly in the blog directory
+          const files = fs.readdirSync(blogDir);
+          const htmlFiles = files.filter((file) => file.endsWith(".html"));
+
+          console.log(
+            `📄 Found ${htmlFiles.length} HTML files in blog directory`
+          );
+
+          let transformCount = 0;
+
+          for (const htmlFile of htmlFiles) {
+            const slug = htmlFile.replace(".html", "");
+            const htmlPath = path.join(blogDir, htmlFile);
+
+            // Read HTML file content
+            let html = fs.readFileSync(htmlPath, "utf8");
+            const originalHtml = html;
+
+            // Fix image paths
+            html = html.replace(
+              /<img\s+([^>]*?)src="([^"]+?)"/g,
+              (match, attrs, src) => {
+                // Skip external URLs and already correct paths
+                if (
+                  src.startsWith("http") ||
+                  src.startsWith(`/blog/${slug}/`) ||
+                  (src.startsWith("/") && !src.startsWith("/blog/"))
+                ) {
+                  return match;
+                }
+
+                // If it's a relative path (doesn't start with /)
+                if (!src.startsWith("/")) {
+                  const newSrc = `/blog/${slug}/${src}`;
+                  console.log(
+                    `🖼️ Fixed relative path in ${slug}: ${src} -> ${newSrc}`
+                  );
+                  return `<img ${attrs}src="${newSrc}"`;
+                }
+
+                // Handle incorrect /blog/ paths (without slug)
+                if (
+                  src.startsWith("/blog/") &&
+                  !src.includes(`/blog/${slug}/`)
+                ) {
+                  const imgFilename = src.split("/").pop();
+                  const newSrc = `/blog/${slug}/${imgFilename}`;
+                  console.log(
+                    `🖼️ Fixed blog path in ${slug}: ${src} -> ${newSrc}`
+                  );
+                  return `<img ${attrs}src="${newSrc}"`;
+                }
+
+                return match;
+              }
+            );
+
+            if (html !== originalHtml) {
+              fs.writeFileSync(htmlPath, html);
+              transformCount++;
+              console.log(`✅ Transformed HTML for blog post: ${slug}`);
+            }
+          }
+
+          console.log(
+            `🏁 HTML transformation complete. Fixed paths in ${transformCount} files.`
+          );
+          return; // Exit after the first successful directory processing
+        } catch (error) {
+          console.error(`❌ Error during HTML transformation:`, error);
+        }
       }
 
-      transformBlogHtml(blogDir);
+      console.log(`❌ Could not find any blog files to process`);
     },
   };
-}
-
-/**
- * Transform HTML files in the blog directory
- */
-function transformBlogHtml(blogDir) {
-  try {
-    const blogSlugs = fs
-      .readdirSync(blogDir, { withFileTypes: true })
-      .filter((dirent) => dirent.isDirectory())
-      .filter((dirent) => !dirent.name.includes("."))
-      .map((dirent) => dirent.name);
-
-    console.log(`📂 Found ${blogSlugs.length} blog post directories`);
-
-    let transformCount = 0;
-
-    for (const slug of blogSlugs) {
-      const indexHtmlPath = path.join(blogDir, slug, "index.html");
-
-      if (!fs.existsSync(indexHtmlPath)) {
-        console.log(`⚠️ No index.html found for blog post: ${slug}`);
-        continue;
-      }
-
-      // Read the HTML file
-      let html = fs.readFileSync(indexHtmlPath, "utf8");
-      const originalHtml = html;
-
-      // Fix image paths
-      html = html.replace(
-        /<img\s+([^>]*?)src="([^"]+?)"/g,
-        (match, attrs, src) => {
-          // Skip external URLs and already correct paths
-          if (
-            src.startsWith("http") ||
-            src.startsWith(`/blog/${slug}/`) ||
-            (src.startsWith("/") && !src.startsWith("/blog/"))
-          ) {
-            return match;
-          }
-
-          // If it's a relative path (doesn't start with /)
-          if (!src.startsWith("/")) {
-            const newSrc = `/blog/${slug}/${src}`;
-            console.log(
-              `🖼️ Fixed relative image path in ${slug}: ${src} -> ${newSrc}`
-            );
-            return `<img ${attrs}src="${newSrc}"`;
-          }
-
-          // Handle incorrect /blog/ paths (without slug)
-          if (src.startsWith("/blog/") && !src.includes(`/blog/${slug}/`)) {
-            // Extract image filename from the path
-            const imgFilename = src.split("/").pop();
-            const newSrc = `/blog/${slug}/${imgFilename}`;
-            console.log(
-              `🖼️ Fixed blog image path in ${slug}: ${src} -> ${newSrc}`
-            );
-            return `<img ${attrs}src="${newSrc}"`;
-          }
-
-          return match;
-        }
-      );
-
-      // Write the transformed HTML back to the file if changes were made
-      if (html !== originalHtml) {
-        fs.writeFileSync(indexHtmlPath, html);
-        transformCount++;
-        console.log(`✅ Transformed HTML for blog post: ${slug}`);
-      } else {
-        console.log(`ℹ️ No image paths needed fixing in blog post: ${slug}`);
-      }
-    }
-
-    console.log(
-      `🏁 HTML transformation complete. Fixed paths in ${transformCount} files.`
-    );
-  } catch (error) {
-    console.error("❌ Error during HTML transformation:", error);
-  }
 }

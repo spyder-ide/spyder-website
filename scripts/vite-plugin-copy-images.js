@@ -47,12 +47,53 @@ export default function copyImages() {
             console.log(`📦 Emitting: ${outputPath}`);
 
             if (emitFile) {
-              const fileId = emitFile({
-                type: "asset",
-                fileName: outputPath,
-                source: content,
-              });
-              console.log(`📦 Emitted as: ${outputPath} (ID: ${fileId})`);
+              try {
+                const fileId = emitFile({
+                  type: "asset",
+                  fileName: outputPath,
+                  source: content,
+                });
+                console.log(`📦 Emitted as: ${outputPath} (ID: ${fileId})`);
+              } catch (error) {
+                console.error(`❌ Error emitting file: ${outputPath}`, error);
+              }
+            }
+
+            // Also directly copy the image to common build output locations
+            // This ensures the images are available regardless of how SvelteKit builds
+            try {
+              // Ensure we also manually copy the files to common build directories
+              const buildLocations = [
+                path.join(process.cwd(), "build", "blog", blogPost),
+                path.join(
+                  process.cwd(),
+                  ".svelte-kit",
+                  "output",
+                  "client",
+                  "blog",
+                  blogPost
+                ),
+                path.join(process.cwd(), "build", "client", "blog", blogPost),
+              ];
+
+              for (const buildLoc of buildLocations) {
+                try {
+                  // Create directory if it doesn't exist
+                  if (!fs.existsSync(buildLoc)) {
+                    fs.mkdirSync(buildLoc, { recursive: true });
+                    console.log(`📁 Created directory: ${buildLoc}`);
+                  }
+
+                  // Copy the file
+                  const outputFilePath = path.join(buildLoc, medium);
+                  fs.writeFileSync(outputFilePath, content);
+                  console.log(`📋 Manually copied to: ${outputFilePath}`);
+                } catch (copyError) {
+                  console.error(`❌ Error copying to ${buildLoc}:`, copyError);
+                }
+              }
+            } catch (copyError) {
+              console.error(`❌ Error in manual copy process:`, copyError);
             }
           }
         } catch (error) {
@@ -145,26 +186,94 @@ export default function copyImages() {
         console.log(`🔍 Checking final build output in: ${outDir}`);
 
         try {
-          const buildDir = path.join(process.cwd(), outDir);
-          if (fs.existsSync(buildDir)) {
-            const blogDir = path.join(buildDir, "blog");
+          // Try multiple potential build directories
+          const possibleBuildDirs = [
+            // Standard build output
+            path.join(process.cwd(), outDir),
+            // Direct build path
+            path.join(process.cwd(), "build"),
+            // SvelteKit output client
+            path.join(process.cwd(), ".svelte-kit", "output", "client"),
+            // SvelteKit output client in build
+            path.join(process.cwd(), "build", "client"),
+          ];
 
-            if (fs.existsSync(blogDir)) {
-              const blogDirs = fs
-                .readdirSync(blogDir, { withFileTypes: true })
-                .filter((dirent) => dirent.isDirectory())
-                .map((dirent) => dirent.name);
+          let foundBlogDir = false;
 
-              console.log(
-                `📁 Found ${blogDirs.length} blog directories in final build`
-              );
+          for (const buildDir of possibleBuildDirs) {
+            console.log(`🔍 Checking build directory: ${buildDir}`);
+
+            if (fs.existsSync(buildDir)) {
+              const blogDir = path.join(buildDir, "blog");
+
+              if (fs.existsSync(blogDir)) {
+                try {
+                  const blogDirs = fs
+                    .readdirSync(blogDir, { withFileTypes: true })
+                    .filter((dirent) => dirent.isDirectory())
+                    .map((dirent) => dirent.name);
+
+                  console.log(
+                    `📁 Found ${blogDirs.length} blog directories in: ${blogDir}`
+                  );
+
+                  foundBlogDir = true;
+
+                  // Now verify if images exist in blog post directories
+                  let imageCount = 0;
+                  for (const slug of blogDirs) {
+                    const slugDir = path.join(blogDir, slug);
+                    const files = fs.readdirSync(slugDir);
+                    const mediaFiles = files.filter((file) =>
+                      /\.(png|jpe?g|gif|svg|webp|webm|mp4|ogv|mp3|ogg)$/i.test(
+                        file
+                      )
+                    );
+
+                    if (mediaFiles.length > 0) {
+                      console.log(
+                        `📸 Found ${mediaFiles.length} media files in ${slug}`
+                      );
+                      imageCount += mediaFiles.length;
+                    }
+                  }
+
+                  if (imageCount > 0) {
+                    console.log(
+                      `📊 Total of ${imageCount} images found in blog posts`
+                    );
+                  } else {
+                    console.log(
+                      `⚠️ No images found in any blog posts in: ${blogDir}`
+                    );
+                  }
+                } catch (err) {
+                  console.error(
+                    `❌ Error reading blog directory: ${blogDir}`,
+                    err
+                  );
+                }
+              } else {
+                console.log(`⚠️ Blog directory not found in build: ${blogDir}`);
+
+                // Try to create it if it doesn't exist
+                try {
+                  console.log(`📁 Creating blog directory: ${blogDir}`);
+                  fs.mkdirSync(blogDir, { recursive: true });
+                } catch (err) {
+                  console.error(
+                    `❌ Failed to create blog directory: ${blogDir}`,
+                    err
+                  );
+                }
+              }
             } else {
-              console.log(
-                `⚠️ Blog directory not found in final build: ${blogDir}`
-              );
+              console.log(`⚠️ Build directory not found: ${buildDir}`);
             }
-          } else {
-            console.log(`⚠️ Build directory not found: ${buildDir}`);
+          }
+
+          if (!foundBlogDir) {
+            console.log(`❌ No blog directories found in any build location`);
           }
         } catch (error) {
           console.error("❌ Error verifying final build:", error);

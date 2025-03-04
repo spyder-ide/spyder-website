@@ -48,7 +48,9 @@ async function handleImageRequest(url) {
   // Case 1: Standard URL format - /blog/[slug]/[image.png]
   if (pathParts.length >= 3 && pathParts[0] === "blog") {
     const slug = pathParts[1];
-    // Primary path: /src/routes/blog/[slug]/[image.png]
+    debugLog(`[Debug] 🎯 Using slug "${slug}" for image search`);
+
+    // Check in source directory
     const primaryPath = join(
       process.cwd(),
       "src",
@@ -58,7 +60,24 @@ async function handleImageRequest(url) {
       imageFileName
     );
     possiblePaths.push(primaryPath);
-    debugLog(`[Debug] 🎯 Primary path (using slug "${slug}"): ${primaryPath}`);
+
+    // Check in build output locations (added to be compatible with our Vite plugins)
+    possiblePaths.push(
+      join(process.cwd(), "build", "blog", slug, imageFileName)
+    );
+    possiblePaths.push(
+      join(
+        process.cwd(),
+        ".svelte-kit",
+        "output",
+        "client",
+        "blog",
+        slug,
+        imageFileName
+      )
+    );
+
+    debugLog(`[Debug] 🎯 Primary path: ${primaryPath}`);
 
     // In case the image wasn't found with slug prefix, try as a global image
     possiblePaths.push(

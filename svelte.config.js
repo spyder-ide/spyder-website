@@ -144,11 +144,7 @@ const processMetadata = () => {
 const mdsvexOptions = {
   extensions: [".md"],
   remarkPlugins: [smartypants, escapeQuotes, processMetadata],
-  rehypePlugins: [
-    blogImages,
-    rehypeTitleFigure,
-    [classNames, classNamesOptions],
-  ],
+  rehypePlugins: [rehypeTitleFigure, [classNames, classNamesOptions]],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
   },
