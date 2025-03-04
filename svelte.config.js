@@ -2,10 +2,10 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
-import { visit } from "unist-util-visit";
+import classNames from "rehype-class-names";
 import rehypeTitleFigure from "rehype-title-figure";
 import smartypants from "remark-smartypants";
-import classNames from "rehype-class-names";
+import { visit } from "unist-util-visit";
 
 const classNamesOptions = {
   h2: "section",
@@ -15,18 +15,98 @@ const classNamesOptions = {
   figure: "figure",
 };
 
+const LOGGING = false;
+
+function debugLog(message) {
+  if (LOGGING) {
+    console.log(message);
+  }
+}
+
+// Function to transform image paths correctly for blog posts
 const blogImages = () => {
   return (tree, file) => {
-    visit(tree, "image", (node) => {
-      if (node.url.startsWith("./")) {
-        const route = file.filename
-          .split("routes")[1]
-          .split("/")
-          .slice(0, -1)
-          .join("/");
-        node.url = `${route}/${node.url.slice(2)}`;
-      }
-    });
+    // Get the blog post slug from the file path
+    const routePath = file.filename.split("routes")[1] || "";
+    const blogMatch = routePath.match(/\/blog\/([^/]+)/);
+
+    debugLog(`[BlogImages] Processing file: ${file.filename}`);
+
+    // Only process blog post files
+    if (blogMatch && blogMatch[1]) {
+      const slug = blogMatch[1];
+      debugLog(`[BlogImages] Detected blog slug: ${slug}`);
+
+      // Process both image nodes and raw HTML nodes
+      // First, handle regular image nodes
+      visit(tree, "image", (node) => {
+        // Store the original URL for debugging
+        const originalUrl = node.url;
+
+        // Skip external URLs
+        if (node.url.startsWith("http")) {
+          debugLog(`[BlogImages] Keeping external URL: ${node.url}`);
+          return;
+        }
+
+        // Skip absolute paths outside of blog
+        if (node.url.startsWith("/") && !node.url.startsWith("/blog/")) {
+          debugLog(`[BlogImages] Keeping absolute path: ${node.url}`);
+          return;
+        }
+
+        // For all other cases, ensure the image has the correct blog post slug prefix
+        const cleanPath = node.url.startsWith("./")
+          ? node.url.slice(2)
+          : node.url;
+
+        // Always use the pattern /blog/[slug]/[image.png]
+        if (node.url.startsWith(`/blog/${slug}/`)) {
+          debugLog(`[BlogImages] URL already has correct format: ${node.url}`);
+        } else {
+          node.url = `/blog/${slug}/${cleanPath}`;
+          debugLog(
+            `[BlogImages] Transformed to: ${node.url} (was: ${originalUrl})`
+          );
+        }
+      });
+
+      // Then handle raw HTML to catch any embedded <img> tags
+      visit(tree, "html", (node) => {
+        if (node.value && node.value.includes("<img")) {
+          const originalHtml = node.value;
+
+          // Simple regex to transform image src attributes
+          // This is a basic approach - for a production system you'd want to use a proper HTML parser
+          node.value = node.value.replace(/src="([^"]+)"/g, (match, src) => {
+            // Skip external URLs and absolute paths
+            if (
+              src.startsWith("http") ||
+              (src.startsWith("/") && !src.startsWith("/blog/"))
+            ) {
+              return match;
+            }
+
+            // Clean the path
+            const cleanPath = src.startsWith("./") ? src.slice(2) : src;
+
+            // Create the new src with blog slug
+            const newSrc = `/blog/${slug}/${cleanPath}`;
+
+            debugLog(`[BlogImages] Transformed HTML img: ${src} -> ${newSrc}`);
+            return `src="${newSrc}"`;
+          });
+
+          if (originalHtml !== node.value) {
+            debugLog("[BlogImages] HTML node was transformed");
+          }
+        }
+      });
+    } else {
+      debugLog(
+        `[BlogImages] Not a blog post, skipping image path transformation`
+      );
+    }
   };
 };
 
@@ -67,12 +147,8 @@ const processMetadata = () => {
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: [".md"],
-  remarkPlugins: [smartypants, escapeQuotes, processMetadata],
-  rehypePlugins: [
-    blogImages,
-    rehypeTitleFigure,
-    [classNames, classNamesOptions],
-  ],
+  remarkPlugins: [smartypants, escapeQuotes, processMetadata, blogImages],
+  rehypePlugins: [rehypeTitleFigure, [classNames, classNamesOptions]],
   layout: {
     blog: "src/lib/blocks/Post.svelte",
   },
