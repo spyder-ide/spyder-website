@@ -1,15 +1,3 @@
-# Strict trailing slash handling - higher priority rules come first
-/blog/*/ /blog/:splat 301!
-
-# Handle specific problem cases with wildcards
-/blog/*/index.html /blog/:splat 301!
-
-# Make sure the app JS modules load properly
-/blog/_app/* /_app/:splat 200
-
-# Remove trailing slashes for all other paths (except root)
-/*/ /:splat 301!
-
 # Handle social media crawlers with increased timeout
 /* 200! User-Agent=Twitterbot
 /* 200! User-Agent=facebookexternalhit
