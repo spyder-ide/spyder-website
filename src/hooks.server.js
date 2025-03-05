@@ -1,4 +1,5 @@
 import { building } from "$app/environment";
+import { normalizeLocale } from "$lib/i18n";
 import { injectMetaTags } from "$lib/server/metaTagsInjector";
 import { createReadStream, existsSync, readdirSync } from "fs";
 import { join } from "path";
@@ -372,13 +373,33 @@ async function transformHtml(request, response, url) {
 }
 
 /**
- * Handle locale setting based on the Accept-Language header
- * @param {Request} request The original request
+ * Sets the locale based on the Accept-Language header
+ * @param {Request} request - The original request
  */
 function handleLocale(request) {
-  const lang = request.headers.get("accept-language")?.split(",")[0];
-  if (lang) {
-    locale.set(lang);
+  const acceptLanguage = request.headers.get("accept-language");
+
+  if (acceptLanguage) {
+    // Extract language preferences with their quality values
+    const languages = acceptLanguage
+      .split(",")
+      .map((lang) => {
+        const [code, quality] = lang.trim().split(";q=");
+        return {
+          code: code.trim(),
+          quality: quality ? parseFloat(quality) : 1.0,
+        };
+      })
+      .sort((a, b) => b.quality - a.quality);
+
+    // Use the highest quality language that we can normalize
+    if (languages.length > 0) {
+      const preferredLocale = normalizeLocale(languages[0].code);
+      locale.set(preferredLocale);
+    }
+  } else {
+    // Default to en-US if no Accept-Language header
+    locale.set("en-US");
   }
 }
 
