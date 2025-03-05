@@ -5,33 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/assets/vendor/three.js/three.min.js"></script>
     <script src="/assets/vendor/vanta/vanta.dots.min.js"></script>
-    <!-- Handle trailing slashes on client side -->
-    <script>
-      (function() {
-        // Only run in the browser
-        if (typeof window !== 'undefined') {
-          // Check if we're already in a redirect loop
-          try {
-            const urlPath = window.location.pathname;
-            
-            // If already redirected, don't redirect again
-            const redirectHistory = sessionStorage.getItem('redirect_history') || '';
-            
-            if (urlPath.length > 1 && urlPath.endsWith('/') && !redirectHistory.includes(urlPath)) {
-              // Store this URL to prevent loops
-              sessionStorage.setItem('redirect_history', redirectHistory + '|' + urlPath);
-              
-              // Remove trailing slash and redirect
-              const newPath = urlPath.slice(0, -1);
-              window.location.replace(window.location.origin + newPath + window.location.search);
-            }
-          } catch (e) {
-            // If sessionStorage access fails, fallback to simpler check
-            console.error('Redirect error:', e);
-          }
-        }
-      })();
-    </script>
     %sveltekit.head%
   </head>
   <body
