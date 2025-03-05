@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/assets/vendor/three.js/three.min.js"></script>
     <script src="/assets/vendor/vanta/vanta.dots.min.js"></script>
+    <!-- Handle trailing slashes on client side -->
+    <script>
+      (function() {
+        // Only run in the browser
+        if (typeof window !== 'undefined') {
+          // Don't redirect for the root path
+          if (window.location.pathname.length > 1 && window.location.pathname.endsWith('/')) {
+            // Remove trailing slash and redirect
+            const newPath = window.location.pathname.slice(0, -1);
+            window.location.replace(window.location.origin + newPath + window.location.search);
+          }
+        }
+      })();
+    </script>
     %sveltekit.head%
   </head>
   <body
