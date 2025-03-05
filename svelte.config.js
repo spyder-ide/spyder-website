@@ -21,7 +21,7 @@ function debugLog(message) {
   if (LOGGING) {
     console.log(message);
   }
-}
+};
 
 // Function to transform image paths correctly for blog posts
 const blogImages = () => {
