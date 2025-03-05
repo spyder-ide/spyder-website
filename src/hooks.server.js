@@ -462,19 +462,33 @@ export async function handle({ event, resolve }) {
   // 1. Set locale based on Accept-Language header
   handleLocale(event.request);
 
-  // 2. Handle trailing slash redirects
+  // 2. Handle trailing slash redirects (with loop protection)
   const url = new URL(event.request.url);
   if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
-    // Remove trailing slash (except for root path)
-    const newUrl = new URL(event.request.url);
-    newUrl.pathname = url.pathname.slice(0, -1);
-    debugLog(`🔀 Redirecting from ${url.pathname} to ${newUrl.pathname}`);
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: newUrl.href
-      }
-    });
+    // Check for Via header which might indicate a redirect loop
+    const viaHeader = event.request.headers.get('via');
+    const redirectCount = event.request.headers.get('x-redirect-count');
+    
+    // Only redirect if we haven't been here before
+    if (!viaHeader?.includes('netlify') && (!redirectCount || parseInt(redirectCount) < 3)) {
+      // Remove trailing slash (except for root path)
+      const newUrl = new URL(event.request.url);
+      newUrl.pathname = url.pathname.slice(0, -1);
+      
+      debugLog(`🔀 Redirecting from ${url.pathname} to ${newUrl.pathname}`);
+      
+      // Add a counter header to track redirect attempts
+      const headers = new Headers();
+      headers.set('Location', newUrl.href);
+      headers.set('x-redirect-count', redirectCount ? (parseInt(redirectCount) + 1).toString() : '1');
+      
+      return new Response(null, {
+        status: 301,
+        headers
+      });
+    } else {
+      debugLog(`⚠️ Avoiding redirect loop for ${url.pathname}, continuing with normal processing`);
+    }
   }
 
   // 3. Handle image requests in development mode
