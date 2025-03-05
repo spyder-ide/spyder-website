@@ -19,13 +19,6 @@
   node_bundler = "esbuild"
   included_files = ["static/assets/**"]
 
-# Redirect trailing slashes to non-trailing slash versions
-[[redirects]]
-  from = "/*/"
-  to = ":splat"
-  status = 301
-  force = true
-
 # Add headers for social media crawlers
 [[headers]]
   for = "/*"

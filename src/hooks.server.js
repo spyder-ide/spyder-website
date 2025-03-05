@@ -16,7 +16,7 @@ import { locale } from "svelte-i18n";
 
 /** @type {ServerConfig} */
 const CONFIG = {
-  logging: false,
+  logging: true,
   mediaExtensions: [
     "png",
     "jpg",
@@ -239,8 +239,8 @@ async function handleImageRequest(url) {
 }
 
 /**
- * Transforms HTML content to fix image URLs in development mode
- * This is a fallback for images that might not be caught by the mdsvex plugin
+ * Transforms HTML content to fix media URLs in development mode
+ * This is a fallback for media files that might not be caught by the mdsvex plugin
  * @param {string} html The HTML content to transform
  * @param {URL} url The request URL
  * @returns {string} The transformed HTML
@@ -249,53 +249,104 @@ function transformImageUrls(html, url) {
   // Only process blog posts
   const pathParts = getPathSegments(url.pathname);
   if (pathParts.length < 2 || pathParts[0] !== "blog") {
-    debugLog("⏭️ Not a blog post, skipping image URL transformation");
+    debugLog("⏭️ Not a blog post, skipping media URL transformation");
     return html;
   }
 
   const slug = pathParts[1];
-  debugLog("🔄 Transforming image URLs in HTML for slug:", slug);
+  debugLog("🔄 Transforming media URLs in HTML for slug:", slug);
 
-  // Debug: Check if any IMG tags exist
+  // Debug: Check if any media tags exist
   const imgTagCount = (html.match(/<img[^>]*>/gi) || []).length;
+  const sourceTagCount = (html.match(/<source[^>]*>/gi) || []).length;
+  const videoTagCount = (html.match(/<video[^>]*>/gi) || []).length;
+  const audioTagCount = (html.match(/<audio[^>]*>/gi) || []).length;
   debugLog(`📊 Found ${imgTagCount} total image tags in HTML`);
+  debugLog(`📊 Found ${sourceTagCount} total source tags in HTML`);
+  debugLog(`📊 Found ${videoTagCount} total video tags in HTML`);
+  debugLog(`📊 Found ${audioTagCount} total audio tags in HTML`);
 
-  // Use regex to find <img> tags with relative paths
-  const result = html.replace(
-    /<img\s+([^>]*)src="([^"]+)"([^>]*)>/gi,
+  // Process each type of media tag
+  let transformedHtml = html;
+
+  // 1. Process <img> tags
+  transformedHtml = processMediaTag(transformedHtml, /<img\s+([^>]*)src="([^"]+)"([^>]*)>/gi, 
     (match, beforeSrc, src, afterSrc) => {
-      // Debug: Log all found image sources
-      debugLog("🔍 Found image with src:", src);
+      const newSrc = transformMediaSrc(src, slug);
+      return newSrc ? `<img ${beforeSrc}src="${newSrc}"${afterSrc}>` : match;
+    }
+  );
 
-      // Skip external URLs and already prefixed paths
-      if (
-        src.startsWith("http") ||
-        src.startsWith("/blog/") ||
-        src.startsWith("/assets/")
-      ) {
-        debugLog("⏭️ Skipping prefixed or external image:", src);
-        return match;
-      }
+  // 2. Process <source> tags
+  transformedHtml = processMediaTag(transformedHtml, /<source\s+([^>]*)src="([^"]+)"([^>]*)>/gi,
+    (match, beforeSrc, src, afterSrc) => {
+      const newSrc = transformMediaSrc(src, slug);
+      return newSrc ? `<source ${beforeSrc}src="${newSrc}"${afterSrc}>` : match;
+    }
+  );
 
-      // Clean the path
-      const cleanPath = src.startsWith("./") ? src.slice(2) : src;
+  // 3. Process <video> tags
+  transformedHtml = processMediaTag(transformedHtml, /<video\s+([^>]*)src="([^"]+)"([^>]*)>/gi,
+    (match, beforeSrc, src, afterSrc) => {
+      const newSrc = transformMediaSrc(src, slug);
+      return newSrc ? `<video ${beforeSrc}src="${newSrc}"${afterSrc}>` : match;
+    }
+  );
 
-      // Create the new src with blog slug
-      const newSrc = `/blog/${slug}/${cleanPath}`;
-
-      debugLog("🔄 Transforming HTML image:", src, "->", newSrc);
-      return `<img ${beforeSrc}src="${newSrc}"${afterSrc}>`;
+  // 4. Process <audio> tags
+  transformedHtml = processMediaTag(transformedHtml, /<audio\s+([^>]*)src="([^"]+)"([^>]*)>/gi,
+    (match, beforeSrc, src, afterSrc) => {
+      const newSrc = transformMediaSrc(src, slug);
+      return newSrc ? `<audio ${beforeSrc}src="${newSrc}"${afterSrc}>` : match;
     }
   );
 
   // Debug: Check if any transformations were made
-  if (result === html) {
-    debugLog("⚠️ No image transformations were applied to HTML");
+  if (transformedHtml === html) {
+    debugLog("⚠️ No media transformations were applied to HTML");
   } else {
-    debugLog("✅ HTML was transformed with new image paths");
+    debugLog("✅ HTML was transformed with new media paths");
   }
 
-  return result;
+  return transformedHtml;
+}
+
+/**
+ * Processes a specific type of media tag in HTML
+ * @param {string} html - The HTML content to process
+ * @param {RegExp} regex - The regex pattern to match the media tag
+ * @param {Function} replacer - The replacer function
+ * @returns {string} - The processed HTML
+ */
+function processMediaTag(html, regex, replacer) {
+  return html.replace(regex, replacer);
+}
+
+/**
+ * Transforms a media source URL to include the blog slug
+ * @param {string} src - The source URL
+ * @param {string} slug - The blog post slug
+ * @returns {string|null} - The transformed URL or null if no transformation needed
+ */
+function transformMediaSrc(src, slug) {
+  // Skip external URLs and already prefixed paths
+  if (
+    src.startsWith("http") ||
+    src.startsWith("/blog/") ||
+    src.startsWith("/assets/")
+  ) {
+    debugLog("⏭️ Skipping prefixed or external media:", src);
+    return null;
+  }
+
+  // Clean the path
+  const cleanPath = src.startsWith("./") ? src.slice(2) : src;
+
+  // Create the new src with blog slug
+  const newSrc = `/blog/${slug}/${cleanPath}`;
+
+  debugLog("🔄 Transforming HTML media source:", src, "->", newSrc);
+  return newSrc;
 }
 
 /**
@@ -411,7 +462,22 @@ export async function handle({ event, resolve }) {
   // 1. Set locale based on Accept-Language header
   handleLocale(event.request);
 
-  // 2. Handle image requests in development mode
+  // 2. Handle trailing slash redirects
+  const url = new URL(event.request.url);
+  if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
+    // Remove trailing slash (except for root path)
+    const newUrl = new URL(event.request.url);
+    newUrl.pathname = url.pathname.slice(0, -1);
+    debugLog(`🔀 Redirecting from ${url.pathname} to ${newUrl.pathname}`);
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: newUrl.href
+      }
+    });
+  }
+
+  // 3. Handle image requests in development mode
   if (
     !building &&
     event.url.pathname.startsWith("/blog/") &&
@@ -424,10 +490,10 @@ export async function handle({ event, resolve }) {
     }
   }
 
-  // 3. Process the request with the SvelteKit middleware
+  // 4. Process the request with the SvelteKit middleware
   const response = await resolve(event);
 
-  // 4. Process HTML responses for blog posts
+  // 5. Process HTML responses for blog posts
   if (event.url.pathname.startsWith("/blog/")) {
     return transformHtml(event.request, response, event.url);
   }

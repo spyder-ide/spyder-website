@@ -43,6 +43,7 @@ jobs:
       run: ./ci/build.sh
       env:
         VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
+        VITE_HUBSPOT_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
     - name: Deploy to GitHub Pages
       if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
       uses: JamesIves/github-pages-deploy-action@v4

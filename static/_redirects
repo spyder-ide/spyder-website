@@ -3,3 +3,6 @@
 /* 200! User-Agent=facebookexternalhit
 /* 200! User-Agent=LinkedInBot
 /* 200! 
+
+# Remove trailing slashes (before any other rules)
+/*/ /:splat 301! 
