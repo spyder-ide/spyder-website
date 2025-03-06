@@ -221,7 +221,7 @@
         {/if}
 
         {#if progress}
-          <progress class="progress-bar" value={time / (duration || 1)} />
+          <progress class="progress-bar" value={time / (duration || 1)}></progress>
         {/if}
       </div>
     </div>

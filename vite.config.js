@@ -1,3 +1,4 @@
+// vite.config.js
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import copyImages from "./scripts/vite-plugin-copy-images";
@@ -7,11 +8,14 @@ export default defineConfig({
   plugins: [sveltekit(), copyImages()],
   server: {
     fs: {
-      allow: ['static', 'src']
-    }
+      allow: ["./"],
+    },
+    strictPort: false,
   },
   build: {
     target: 'esnext',
     chunkSizeWarningLimit: 1500,
-  }
+    ssrEmitAssets: true,
+    sourcemap: false,
+  },
 });

@@ -20,7 +20,7 @@ In addition, it brings a new `Consoles` submenu allowing you to connect to any r
 You can also stop code execution as well as restart remote kernels from within Spyder.
 
 <video controls>
-  <source src="remote-console-demo.mp4" type="video/mp4">
+  <source src="/blog/spyder-6-remote-development/remote-console-demo.mp4" type="video/mp4">
   <track kind="captions">
 </video>
 

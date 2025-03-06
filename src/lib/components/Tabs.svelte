@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
   import { locale } from "svelte-i18n";
+  import { fade } from "svelte/transition";
   import VideoPlayer from "./VideoPlayer.svelte";
 
   interface VideoContent {
@@ -85,7 +85,7 @@
   {#each tabs as tab, i}
     <button
       class="tab-button pb-2 border-b-2 border-neutral-500 text-gray-500
-             text-xs sm:text-sm lg:text-base font-light"
+             text-xs sm:text-sm lg:text-base font-light leading-none sm:leading-none lg:leading-none"
       class:selected={current === tab}
       on:click={() => handleTabClick(tab, i)}
       aria-selected={current === tab}
@@ -155,7 +155,7 @@
   {/key}
 </div>
 
-<style>
+<style lang="postcss">
   .tabs-header {
     position: relative;
     z-index: 1;

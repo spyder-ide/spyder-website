@@ -1,6 +1,6 @@
 <script>
-  import { locale } from "svelte-i18n";
   import { browser } from "$app/environment";
+  import { locale } from "svelte-i18n";
 
   import NavButton from "$lib/components/NavButton.svelte";
 
@@ -64,7 +64,7 @@
   {/if}
 </div>
 
-<style>
+<style lang="postcss">
   .dropdownMenu {
     @apply absolute left-0 right-0 mt-1 min-w-24 transform rounded-md bg-spring-wood-50 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 dark:bg-mine-shaft-900;
   }

@@ -1,14 +1,14 @@
 <script>
-  import { _, isLoading } from "svelte-i18n";
   import { onMount } from "svelte";
+  import { _, isLoading, locale } from "svelte-i18n";
 
-  import { randomId } from "$lib/utils";
   import { colourScheme, osStore } from "$lib/store";
+  import { randomId } from "$lib/utils";
 
   import ContentSection from "$lib/components/ContentSection.svelte";
-  import MediaSection from "$lib/components/MediaSection.svelte";
   import Divider from "$lib/components/Divider.svelte";
   import Image from "$lib/components/Image.svelte";
+  import MediaSection from "$lib/components/MediaSection.svelte";
 
   export let id = randomId();
   export let columns = true;
@@ -40,6 +40,36 @@
   let mobile = false;
   let unsubscribeOs;
   let resizeHandler;
+
+  // Add reactive content variables that will update when locale changes
+  let reactiveContent = content;
+  let reactiveTitle = title;
+  let reactiveExtraContent = extraContent;
+
+  // Update reactive content when locale changes
+  $: {
+    if ($locale) {
+      // Force reactive updates when locale changes
+      reactiveContent = content ? { ...content } : {};
+      reactiveTitle = title ? title : "";
+      reactiveExtraContent = extraContent ? { ...extraContent } : {};
+    }
+  }
+
+  // Helper function to check if an object is empty or has no meaningful content
+  function isEmptyContent(contentObj) {
+    if (!contentObj) return true;
+    if (typeof contentObj === 'string') return contentObj === '';
+    if (typeof contentObj !== 'object') return false;
+    if (Object.keys(contentObj).length === 0) return true;
+    
+    // If it's an object, check for meaningful properties
+    if (typeof contentObj === 'object') {
+      return !contentObj.title && !contentObj.text;
+    }
+    
+    return false;
+  }
 
   const debounce = (func, wait) => {
     let timeout;
@@ -82,11 +112,22 @@
     }, 250);
 
     window.addEventListener("resize", resizeHandler);
+    
+    // Add listener for language changes
+    const languageChangeHandler = () => {
+      // Force reactive updates when language is changed
+      reactiveContent = { ...content };
+      reactiveTitle = title ? title : "";
+      reactiveExtraContent = { ...extraContent };
+    };
+    window.addEventListener("language-changed", languageChangeHandler);
+    
     resizeHandler();
 
     return () => {
       if (resizeHandler) window.removeEventListener("resize", resizeHandler);
       if (unsubscribeOs) unsubscribeOs();
+      window.removeEventListener("language-changed", languageChangeHandler);
     };
   });
 </script>
@@ -96,12 +137,12 @@
   {id}
   {style}
 >
-  {#if title}
+  {#if reactiveTitle}
     <h1
       class={`text-4xl font-semibold tracking-tight max-w-2xl px-8 mx-auto text-center text-red-berry-900 dark:text-neutral-400
         ${!boxed ? "lg:mb-24" : "lg:mb-8"}`}
     >
-      {@html title}
+      {@html reactiveTitle}
     </h1>
   {/if}
 
@@ -111,8 +152,8 @@
       ${columns ? "gap-x-8 lg:gap-x-16 xl:gap-x-32 lg:grid-cols-10" : ""}
       ${border ? "border border-mine-shaft-200 dark:border-mine-shaft-800" : ""}`}
   >
-    {#if content || buttons}
-      <ContentSection {content} {buttons} {columns}>
+    {#if !isEmptyContent(reactiveContent) || buttons}
+      <ContentSection content={reactiveContent} {buttons} {columns}>
         <slot />
       </ContentSection>
     {/if}
@@ -134,29 +175,29 @@
     {/if}
   </div>
 
-  {#if extraContent}
+  {#if !isEmptyContent(reactiveExtraContent)}
     <div
       class={`text-center max-w-2xl mx-auto px-8 mt-8 prose prose-h2:text-xl prose-headings:font-light
               prose-headings:tracking-tight prose-headings:text-gray-700 prose-headings:dark:text-neutral-300
               prose-p:font-light prose-p:text-base prose-p:text-gray-700 prose-p:dark:text-gray-300
               ${columns ? "order-first" : ""}`}
     >
-      {#if typeof extraContent !== "object"}
-        {#if extraContent}
+      {#if typeof reactiveExtraContent !== "object"}
+        {#if reactiveExtraContent}
           <svelte:component this={null} />
         {/if}
       {:else}
-        {#if extraContent.title}
-          {#if extraContent.titleTag}
-            <svelte:element this={extraContent.titleTag}>
-              {extraContent.title}
+        {#if reactiveExtraContent.title}
+          {#if reactiveExtraContent.titleTag}
+            <svelte:element this={reactiveExtraContent.titleTag}>
+              {reactiveExtraContent.title}
             </svelte:element>
           {:else}
-            <h2>{extraContent.title}</h2>
+            <h2>{reactiveExtraContent.title}</h2>
           {/if}
         {/if}
-        {#if extraContent.text}
-          {@html extraContent.text}
+        {#if reactiveExtraContent.text}
+          {@html reactiveExtraContent.text}
         {/if}
       {/if}
     </div>

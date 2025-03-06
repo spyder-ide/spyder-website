@@ -10,7 +10,7 @@ import rawFrontPage from "./data/frontpage.yaml?raw";
 import rawDonate from "./data/donate.yaml?raw";
 
 // Site config
-export const siteUrl = dev ? "http://localhost:5173" : PUBLIC_SITE_URL;
+export const siteUrl = dev ? "http://localhost:4173" : PUBLIC_SITE_URL;
 export const ogImage = `${siteUrl}/assets/media/website_screenshot.png`;
 export const ogImageBlog = `${siteUrl}/assets/media/blog_screenshot.png`;
 export const blogPageStart = 1;

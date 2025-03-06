@@ -1,12 +1,11 @@
 <script>
+  import "../app.css";
+  
   import { waitLocale } from "svelte-i18n";
+
   import Header from "$lib/blocks/Header.svelte";
   import Footer from "$lib/blocks/Footer.svelte";
   import Loader from "$lib/components/Loader.svelte";
-
-  import "../app.css";
-
-  let loaded = false;
 </script>
 
 {#await waitLocale()}

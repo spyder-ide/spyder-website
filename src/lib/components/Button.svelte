@@ -145,7 +145,7 @@
   </button>
 {/if}
 
-<style>
+<style lang="postcss">
   .button {
     @apply bg-gradient-to-b shadow-md min-h-12;
   }

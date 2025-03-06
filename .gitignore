@@ -311,5 +311,15 @@ dist
 # Generated OG images
 static/assets/og
 
-# AI rules
+# Cursor
 .cursorrules
+.cursorignore
+.cursor/
+
+# Prettier
+.prettierrc
+.prettierignore
+.prettierrc.*
+
+# Tests
+scripts/test-*

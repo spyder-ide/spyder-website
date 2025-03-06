@@ -101,8 +101,9 @@ export function formattedPubDate(date, i18n = "en-US") {
  */
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
+    // In the browser, use fetch
     const response = await (customFetch || fetch)(
-      `/assets/authors/${author}/metadata.json`,
+      `/assets/authors/${author}/metadata.json`
     );
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
@@ -130,9 +131,9 @@ export async function fetchAuthorsMetadata(authors) {
   }
 
   const metadataList = await Promise.all(
-    authors.map((author) => fetchAuthorMetadata(author)),
+    authors.map((author) => fetchAuthorMetadata(author))
   );
-  return metadataList;
+  return metadataList.filter(Boolean); // Remove null entries
 }
 
 /**
@@ -249,7 +250,7 @@ export const processContributors = (current, past, all) => {
   const remainingContributors = all.filter(
     (contributor) =>
       !current.some((c) => c.id === contributor.id) &&
-      !past.some((p) => p.id === contributor.id),
+      !past.some((p) => p.id === contributor.id)
   );
 
   return {
@@ -273,7 +274,7 @@ export const getContributors = async (
   dataSrc = dataURL || "",
   token = getGitHubToken() || undefined,
   startPage = 1,
-  maxPages = 3,
+  maxPages = 3
 ) => {
   const headers = token ? {
     Authorization: `Bearer ${token}`,
@@ -359,8 +360,31 @@ export async function loadBlogPage(page = blogPageStart) {
  */
 export async function generateBlogEntries() {
   const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
-  return Array.from(
-    { length: totalPages },
-    (_, i) => ({ page: `${i + 1}` }),
-  );
+  return Array.from({ length: totalPages }, (_, i) => ({ page: `${i + 1}` }));
+}
+
+/**
+ * Gets the correct image URL for a blog post image regardless of trailing slash configuration
+ * @param {string} slug - The blog post slug
+ * @param {string} imagePath - The relative image path (e.g., "./image.png" or "image.png")
+ * @returns {string} The properly formatted image URL
+ */
+export function getBlogImageUrl(slug, imagePath) {
+  if (!slug || !imagePath) return "";
+
+  // Handle absolute URLs (http://, https://, etc.)
+  if (imagePath.startsWith("http")) {
+    return imagePath;
+  }
+
+  // Handle absolute paths
+  if (imagePath.startsWith("/")) {
+    return imagePath;
+  }
+
+  // Handle relative paths with or without leading ./
+  const cleanPath = imagePath.startsWith("./") ? imagePath.slice(2) : imagePath;
+
+  // Create an absolute path that works with trailingSlash 'never'
+  return `/blog/${slug}/${cleanPath}`;
 }
