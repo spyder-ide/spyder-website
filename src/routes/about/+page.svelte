@@ -6,6 +6,7 @@
   import Metadata from "$lib/components/Metadata.svelte";
 
   import { contributors } from "$lib/config";
+  import { metadata } from "$lib/store";
   import {
       createContributorsMap,
       mergeContributorData,
@@ -21,8 +22,7 @@
     currentTitle,
     pastTitle,
     remainingTitle,
-    remainingIntro,
-    pageMetadata;
+    remainingIntro;
 
   // Contributor data
   let currentRawContributors, pastRawContributors;
@@ -84,14 +84,14 @@
     }
 
     // Set page metadata
-    pageMetadata = {
+    metadata.setMetadata({
       ...data.metadata,
-      description: pageIntro,
-    };
+      description: pageIntro
+    });
   }
 </script>
 
-<Metadata {...pageMetadata} />
+<Metadata />
 
 {#await waitLocale()}
   <Loader />

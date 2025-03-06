@@ -9,6 +9,9 @@
   import Button from "$lib/components/Button.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
+
+  import { metadata } from "$lib/store";
+
   export let data;
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
@@ -22,7 +25,7 @@
   let downloadUrl = "";
   let osButtons = [];
   let result;
-  let metadata;
+  let metadataStore;
   // Page content
   let pageTitle, pageSubtitle, pageSubtitleAlt;
   let download, buttonText;
@@ -115,11 +118,14 @@
       macs = Object.entries(releases.mac);
     }
 
-    metadata = { ...data.metadata, title: `${data.metadata.title} | ${data.metadata.subtitle}` };
+    metadata.setMetadata({ 
+      ...data.metadata, 
+      title: `${data.metadata.title} | ${data.metadata.subtitle}` 
+    });
   }
 </script>
 
-<Metadata {...metadata} />
+<Metadata />
 
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}

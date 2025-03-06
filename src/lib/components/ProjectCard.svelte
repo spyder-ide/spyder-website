@@ -54,7 +54,7 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
   .group {
     @apply w-full flex-shrink-0 py-4 md:w-1/2 md:px-4 xl:w-1/3;
   }
