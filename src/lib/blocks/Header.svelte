@@ -2,19 +2,19 @@
   import { _, json, waitLocale } from "svelte-i18n";
 
   import { Icon } from "svelte-icons-pack";
-  import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
+  import { BiMenu } from "svelte-icons-pack/bi";
 
-  import { page } from "$app/stores";
   import { base } from "$app/paths";
+  import { page } from "$app/stores";
 
-  import { languageOptions } from "$lib/i18n";
   import { config } from "$lib/config";
+  import { languageOptions } from "$lib/i18n";
 
-  import Logo from "$lib/components/Logo.svelte";
-  import Loader from "$lib/components/Loader.svelte";
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import LanguageSelect from "$lib/components/LanguageSelect.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import Logo from "$lib/components/Logo.svelte";
   import NavButton from "$lib/components/NavButton.svelte";
 
   let isMenuOpen = false;
@@ -72,9 +72,10 @@
         </nav>
 
         <!-- Support button -->
-        <NavButton buttonText="Support us" supportIcon href="/donate/"/>
+        <NavButton buttonText={$_("donate.page.title")} supportIcon href="/donate"/>
+
+        <!-- Language switch -->
         <div class="hidden md:block">
-          <!-- Language switch -->
           <LanguageSelect languages={languageOptions} />
         </div>
 

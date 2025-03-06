@@ -1,14 +1,11 @@
 <script>
-  import { _, json, locale } from "svelte-i18n";
-  import { metadata, colourScheme } from "$lib/store";
-  import { page } from "$app/stores";
-  import { ogImage } from "$lib/config";
+  import { colourScheme } from "$lib/store";
+  import { json, locale } from "svelte-i18n";
 
-  import Chart from "$lib/components/Chart.svelte";
   import Button from "$lib/components/Button.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
-  import ProgressBar from "$lib/components/ProgressBar.svelte";
+  import Chart from "$lib/components/Chart.svelte";
   import PaymentModal from "$lib/components/PaymentModal.svelte";
+  import ProgressBar from "$lib/components/ProgressBar.svelte";
 
   export let data;
 
@@ -35,13 +32,6 @@
       ...projectTranslations,
     };
   }
-
-  $: metadata.setMetadata({
-    title: `${$_("config.site.title")} | Support project ${project.title}`,
-    description: project.content,
-    url: $page.url.href,
-    image: project.image || ogImage,
-  });
 
   // Chart.js data with reactive chartColors
   $: chartData = {
@@ -76,8 +66,6 @@
     cutout: "40%",
   };
 </script>
-
-<Metadata />
 
 <div class="container mt-32">
   <div class="mx-auto max-w-6xl">
@@ -131,7 +119,7 @@
   donationLink={project.donationLink}
 />
 
-<style>
+<style lang="postcss">
   .title {
     @apply w-full bg-white/60 p-6 text-5xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl md:text-7xl;
   }

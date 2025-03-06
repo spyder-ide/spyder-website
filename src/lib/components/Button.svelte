@@ -1,17 +1,17 @@
 <script>
   import { Icon } from "svelte-icons-pack";
   import {
-    BsFacebook,
-    BsGithub,
-    BsInstagram,
-    BsMastodon,
-    BsTwitterX,
-    BsWindows,
-    BsApple,
-    BsQuestionCircleFill,
-    BsDownload,
-    BsRssFill,
-    BsHeartFill,
+      BsApple,
+      BsDownload,
+      BsFacebook,
+      BsGithub,
+      BsHeartFill,
+      BsInstagram,
+      BsMastodon,
+      BsQuestionCircleFill,
+      BsRssFill,
+      BsTwitterX,
+      BsWindows,
   } from "svelte-icons-pack/bs";
 
   import { VscTerminalLinux } from "svelte-icons-pack/vsc";
@@ -160,13 +160,5 @@
 
   .button.regular {
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
-  }
-
-  .icon-left {
-    margin-left: -0.4em;
-  }
-
-  .icon-right {
-    margin-right: -0.4em;
   }
 </style>

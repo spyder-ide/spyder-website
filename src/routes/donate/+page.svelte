@@ -1,8 +1,8 @@
 <script>
-  import { _, json, locale } from "svelte-i18n";
-  import { metadata } from "$lib/store";
   import { page } from "$app/stores";
-  import { ogImage, config } from "$lib/config";
+  import { config, ogImage } from "$lib/config";
+  import { metadata } from "$lib/store";
+  import { _, json, locale } from "svelte-i18n";
 
   import Metadata from "$lib/components/Metadata.svelte";
   import ProjectCard from "$lib/components/ProjectCard.svelte";

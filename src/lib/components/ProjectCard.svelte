@@ -1,8 +1,8 @@
 <script>
-  import { locale } from "svelte-i18n";
   import Button from "$lib/components/Button.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
+  import { locale } from "svelte-i18n";
 
   export let project;
   export let href;
@@ -47,7 +47,7 @@
       {/if}
       {#if project.button && href}
         <div class="button-container">
-          <Button text={project.button.text} highlight={true} icon="donate" iconSize={32} textSize="lg" {href} />
+          <Button text={project.button.text} highlight={true} icon="donate" iconSize={24} textSize="lg" {href} />
         </div>
       {/if}
     </div>
