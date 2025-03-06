@@ -1,7 +1,7 @@
 <script>
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { Icon } from "svelte-icons-pack";
   import { BiChevronDown, BiSolidHeart } from "svelte-icons-pack/bi";
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -66,7 +66,7 @@
   {/if}
 </button>
 
-<style>
+<style lang="postcss">
   .menu-button {
     @apply min-w-24 rounded-md border border-mine-shaft-200 bg-spring-wood-50 px-3 py-1.5 shadow-sm hover:bg-spring-wood-100 focus:outline-none focus:ring-1 focus:ring-red-berry-900 focus:ring-offset-0 dark:border-mine-shaft-500 dark:bg-mine-shaft-950 dark:hover:bg-mine-shaft-900;
   }
