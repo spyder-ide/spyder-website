@@ -14,6 +14,15 @@
     locale.set(selectedLocale);
     if (browser) {
       localStorage.setItem("preferred-locale", selectedLocale);
+      
+      // Force a page data refresh when language changes
+      // This helps reload the content with new translations
+      setTimeout(() => {
+        // Use a small timeout to ensure the locale change has propagated
+        window.dispatchEvent(new CustomEvent('language-changed', { 
+          detail: { locale: selectedLocale } 
+        }));
+      }, 50);
     }
     isDropdownOpen = false;
   }

@@ -14,3 +14,5 @@ export const load = async ({ url, route }) => {
     baseUrl: `/blog/${slug}`,
   };
 };
+
+export const prerender = true;
