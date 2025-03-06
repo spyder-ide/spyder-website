@@ -32,7 +32,7 @@
   let updatedCurrent, updatedPast;
 
   // State
-  let loading = false;
+  let contributorsLoading = true;
   let error = null;
 
   const allContributors = data.contributors;
@@ -81,6 +81,9 @@
       updatedCurrent = processedContributors.updatedCurrent;
       updatedPast = processedContributors.updatedPast;
       remainingContributors = processedContributors.remainingContributors;
+      
+      // Set loading to false once data is processed
+      contributorsLoading = false;
     }
 
     // Set page metadata
@@ -94,7 +97,10 @@
 <Metadata />
 
 {#await waitLocale()}
-  <Loader />
+  <div class="flex justify-center items-center min-h-screen">
+    <Loader />
+    <p class="ml-4 text-gray-600 dark:text-gray-300">Loading translations...</p>
+  </div>
 {:then}
   <div class="container">
     <h1
@@ -115,9 +121,12 @@
       {@html pageIntro}
     </h2>
     {#if error}
-      <p>Error: {error}</p>
-    {:else if loading}
-      <Loader />
+      <p class="text-center text-red-500 my-8">Error: {error}</p>
+    {:else if contributorsLoading}
+      <div class="flex justify-center items-center my-16">
+        <Loader />
+        <p class="ml-4 text-gray-600 dark:text-gray-300">Loading contributor data...</p>
+      </div>
     {:else}
       {#if updatedCurrent && updatedCurrent.length > 0}
         <ContributorBlock
@@ -125,8 +134,6 @@
           contributors={updatedCurrent}
           size={"large"}
         />
-      {:else}
-        <Loader />
       {/if}
       {#if updatedPast && updatedPast.length > 0}
         <ContributorBlock
@@ -134,8 +141,6 @@
           contributors={updatedPast}
           size={"medium"}
         />
-      {:else}
-        <Loader />
       {/if}
       {#if remainingContributors && remainingContributors.length > 0}
         <ContributorBlock
@@ -144,8 +149,6 @@
           contributors={remainingContributors}
           size={"small"}
         />
-      {:else}
-        <Loader />
       {/if}
     {/if}
   </div>
