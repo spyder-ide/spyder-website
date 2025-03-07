@@ -7,6 +7,7 @@ import rawConfig from "./data/config.yaml?raw";
 import rawContributors from "./data/contributors.yaml?raw";
 import rawReleases from "./data/releases.yaml?raw";
 import rawFrontPage from "./data/frontpage.yaml?raw";
+import rawDonate from "./data/donate.yaml?raw";
 
 // Site config
 export const siteUrl = dev ? "http://localhost:4173" : PUBLIC_SITE_URL;
@@ -20,3 +21,4 @@ export const config = loadYamlSafely(rawConfig, "config");
 export const contributors = loadYamlSafely(rawContributors, "contributors");
 export const releases = loadYamlSafely(rawReleases, "releases");
 export const frontpage = loadYamlSafely(rawFrontPage, "frontpage");
+export const donate = loadYamlSafely(rawDonate, "donate");

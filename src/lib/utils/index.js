@@ -3,11 +3,27 @@ import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
 const dataURL =
   "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
-let githubToken;
 
-if (import.meta.env.VITE_GITHUB_TOKEN) {
-  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
-}
+// Only try to access env vars in browser or during SSR, not during build
+const getGitHubToken = () => {
+  try {
+    return import.meta.env.VITE_GITHUB_TOKEN;
+  } catch (e) {
+    return undefined;
+  }
+};
+
+// Ensure headers are always set if token is available
+const getGitHubHeaders = () => {
+  const token = getGitHubToken();
+  if (token) {
+    return {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github.v3+json",
+    };
+  }
+  return undefined;
+};
 
 /**
  * Determines if a variable has a value (even `false` or `0`)
@@ -197,10 +213,14 @@ export const getOSButtons = (base, os) => {
  */
 export async function getIcon(iconName) {
   try {
-    const module = await import("svelte-icons-pack/bs");
+    const moduleLoader = iconThemes[iconTheme];
+    if (!moduleLoader) {
+      throw new Error(`Unknown icon theme: ${iconTheme}`);
+    }
+    const module = await moduleLoader();
     return module[iconName];
   } catch (error) {
-    console.error(`Failed to load icon: ${iconName}`, error);
+    console.error(`Failed to load icon: ${iconName} from theme: ${iconTheme}`, error);
     return null;
   }
 }
@@ -252,31 +272,25 @@ export const processContributors = (current, past, all) => {
 export const getContributors = async (
   customFetch = undefined,
   dataSrc = dataURL || "",
-  token = githubToken || undefined,
+  token = getGitHubToken() || undefined,
   startPage = 1,
   maxPages = 3
 ) => {
-  let headers, response;
-  let contributors = [];
+  const headers = token ? {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/vnd.github.v3+json",
+  } : getGitHubHeaders();
 
-  if (token) {
-    headers = {
-      Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-  }
+  let contributors = [];
 
   try {
     // Fetch the contributors data with authentication
     for (let n = startPage; n <= maxPages; n++) {
       if (!dataSrc) throw new Error(`There is no data source to fetch!`);
-      if (headers) {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
-          headers,
-        });
-      } else {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`);
-      }
+      const url = `${dataSrc}&page=${n}`;
+
+      const response = await (customFetch || fetch)(url, headers ? { headers } : undefined);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
