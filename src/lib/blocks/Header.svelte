@@ -20,7 +20,7 @@
   let isMenuOpen = false;
   const mainNav = config.site.navigation || [];
 
-  // Create reactive navigation that updates when translations change
+  // Reactive navigation updates when translations change
   $: translatedNav = $json("config.site.navigation") || [];
   $: navigation = mainNav.map((menuGroup, groupIndex) =>
     menuGroup.map((item, itemIndex) => ({
@@ -45,7 +45,7 @@
       <a href="{base}/" class="title h-20 flex items-center">
         <Logo />
         <span class="sr-only"
-          >{$_("config.site.title")} {$_("config.site.description")}</span
+          >{$_("config.site.title")}: {$_("config.site.description")}</span
         >
       </a>
 
@@ -71,12 +71,14 @@
           {/each}
         </nav>
 
-        <!-- Support button -->
-        <NavButton buttonText={$_("donate.page.title")} supportIcon href="/donate"/>
-
-        <!-- Language switch -->
-        <div class="hidden md:block">
-          <LanguageSelect languages={languageOptions} />
+        <div class="flex items-center gap-2">
+          <!-- Support button -->
+          <NavButton buttonText={$_("donate.page.title")} supportIcon href="/donate"/>
+  
+          <!-- Language switch -->
+          <div class="hidden md:block">
+            <LanguageSelect languages={languageOptions} />
+          </div>
         </div>
 
         <!-- Theme switch (dark/light) -->

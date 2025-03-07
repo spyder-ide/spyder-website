@@ -11,39 +11,41 @@ page:
     (last updated {lastUpdated}).</p>
 
 projects:
-- id: 0
-  title: Spyder IDE
-  collected: Pledged
-  separator: of
-  content: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
-    quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-    Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-  button:
-    text: Support Spyder
-- id: 1
-  title: Project One
-  collected: Collected so far
-  separator: of
-  content: Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-    incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-  button:
-    text: Support This Project
-- id: 2
-  title: Project Two
-  collected: Raised
-  separator: of
-  content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
-    unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-  button:
-    text: Support This Project
-- id: 3
-  title: Project Three
-  collected: Raised so far
-  separator: of
-  content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
-    unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-  button:
-    text: Support This Project
+  - id: 0
+    title: Spyder IDE
+    collected: Pledged
+    separator: of
+    content:
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+      quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    button:
+      text: Support Spyder
+  - id: 1
+    title: Project One
+    collected: Collected so far
+    separator: of
+    content:
+      Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
+      incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+    button:
+      text: Support This Project
+  - id: 2
+    title: Project Two
+    collected: Raised
+    separator: of
+    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
+      unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    button:
+      text: Support This Project
+  - id: 3
+    title: Project Three
+    collected: Raised so far
+    separator: of
+    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
+      unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    button:
+      text: Support This Project

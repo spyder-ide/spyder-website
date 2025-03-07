@@ -1,7 +1,7 @@
 page:
   title: Apóyanos
-  monthly: Monthly
-  oneTime: One-time
+  monthly: Mensuales
+  oneTime: Una vez
   supporters: Total Supporters
   intro: >-
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
@@ -11,39 +11,41 @@ page:
     (última actualización {lastUpdated}).</p>
 
 projects:
-- id: 0
-  title: Spyder IDE
-  collected: Recaudados
-  separator: de
-  content: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
-    quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-    Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-  button:
-    text: Apoya a Spyder
-- id: 1
-  title: Projecto Uno
-  collected: Recaudados hasta la fecha
-  separator: de
-  content: Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
-    incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-  button:
-    text: Apoya este proyecto
-- id: 2
-  title: Projecto Dos
-  collected: Recaudados
-  separator: de
-  content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
-    unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-  button:
-    text: Apoya este proyecto
-- id: 3
-  title: Projecto Tres
-  collected: Recaudados hasta la fecha
-  separator: de
-  content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
-    unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-  button:
-    text: Apoya este proyecto
+  - id: 0
+    title: Spyder IDE
+    collected: Recaudados
+    separator: de
+    content:
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+      quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    button:
+      text: Apoya a Spyder
+  - id: 1
+    title: Projecto Uno
+    collected: Recaudados
+    separator: de
+    content:
+      Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
+      incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+    button:
+      text: Apoya este proyecto
+  - id: 2
+    title: Projecto Dos
+    collected: Recaudados
+    separator: de
+    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
+      unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    button:
+      text: Apoya este proyecto
+  - id: 3
+    title: Projecto Tres
+    collected: Recaudados
+    separator: de
+    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
+      unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    button:
+      text: Apoya este proyecto
