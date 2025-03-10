@@ -1,20 +1,92 @@
 <script>
+  import { browser } from "$app/environment";
   import Button from "$lib/components/Button.svelte";
+  import DynamicBg from "$lib/components/DynamicBg.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
+  import { createHarmoniousPalette } from "$lib/utils";
+  import { afterUpdate, onMount } from "svelte";
+
+  import { colourScheme } from "$lib/store";
   import { locale } from "svelte-i18n";
+  // Import color scheme store
 
   export let project;
   export let href;
 
   let currencyOptions = { style: "currency", currency: "USD", maximumFractionDigits: 0 };
+  let cardImageContainer;
+  let canvasWidth = 0;
+  let canvasHeight = 0;
+  let isMobile = false;
+  let redrawKey = 0; // To force component redraw
+
+  // Use the function to generate your color schemes
+  const localColorScheme = createHarmoniousPalette();
+  const bgColors = localColorScheme.bgColors;
+  const fgColors = localColorScheme.fgColors;
+
+  // Calculate dimensions based on container width and device size
+  function calculateDimensions() {
+    if (!cardImageContainer || !browser) return;
+
+    // Get the container width
+    const containerWidth = cardImageContainer.clientWidth;
+    const newIsMobile = window.innerWidth < 768; // Matches the md: breakpoint in Tailwind
+
+    // Only update if dimensions actually changed
+    if (canvasWidth !== containerWidth || isMobile !== newIsMobile) {
+      canvasWidth = containerWidth;
+      isMobile = newIsMobile;
+
+      // Set height based on aspect ratio
+      if (isMobile) {
+        // Square aspect ratio (1:1) for mobile
+        canvasHeight = containerWidth;
+      } else {
+        // Video aspect ratio (16:9) for larger screens
+        canvasHeight = containerWidth * (9 / 16);
+      }
+
+      // Increment redraw key to force DynamicBg to reinitialize
+      redrawKey++;
+    }
+  }
+
+  onMount(() => {
+    if (browser) {
+      calculateDimensions();
+      window.addEventListener("resize", calculateDimensions);
+
+      return () => {
+        window.removeEventListener("resize", calculateDimensions);
+      };
+    }
+  });
+
+  afterUpdate(() => {
+    if (browser) {
+      calculateDimensions();
+    }
+  });
 
   $: progress = Math.min(project.donations.progress, 100);
+
+  // Recalculate dimensions when the window resizes
+  $: if (browser && typeof window !== "undefined") {
+    window.innerWidth; // This creates a dependency on window.innerWidth
+    setTimeout(calculateDimensions, 0); // Schedule recalculation
+  }
+
+  // Trigger redraw when color scheme changes
+  $: if ($colourScheme) {
+    redrawKey++; // Force redraw when color scheme changes
+  }
 </script>
 
 <div class="group">
   <div class="card">
-    <div class="card-image">
+    <div class="card-image" bind:this={cardImageContainer}>
       {#await project.image}
         <Loader />
       {:then}
@@ -24,6 +96,20 @@
           </a>
         {:else if project.image}
           <img class="project-image" src={project.image} alt={project.title} />
+        {:else}
+          <div class="dynamic-bg-container">
+            {#key redrawKey}
+              <DynamicBg
+                width={canvasWidth}
+                height={canvasHeight}
+                backgroundColor={$colourScheme === "dark" ? bgColors.light : bgColors.dark}
+                strokeColor={$colourScheme === "dark" ? fgColors.light : fgColors.dark}
+                stroke={localColorScheme.effectParams.stroke}
+                linesCount={localColorScheme.effectParams.linesCount}
+                strokeAlpha={localColorScheme.effectParams.strokeAlpha}
+              />
+            {/key}
+          </div>
         {/if}
       {/await}
       <h4 class="card-title">
@@ -73,7 +159,15 @@
   }
 
   .card-image {
-    @apply relative aspect-square w-full md:aspect-video;
+    @apply relative overflow-hidden;
+  }
+
+  .project-image {
+    @apply rounded-t-2xl aspect-square w-full md:aspect-video;
+  }
+
+  .dynamic-bg-container {
+    @apply rounded-t-2xl aspect-square w-full md:aspect-video overflow-hidden;
   }
 
   .card-content {
@@ -82,9 +176,5 @@
 
   .donations {
     @apply text-lg font-light;
-  }
-
-  .project-image {
-    @apply absolute inset-0 aspect-square h-full w-full rounded-t-2xl object-cover md:aspect-video;
   }
 </style>

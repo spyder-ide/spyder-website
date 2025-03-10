@@ -388,3 +388,115 @@ export function getBlogImageUrl(slug, imagePath) {
   // Create an absolute path that works with trailingSlash 'never'
   return `/blog/${slug}/${cleanPath}`;
 }
+
+  /**
+   * Converts HSL color values to RGB
+   * @param {number} h - Hue value in degrees (0-360)
+   * @param {number} s - Saturation value in percentage (0-100)
+   * @param {number} l - Lightness value in percentage (0-100)
+   * @returns {number[]} Array of RGB values [r, g, b] where each value is 0-255
+   */
+  export function hslToRgb(h, s, l) {
+    s /= 100;
+    l /= 100;
+    const a = s * Math.min(l, 1 - l);
+    const f = n => {
+      const k = (n + h / 30) % 12;
+      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+      return Math.round(255 * color);
+    };
+    return [f(0), f(8), f(4)];
+  }
+
+  /**
+   * Color Harmony System
+   * 
+   * This approach creates visually appealing color combinations using
+   * established color harmony principles from color theory:
+   * 
+   * - Complementary: Colors opposite on the color wheel (high contrast)
+   * - Analogous: Colors adjacent on the color wheel (harmonious)
+   * - Triadic: Three colors evenly spaced on the color wheel (balanced)
+   * - Split-Complementary: Base color + two colors adjacent to its complement (dynamic but harmonious)
+   * 
+   * For each harmony type, we also adjust the line count and stroke weight
+   * to create visually distinct patterns that complement the colors.
+   */
+  // Generate a color palette based on color harmony
+  export const createHarmoniousPalette = () => {
+    // Start with a random hue
+    const baseHue = Math.floor(Math.random() * 360);
+    
+    // Create color harmonies (options: complementary, analogous, triadic, etc.)
+    const harmonies = {
+      complementary: [(baseHue + 180) % 360],
+      analogous: [(baseHue + 30) % 360, (baseHue - 30 + 360) % 360],
+      triadic: [(baseHue + 120) % 360, (baseHue + 240) % 360],
+      split: [(baseHue + 150) % 360, (baseHue + 210) % 360]
+    };
+    
+    // Pick a random harmony type
+    const harmonyTypes = Object.keys(harmonies);
+    const selectedHarmony = harmonyTypes[Math.floor(Math.random() * harmonyTypes.length)];
+    const harmonyHues = [baseHue, ...harmonies[selectedHarmony]];
+    
+    // Generate color objects with varied saturations and lightnesses
+    const baseColor = {
+      hue: baseHue,
+      saturation: 70 + Math.floor(Math.random() * 30),
+      lightness: 45 + Math.floor(Math.random() * 15)
+    };
+    
+    // For light mode: lighter background, darker accent
+    const lightBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.3, 90);
+    const lightFgHue = harmonyHues[1] || harmonyHues[0];
+    const lightFg = hslToRgb(lightFgHue, baseColor.saturation, 35);
+    
+    // For dark mode: deeper background, brighter accent
+    const darkBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.8, 15);
+    const darkFgHue = harmonyHues[1] || harmonyHues[0];
+    const darkFg = hslToRgb(darkFgHue, baseColor.saturation, 65);
+    
+    // Create a uniqueness factor for this palette - adjust line count and stroke weight
+    // based on the harmony type to get varied effects
+    let lineCount = 5;
+    let strokeWeight = 1;
+    
+    switch (selectedHarmony) {
+      case 'complementary':
+        lineCount = 7 + Math.floor(Math.random() * 5); // 7-11 lines
+        strokeWeight = 1.5;
+        break;
+      case 'analogous':
+        lineCount = 10 + Math.floor(Math.random() * 5); // 10-14 lines
+        strokeWeight = 1;
+        break;
+      case 'triadic': 
+        lineCount = 4 + Math.floor(Math.random() * 3); // 4-6 lines
+        strokeWeight = 2;
+        break;
+      case 'split':
+        lineCount = 6 + Math.floor(Math.random() * 4); // 6-9 lines
+        strokeWeight = 1.2;
+        break;
+    }
+    
+    // Return in the format expected by the component
+    return {
+      bgColors: {
+        light: lightBg,
+        dark: darkBg
+      },
+      fgColors: {
+        light: lightFg,
+        dark: darkFg
+      },
+      effectParams: {
+        linesCount: lineCount,
+        stroke: strokeWeight,
+        // Randomize stroke alpha for additional variability
+        strokeAlpha: 60 + Math.floor(Math.random() * 40) // 60-100
+      },
+      type: selectedHarmony // for debugging/info
+    };
+  };

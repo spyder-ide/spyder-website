@@ -13,9 +13,6 @@
 
   // Currency options
   const currencyOptions = { style: "currency", currency: "USD", maximumFractionDigits: 0 };
-
-  // Generate supporter icons
-  $: deals = project.donations?.deals.length;
 </script>
 
 <div class="grid w-full grid-cols-5 justify-center gap-8">

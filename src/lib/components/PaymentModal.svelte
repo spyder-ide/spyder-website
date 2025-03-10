@@ -1,6 +1,9 @@
 <script>
   import { onMount } from "svelte";
 
+  import { Icon } from 'svelte-icons-pack';
+  import { AiFillCloseCircle } from "svelte-icons-pack/ai";
+
   export let donationLink = "";
   export let showModal = false;
 
@@ -119,33 +122,41 @@
 </svelte:head>
 
 {#if showModal}
-  <div
-    role="button"
-    tabindex="0"
-    class="modal-backdrop"
-    on:click={closeModal}
-    on:keydown={handleKeydown}
-    aria-label="Close modal"
-  />
-  <div class="modal">
-    <button class="close-button" on:click={closeModal}>×</button>
-    <div class="modal-content">
-      <div class="payments-iframe-container" bind:this={iframeContainer} />
+  <div class="modal-container">
+    <div
+      role="button"
+      tabindex="0"
+      class="modal-backdrop"
+      on:click={closeModal}
+      on:keydown={handleKeydown}
+      aria-label="Close modal"
+    />
+    <div class="modal">
+      <button class="close-button" on:click={closeModal}>
+        <Icon src={AiFillCloseCircle} />
+      </button>
+      <div class="modal-content">
+        <div class="payments-iframe-container" bind:this={iframeContainer} />
+      </div>
     </div>
   </div>
 {/if}
 
-<style>
+<style lang="postcss">
+  .modal-container {
+    @apply fixed inset-0 z-50 w-screen h-screen overflow-hidden;
+  }
+
   .modal-backdrop {
-    @apply fixed inset-0 z-40 cursor-pointer bg-black bg-opacity-50 backdrop-blur-lg;
+    @apply fixed inset-0 z-50 cursor-pointer bg-black bg-opacity-50 backdrop-blur-lg;
   }
 
   .modal {
-    @apply fixed inset-8 z-50 flex flex-col overflow-hidden rounded-2xl bg-white p-4 pt-12 md:inset-20 lg:inset-40;
+    @apply fixed inset-4 md:-translate-y-12 md:inset-24 z-50 flex flex-col overflow-hidden rounded-2xl bg-white md:px-3 py-3 pt-12;
   }
 
   .close-button {
-    @apply absolute right-4 top-1 z-10 text-4xl text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200;
+    @apply absolute right-1 top-1 z-50 text-4xl text-red-900 hover:text-red-berry-800;
   }
 
   .modal-content {

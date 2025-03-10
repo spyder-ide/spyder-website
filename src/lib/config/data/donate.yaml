@@ -6,13 +6,10 @@ projects:
     donationLink: https://app.hubspot.com/payments/Pjm6SyqYNb?referrer=PAYMENT_LINK_EMBED&layout=embed-full
   - id: 1
     slug: lorem
-    image: /assets/media/placeholder.svg
     donationGoal: 1000
   - id: 2
     slug: ipsum
-    image: /assets/media/placeholder.svg
     donationGoal: 1500
   - id: 3
     slug: dolar
-    image: /assets/media/placeholder.svg
     donationGoal: 2000
