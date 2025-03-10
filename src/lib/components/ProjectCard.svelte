@@ -4,12 +4,9 @@
   import DynamicBg from "$lib/components/DynamicBg.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
-  import { createHarmoniousPalette } from "$lib/utils";
-  import { afterUpdate, onMount } from "svelte";
-
   import { colourScheme } from "$lib/store";
+  import { afterUpdate, onMount } from "svelte";
   import { locale } from "svelte-i18n";
-  // Import color scheme store
 
   export let project;
   export let href;
@@ -20,6 +17,119 @@
   let canvasHeight = 0;
   let isMobile = false;
   let redrawKey = 0; // To force component redraw
+
+  /**
+   * Color Harmony System
+   *
+   * This approach creates visually appealing color combinations using
+   * established color harmony principles from color theory:
+   *
+   * - Complementary: Colors opposite on the color wheel (high contrast)
+   * - Analogous: Colors adjacent on the color wheel (harmonious)
+   * - Triadic: Three colors evenly spaced on the color wheel (balanced)
+   * - Split-Complementary: Base color + two colors adjacent to its complement (dynamic but harmonious)
+   *
+   * For each harmony type, we also adjust the line count, stroke weight, and visual effect
+   * to create visually distinct patterns that complement the colors.
+   */
+
+  // Helper function to convert HSL to RGB array
+  function hslToRgb(h, s, l) {
+    s /= 100;
+    l /= 100;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n) => {
+      const k = (n + h / 30) % 12;
+      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+      return Math.round(255 * color);
+    };
+    return [f(0), f(8), f(4)];
+  }
+
+  // Generate a color palette based on color harmony
+  export function createHarmoniousPalette() {
+    // Start with a random hue
+    const baseHue = Math.floor(Math.random() * 360);
+
+    // Create color harmonies (options: complementary, analogous, triadic, etc.)
+    const harmonies = {
+      complementary: [(baseHue + 180) % 360],
+      analogous: [(baseHue + 30) % 360, (baseHue - 30 + 360) % 360],
+      triadic: [(baseHue + 120) % 360, (baseHue + 240) % 360],
+      split: [(baseHue + 150) % 360, (baseHue + 210) % 360],
+    };
+
+    // Pick a random harmony type
+    const harmonyTypes = Object.keys(harmonies);
+    const selectedHarmony = harmonyTypes[Math.floor(Math.random() * harmonyTypes.length)];
+    const harmonyHues = [baseHue, ...harmonies[selectedHarmony]];
+
+    // Generate color objects with varied saturations and lightnesses
+    const baseColor = {
+      hue: baseHue,
+      saturation: 70 + Math.floor(Math.random() * 30),
+      lightness: 45 + Math.floor(Math.random() * 15),
+    };
+
+    // For light mode: lighter background, darker accent
+    const lightBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.3, 90);
+    const lightFgHue = harmonyHues[1] || harmonyHues[0];
+    const lightFg = hslToRgb(lightFgHue, baseColor.saturation, 35);
+
+    // For dark mode: deeper background, brighter accent
+    const darkBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.8, 15);
+    const darkFgHue = harmonyHues[1] || harmonyHues[0];
+    const darkFg = hslToRgb(darkFgHue, baseColor.saturation, 65);
+
+    // Create a uniqueness factor for this palette - adjust line count and stroke weight
+    // based on the harmony type to get varied effects
+    let lineCount = 5;
+    let strokeWeight = 1;
+    let effectType = Math.random() > 0.5 ? "bezier" : "lines";
+
+    switch (selectedHarmony) {
+      case "complementary":
+        lineCount = 7 + Math.floor(Math.random() * 5); // 7-11 lines
+        strokeWeight = 1.5;
+        effectType = "bezier"; // Complementary colors work well with bezier curves
+        break;
+      case "analogous":
+        lineCount = 10 + Math.floor(Math.random() * 5); // 10-14 lines
+        strokeWeight = 1;
+        effectType = "lines"; // Analogous colors work well with wavy lines
+        break;
+      case "triadic":
+        lineCount = 4 + Math.floor(Math.random() * 3); // 4-6 lines
+        strokeWeight = 2;
+        effectType = "bezier"; // Triadic colors look striking with bold bezier curves
+        break;
+      case "split":
+        lineCount = 6 + Math.floor(Math.random() * 4); // 6-9 lines
+        strokeWeight = 1.2;
+        effectType = Math.random() > 0.3 ? "bezier" : "lines"; // Mix of both effects
+        break;
+    }
+
+    // Return in the format expected by the component
+    return {
+      bgColors: {
+        light: lightBg,
+        dark: darkBg,
+      },
+      fgColors: {
+        light: lightFg,
+        dark: darkFg,
+      },
+      effectParams: {
+        linesCount: lineCount,
+        stroke: strokeWeight,
+        // Randomize stroke alpha for additional variability
+        strokeAlpha: 80,
+        effectType: effectType,
+      },
+      type: selectedHarmony, // for debugging/info
+    };
+  }
 
   // Use the function to generate your color schemes
   const localColorScheme = createHarmoniousPalette();
@@ -107,6 +217,7 @@
                 stroke={localColorScheme.effectParams.stroke}
                 linesCount={localColorScheme.effectParams.linesCount}
                 strokeAlpha={localColorScheme.effectParams.strokeAlpha}
+                effectType={localColorScheme.effectParams.effectType}
               />
             {/key}
           </div>
@@ -155,7 +266,7 @@
   }
 
   .card-title {
-    @apply pointer-events-none absolute bottom-0 left-0 z-10 w-full bg-white/70 p-6 text-5xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl;
+    @apply pointer-events-none absolute bottom-0 left-0 z-10 w-full bg-white/70 p-6 text-4xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl;
   }
 
   .card-image {

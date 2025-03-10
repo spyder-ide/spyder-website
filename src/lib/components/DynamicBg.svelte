@@ -31,13 +31,16 @@
     // BEZIER EFFECT
     if (effectType === "bezier") {
       const startX = 0;
-      const startY = (height / 3);
+      const baseStartY = height / 3;
       const endX = width;
       const endY = 0;
-      const distance = endX - startX;
-      const k = distance / 3; // Control point distance
-
+      
       for (let a = 0; a <= linesCount; a++) {
+        const startY = a * 25;
+        
+        const distance = endX - startX;
+        const k = distance / 3; // Control point distance
+        
         // Calculate control points for start (45 degrees)
         const [cp1x, cp1y] = calculateControlPoints(45, startX, startY, k, false);
 
@@ -48,6 +51,47 @@
         ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY);
+        ctx.stroke();
+      }
+    } 
+    // LINES EFFECT
+    else if (effectType === "lines") {
+      // Generate a simple noise function
+      const noise = (x) => Math.sin(x) * Math.cos(x * 2.1) * Math.sin(x * 1.7);
+      
+      // Calculate spacing between lines to distribute evenly
+      const lineSpacing = height / (linesCount + 1);
+
+      for (let i = 1; i <= linesCount; i++) {
+        // Reset these values at the start of each line
+        let prevX = -10;
+        let prevY = 0;
+
+        // Create varied offsets for each line
+        let lineOffset = i * 0.7;
+
+        // Base Y position - evenly distribute lines
+        const baseY = lineSpacing * i;
+        
+        ctx.beginPath();
+        
+        // Draw each line point by point
+        for (let x = -10; x <= width + 10; x += 5) {
+          // Create wavy effect using noise function
+          const noiseValue = noise(x * 0.01 + lineOffset);
+          const noiseScale = height / (linesCount * 2);
+          let y = baseY + noiseValue * noiseScale;
+
+          if (x === -10) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+          
+          prevX = x;
+          prevY = y;
+        }
+        
         ctx.stroke();
       }
     }
