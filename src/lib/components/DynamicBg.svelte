@@ -31,7 +31,7 @@
     // BEZIER EFFECT
     if (effectType === "bezier") {
       const startX = 0;
-      const startY = (height / 2) + (Math.random() * 10);
+      const startY = (height / 3);
       const endX = width;
       const endY = 0;
       const distance = endX - startX;
