@@ -131,7 +131,7 @@
     };
   }
 
-  // Use the function to generate your color schemes
+  // Use the function to generate color schemes
   const localColorScheme = createHarmoniousPalette();
   const bgColors = localColorScheme.bgColors;
   const fgColors = localColorScheme.fgColors;
