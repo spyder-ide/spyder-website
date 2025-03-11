@@ -15,10 +15,12 @@ projects:
     title: Spyder IDE
     collected: Pledged
     separator: of
-    content:
+    content: >-
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
       quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
       Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      - Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      - Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     button:
       text: Support Spyder
   - id: 1
@@ -35,7 +37,8 @@ projects:
     title: Project Two
     collected: Raised
     separator: of
-    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    content:
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
       unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
     button:
@@ -44,7 +47,8 @@ projects:
     title: Project Three
     collected: Raised so far
     separator: of
-    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    content:
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
       unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
     button:
