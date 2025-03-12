@@ -1,5 +1,3 @@
-import { getContributors } from "$lib/utils";
-
 export const load = async ({ fetch }) => {
   const metadata = {
     title: "Spyder IDE | About",
@@ -14,7 +12,16 @@ export const load = async ({ fetch }) => {
     prism: false,
   };
 
-  const { contributors } = await getContributors(fetch);
-
-  return { metadata, contributors };
+  try {
+    // Fetch the pre-generated contributors data
+    const response = await fetch("/data/github-contributors.json");
+    if (!response.ok) {
+      throw new Error(`Failed to fetch contributors data: ${response.status}`);
+    }
+    const data = await response.json();
+    return { metadata, contributors: data.contributors };
+  } catch (error) {
+    console.error("Error loading contributors data:", error);
+    return { metadata, contributors: [] };
+  }
 };
