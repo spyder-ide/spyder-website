@@ -22,7 +22,6 @@ export const load = async ({ fetch }) => {
     const response = await fetch("/data/github-contributors.json");
     
     if (!response.ok) {
-      console.error(`Failed to fetch contributors data: HTTP ${response.status}`);
       throw new Error(`Failed to load contributors data: ${response.statusText}`);
     }
     
