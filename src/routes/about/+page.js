@@ -21,11 +21,30 @@ export const load = async ({ fetch }) => {
     const response = await fetch("/data/github-contributors.json");
     
     if (!response.ok) {
-      throw new Error(`Failed to load contributors data: ${response.statusText}`);
+      // Create a more helpful error message based on the status code
+      let errorMessage = `Failed to load contributors data: ${response.statusText}`;
+      
+      if (response.status === 404) {
+        errorMessage = "Contributors data file not found. Please run the data generation script.";
+        console.error("Contributors JSON file is missing. Run 'node scripts/generate-contrib-data.js' to create it.");
+      } else if (response.status >= 500) {
+        errorMessage = "Server error while loading contributors data. Please try again later.";
+      }
+      
+      throw new Error(errorMessage);
     }
     
     // Parse the JSON response
     const contributors = await response.json();
+    
+    // Validate contributors data
+    if (!Array.isArray(contributors)) {
+      console.warn("Contributors data has unexpected format - expected an array");
+      return { 
+        metadata, 
+        contributors: [] 
+      };
+    }
     
     return { 
       metadata, 
