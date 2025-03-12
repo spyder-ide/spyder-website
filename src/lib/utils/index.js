@@ -1,14 +1,6 @@
 import { browser } from "$app/environment";
 import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
-const dataURL =
-  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
-let githubToken;
-
-if (import.meta.env.VITE_GITHUB_TOKEN) {
-  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
-}
-
 /**
  * Determines if a variable has a value (even `false` or `0`)
  * @param {*} variable - The value to check
