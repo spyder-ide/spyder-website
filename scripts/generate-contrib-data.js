@@ -1,7 +1,12 @@
-import fs from 'fs/promises';
-import path from 'path';
+import dotenv from "dotenv";
+import { promises as fs } from "fs";
+import path from "path";
+import { exists } from "./utils.js";
 
-const dataURL = "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
+dotenv.config();
+
+const dataURL =
+  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
 // Use environment variable for GitHub token
 const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
 
@@ -56,35 +61,32 @@ export const getContributors = async (
 // Main function to generate the contributors data file
 const generateContributorsData = async () => {
   try {
-    console.log('Fetching GitHub contributors data...');
-    
+    console.log("Fetching GitHub contributors data...");
+
     const { contributors, error } = await getContributors();
-    
+
     if (error) {
       throw new Error(`Failed to fetch contributors: ${error}`);
     }
-    
-    // Ensure the directory exists
-    const outputDir = path.resolve('./static/data');
-    try {
+
+    // Ensure the output directory exists
+    const outputDir = path.join(process.cwd(), "static", "data");
+    if (!(await exists(outputDir))) {
       await fs.mkdir(outputDir, { recursive: true });
-    } catch (err) {
-      if (err.code !== 'EEXIST') {
-        throw err;
-      }
     }
-    
-    // Write the data to the JSON file
-    const outputPath = path.join(outputDir, 'github-contributors.json');
-    await fs.writeFile(
-      outputPath, 
-      JSON.stringify({ contributors }, null, 2)
+
+    // Write the new data to a JSON file
+    const outputPath = path.join(outputDir, "github-contributors.json");
+    await fs.writeFile(outputPath, JSON.stringify(contributors, null, 2));
+
+    console.log(
+      "Contributors data has been successfully updated and saved to:",
+      outputPath
     );
     
-    console.log(`Successfully wrote contributors data to ${outputPath}`);
     console.log(`Total contributors: ${contributors.length}`);
   } catch (error) {
-    console.error('Error generating contributors data:', error);
+    console.error("Error generating contributors data:", error);
     process.exit(1);
   }
 };
