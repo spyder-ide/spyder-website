@@ -5,8 +5,9 @@
   "scripts": {
     "generate-og-images": "node scripts/generate-og-images.js",
     "generate-contrib-data": "node scripts/generate-contrib-data.js",
-    "dev": "npm run generate-og-images && npm run generate-contrib-data && npx vite dev",
-    "build": "npm run generate-og-images && npm run generate-contrib-data && npx vite build",
+    "prebuild": "npm run generate-og-images && npm run generate-contrib-data",
+    "dev": "npm run prebuild && npx vite dev",
+    "build": "npm run prebuild && npx vite build",
     "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
   },

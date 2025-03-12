@@ -1,4 +1,9 @@
+/**
+ * About page data loading
+ * Loads metadata and pre-generated GitHub contributors data
+ */
 export const load = async ({ fetch }) => {
+  // Page metadata
   const metadata = {
     title: "Spyder IDE | About",
     subtitle: "Who we are",
@@ -13,15 +18,29 @@ export const load = async ({ fetch }) => {
   };
 
   try {
-    // Fetch the pre-generated contributors data
+    // Fetch the pre-generated contributors data from static JSON file
     const response = await fetch("/data/github-contributors.json");
+    
     if (!response.ok) {
-      throw new Error(`Failed to fetch contributors data: ${response.status}`);
+      console.error(`Failed to fetch contributors data: HTTP ${response.status}`);
+      throw new Error(`Failed to load contributors data: ${response.statusText}`);
     }
-    const data = await response.json();
-    return { metadata, contributors: data.contributors };
+    
+    // Parse the JSON response
+    const contributors = await response.json();
+    
+    return { 
+      metadata, 
+      contributors 
+    };
   } catch (error) {
-    console.error("Error loading contributors data:", error);
-    return { metadata, contributors: [] };
+    console.error("Error loading contributors data:", error.message);
+    
+    // Return empty contributors array on error to prevent page failures
+    return { 
+      metadata, 
+      contributors: [],
+      error: error.message
+    };
   }
 };
