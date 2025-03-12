@@ -241,64 +241,6 @@ export const processContributors = (current, past, all) => {
 };
 
 /**
- * Fetches contributors data from GitHub API
- * @param {Function} [customFetch] - Optional custom fetch function
- * @param {string} [dataSrc] - GitHub API URL
- * @param {string} [token] - GitHub authentication token
- * @param {number} [startPage=1] - Starting page number
- * @param {number} [maxPages=3] - Maximum number of pages to fetch
- * @returns {Promise<{contributors: Array<object>, loading?: boolean, error: string|null}>}
- */
-export const getContributors = async (
-  customFetch = undefined,
-  dataSrc = dataURL || "",
-  token = githubToken || undefined,
-  startPage = 1,
-  maxPages = 3
-) => {
-  let headers, response;
-  let contributors = [];
-
-  if (token) {
-    headers = {
-      Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-  }
-
-  try {
-    // Fetch the contributors data with authentication
-    for (let n = startPage; n <= maxPages; n++) {
-      if (!dataSrc) throw new Error(`There is no data source to fetch!`);
-      if (headers) {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
-          headers,
-        });
-      } else {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`);
-      }
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      contributors.push(...data);
-    }
-
-    return {
-      contributors,
-      loading: false,
-      error: null,
-    };
-  } catch (error) {
-    console.error("Failed to fetch contributors:", error);
-    return {
-      contributors: [],
-      error: error.message,
-    };
-  }
-};
-
-/**
  * Creates a map of contributors by their ID
  * @param {Array} contributors - Array of contributor objects
  * @returns {Map} Map of contributors with ID as key
