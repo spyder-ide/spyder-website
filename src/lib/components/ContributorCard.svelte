@@ -47,7 +47,7 @@
 >
   <a href={contributor.html_url} target="_blank" rel="noopener noreferrer">
     <img
-      src={contributor.avatar_url}
+      src={`https://avatars.githubusercontent.com/u/${contributor.id}?v=4`}
       alt={contributor.login}
       class="rounded-full border border-neutral-300 dark:border-neutral-800 shrink-0"
       class:w-8={size === "small"}

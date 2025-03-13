@@ -1,30 +1,6 @@
 import { browser } from "$app/environment";
 import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
-const dataURL =
-  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
-
-// Only try to access env vars in browser or during SSR, not during build
-const getGitHubToken = () => {
-  try {
-    return import.meta.env.VITE_GITHUB_TOKEN;
-  } catch (e) {
-    return undefined;
-  }
-};
-
-// Ensure headers are always set if token is available
-const getGitHubHeaders = () => {
-  const token = getGitHubToken();
-  if (token) {
-    return {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-  }
-  return undefined;
-};
-
 /**
  * Determines if a variable has a value (even `false` or `0`)
  * @param {*} variable - The value to check
@@ -261,63 +237,6 @@ export const processContributors = (current, past, all) => {
     updatedPast,
     remainingContributors,
   };
-};
-
-/**
- * Fetches contributors data from GitHub API
- * @param {Function} [customFetch] - Optional custom fetch function
- * @param {string} [dataSrc] - GitHub API URL
- * @param {string} [token] - GitHub authentication token
- * @param {number} [startPage=1] - Starting page number
- * @param {number} [maxPages=3] - Maximum number of pages to fetch
- * @returns {Promise<{contributors: Array<object>, loading?: boolean, error: string|null}>}
- */
-export const getContributors = async (
-  customFetch = undefined,
-  dataSrc = dataURL || "",
-  token = getGitHubToken() || undefined,
-  startPage = 1,
-  maxPages = 3
-) => {
-  const headers = token
-    ? {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.v3+json",
-      }
-    : getGitHubHeaders();
-
-  let contributors = [];
-
-  try {
-    // Fetch the contributors data with authentication
-    for (let n = startPage; n <= maxPages; n++) {
-      if (!dataSrc) throw new Error(`There is no data source to fetch!`);
-      const url = `${dataSrc}&page=${n}`;
-
-      const response = await (customFetch || fetch)(
-        url,
-        headers ? { headers } : undefined
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      contributors.push(...data);
-    }
-
-    return {
-      contributors,
-      loading: false,
-      error: null,
-    };
-  } catch (error) {
-    console.error("Failed to fetch contributors:", error);
-    return {
-      contributors: [],
-      error: error.message,
-    };
-  }
 };
 
 /**
