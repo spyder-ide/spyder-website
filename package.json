@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "generate-og-images": "node scripts/generate-og-images.js",
-    "dev": "npm run generate-og-images && npx vite dev",
-    "build": "npm run generate-og-images && npx vite build",
+    "generate-contrib-data": "node scripts/generate-contrib-data.js",
+    "prebuild": "npm run generate-og-images && npm run generate-contrib-data",
+    "dev": "npm run prebuild && npx vite dev",
+    "build": "npm run prebuild && npx vite build",
     "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
   },
@@ -17,6 +19,7 @@
     "@types/three": "^0.169.0",
     "autoprefixer": "^10.4.20",
     "cookie": "^1.0.2",
+    "dotenv": "^16.4.7",
     "gh-pages": "^6.1.1",
     "gray-matter": "^4.0.3",
     "html-minifier-terser": "^7.2.0",
