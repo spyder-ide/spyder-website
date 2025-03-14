@@ -21,9 +21,10 @@
   </div>
 </div>
 
-<style>
+<style lang="postcss">
+  /* dark:bg-mine-shaft-950 dark:text-spring-wood-50 */
   .progress-bar {
-    @apply h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-spring-wood-200;
+    @apply h-4 w-full overflow-hidden rounded-full bg-mine-shaft-100 dark:bg-mine-shaft-800;
   }
 
   .progress-bar-text {

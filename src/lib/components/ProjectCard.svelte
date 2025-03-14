@@ -19,122 +19,72 @@
   let redrawKey = 0; // To force component redraw
 
   /**
-   * Color Harmony System
-   *
-   * This approach creates visually appealing color combinations using
-   * established color harmony principles from color theory:
-   *
-   * - Complementary: Colors opposite on the color wheel (high contrast)
-   * - Analogous: Colors adjacent on the color wheel (harmonious)
-   * - Triadic: Three colors evenly spaced on the color wheel (balanced)
-   * - Split-Complementary: Base color + two colors adjacent to its complement (dynamic but harmonious)
-   *
-   * For each harmony type, we also adjust the line count, stroke weight, and visual effect
-   * to create visually distinct patterns that complement the colors.
+   * Predefined Color Palettes
+   * 
+   * Instead of dynamically generating colors, we use curated lists of pastel colors
+   * that provide consistent, aesthetically pleasing visuals:
+   * 
+   * - darkPastels: Used as backgrounds in light mode
+   * - lightPastels: Used as backgrounds in dark mode
+   * 
+   * Foreground colors are simplified:
+   * - Light mode: White with 0.5 alpha
+   * - Dark mode: Black with 0.5 alpha
    */
 
-  // Helper function to convert HSL to RGB array
-  function hslToRgb(h, s, l) {
-    s /= 100;
-    l /= 100;
-    const a = s * Math.min(l, 1 - l);
-    const f = (n) => {
-      const k = (n + h / 30) % 12;
-      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-      return Math.round(255 * color);
-    };
-    return [f(0), f(8), f(4)];
-  }
+  // List of 12 dark pastel colors for light mode backgrounds - in RGB format
+  const darkPastels = [
+    [142, 85, 114],    // Dark mauve
+    [76, 109, 129],    // Slate blue
+    [110, 76, 125],    // Plum
+    [84, 120, 108],    // Pine
+    [87, 125, 90],     // Forest green
+    [138, 97, 65],     // Cinnamon
+    [93, 93, 105],     // Pewter
+    [125, 90, 60],     // Russet
+    [120, 71, 80],     // Rusty rose
+    [72, 99, 118],     // Steel blue
+    [117, 96, 54],     // Bronze
+    [95, 83, 121]      // Dusty purple
+  ];
 
-  // Generate a color palette based on color harmony
-  export function createHarmoniousPalette() {
-    // Start with a random hue
-    const baseHue = Math.floor(Math.random() * 360);
+  // List of 12 light pastel colors for dark mode backgrounds - in RGB format
+  const lightPastels = [
+    [245, 213, 226],   // Light pink
+    [209, 231, 245],   // Baby blue
+    [215, 241, 217],   // Mint
+    [245, 226, 204],   // Peach
+    [230, 213, 245],   // Lavender
+    [225, 225, 235],   // Platinum
+    [241, 227, 207],   // Cream
+    [209, 238, 230],   // Seafoam
+    [245, 215, 219],   // Blush
+    [217, 233, 244],   // Powder blue
+    [238, 232, 205],   // Beige
+    [226, 219, 241]    // Periwinkle
+  ];
 
-    // Create color harmonies (options: complementary, analogous, triadic, etc.)
-    const harmonies = {
-      complementary: [(baseHue + 180) % 360],
-      analogous: [(baseHue + 30) % 360, (baseHue - 30 + 360) % 360],
-      triadic: [(baseHue + 120) % 360, (baseHue + 240) % 360],
-      split: [(baseHue + 150) % 360, (baseHue + 210) % 360],
-    };
+  // Foreground colors will always be white/black with alpha
+  const fgColors = {
+    light: [0, 0, 0],
+    dark: [255, 255, 255]
+  };
 
-    // Pick a random harmony type
-    const harmonyTypes = Object.keys(harmonies);
-    const selectedHarmony = harmonyTypes[Math.floor(Math.random() * harmonyTypes.length)];
-    const harmonyHues = [baseHue, ...harmonies[selectedHarmony]];
+  // Select a random index for the color palettes (0-11)
+  const colorIndex = Math.floor(Math.random() * 12);
 
-    // Generate color objects with varied saturations and lightnesses
-    const baseColor = {
-      hue: baseHue,
-      saturation: 70 + Math.floor(Math.random() * 30),
-      lightness: 45 + Math.floor(Math.random() * 15),
-    };
+  // Create effect parameters (keeping some of the existing logic for visual variety)
+  const effectParams = {
+    linesCount: 10,
+    stroke: 1,
+    strokeAlpha: 50,
+  };
 
-    // For light mode: lighter background, darker accent
-    const lightBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.3, 90);
-    const lightFgHue = harmonyHues[1] || harmonyHues[0];
-    const lightFg = hslToRgb(lightFgHue, baseColor.saturation, 35);
-
-    // For dark mode: deeper background, brighter accent
-    const darkBg = hslToRgb(baseColor.hue, baseColor.saturation * 0.8, 15);
-    const darkFgHue = harmonyHues[1] || harmonyHues[0];
-    const darkFg = hslToRgb(darkFgHue, baseColor.saturation, 65);
-
-    // Create a uniqueness factor for this palette - adjust line count and stroke weight
-    // based on the harmony type to get varied effects
-    let lineCount = 5;
-    let strokeWeight = 1;
-    let effectType = Math.random() > 0.5 ? "bezier" : "lines";
-
-    switch (selectedHarmony) {
-      case "complementary":
-        lineCount = 7 + Math.floor(Math.random() * 5); // 7-11 lines
-        strokeWeight = 1.5;
-        effectType = "bezier"; // Complementary colors work well with bezier curves
-        break;
-      case "analogous":
-        lineCount = 10 + Math.floor(Math.random() * 5); // 10-14 lines
-        strokeWeight = 1;
-        effectType = "lines"; // Analogous colors work well with wavy lines
-        break;
-      case "triadic":
-        lineCount = 4 + Math.floor(Math.random() * 3); // 4-6 lines
-        strokeWeight = 2;
-        effectType = "bezier"; // Triadic colors look striking with bold bezier curves
-        break;
-      case "split":
-        lineCount = 6 + Math.floor(Math.random() * 4); // 6-9 lines
-        strokeWeight = 1.2;
-        effectType = Math.random() > 0.3 ? "bezier" : "lines"; // Mix of both effects
-        break;
-    }
-
-    // Return in the format expected by the component
-    return {
-      bgColors: {
-        light: lightBg,
-        dark: darkBg,
-      },
-      fgColors: {
-        light: lightFg,
-        dark: darkFg,
-      },
-      effectParams: {
-        linesCount: lineCount,
-        stroke: strokeWeight,
-        // Randomize stroke alpha for additional variability
-        strokeAlpha: 80,
-        effectType: effectType,
-      },
-      type: selectedHarmony, // for debugging/info
-    };
-  }
-
-  // Use the function to generate color schemes
-  const localColorScheme = createHarmoniousPalette();
-  const bgColors = localColorScheme.bgColors;
-  const fgColors = localColorScheme.fgColors;
+  // Background colors based on the randomly selected index
+  const bgColors = {
+    light: lightPastels[colorIndex],
+    dark: darkPastels[colorIndex]
+  };
 
   // Calculate dimensions based on container width and device size
   function calculateDimensions() {
@@ -212,12 +162,11 @@
               <DynamicBg
                 width={canvasWidth}
                 height={canvasHeight}
-                backgroundColor={$colourScheme === "dark" ? bgColors.light : bgColors.dark}
-                strokeColor={$colourScheme === "dark" ? fgColors.light : fgColors.dark}
-                stroke={localColorScheme.effectParams.stroke}
-                linesCount={localColorScheme.effectParams.linesCount}
-                strokeAlpha={localColorScheme.effectParams.strokeAlpha}
-                effectType={localColorScheme.effectParams.effectType}
+                backgroundColor={$colourScheme === "dark" ? bgColors.dark : bgColors.light}
+                strokeColor={$colourScheme === "dark" ? fgColors.dark : fgColors.light}
+                stroke={effectParams.stroke}
+                strokeAlpha={effectParams.strokeAlpha}
+                effectType={effectParams.effectType}
               />
             {/key}
           </div>

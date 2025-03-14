@@ -73,7 +73,8 @@ export const getContributors = async (
   // Set up authorization headers if token is provided
   if (token) {
     headers = {
-      Authorization: `token ${token}`,
+      Authorization: `Bearer ${token}`,
+      "X-GitHub-Api-Version": "2022-11-28",
       Accept: "application/vnd.github.v3+json",
     };
   }

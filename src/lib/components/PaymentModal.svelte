@@ -143,16 +143,16 @@
 {/if}
 
 <style lang="postcss">
-  .modal-container {
-    @apply fixed inset-0 z-50 w-screen h-screen overflow-hidden;
-  }
-
   .modal-backdrop {
     @apply fixed inset-0 z-50 cursor-pointer bg-black bg-opacity-50 backdrop-blur-lg;
   }
 
+  .modal-container {
+    @apply fixed inset-0 z-50 overflow-hidden flex items-center justify-center;
+  }
+
   .modal {
-    @apply fixed inset-4 md:-translate-y-12 md:inset-24 z-50 flex flex-col overflow-hidden rounded-2xl bg-white md:px-3 py-3 pt-12;
+    @apply relative z-50 w-full h-full max-h-[90dvh] md:max-h-[70dvh] max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl mx-auto flex flex-col overflow-hidden rounded-2xl bg-white md:px-3 py-3 pt-12;
   }
 
   .close-button {

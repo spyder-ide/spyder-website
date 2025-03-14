@@ -1,5 +1,6 @@
 <script>
   import { colourScheme } from "$lib/store";
+  import { colorSchemes } from "$lib/utils/tailwindColors";
   import { json, locale } from "svelte-i18n";
 
   import Button from "$lib/components/Button.svelte";
@@ -9,11 +10,7 @@
 
   export let data;
 
-  // chartColors for light/dark modes
-  const chartColors = {
-    light: ["rgba(99, 99, 94, 1)", "rgba(99, 99, 94, 0.6)"],
-    dark: ["rgba(93, 93, 93, 1)", "rgba(93, 93, 93, 0.4)"],
-  };
+  let chartColors, chartOptions;
 
   // Get the base project data
   let { project } = data;
@@ -32,6 +29,9 @@
       ...projectTranslations,
     };
   }
+
+  // Chart colors using pre-defined color schemes
+  $: chartColors = colorSchemes.chart.quillGray;
 
   // Chart.js data with reactive chartColors
   $: chartData = {
