@@ -23,12 +23,3 @@ export PUBLIC_SITE_URL=$SITE_URL
 cat <<EOF > .env
 PUBLIC_SITE_URL=${SITE_URL}
 EOF
-
-# Create a separate .env.local for development only (not committed to git)
-if [ -n "$VITE_GITHUB_TOKEN" ]; then
-  # Only write tokens if they exist in the environment
-  cat <<EOF > .env.local
-VITE_GITHUB_TOKEN=${VITE_GITHUB_TOKEN}
-VITE_HUBSPOT_TOKEN=${VITE_HUBSPOT_TOKEN}
-EOF
-fi

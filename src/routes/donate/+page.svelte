@@ -13,9 +13,6 @@
   const totalDonations = data?.totalDonations ?? 0;
   const pipelineDeals = data?.pipelineDeals ?? [];
 
-  $: title = $_("config.site.title");
-  $: description = $_("config.site.description");
-  $: pageTitle = $_("donate.page.title");
   $: keywords = config.site?.keywords ?? [];
   $: lastUpdated = data?.lastUpdated ? new Date(data.lastUpdated).toLocaleDateString($locale) : null;
 
@@ -33,8 +30,8 @@
   };
 
   $: metadata.setMetadata({
-    title: `${title} | ${pageTitle}`,
-    description: description,
+    title: `${$_("config.site.title")} | ${$_("donate.page.title")}`,
+    description: $_("config.site.description"),
     keywords: keywords.join(", "),
     url: $page.url.href,
     image: ogImage,
@@ -55,7 +52,7 @@
       md:mb-32
       xl:text-6xl xl:tracking-tight"
   >
-    {pageTitle}
+    {$_("donate.page.title")}
   </h1>
 
   <div

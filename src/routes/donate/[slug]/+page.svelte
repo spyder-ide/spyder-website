@@ -1,10 +1,13 @@
 <script>
-  import { colourScheme } from "$lib/store";
+  import { page } from "$app/stores";
+  import { config, ogImage } from "$lib/config";
+  import { colourScheme, metadata } from "$lib/store";
   import { colorSchemes } from "$lib/utils/tailwindColors";
-  import { json, locale } from "svelte-i18n";
+  import { _, json, locale } from "svelte-i18n";
 
   import Button from "$lib/components/Button.svelte";
   import Chart from "$lib/components/Chart.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
   import PaymentModal from "$lib/components/PaymentModal.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
 
@@ -20,6 +23,8 @@
 
   // Currency options
   let currencyOptions = { style: "currency", currency: "USD", maximumFractionDigits: 0 };
+
+  $: keywords = config.site?.keywords ?? [];
 
   // Merge with translations when they're available
   $: {
@@ -65,7 +70,17 @@
       },
     },
   };
+
+  $: metadata.setMetadata({
+    title: `${$_("config.site.title")} | ${$_("donate.page.title")}`,
+    description: $_("config.site.description"),
+    keywords: keywords.join(", "),
+    url: $page.url.href,
+    image: ogImage,
+  });
 </script>
+
+<Metadata />
 
 <div class="container mt-16 md:mt-32">
   <div class="mx-auto max-w-6xl">

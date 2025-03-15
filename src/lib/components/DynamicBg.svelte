@@ -1,18 +1,15 @@
 <script>
   import { Canvas, Layer } from "svelte-canvas";
 
-  let effects = ["bezier", "lines"];
-
   export let width = 200;
   export let height = 200;
   export let stroke = 2;
   export let backgroundColor = [150];
   export let strokeColor = [255, 0, 0];
   export let strokeAlpha = 80;
-  export let effectType = effects[Math.floor(Math.random() * effects.length)];
 
   // Helper function for calculating control points
-  $: calculateControlPoints = (deg, x, y, distance, negative) => {
+  const calculateControlPoints = (deg, x, y, distance, negative) => {
     distance *= negative ? -1 : 1;
     let cpx = x + distance * Math.cos((deg * Math.PI) / 180);
     let cpy = y + distance * Math.sin((deg * Math.PI) / 180);
@@ -20,7 +17,7 @@
   };
 
   // Main render function for svelte-canvas 1.2.1 - directly embedded
-  $: render = ({ context: ctx, width, height }) => {
+  const render = ({ context: ctx, width, height }) => {
     // Set canvas background
     ctx.fillStyle = `rgb(${backgroundColor.join(",")})`;
     ctx.fillRect(0, 0, width, height);
@@ -29,53 +26,26 @@
     ctx.strokeStyle = `rgba(${strokeColor.join(",")}, ${strokeAlpha / 255})`;
     ctx.lineWidth = stroke;
 
-    // BEZIER EFFECT
-    if (effectType === "bezier") {
-      const startX = 0;
-      const endX = width;
-      const endY = 0;
-      const linesCount = 15;
+    // Effect
+    const startX = 0;
+    const endX = width;
+    const linesCount = 20;
 
-      for (let a = 0; a <= linesCount; a++) {
-        const startY = a * 25;
+    for (let line = 0; line <= linesCount; line++) {
+      const startY = height / (line + 1);
+      const endY = line;
 
-        const distance = endX - startX;
-        const k = distance / 3; // Control point distance
+      const distance = endX - startX;
+      const k = distance / 0.3;
 
-        const [cp1x, cp1y] = calculateControlPoints(45, startX, startY, k, false);
-        const [cp2x, cp2y] = calculateControlPoints(-10 * a, endX, endY, k, true);
+      const [cp1x, cp1y] = calculateControlPoints(45, startX, startY, k, false);
+      const [cp2x, cp2y] = calculateControlPoints(-5 * line, endX, endY, k, true);
 
-        // Draw the Bézier curve
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY);
-        ctx.stroke();
-        ctx.closePath();
-      }
-    }
-
-    // LINES EFFECT
-    else if (effectType === "lines") {
-      const startX = 0;
-      const endX = width;
-      const linesCount = 20;
-
-      for (let a = 0; a <= linesCount; a++) {
-        const startY = a * 25;
-        const endY = a;
-
-        const distance = endX - startX;
-        const k = distance / 0.3;
-
-        const [cp1x, cp1y] = calculateControlPoints(45, startX, startY, k, false);
-        const [cp2x, cp2y] = calculateControlPoints(-5 * a, endX, endY, k, true);
-
-        // Draw the Bézier curve
-        ctx.beginPath();
-        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY);
-        ctx.stroke();
-        ctx.closePath();
-      }
+      // Draw the Bézier curve
+      ctx.beginPath();
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, endX, endY);
+      ctx.stroke();
+      ctx.closePath();
     }
   };
 </script>
