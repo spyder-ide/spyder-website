@@ -6,6 +6,7 @@
 
   import Metadata from "$lib/components/Metadata.svelte";
   import ProjectCard from "$lib/components/ProjectCard.svelte";
+  import SvelteMarkdown from "svelte-markdown";
 
   export let data;
 
@@ -58,7 +59,7 @@
   <div
     class="intro mx-auto mb-16 flex max-w-6xl flex-col gap-4 text-center text-lg font-light dark:text-neutral-200 md:mb-32 md:text-xl"
   >
-    {@html $_("donate.page.intro", { values })}
+    <SvelteMarkdown source={$_("donate.page.intro", { values })} />
   </div>
   <div class="mt-16 flex flex-wrap justify-center">
     {#each projects as project}

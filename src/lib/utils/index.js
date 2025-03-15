@@ -183,28 +183,6 @@ export const getOSButtons = (base, os) => {
 };
 
 /**
- * Dynamically loads an icon from svelte-icons-pack
- * @param {string} iconName - Name of the icon to load
- * @returns {Promise<object|null>} Icon component or null if loading fails
- */
-export async function getIcon(iconName) {
-  try {
-    const moduleLoader = iconThemes[iconTheme];
-    if (!moduleLoader) {
-      throw new Error(`Unknown icon theme: ${iconTheme}`);
-    }
-    const module = await moduleLoader();
-    return module[iconName];
-  } catch (error) {
-    console.error(
-      `Failed to load icon: ${iconName} from theme: ${iconTheme}`,
-      error
-    );
-    return null;
-  }
-}
-
-/**
  * Processes and merges different contributor lists
  * @param {Array<{id: string|number}>} current - Current contributors
  * @param {Array<{id: string|number}>} past - Past contributors

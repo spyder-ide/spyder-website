@@ -4,12 +4,16 @@
   import { colourScheme, metadata } from "$lib/store";
   import { colorSchemes } from "$lib/utils/tailwindColors";
   import { _, json, locale } from "svelte-i18n";
-
+  
   import Button from "$lib/components/Button.svelte";
   import Chart from "$lib/components/Chart.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
   import PaymentModal from "$lib/components/PaymentModal.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
+  
+  import { Icon } from "svelte-icons-pack";
+  import { BsChevronLeft } from "svelte-icons-pack/bs";
+  import SvelteMarkdown from "svelte-markdown";
 
   export let data;
 
@@ -84,6 +88,10 @@
 
 <div class="container mt-16 md:mt-32">
   <div class="mx-auto max-w-6xl">
+    <a href="/donate" class="text-xs flex items-center gap-1 button py-1 text-red-berry-900">
+      <Icon src={BsChevronLeft} />
+      {$_("donate.page.back")}
+    </a>
     <h1
       class="w-full text-5xl lg:text-6xl tracking-tight font-extralight text-mine-shaft-600 dark:text-mine-shaft-200 mb-8 md:mb-16"
     >
@@ -97,9 +105,10 @@
       </div>
       <div class="text-lg font-light md:col-span-2">
         {#if project.donations.total > 0}
-          <strong class="text-6xl font-semibold text-mine-shaft-800 dark:text-mine-shaft-400"
-            >{project.donations.total.toLocaleString($locale, currencyOptions)}</strong
-          ><br />
+          <strong class="text-6xl font-semibold text-mine-shaft-800 dark:text-mine-shaft-400">
+            {project.donations.total.toLocaleString($locale, currencyOptions)}
+          </strong>
+          <br />
           {project.collected}
           {#if project.donationGoal}
             {project.separator}
@@ -128,8 +137,8 @@
         {/if}
       </div>
       {#if project.content}
-        <div class="md:col-span-3 mb-16 prose dark:prose-invert">
-          <p class="text-lg font-light">{project.content}</p>
+        <div class="md:col-span-3 mb-16 prose prose-lg prose-headings:text-red-berry-900 dark:prose-headings:text-mine-shaft-200 dark:prose-invert prose-headings:font-medium prose-p:font-light prose-p:text-pretty prose-li:font-light">
+          <SvelteMarkdown source={project.content} />
         </div>
       {/if}
     </div>

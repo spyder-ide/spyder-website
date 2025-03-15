@@ -2,50 +2,84 @@ page:
   title: Apóyanos
   monthly: Mensuales
   oneTime: Una vez
+  back: Volver a la lista
   supporters: Total Supporters
-  intro: >-
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+  intro: |
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
     quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
-    Reiciendis quod minima ex facilis  quibusdam debitis aliquam.</p>
-    <p>Hemos recaudado {totalDonations} en donaciones con {dealsCount} acuerdos creados
-    (última actualización {lastUpdated}).</p>
+    Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+
+    Hemos hecho {totalDonations} en donaciones hasta la fecha con {dealsCount}
+    ofertas creadas (última actualización {lastUpdated}).
 
 projects:
   - id: 0
     title: Spyder IDE
     collected: Recaudados
     separator: de
-    content:
+    intro: >-
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
       quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
       Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    content: |
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+      quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+
+      ## Lorem ipsum
+
+      * Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      * Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     button:
       text: Apoya a Spyder
   - id: 1
     title: Projecto Uno
     collected: Recaudados
     separator: de
-    content:
+    intro: >-
       Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
       incidunt quaerat tempore . Reiciendis quod minima ex facilis quibusdam debitis aliquam.
       Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+    content: |
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+      quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+
+      * Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      * Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     button:
       text: Apoya este proyecto
   - id: 2
     title: Projecto Dos
     collected: Recaudados
     separator: de
-    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    intro: >-
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
       unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    content: |
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis
+      quae unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+
+      * Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      * Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     button:
       text: Apoya este proyecto
   - id: 3
     title: Projecto Tres
     collected: Recaudados
     separator: de
-    content: Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+    intro: >-
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
       unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+    content: |
+      Reiciendis quod minima ex facilis  quibusdam debitis aliquam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti corporis quae
+      unde cum, consectetur, voluptate placeat, aspernatur incidunt quaerat tempore.
+
+      * Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+      * Corrupti corporis quae unde cum, consectetur, voluptate placeat, aspernatur
     button:
       text: Apoya este proyecto

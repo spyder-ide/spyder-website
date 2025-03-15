@@ -188,8 +188,8 @@
           {/if}
         </div>
       {/if}
-      {#if project.content}
-        <div class="card-content">{project.content}</div>
+      {#if project.intro}
+        <div class="card-content">{project.intro}</div>
       {/if}
       {#if project.button && href}
         <div class="button-container">
