@@ -19,7 +19,7 @@ fi
 
 export PUBLIC_SITE_URL=$SITE_URL
 
-# Create a .env file for Vite
+# Create a .env file for Vite, only expose what's needed at build time
 cat <<EOF > .env
 PUBLIC_SITE_URL=${SITE_URL}
 EOF

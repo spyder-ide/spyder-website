@@ -1,6 +1,6 @@
 <script>
-  import { onMount } from "svelte";
   import { config } from "$lib/config";
+  import { onMount } from "svelte";
 
   import Button from "$lib/components/Button.svelte";
   import Loader from "$lib/components/Loader.svelte";
@@ -17,7 +17,7 @@
   <Loader />
 {:else}
   <div
-    class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-4"
+    class="icon-bar mx-auto mt-4 mb-5 flex items-center justify-center gap-3"
   >
     {#each socialIcons as [icon, href]}
       <Button {icon} {href} button={false} target="_blank" iconSize={24} />

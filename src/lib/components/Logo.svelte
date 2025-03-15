@@ -1,11 +1,16 @@
 <script>
   export let classes = '';
+  export let width = 126;
+  export let height = width / 3.15
+  export let viewBox = null
 </script>
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width={126}
-  height={40}
+  preserveAspectRatio="xMidYMid meet"
+  width={width}
+  height={height}
+  {...(viewBox ? { viewBox } : {})}
   class={classes}
 >
   <path

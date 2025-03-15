@@ -9,6 +9,9 @@
   import Button from "$lib/components/Button.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
+
+  import { metadata } from "$lib/store";
+
   export let data;
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
@@ -22,7 +25,7 @@
   let downloadUrl = "";
   let osButtons = [];
   let result;
-  let metadata;
+  let metadataStore;
   // Page content
   let pageTitle, pageSubtitle, pageSubtitleAlt;
   let download, buttonText;
@@ -115,11 +118,14 @@
       macs = Object.entries(releases.mac);
     }
 
-    metadata = { ...data.metadata, title: `${data.metadata.title} | ${data.metadata.subtitle}` };
+    metadata.setMetadata({ 
+      ...data.metadata, 
+      title: `${data.metadata.title} | ${data.metadata.subtitle}` 
+    });
   }
 </script>
 
-<Metadata {...metadata} />
+<Metadata />
 
 <div class="download container max-w-2xl">
   {#if os !== "unknown"}
@@ -145,7 +151,7 @@
       {@html result ? pageSubtitle : pageSubtitleAlt}
     </p>
     {#if os !== "mac"}
-      <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
+      <div class="block mt-8 mb-16 text-center max-w-[250px] mx-auto">
         <Button
           href={downloadUrl}
           highlight
@@ -156,7 +162,7 @@
         />
       </div>
     {:else}
-      <div class="mt-8 mb-16 text-center w-[550px] flex gap-4 mx-auto">
+      <div class="mt-8 mb-16 text-center max-w-[550px] flex flex-col sm:flex-row gap-4 mx-auto">
         {#each macs as [_, release]}
           <Button
             highlight

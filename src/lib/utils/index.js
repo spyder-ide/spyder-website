@@ -183,21 +183,6 @@ export const getOSButtons = (base, os) => {
 };
 
 /**
- * Dynamically loads an icon from svelte-icons-pack
- * @param {string} iconName - Name of the icon to load
- * @returns {Promise<object|null>} Icon component or null if loading fails
- */
-export async function getIcon(iconName) {
-  try {
-    const module = await import("svelte-icons-pack/bs");
-    return module[iconName];
-  } catch (error) {
-    console.error(`Failed to load icon: ${iconName}`, error);
-    return null;
-  }
-}
-
-/**
  * Processes and merges different contributor lists
  * @param {Array<{id: string|number}>} current - Current contributors
  * @param {Array<{id: string|number}>} past - Past contributors

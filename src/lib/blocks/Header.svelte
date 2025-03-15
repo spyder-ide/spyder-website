@@ -2,24 +2,25 @@
   import { _, json, waitLocale } from "svelte-i18n";
 
   import { Icon } from "svelte-icons-pack";
-  import { BiMenu } from "svelte-icons-pack/bi";
   import { AiOutlineClose } from "svelte-icons-pack/ai";
+  import { BiMenu } from "svelte-icons-pack/bi";
 
-  import { page } from "$app/stores";
   import { base } from "$app/paths";
+  import { page } from "$app/stores";
 
-  import { languageOptions } from "$lib/i18n";
   import { config } from "$lib/config";
+  import { languageOptions } from "$lib/i18n";
 
-  import Logo from "$lib/components/Logo.svelte";
-  import Loader from "$lib/components/Loader.svelte";
   import ColourSwitch from "$lib/components/ColourSwitch.svelte";
   import LanguageSelect from "$lib/components/LanguageSelect.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import Logo from "$lib/components/Logo.svelte";
+  import NavButton from "$lib/components/NavButton.svelte";
 
   let isMenuOpen = false;
   const mainNav = config.site.navigation || [];
 
-  // Create reactive navigation that updates when translations change
+  // Reactive navigation updates when translations change
   $: translatedNav = $json("config.site.navigation") || [];
   $: navigation = mainNav.map((menuGroup, groupIndex) =>
     menuGroup.map((item, itemIndex) => ({
@@ -44,16 +45,16 @@
       <a href="{base}/" class="title h-20 flex items-center">
         <Logo />
         <span class="sr-only"
-          >{$_("config.site.title")} {$_("config.site.description")}</span
+          >{$_("config.site.title")}: {$_("config.site.description")}</span
         >
       </a>
 
       <!-- Navigation (desktop) -->
-      <div class="flex items-center md:gap-12 justify-end">
+      <div class="flex items-center gap-2 lg:gap-12 justify-end">
         <!-- Navigation (links) -->
-        <nav class="hidden md:flex items-center gap-4 xl:gap-6">
+        <nav class="hidden md:flex items-center justify-end gap-4 xl:gap-6">
           {#each navigation as menu}
-            <ul class="menu flex items-center gap-4 xl:gap-6">
+            <ul class="menu flex items-center justify-end gap-2 lg:gap-4 xl:gap-6">
               {#each menu as item}
                 <li class="menu-item">
                   <a
@@ -70,8 +71,15 @@
           {/each}
         </nav>
 
-        <!-- Language switch -->
-        <LanguageSelect languages={languageOptions} />
+        <div class="flex items-center gap-2">
+          <!-- Support button -->
+          <NavButton buttonText={$_("donate.page.title")} supportIcon href="/donate"/>
+  
+          <!-- Language switch -->
+          <div class="hidden md:block">
+            <LanguageSelect languages={languageOptions} />
+          </div>
+        </div>
 
         <!-- Theme switch (dark/light) -->
         <ColourSwitch />
@@ -93,8 +101,8 @@
     <div
       class="md:hidden fixed inset-0 z-50 bg-spring-wood-50 text-gray-700 dark:bg-mine-shaft-950 dark:text-spring-wood-50"
     >
-      <div class="container py-5 text-right">
-        <button class="mb-8 pt-2" on:click={toggleMenu} aria-label="Close menu">
+      <div class="container relative h-full flex flex-col items-center justify-center">
+        <button class="absolute top-7 right-8 text-red-berry-900" on:click={toggleMenu} aria-label="Close menu">
           <Icon src={AiOutlineClose} size="24" />
         </button>
         <nav class="text-center">
@@ -114,6 +122,10 @@
             </ul>
           {/each}
         </nav>
+        <div class="md:hidden flex flex-col items-center gap-2 scale-[2] mt-12">
+          <!-- Language switch -->
+          <LanguageSelect languages={languageOptions} showTextOnMobile={true} />
+        </div>
       </div>
     </div>
   {/if}
