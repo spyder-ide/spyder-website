@@ -52,7 +52,7 @@
     <Icon src={IconComponent} {size} />
   {:else}
     <!-- Fallback for when the icon couldn't be loaded -->
-    <small>Icon not found</small>
+    <small class="text-red-berry-900">Icon not found</small>
   {/if}
 {:catch error}
   <small class="text-red-berry-900">Error loading icon: {error}</small>

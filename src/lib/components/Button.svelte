@@ -1,35 +1,5 @@
 <script>
-  import { Icon } from "svelte-icons-pack";
-  import {
-      BsApple,
-      BsDownload,
-      BsFacebook,
-      BsGithub,
-      BsHeartFill,
-      BsInstagram,
-      BsMastodon,
-      BsQuestionCircleFill,
-      BsRssFill,
-      BsTwitterX,
-      BsWindows,
-  } from "svelte-icons-pack/bs";
-
-  import { VscTerminalLinux } from "svelte-icons-pack/vsc";
-
-  let icons = {
-    download: BsDownload,
-    facebook: BsFacebook,
-    github: BsGithub,
-    instagram: BsInstagram,
-    linux: VscTerminalLinux,
-    mac: BsApple,
-    mastodon: BsMastodon,
-    rss: BsRssFill,
-    twitter: BsTwitterX,
-    unknown: BsQuestionCircleFill,
-    windows: BsWindows,
-    donate: BsHeartFill,
-  };
+  import DynamicIcon from "./DynamicIcon.svelte";
 
   export let button = true;
   export let highlight = false;
@@ -44,18 +14,43 @@
   export let fullwidth = false;
   export let textSize = "";
   export let isLink = true;
+    
+  let icons = {
+    download: "BsDownload",
+    facebook: "BsFacebook",
+    github: "BsGithub",
+    instagram: "BsInstagram",
+    linux: "VscTerminalLinux",
+    mac: "BsApple",
+    mastodon: "BsMastodon",
+    rss: "BsRssFill",
+    twitter: "BsTwitterX",
+    unknown: "BsQuestionCircleFill",
+    windows: "BsWindows",
+    donate: "BsHeartFill",
+  };
 
-  let currentIcon = icons[icon] || null;
-  let hasIcon = !!currentIcon && icon !== "";
+  let iconThemes = {
+    linux: "vsc",
+  };
 
-  if (textSize === "xs") {
-    iconSize *= 0.8;
-  } else if (textSize === "sm") {
-    iconSize *= 0.9;
-  } else if (textSize === "lg") {
-    iconSize *= 1.2;
-  } else if (textSize === "xl") {
-    iconSize *= 1.3;
+  let translatedIcon = icons[icon] || "";
+  let iconTheme = iconThemes[icon] || "bs";
+  let hasIcon = translatedIcon !== "";
+
+  switch (textSize) {
+    case "xs":
+      iconSize *= 0.8;
+      break;
+    case "sm":
+      iconSize *= 0.9;
+      break;
+    case "lg":
+      iconSize *= 1.2;
+      break;
+    case "xl":
+      iconSize *= 1.3;
+      break;
   }
 </script>
 
@@ -85,7 +80,7 @@
     <slot name="prefix">
       {#if hasIcon && iconPosition === "left"}
         <span class="icon-left">
-          <Icon src={currentIcon} size={iconSize} />
+          <DynamicIcon icon={translatedIcon} iconTheme={iconTheme} size={`${iconSize}px`} />
         </span>
       {/if}
     </slot>
@@ -97,7 +92,7 @@
     <slot name="suffix">
       {#if hasIcon && iconPosition === "right"}
         <span class="icon-right">
-          <Icon src={currentIcon} size={iconSize} />
+          <DynamicIcon icon={translatedIcon} iconTheme={iconTheme} size={`${iconSize}px`} />
         </span>
       {/if}
     </slot>
@@ -126,7 +121,7 @@
     <slot name="prefix">
       {#if hasIcon && iconPosition === "left"}
         <span class="icon-left">
-          <Icon src={currentIcon} size={iconSize} />
+          <DynamicIcon icon={translatedIcon} iconTheme={iconTheme} size={`${iconSize}px`} />
         </span>
       {/if}
     </slot>
@@ -138,7 +133,7 @@
     <slot name="suffix">
       {#if hasIcon && iconPosition === "right"}
         <span class="icon-right">
-          <Icon src={currentIcon} size={iconSize} />
+          <DynamicIcon icon={translatedIcon} iconTheme={iconTheme} size={`${iconSize}px`} />
         </span>
       {/if}
     </slot>
