@@ -88,7 +88,7 @@
 
 <div class="container mt-16 md:mt-32">
   <div class="mx-auto max-w-6xl">
-    <a href="/donate" class="text-xs flex items-center gap-1 button py-1 text-red-berry-900">
+    <a href="/donate" class="text-xs flex items-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400">
       <Icon src={BsChevronLeft} />
       {$_("donate.page.back")}
     </a>
@@ -115,7 +115,7 @@
             <strong class="font-semibold">{project.donationGoal.toLocaleString($locale, currencyOptions)}</strong>
             <ProgressBar progress={project.donations.progress} />
           {:else}
-            <hr class="my-8 border-4 border-neutral-300" />
+            <hr class="mt-2 border-2 border-neutral-300" />
           {/if}
           {#if project.donations}
             <div class="md:block hidden mt-12">

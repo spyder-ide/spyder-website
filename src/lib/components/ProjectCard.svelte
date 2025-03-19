@@ -5,6 +5,7 @@
   import Loader from "$lib/components/Loader.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
   import { colourScheme } from "$lib/store";
+  import { checkImageExists } from "$lib/utils";
   import { afterUpdate, onMount } from "svelte";
   import { locale } from "svelte-i18n";
 
@@ -87,7 +88,7 @@
   };
 
   // Calculate dimensions based on container width and device size
-  function calculateDimensions() {
+  const calculateDimensions = () => {
     if (!cardImageContainer || !browser) return;
 
     // Get the container width
@@ -112,6 +113,8 @@
       redrawKey++;
     }
   }
+
+  const imageExists = async () => await checkImageExists(project.image) ? true : false;
 
   onMount(() => {
     if (browser) {
@@ -147,7 +150,7 @@
 <div class="group">
   <div class="card">
     <div class="card-image" bind:this={cardImageContainer}>
-      {#await project.image}
+      {#await project.image && imageExists()}
         <Loader />
       {:then}
         {#if href && project.image}
@@ -215,7 +218,7 @@
   }
 
   .card-title {
-    @apply pointer-events-none absolute bottom-0 left-0 z-10 w-full bg-white/70 p-6 text-4xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl;
+    @apply pointer-events-none absolute bottom-0 left-0 z-10 w-full bg-white/70 p-6 text-4xl font-extralight text-red-berry-900 backdrop-blur-sm md:w-auto md:rounded-tr-2xl mr-8;
   }
 
   .card-image {

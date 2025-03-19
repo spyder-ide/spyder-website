@@ -2,14 +2,24 @@ projects:
   - id: 0
     slug: spyder
     image: /assets/media/spyder_splash_bg.webp
-    donationGoal: 3000
     donationLink: https://app.hubspot.com/payments/Pjm6SyqYNb?referrer=PAYMENT_LINK_EMBED&layout=embed-full
   - id: 1
-    slug: lorem
-    donationGoal: 1000
+    slug: code-completions
+    image: /assets/media/donations-code_completions.webp
+    donationGoal: 10000
   - id: 2
-    slug: ipsum
-    donationGoal: 1500
+    slug: new-viewer-pane
+    image: /assets/media/donations-data_viz.webp
+    donationGoal: 15000
   - id: 3
-    slug: dolar
-    donationGoal: 2000
+    slug: syntax-highlighting
+    image: /assets/media/donations-syntax_highlighting.webp
+    donationGoal: 12000
+  - id: 4
+    slug: variable-explorer-improvements
+    image: /assets/media/donations-variable_explorer.webp
+    donationGoal: 8000
+#  - id: 5
+#    slug: ruff-and-mypy
+#    donationGoal: 6000
+  
