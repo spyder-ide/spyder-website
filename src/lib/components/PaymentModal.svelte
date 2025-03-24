@@ -4,7 +4,7 @@
   import { Icon } from 'svelte-icons-pack';
   import { AiFillCloseCircle } from "svelte-icons-pack/ai";
 
-  export let donationLink = "";
+  export let donationLinkID = "";
   export let showModal = false;
 
   let iframeContainer;
@@ -47,7 +47,7 @@
   function createPaymentIframe() {
     if (!iframeContainer) return;
 
-    const baseUrl = donationLink;
+    const baseUrl = `https://app.hubspot.com/payments/${donationLinkID}?referrer=PAYMENT_LINK_EMBED&layout=embed-full`;
     const params = new URLSearchParams({
       referrer: "PAYMENT_LINK_EMBED",
       layout: "",

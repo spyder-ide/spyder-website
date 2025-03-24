@@ -2,24 +2,29 @@ projects:
   - id: 0
     slug: spyder
     image: /assets/media/spyder_splash_bg.webp
-    donationLink: https://app.hubspot.com/payments/Pjm6SyqYNb?referrer=PAYMENT_LINK_EMBED&layout=embed-full
+    donationLinkID: Pjm6SyqYNb
   - id: 1
     slug: code-completions
     image: /assets/media/donations-code_completions.webp
+    donationLinkID: ztqGpdTmm
     donationGoal: 10000
   - id: 2
     slug: new-viewer-pane
     image: /assets/media/donations-data_viz.webp
+    donationLinkID: qQsykdmn
     donationGoal: 15000
   - id: 3
     slug: syntax-highlighting
     image: /assets/media/donations-syntax_highlighting.webp
+    donationLinkID: jFtcgY2ss6TbwK
     donationGoal: 12000
   - id: 4
     slug: variable-explorer-improvements
     image: /assets/media/donations-variable_explorer.webp
+    donationLinkID: tHjjHvDkzjnsbwvy
     donationGoal: 8000
-#  - id: 5
-#    slug: ruff-and-mypy
-#    donationGoal: 6000
-  
+  - id: 5
+    slug: editor-improvements
+    image: /assets/media/donations-editor_improvements.webp
+    donationLinkID: rhdycFNKm
+    donationGoal: 6000

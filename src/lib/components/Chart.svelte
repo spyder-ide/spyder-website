@@ -20,7 +20,7 @@
     <Doughnut data={chartData} options={chartOptions} />
   </div>
   <div class="supporters-container col-span-3">
-    <div class="flex h-full flex-col justify-center mt-1 gap-1 text-sm">
+    <div class="flex h-full flex-col justify-center mt-1 gap-1">
       <div class="flex items-center">
         <Icon src={BsCalendar} className="mr-2" size="2em" />
         <span>{$_("donate.page.monthly")}: {project.donations.monthly.toLocaleString($locale, currencyOptions)}</span>

@@ -183,8 +183,11 @@
       {#if project.donations}
         <div class="donations">
           {project.collected}:
-          <span class="font-bold">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
+          {#if !project.donationGoal}
+            <br/><span class="font-semibold text-6xl">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
+          {/if}
           {#if project.donationGoal}
+            <span class="font-semibold">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
             {project.separator}
             <span class="font-bold">{project.donationGoal.toLocaleString($locale, currencyOptions)}</span>
             <ProgressBar {progress} />

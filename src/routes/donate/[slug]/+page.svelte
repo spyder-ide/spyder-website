@@ -88,7 +88,7 @@
 
 <div class="container mt-16 md:mt-32">
   <div class="mx-auto max-w-6xl">
-    <a href="/donate" class="text-xs flex items-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400">
+    <a href="/donate" class="flex items-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400">
       <Icon src={BsChevronLeft} />
       {$_("donate.page.back")}
     </a>
@@ -104,7 +104,7 @@
         </div>
       </div>
       <div class="text-lg font-light md:col-span-2">
-        {#if project.donations.total > 0}
+        {#if project.donations}
           <strong class="text-6xl font-semibold text-mine-shaft-800 dark:text-mine-shaft-400">
             {project.donations.total.toLocaleString($locale, currencyOptions)}
           </strong>
@@ -117,7 +117,7 @@
           {:else}
             <hr class="mt-2 border-2 border-neutral-300" />
           {/if}
-          {#if project.donations}
+          {#if project.donations.total > 0}
             <div class="md:block hidden mt-12">
               <Chart {chartData} {chartOptions} {project} />
             </div>
@@ -145,4 +145,4 @@
   </div>
 </div>
 
-<PaymentModal bind:showModal donationLink={project.donationLink} />
+<PaymentModal bind:showModal donationLinkID={project.donationLinkID} />

@@ -83,9 +83,7 @@ export default {
           },
         },
       }),
-      colors: {
-        ...colors,
-      },
+      colors,
     },
   },
 };
