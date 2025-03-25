@@ -1,7 +1,7 @@
 import { browser } from "$app/environment";
-import { locale, waitLocale, getLocaleFromNavigator } from "svelte-i18n";
-import { normalizeLocale } from "$lib/i18n";
 import "$lib/i18n";
+import { normalizeLocale } from "$lib/i18n";
+import { getLocaleFromNavigator, locale, waitLocale } from "svelte-i18n";
 
 export const load = async () => {
   if (browser) {
@@ -33,3 +33,7 @@ export const load = async () => {
     i18n: { ready: true }
   };
 };
+
+export const ssr = false;
+export const prerender = true;
+export const trailingSlash = "never";
