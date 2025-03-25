@@ -169,6 +169,7 @@ const config = {
     paths: {
       base: process.env.NODE_ENV === "production" ? "" : "",
     },
+    trailingSlash: "never", // Force no trailing slashes in URLs
   },
   extensions: [".svelte", ".md"],
   preprocess: [mdsvex(mdsvexOptions), vitePreprocess()],

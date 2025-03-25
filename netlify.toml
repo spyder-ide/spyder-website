@@ -40,3 +40,15 @@
   for = "/assets/og/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Redirect rules to handle trailing slashes
+[[redirects]]
+  from = "/*/"
+  to = ":splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
