@@ -56,9 +56,26 @@
     {$_("donate.page.title")}
   </h1>
 
-  <div
-    class="intro mx-auto mb-16 flex max-w-6xl flex-col gap-4 text-center text-lg font-light dark:text-neutral-200 md:mb-32 md:text-xl"
-  >
+  <div class="font-light prose prose-xl
+    prose-headings:text-red-berry-900 
+    dark:prose-headings:text-mine-shaft-200 
+    dark:prose-invert prose-headings:font-medium 
+    prose-p:text-pretty
+    prose-ul:text-left
+    prose-ul:max-w-2xl
+    prose-ul:mx-auto
+    prose-li:italic
+    prose-li:text-[85%]
+    prose-li:text-pretty
+    prose-strong:font-semibold
+    prose-strong:text-red-berry-900
+    mx-auto 
+    mb-16 
+    max-w-6xl 
+    text-center 
+    dark:text-neutral-200 
+    md:mb-32 
+    md:text-xl">
     <SvelteMarkdown source={$_("donate.page.intro", { values })} />
   </div>
   <div class="mt-16 flex flex-wrap justify-center">

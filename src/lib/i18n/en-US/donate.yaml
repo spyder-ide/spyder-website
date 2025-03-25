@@ -7,8 +7,8 @@ page:
   intro: |
     Our mission is to create and maintain **the best open source Python IDE** for scientists, engineers and data analysts that is both **powerful and easy to use**. Your donations sustain this effort and fund the features you're most interested in seeing in future versions. Would you give today?
 
-    All donations are stewarded by [NumFOCUS](https://numfocus.org/), a registered non-profit charitable organization.    
-    Spyder is a fully independent, community-developed project, unaffiliated with Anaconda or other commercial companies.
+    * All donations are stewarded by [NumFOCUS](https://numfocus.org/), a registered non-profit charitable organization.    
+    * Spyder is a fully independent, community-developed project, unaffiliated with Anaconda or other commercial companies.
 
 projects:
   - id: 0
@@ -74,25 +74,5 @@ projects:
       The Variable Explorer is one of the most beloved panes in Spyder. However, to inspect any object of a custom class or data type, it needs to have the libraries used to create it installed in Spyder’s own application environment. This is impractical, could break Spyder, and is precluded by design with our recommended standalone installers.
 
       We'd like to address that by supporting a portable, streamlined method of object representation that is not limited by such a restriction. Alongside that, we’d also like to make saving and loading spydata files to restore your current session later more reliable and work on a wider variety of data types by using a more robust library for that task.
-    button:
-      text: Support This Project
-
-  - id: 5
-    title: Overhaul Editor
-    collected: Raised so far
-    separator: of
-    intro: >-
-      Spyder's Editor would benefit greatly from a much needed makeoverl to add better code completions, boost its performance and include more powerful code analysis, formatting and linting tools, among others.
-    content: |
-      The editor is key in every IDE to help you read, develop, fix and improve your code. Spyder's Editor would benefit greatly from a much needed overhaul to strengthen its capabilities in these key areas.
-
-      With your support, we will able to:
-
-      * Provide better code completions by enhancing our [current language server](https://github.com/python-lsp/python-lsp-server/) and/or using a more [powerful one](https://github.com/DetachHead/basedpyright).  
-      * Connect the Editor to the IPython Console to find and display dynamic code completions and documentation beyond what can be extracted statically.  
-      * increase the Editor’s performance so that searching text and highlighting occurrences don't introduce lags while editing code.  
-      * Add more powerful linting tools such as Ruff and MyPy.  
-      * Support semantic syntax highlighting so that function arguments and class and function names are colored differently.  
-      * Upgrade the  Outline pane to be faster and less resource intensive, and preserve its tree view after code is updated.
     button:
       text: Support This Project

@@ -23,8 +23,3 @@ projects:
     image: /assets/media/donations-variable_explorer.webp
     donationLinkID: tHjjHvDkzjnsbwvy
     donationGoal: 8000
-  - id: 5
-    slug: editor-improvements
-    image: /assets/media/donations-editor_improvements.webp
-    donationLinkID: rhdycFNKm
-    donationGoal: 6000
