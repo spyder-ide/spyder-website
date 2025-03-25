@@ -99,7 +99,7 @@
     </h1>
     <div class="grid grid-cols-1 gap-8 md:gap-16 md:grid-cols-5">
       <div class="md:col-span-3">
-        <div class="image-container relative overflow-hidden rounded-2xl aspect-4/3">
+        <div class="image-container relative overflow-hidden rounded-2xl aspect-4/3 border border-neutral-300 shadow-lg">
           <img class="w-full h-full object-cover" src={project.image} alt={project.title} />
         </div>
       </div>
