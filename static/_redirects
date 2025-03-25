@@ -1,13 +1,4 @@
 # Handle social media crawlers with increased timeout
 /* 200! User-Agent=Twitterbot
 /* 200! User-Agent=facebookexternalhit
-/* 200! User-Agent=LinkedInBot
-
-# Redirect trailing slashes - must come before SPA fallback
-/*/ /:splat 301!
-
-# Special handling for blog URLs with trailing slashes
-/blog/*/ /blog/:splat 301!
-
-# SPA fallback - this must be last
-/* /index.html 200 
+/* 200! User-Agent=LinkedInBot 
