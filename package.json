@@ -5,7 +5,8 @@
   "scripts": {
     "generate-og-images": "node scripts/generate-og-images.js",
     "generate-contrib-data": "node scripts/generate-contrib-data.js",
-    "prebuild": "npm run generate-og-images && npm run generate-contrib-data",
+    "generate-hubspot-data": "node scripts/generate-hubspot-data.js",
+    "prebuild": "npm run generate-og-images && npm run generate-contrib-data && npm run generate-hubspot-data",
     "dev": "npm run prebuild && npx vite dev",
     "build": "npm run prebuild && npx vite build",
     "preview": "npx vite preview",

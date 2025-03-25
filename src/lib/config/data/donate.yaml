@@ -3,6 +3,7 @@ projects:
     slug: spyder
     image: /assets/media/spyder_splash_bg.webp
     donationLinkID: Pjm6SyqYNb
+    pastDonations: 18645.86
   - id: 1
     slug: code-completions
     image: /assets/media/donations-code_completions.webp

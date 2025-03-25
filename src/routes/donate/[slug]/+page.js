@@ -61,13 +61,13 @@ export async function load({ params, fetch }) {
       project: {
         ...project,
         donations: {
-          total: projectDonations.total,
+          total: projectDonations.total + (project.pastDonations || 0),
           monthly: projectDonations.monthly,
-          oneTime: projectDonations.oneTime,
+          oneTime: projectDonations.oneTime + (project.pastDonations || 0),
           deals: projectDonations.deals,
           progress: project.donationGoal
             ? parseFloat(
-              ((projectDonations.total / project.donationGoal) * 100)
+              (((projectDonations.total + (project.pastDonations || 0)) / project.donationGoal) * 100)
                 .toFixed(1),
             )
             : null,

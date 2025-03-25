@@ -19,7 +19,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 14362
+    "contributions": 14363
   },
   {
     "login": "dalthviz",
@@ -308,6 +308,28 @@
     "contributions": 266
   },
   {
+    "login": "hlouzada",
+    "id": 5204788,
+    "node_id": "MDQ6VXNlcjUyMDQ3ODg=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/5204788?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/hlouzada",
+    "html_url": "https://github.com/hlouzada",
+    "followers_url": "https://api.github.com/users/hlouzada/followers",
+    "following_url": "https://api.github.com/users/hlouzada/following{/other_user}",
+    "gists_url": "https://api.github.com/users/hlouzada/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/hlouzada/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/hlouzada/subscriptions",
+    "organizations_url": "https://api.github.com/users/hlouzada/orgs",
+    "repos_url": "https://api.github.com/users/hlouzada/repos",
+    "events_url": "https://api.github.com/users/hlouzada/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/hlouzada/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false,
+    "contributions": 202
+  },
+  {
     "login": "SylvainCorlay",
     "id": 2397974,
     "node_id": "MDQ6VXNlcjIzOTc5NzQ=",
@@ -328,28 +350,6 @@
     "user_view_type": "public",
     "site_admin": false,
     "contributions": 198
-  },
-  {
-    "login": "hlouzada",
-    "id": 5204788,
-    "node_id": "MDQ6VXNlcjUyMDQ3ODg=",
-    "avatar_url": "https://avatars.githubusercontent.com/u/5204788?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/hlouzada",
-    "html_url": "https://github.com/hlouzada",
-    "followers_url": "https://api.github.com/users/hlouzada/followers",
-    "following_url": "https://api.github.com/users/hlouzada/following{/other_user}",
-    "gists_url": "https://api.github.com/users/hlouzada/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/hlouzada/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/hlouzada/subscriptions",
-    "organizations_url": "https://api.github.com/users/hlouzada/orgs",
-    "repos_url": "https://api.github.com/users/hlouzada/repos",
-    "events_url": "https://api.github.com/users/hlouzada/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/hlouzada/received_events",
-    "type": "User",
-    "user_view_type": "public",
-    "site_admin": false,
-    "contributions": 195
   },
   {
     "login": "athompson673",

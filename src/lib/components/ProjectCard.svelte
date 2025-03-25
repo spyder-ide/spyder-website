@@ -133,6 +133,8 @@
     }
   });
 
+  console.log(project);
+
   $: progress = Math.min(project.donations.progress, 100);
 
   // Recalculate dimensions when the window resizes

@@ -38,10 +38,10 @@ export async function load({ fetch }) {
     const projectsWithDonations = content.props.projects.map((project) => ({
       ...project,
       donations: {
-        total: projectDonations[project.slug].total,
+        total: (projectDonations[project.slug].total + (project.pastDonations || 0)),
         deals: projectDonations[project.slug].deals,
         progress: project.donationGoal
-          ? parseFloat(((projectDonations[project.slug].total / project.donationGoal) * 100).toFixed(2))
+          ? parseFloat((((projectDonations[project.slug].total + (project.pastDonations || 0)) / project.donationGoal) * 100).toFixed(2))
           : null,
       },
     }));
