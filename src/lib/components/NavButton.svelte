@@ -20,7 +20,7 @@
   let mobile = false;
   
   $: isActive = href && $page?.url?.pathname.startsWith(href);
-  $: className = `w-4 h-4 transition-transform duration-200 ${supportIcon ? `beat ${isActive ? 'fill-white' : 'fill-red-berry-900'}` : `-mr-2`} ${iconClasses}`;
+  $: className = `w-4 h-4 transition-transform duration-200 ${supportIcon ? `beat ${mobile ? 'fill-red-berry-900' : isActive ? 'fill-white' : 'fill-red-berry-900'}` : `-mr-2`} ${iconClasses}`;
   $: mobile = windowWidth < 768;
 
   let handleClick = (event) => {
@@ -76,12 +76,46 @@
 
 <style lang="postcss">
   .menu-button {
-    @apply min-w-24 rounded-md border border-mine-shaft-200 bg-spring-wood-50 px-3 py-1.5 shadow-sm hover:bg-spring-wood-100 focus:outline-none focus:ring-1 focus:ring-red-berry-900 focus:ring-offset-0 dark:border-mine-shaft-500 dark:bg-mine-shaft-950 dark:hover:bg-mine-shaft-900;
+    @apply 
+      min-w-24 
+      rounded-md 
+      border 
+      border-mine-shaft-200 
+      bg-spring-wood-50 
+      px-3 
+      py-1.5 
+      shadow-sm 
+      hover:bg-spring-wood-100 
+      focus:outline-none 
+      focus:ring-1 
+      focus:ring-red-berry-900 
+      focus:ring-offset-0 
+      dark:border-mine-shaft-500 
+      dark:bg-mine-shaft-950 
+      dark:hover:bg-mine-shaft-900;
   }
   .menu-item {
-    @apply flex items-center justify-center gap-2 text-xs font-medium text-mine-shaft-700 transition-colors duration-200 dark:text-neutral-300;
+    @apply 
+      flex 
+      items-center 
+      justify-center 
+      gap-2 
+      text-xs 
+      font-medium 
+      transition-colors 
+      duration-200 
+      text-mine-shaft-700 
+      dark:text-neutral-300;
   }
   .active {
-    @apply bg-red-berry-900 text-white border-red-berry-900 hover:bg-red-berry-800 dark:bg-red-berry-900 dark:text-white dark:border-red-berry-900 dark:hover:bg-red-berry-800;
+    @apply 
+      md:bg-red-berry-900 
+      md:text-white 
+      md:border-red-berry-900 
+      md:hover:bg-red-berry-800 
+      md:dark:bg-red-berry-900 
+      md:dark:text-white 
+      md:dark:border-red-berry-900 
+      md:dark:hover:bg-red-berry-800
   }
 </style>
