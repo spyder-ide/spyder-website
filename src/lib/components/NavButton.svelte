@@ -1,4 +1,5 @@
 <script>
+  import { page } from "$app/stores";
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { Icon } from "svelte-icons-pack";
   import { BiChevronDown, BiSolidHeart } from "svelte-icons-pack/bi";
@@ -17,8 +18,9 @@
   let beatInterval;
   let windowWidth = 0;
   let mobile = false;
-
-  $: className = `w-4 h-4 transition-transform duration-200 ${supportIcon ? `beat fill-red-berry-900` : `-mr-2`} ${iconClasses}`;
+  
+  $: isActive = href && $page?.url?.pathname.startsWith(href);
+  $: className = `w-4 h-4 transition-transform duration-200 ${supportIcon ? `beat ${isActive ? 'fill-white' : 'fill-red-berry-900'}` : `-mr-2`} ${iconClasses}`;
   $: mobile = windowWidth < 768;
 
   let handleClick = (event) => {
@@ -52,7 +54,13 @@
   });
 </script>
 
-<button bind:this={button} on:click={handleClick} class="menu-item" class:menu-button={!mobile}>
+<button 
+  bind:this={button} 
+  on:click={handleClick} 
+  class="menu-item" 
+  class:menu-button={!mobile}
+  class:active={isActive}
+>
   <span
     class="menu-button-text"
     class:hidden={mobile && !showTextOnMobile}
@@ -72,5 +80,8 @@
   }
   .menu-item {
     @apply flex items-center justify-center gap-2 text-xs font-medium text-mine-shaft-700 transition-colors duration-200 dark:text-neutral-300;
+  }
+  .active {
+    @apply bg-red-berry-900 text-white border-red-berry-900 hover:bg-red-berry-800 dark:bg-red-berry-900 dark:text-white dark:border-red-berry-900 dark:hover:bg-red-berry-800;
   }
 </style>
