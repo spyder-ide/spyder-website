@@ -23,6 +23,10 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
     X-Robots-Tag = "index, follow"
     Cache-Control = "public, max-age=3600"
 
@@ -37,13 +41,21 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Redirect rules to handle trailing slashes
+# Add JS MIME type headers to ensure JS files load correctly
+[[headers]]
+  for = "/_app/immutable/**/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirect rules to handle trailing slashes - force before SPA fallback
 [[redirects]]
   from = "/*/"
   to = ":splat"
   status = 301
   force = true
 
+# SPA fallback - ensure all routes are handled
 [[redirects]]
   from = "/*"
   to = "/index.html"
