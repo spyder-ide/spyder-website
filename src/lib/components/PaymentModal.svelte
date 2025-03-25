@@ -83,6 +83,25 @@
     };
 
     window.addEventListener("message", messageHandler);
+
+    // Add error handling for iframe loading
+    iframe.onerror = () => {
+      console.error("Failed to load payment iframe");
+      // Optionally show an error message to the user
+    };
+
+    // Force reload iframe if it doesn't load within 5 seconds
+    const timeout = setTimeout(() => {
+      if (!iframe.contentWindow || !iframe.contentWindow.document.body) {
+        console.log("Reloading iframe due to timeout");
+        iframe.src = iframe.src;
+      }
+    }, 5000);
+
+    // Clean up timeout on iframe load
+    iframe.onload = () => {
+      clearTimeout(timeout);
+    };
   }
 
   function handleKeydown(event) {
@@ -106,8 +125,9 @@
   });
 
   $: if (showModal) {
-    // Use setTimeout to ensure the container is mounted
-    setTimeout(createPaymentIframe, 0);
+    // Use a longer delay for mobile browsers
+    const delay = /Firefox/.test(navigator.userAgent) && /Android/.test(navigator.userAgent) ? 100 : 0;
+    setTimeout(createPaymentIframe, delay);
   }
 </script>
 
