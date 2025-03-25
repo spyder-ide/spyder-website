@@ -62,13 +62,14 @@
     dark:prose-invert prose-headings:font-medium 
     prose-p:text-pretty
     prose-ul:text-left
-    prose-ul:max-w-2xl
+    prose-ul:max-w-[55rem]
     prose-ul:mx-auto
     prose-li:italic
     prose-li:text-[85%]
     prose-li:text-pretty
     prose-strong:font-semibold
-    prose-strong:text-red-berry-900
+    prose-strong:text-mine-shaft-600
+    dark:prose-strong:text-neutral-300
     mx-auto 
     mb-16 
     max-w-6xl 
