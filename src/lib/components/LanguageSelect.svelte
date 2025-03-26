@@ -1,30 +1,21 @@
 <script>
-  import { locale } from "svelte-i18n";
-  import { Icon } from "svelte-icons-pack";
-  import { BiChevronDown } from "svelte-icons-pack/bi";
-
   import { browser } from "$app/environment";
+  import { locale } from "svelte-i18n";
+
+  import NavButton from "$lib/components/NavButton.svelte";
 
   export let languages;
+  export let showTextOnMobile = true;
 
   let isDropdownOpen = false;
   let dropdownButton;
 
   function handleSelect(selectedLocale) {
+    isDropdownOpen = false;
     locale.set(selectedLocale);
     if (browser) {
       localStorage.setItem("preferred-locale", selectedLocale);
-      
-      // Force a page data refresh when language changes
-      // This helps reload the content with new translations
-      setTimeout(() => {
-        // Use a small timeout to ensure the locale change has propagated
-        window.dispatchEvent(new CustomEvent('language-changed', { 
-          detail: { locale: selectedLocale } 
-        }));
-      }, 50);
     }
-    isDropdownOpen = false;
   }
 
   function handleClickOutside(event) {
@@ -47,17 +38,13 @@
 <svelte:window on:click={handleClickOutside} />
 
 <div class="relative inline-block text-left">
-  <button
-    bind:this={dropdownButton}
-    class="dropdownButton"
+  <NavButton
+    bind:button={dropdownButton}
+    buttonText={languages.find((lang) => lang.code === $locale)?.name || "English"}
+    {iconClasses}
     on:click={() => (isDropdownOpen = !isDropdownOpen)}
-  >
-    {languages.find((lang) => lang.code === $locale)?.name || "English"}
-    <Icon
-      src={BiChevronDown}
-      className="w-4 h-4 ml-2 -mr-1 transition-transform duration-200 {iconClasses}"
-    />
-  </button>
+    {showTextOnMobile}
+  />
 
   {#if isDropdownOpen}
     <div class="dropdownMenu">
@@ -65,9 +52,7 @@
         {#each languages as { code, name }}
           <button
             class="dropdownItem
-                   {$locale === code
-              ? 'bg-spring-wood-100 dark:bg-mine-shaft-900'
-              : ''}"
+                   {$locale === code ? 'bg-spring-wood-100 dark:bg-mine-shaft-900' : ''}"
             role="menuitem"
             on:click={() => handleSelect(code)}
           >
@@ -80,64 +65,11 @@
 </div>
 
 <style lang="postcss">
-  .dropdownButton {
-    @apply inline-flex
-      min-w-24
-      items-center
-      justify-center
-      px-3
-      py-1.5
-      shadow-sm
-      rounded-md
-      text-xs
-      font-medium
-      text-mine-shaft-700
-      dark:text-neutral-300
-      bg-spring-wood-50
-      dark:bg-mine-shaft-950
-      border
-      border-mine-shaft-200
-      dark:border-mine-shaft-500
-      hover:bg-spring-wood-100
-      dark:hover:bg-mine-shaft-900
-      focus:outline-none
-      focus:ring-1
-      focus:ring-red-berry-900
-      focus:ring-offset-0
-      transition-colors
-      duration-200;
-  }
-
   .dropdownMenu {
-    @apply absolute
-      right-0
-      left-0
-      mt-1
-      min-w-24
-      rounded-md
-      shadow-lg
-      bg-spring-wood-50
-      dark:bg-mine-shaft-900
-      ring-1
-      ring-black
-      ring-opacity-5
-      transform
-      transition-all
-      duration-200;
+    @apply absolute left-0 right-0 mt-1 min-w-24 transform rounded-md bg-spring-wood-50 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 dark:bg-mine-shaft-900;
   }
 
   .dropdownItem {
-    @apply block
-      w-full
-      text-left
-      px-4
-      py-2
-      text-xs
-    text-mine-shaft-700
-    dark:text-neutral-300
-    hover:bg-spring-wood-100
-    dark:hover:bg-mine-shaft-900
-      transition-colors
-      duration-200;
+    @apply block w-full px-4 py-2 text-left text-xs text-mine-shaft-700 transition-colors duration-200 hover:bg-spring-wood-100 dark:text-neutral-300 dark:hover:bg-mine-shaft-900;
   }
 </style>

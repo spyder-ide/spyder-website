@@ -17,12 +17,7 @@
   // Hero section buttons
   export let buttons = [];
 
-  let heroContent,
-    heroImages,
-    githubButton,
-    githubButtonTranslation,
-    translatedGithubButton,
-    unsubscribeOs;
+  let heroContent, heroImages, githubButton, githubButtonTranslation, translatedGithubButton, unsubscribeOs;
 
   $: {
     heroContent = $json("config.site.heroContent") || "";
@@ -53,51 +48,43 @@
 <section {id} class="mt-20 {classes}">
   <Vanta />
   <div
-    class="relative
+    class="hero-content-container
+    relative
+    mx-auto
     flex
     flex-col
     items-center
     gap-8
     px-8
-    xl:max-w-6xl
-    mx-auto
-    hero-content-container"
+    xl:max-w-6xl"
   >
     <h1
-      class="tracking-tight
+      class="text-center
       text-4xl
-      md:text-5xl
-      xl:text-7xl
       font-extralight
+      tracking-tight
       text-gray-500
       dark:text-mine-shaft-300
-      text-center"
+      md:text-5xl
+      xl:text-7xl"
     >
       {heroContent.title}
     </h1>
-    <p class="font-light md:text-lg xl:text-xl text-center">
+    <p class="text-center font-light md:text-lg xl:text-xl">
       {heroContent.description}
     </p>
     {#if buttons.length > 0}
-      <div class="grid grid-flow-row md:grid-flow-col gap-4 items-center">
+      <div class="grid grid-flow-row items-center gap-4 md:grid-flow-col">
         {#each buttons as button}
-          <Button
-            highlight={button.highlight}
-            icon={button.icon}
-            text={button.text}
-            href={button.href}
-          />
+          <Button highlight={button.highlight} icon={button.icon} text={button.text} href={button.href} />
         {/each}
       </div>
     {/if}
   </div>
 
-  <div class="container aspect-video py-5 mt-16">
-    <ImageCompare before={heroImages.dark} after={heroImages.light} />
-  </div>
+  <ImageCompare before={heroImages.dark} after={heroImages.light} />
 
   {#if divider}
     <Divider stroke={true} />
   {/if}
 </section>
-

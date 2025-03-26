@@ -28,3 +28,28 @@ a:not(.menu-link):not(.icon-link):not(.button):not(.post-link):not(.card-link):h
     @apply text-neutral-600 dark:text-neutral-300 text-[0.95rem] mt-3 text-center;
   }
 }
+
+.beat {
+  animation: heartbeat 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1) rotateZ(0deg);
+  }
+  15% {
+    transform: scale(1.25) rotateZ(-3deg);
+  }
+  30% {
+    transform: scale(1.1) rotateZ(2deg);
+  }
+  45% {
+    transform: scale(1.35) rotateZ(-2deg);
+  }
+  60% {
+    transform: scale(1) rotateZ(0deg);
+  }
+  100% {
+    transform: scale(1) rotateZ(0deg);
+  }
+}

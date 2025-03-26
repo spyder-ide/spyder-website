@@ -40,3 +40,23 @@
   for = "/assets/og/*"
   [headers.values]
     Cache-Control = "public, max-age=86400"
+
+# Add JS MIME type headers to ensure JS files load correctly
+[[headers]]
+  for = "/_app/immutable/**/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Handle blog post pages with trailing slashes specifically
+[[redirects]]
+  from = "/blog/*/"
+  to = "/blog/:splat"
+  status = 301
+  force = true
+
+# SPA fallback - ensure all routes are handled
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

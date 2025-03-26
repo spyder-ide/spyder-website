@@ -183,21 +183,6 @@ export const getOSButtons = (base, os) => {
 };
 
 /**
- * Dynamically loads an icon from svelte-icons-pack
- * @param {string} iconName - Name of the icon to load
- * @returns {Promise<object|null>} Icon component or null if loading fails
- */
-export async function getIcon(iconName) {
-  try {
-    const module = await import("svelte-icons-pack/bs");
-    return module[iconName];
-  } catch (error) {
-    console.error(`Failed to load icon: ${iconName}`, error);
-    return null;
-  }
-}
-
-/**
  * Processes and merges different contributor lists
  * @param {Array<{id: string|number}>} current - Current contributors
  * @param {Array<{id: string|number}>} past - Past contributors
@@ -307,4 +292,22 @@ export function getBlogImageUrl(slug, imagePath) {
 
   // Create an absolute path that works with trailingSlash 'never'
   return `/blog/${slug}/${cleanPath}`;
+}
+
+/**
+ * Checks if a given URL resolves to a valid image by making a HEAD request
+ * @param {string} url - The URL to check
+ * @returns {Promise<boolean>} True if URL resolves to a valid image, false otherwise
+ */
+export async function checkImageExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    if (!response.ok) return false;
+    
+    const contentType = response.headers.get('content-type');
+    return contentType && contentType.startsWith('image/');
+  } catch (error) {
+    console.error('Error checking image:', error);
+    return false;
+  }
 }

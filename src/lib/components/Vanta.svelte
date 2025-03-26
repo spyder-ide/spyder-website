@@ -1,14 +1,17 @@
 <script>
-  import { onMount, afterUpdate } from "svelte";
   import { browser } from "$app/environment";
   import { colourScheme } from "$lib/store";
+  import { afterUpdate, onMount } from "svelte";
 
   let vantaInstance;
   let vantaContainer;
   let currentScheme;
+  let scriptsLoaded = false;
 
-  const getColor = (colors, colourScheme) =>
-    colors[colourScheme] || colors.light;
+  const threeSrc = "/assets/vendor/three.js/three.min.js";
+  const vantaSrc = "/assets/vendor/vanta/vanta.dots.min.js";
+
+  const getColor = (colors, colourScheme) => colors[colourScheme] || colors.light;
 
   const bgColors = {
     light: 0xf7f7f2,
@@ -33,8 +36,34 @@
     showLines: false,
   };
 
+  const loadScript = async (src) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    await new Promise((resolve, reject) => {
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  };
+
+  const loadScripts = async () => {
+    if (browser && !scriptsLoaded) {
+      try {
+        await loadScript(threeSrc);
+        await loadScript(vantaSrc);
+        scriptsLoaded = true;
+        console.log("Scripts loaded successfully");
+        // Initialize Vanta once scripts are loaded
+        initVanta();
+      } catch (error) {
+        console.error("Error loading scripts:", error);
+      }
+    }
+  };
+
   const initVanta = () => {
-    if (vantaContainer && browser && window.VANTA) {
+    if (vantaContainer && browser && window.VANTA && scriptsLoaded) {
       if (vantaInstance) {
         vantaInstance.destroy();
       }
@@ -48,24 +77,26 @@
       } catch (error) {
         console.error("Vanta initialization error:", error);
       }
+    } else if (!window.VANTA) {
+      console.error("VANTA not available yet");
     } else {
       console.error("Cannot initialize Vanta");
     }
-  }
+  };
 
-  $: if (browser && vantaInstance && $colourScheme !== currentScheme) {
+  $: if (browser && vantaInstance && $colourScheme !== currentScheme && scriptsLoaded) {
     console.log("Color scheme changed, reinitializing Vanta");
     initVanta();
   }
 
   onMount(() => {
     if (browser) {
-      initVanta();
+      loadScripts();
     }
   });
 
   afterUpdate(() => {
-    if (browser && vantaInstance && $colourScheme !== currentScheme) {
+    if (browser && vantaInstance && $colourScheme !== currentScheme && scriptsLoaded) {
       console.log("After update: Color scheme changed, reinitializing Vanta");
       initVanta();
     }

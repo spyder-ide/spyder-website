@@ -13,6 +13,7 @@ export default defineConfig({
     strictPort: false,
   },
   build: {
+    target: 'esnext',
     chunkSizeWarningLimit: 1500,
     ssrEmitAssets: true,
     sourcemap: false,
