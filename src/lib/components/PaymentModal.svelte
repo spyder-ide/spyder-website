@@ -68,10 +68,33 @@
     iframe.style.border = "none";
     iframe.allow = "payment *";
     iframe.title = "HubSpot Payment Form";
-
-    // Clear container and add new iframe
+    
+    // Add cross-origin attributes
+    iframe.setAttribute("loading", "eager");
+    iframe.setAttribute("importance", "high");
+    iframe.setAttribute("crossorigin", "anonymous");
+    
+    // Create fallback message container
+    const fallbackContainer = document.createElement("div");
+    fallbackContainer.className = "fallback-message";
+    fallbackContainer.style.display = "none";
+    fallbackContainer.innerHTML = `
+      <div class="p-4 text-center">
+        <h2 class="text-xl font-semibold mb-2">Payment form was blocked</h2>
+        <p class="mb-4">Your browser's Enhanced Tracking Protection may be blocking the payment form.</p>
+        <p class="mb-4">You can:</p>
+        <ul class="list-disc pl-6 mb-4 text-left">
+          <li>Temporarily disable Enhanced Tracking Protection for this site</li>
+          <li>Try using a different browser</li>
+          <li>Visit <a href="https://app.hubspot.com/payments/${donationLinkID}" target="_blank" class="text-red-berry-900 underline">the payment page directly</a></li>
+        </ul>
+      </div>
+    `;
+    
+    // Clear container and add iframe and fallback
     iframeContainer.innerHTML = "";
     iframeContainer.appendChild(iframe);
+    iframeContainer.appendChild(fallbackContainer);
 
     // Handle iframe resizing
     messageHandler = (event) => {
@@ -87,20 +110,59 @@
     // Add error handling for iframe loading
     iframe.onerror = () => {
       console.error("Failed to load payment iframe");
-      // Optionally show an error message to the user
+      fallbackContainer.style.display = "block";
+      iframe.style.display = "none";
     };
 
     // Force reload iframe if it doesn't load within 5 seconds
     const timeout = setTimeout(() => {
-      if (!iframe.contentWindow || !iframe.contentWindow.document.body) {
-        console.log("Reloading iframe due to timeout");
-        iframe.src = iframe.src;
+      try {
+        // Check if iframe loaded properly
+        if (!iframe.contentWindow || !iframe.contentDocument || 
+            !iframe.contentDocument.body || 
+            iframe.contentDocument.body.innerHTML === "") {
+          console.log("Payment form might be blocked - showing fallback");
+          fallbackContainer.style.display = "block";
+          iframe.style.display = "none";
+        }
+      } catch (e) {
+        // If we get a security error when trying to access iframe contents,
+        // that indicates a cross-origin issue
+        console.log("Security error accessing iframe - likely blocked by browser", e);
+        fallbackContainer.style.display = "block";
+        iframe.style.display = "none";
       }
     }, 5000);
 
     // Clean up timeout on iframe load
     iframe.onload = () => {
       clearTimeout(timeout);
+      
+      // Additional check after load to verify content is accessible
+      try {
+        // If we can access the iframe's location, it loaded successfully
+        const testAccess = iframe.contentWindow.location.href;
+        fallbackContainer.style.display = "none";
+      } catch (e) {
+        // If we get a security error, the content might have loaded but is
+        // not accessible due to cross-origin restrictions
+        console.log("Iframe loaded but content might be restricted", e);
+        
+        // Set a longer timeout to give time for the actual form to render
+        // before showing fallback message
+        setTimeout(() => {
+          try {
+            // One final check before showing fallback
+            if (!iframe.contentWindow.document.body.innerHTML) {
+              fallbackContainer.style.display = "block";
+              iframe.style.display = "none";
+            }
+          } catch (e) {
+            fallbackContainer.style.display = "block";
+            iframe.style.display = "none";
+          }
+        }, 1000);
+      }
     };
   }
 
