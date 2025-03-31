@@ -41,6 +41,20 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-02-13T20:44:01.081Z"
+    },
+    {
+      "createdAt": "2025-03-30T21:19:04.375Z",
+      "archived": false,
+      "id": "35240642058",
+      "properties": {
+        "amount": "5.00",
+        "createdate": "2025-03-30T21:19:04.375Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-03-30T21:19:26.074Z",
+        "hs_object_id": "35240642058",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-03-30T21:19:26.074Z"
     }
   ],
   "monthlyDeals": [],
@@ -86,10 +100,24 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-02-13T20:44:01.081Z"
+    },
+    {
+      "createdAt": "2025-03-30T21:19:04.375Z",
+      "archived": false,
+      "id": "35240642058",
+      "properties": {
+        "amount": "5.00",
+        "createdate": "2025-03-30T21:19:04.375Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-03-30T21:19:26.074Z",
+        "hs_object_id": "35240642058",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-03-30T21:19:26.074Z"
     }
   ],
-  "totalDonations": 70,
+  "totalDonations": 75,
   "totalMonthlyDonations": 0,
-  "totalOneTimeDonations": 70,
-  "lastUpdated": "2025-03-26T15:28:08.751Z"
+  "totalOneTimeDonations": 75,
+  "lastUpdated": "2025-03-31T21:53:33.923Z"
 }
