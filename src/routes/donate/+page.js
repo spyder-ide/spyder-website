@@ -26,7 +26,9 @@ export async function load({ fetch }) {
     // Sort deals into their respective projects
     hubspotData.pipelineDeals.forEach((deal) => {
       content.props.projects.forEach((project) => {
-        if (deal.properties.dealname.toLowerCase().includes(project.slug.toLowerCase())) {
+        // Replace hyphens with spaces for comparison
+        const projectNameForComparison = project.slug.toLowerCase().replace(/-/g, ' ');
+        if (deal.properties.dealname.toLowerCase().includes(projectNameForComparison)) {
           projectDonations[project.slug].deals.push(deal);
           projectDonations[project.slug].total +=
             parseFloat(deal.properties.amount) || 0;

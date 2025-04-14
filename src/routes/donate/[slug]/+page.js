@@ -38,9 +38,11 @@ export async function load({ params, fetch }) {
 
     // Get deals for this project
     hubspotData.pipelineDeals.forEach((deal) => {
+      // Replace hyphens with spaces for comparison
+      const projectNameForComparison = project.slug.toLowerCase().replace(/-/g, ' ');
       if (
         deal.properties.dealname.toLowerCase().includes(
-          project.slug.toLowerCase(),
+          projectNameForComparison
         )
       ) {
         projectDonations.deals.push(deal);
