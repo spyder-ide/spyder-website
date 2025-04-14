@@ -116,19 +116,10 @@
 
     // Force reload iframe if it doesn't load within 5 seconds
     const timeout = setTimeout(() => {
-      try {
-        // Check if iframe loaded properly
-        if (!iframe.contentWindow || !iframe.contentDocument || 
-            !iframe.contentDocument.body || 
-            iframe.contentDocument.body.innerHTML === "") {
-          console.log("Payment form might be blocked - showing fallback");
-          fallbackContainer.style.display = "block";
-          iframe.style.display = "none";
-        }
-      } catch (e) {
-        // If we get a security error when trying to access iframe contents,
-        // that indicates a cross-origin issue
-        console.log("Security error accessing iframe - likely blocked by browser", e);
+      // We can't reliably check cross-origin iframe content
+      // Just ensure the iframe is visible and working
+      if (!iframe.style.height || iframe.style.height === "0px") {
+        console.log("Payment form might be blocked - showing fallback");
         fallbackContainer.style.display = "block";
         iframe.style.display = "none";
       }
@@ -138,31 +129,17 @@
     iframe.onload = () => {
       clearTimeout(timeout);
       
-      // Additional check after load to verify content is accessible
-      try {
-        // If we can access the iframe's location, it loaded successfully
-        const testAccess = iframe.contentWindow.location.href;
-        fallbackContainer.style.display = "none";
-      } catch (e) {
-        // If we get a security error, the content might have loaded but is
-        // not accessible due to cross-origin restrictions
-        console.log("Iframe loaded but content might be restricted", e);
-        
-        // Set a longer timeout to give time for the actual form to render
-        // before showing fallback message
-        setTimeout(() => {
-          try {
-            // One final check before showing fallback
-            if (!iframe.contentWindow.document.body.innerHTML) {
-              fallbackContainer.style.display = "block";
-              iframe.style.display = "none";
-            }
-          } catch (e) {
-            fallbackContainer.style.display = "block";
-            iframe.style.display = "none";
-          }
-        }, 1000);
+      // We should not try to access iframe.contentWindow.location.href
+      // as it will cause cross-origin errors in most browsers
+      console.log("Iframe loaded successfully");
+      
+      // Set a reasonable height for the iframe initially
+      if (!iframe.style.height || iframe.style.height === "0px") {
+        iframe.style.height = "600px";
       }
+      
+      // Hide fallback by default - we assume the iframe loaded
+      fallbackContainer.style.display = "none";
     };
   }
 
