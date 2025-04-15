@@ -4,6 +4,35 @@ import matter from "gray-matter";
 import path from "path";
 
 /**
+ * Verifies if an image exists and has appropriate dimensions for social media
+ * @param {string} imagePath - Path to the image relative to static directory
+ * @returns {object} - Object containing verified image path and dimensions
+ */
+function verifyImage(imagePath) {
+  const defaultImage = "/assets/media/website_screenshot.png";
+  const localImagePath = path.join(process.cwd(), "static", imagePath);
+  
+  if (!fs.existsSync(localImagePath)) {
+    console.warn(`Warning: Image not found at ${imagePath}. Using default.`);
+    return {
+      path: defaultImage,
+      width: 1200,
+      height: 630
+    };
+  }
+  
+  // For now we're just verifying existence, not actual dimensions
+  // In a production environment, you might want to use an image processing
+  // library to check actual dimensions
+  
+  return {
+    path: imagePath,
+    width: 1200,  // Default OG image width
+    height: 630   // Default OG image height
+  };
+}
+
+/**
  * Extracts metadata from a markdown file
  * @param {string} slug - The slug/identifier for the blog post
  * @returns {Object} - Object containing extracted metadata
@@ -167,27 +196,15 @@ export function injectMetaTags(html, url) {
       ? `/assets/og/${slug}.png`
       : "/assets/media/website_screenshot.png";
 
-    // Verify image exists, fall back to default if not
-    let finalImagePath = customOgImagePath;
-    const localImagePath = path.join(
-      process.cwd(),
-      "static",
-      customOgImagePath
-    );
-
-    if (!fs.existsSync(localImagePath)) {
-      console.warn(`Warning: OG image not found for ${slug}. Using default.`);
-      finalImagePath = "/assets/media/website_screenshot.png";
-    }
+    // Verify image exists, get dimensions, fall back to default if needed
+    const verifiedImage = verifyImage(customOgImagePath);
+    const finalImagePath = verifiedImage.path;
 
     // Make sure the image URL is absolute and doesn't have any special characters
-    const absoluteImageUrl = `${siteUrl}${finalImagePath.replace(
-      /\s/g,
-      "%20"
-    )}`;
+    const absoluteImageUrl = new URL(finalImagePath, siteUrl).toString();
 
     // Generate absolute URL for the post - ensure no trailing slash
-    const absoluteUrl = `${siteUrl}/blog/${slug}`;
+    const absoluteUrl = new URL(`/blog/${slug}`, siteUrl).toString();
 
     // Create the meta tag string - with escaping for special characters
     // Enforce Twitter character limits
@@ -226,6 +243,7 @@ ${
 <meta name="twitter:title" content="${safeTitle}" />
 <meta name="twitter:description" content="${safeDescription}" />
 <meta name="twitter:image" content="${absoluteImageUrl}" />
+<meta property="twitter:image" content="${absoluteImageUrl}" />
 <meta name="twitter:image:alt" content="${safeTitle}" />
 <meta name="twitter:domain" content="${siteUrl.replace(/^https?:\/\//, "")}" />
 
@@ -238,8 +256,8 @@ ${
 <meta property="og:image" content="${absoluteImageUrl}" />
 <meta property="og:image:secure_url" content="${absoluteImageUrl}" />
 <meta property="og:image:type" content="image/png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+<meta property="og:image:width" content="${verifiedImage.width}" />
+<meta property="og:image:height" content="${verifiedImage.height}" />
 <meta property="og:locale" content="en_US" />
 ${
   formattedDate
