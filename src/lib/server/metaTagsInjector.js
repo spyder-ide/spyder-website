@@ -21,10 +21,6 @@ function verifyImage(imagePath) {
     };
   }
   
-  // For now we're just verifying existence, not actual dimensions
-  // In a production environment, you might want to use an image processing
-  // library to check actual dimensions
-  
   return {
     path: imagePath,
     width: 1200,  // Default OG image width
