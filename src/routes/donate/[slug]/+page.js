@@ -36,21 +36,32 @@ export async function load({ params, fetch }) {
       oneTime: 0,
     };
 
+    // Create a mapping of common terms in deal names to project slugs
+    const dealNameToSlugMap = {
+      "spyder": ["spyder"],
+      "code-completions": ["code completion", "smarter code"],
+      "new-viewer-pane": ["viewer pane", "new viewer"],
+      "syntax-highlighting": ["syntax highlight", "syntax-highlight"],
+      "variable-explorer-improvements": ["variable explorer", "level-up the variable"]
+    };
+
+    // Get the possible matches for this project's slug
+    const possibleMatches = dealNameToSlugMap[project.slug] || [project.slug.replace(/-/g, ' ')];
+
     // Get deals for this project
     hubspotData.pipelineDeals.forEach((deal) => {
-      // Replace hyphens with spaces for comparison
-      const projectNameForComparison = project.slug.toLowerCase().replace(/-/g, ' ');
-      if (
-        deal.properties.dealname.toLowerCase().includes(
-          projectNameForComparison
-        )
-      ) {
+      const dealNameLower = deal.properties.dealname.toLowerCase();
+      
+      // Check if any of the possible matches are in the deal name
+      const isMatch = possibleMatches.some(match => dealNameLower.includes(match.toLowerCase()));
+      
+      if (isMatch) {
         projectDonations.deals.push(deal);
         const amount = parseFloat(deal.properties.amount) || 0;
         projectDonations.total += amount;
 
         // Separate monthly and one-time donations
-        if (deal.properties.dealname.toLowerCase().includes("monthly")) {
+        if (dealNameLower.includes("monthly")) {
           projectDonations.monthly += amount;
         } else {
           projectDonations.oneTime += amount;
