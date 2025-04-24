@@ -23,12 +23,27 @@ export async function load({ fetch }) {
       };
     });
 
+    // Create a mapping of common terms in deal names to project slugs
+    const dealNameToSlugMap = {
+      "spyder": ["spyder"],
+      "code-completions": ["code completion", "smarter code"],
+      "new-viewer-pane": ["viewer pane", "new viewer"],
+      "syntax-highlighting": ["syntax highlight", "syntax-highlight"],
+      "variable-explorer-improvements": ["variable explorer", "level-up the variable"]
+    };
+
     // Sort deals into their respective projects
     hubspotData.pipelineDeals.forEach((deal) => {
+      const dealNameLower = deal.properties.dealname.toLowerCase();
+      
+      // Check each project for potential matches
       content.props.projects.forEach((project) => {
-        // Replace hyphens with spaces for comparison
-        const projectNameForComparison = project.slug.toLowerCase().replace(/-/g, ' ');
-        if (deal.properties.dealname.toLowerCase().includes(projectNameForComparison)) {
+        const possibleMatches = dealNameToSlugMap[project.slug] || [project.slug.replace(/-/g, ' ')];
+        
+        // Check if any of the possible matches are in the deal name
+        const isMatch = possibleMatches.some(match => dealNameLower.includes(match.toLowerCase()));
+        
+        if (isMatch) {
           projectDonations[project.slug].deals.push(deal);
           projectDonations[project.slug].total +=
             parseFloat(deal.properties.amount) || 0;
