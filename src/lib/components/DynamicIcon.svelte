@@ -7,35 +7,36 @@
   export let iconTheme = "bs";
   export let size = "1.2rem";
 
-  let iconThemes = {
+  // We need to use the proper import structure for svelte-icons-pack
+  // First import the whole theme, then access specific icons
+  const themeImports = {
     ai: () => import("svelte-icons-pack/ai"),
     bs: () => import("svelte-icons-pack/bs"),
     bi: () => import("svelte-icons-pack/bi"),
-    ci: () => import("svelte-icons-pack/ci"),
-    fi: () => import("svelte-icons-pack/fi"),
-    fa: () => import("svelte-icons-pack/fa"),
-    oi: () => import("svelte-icons-pack/oi"),
-    hi: () => import("svelte-icons-pack/hi"),
-    im: () => import("svelte-icons-pack/im"),
-    io: () => import("svelte-icons-pack/io"),
     lu: () => import("svelte-icons-pack/lu"),
-    ri: () => import("svelte-icons-pack/ri"),
-    si: () => import("svelte-icons-pack/si"),
-    sl: () => import("svelte-icons-pack/sl"),
-    ti: () => import("svelte-icons-pack/ti"),
-    tr: () => import("svelte-icons-pack/tr"),
-    wi: () => import("svelte-icons-pack/wi"),
     vsc: () => import("svelte-icons-pack/vsc"),
+    // Add others as needed
   };
 
   async function getIcon(iconName, iconTheme) {
     try {
-      const moduleLoader = iconThemes[iconTheme];
-      if (!moduleLoader) {
-        throw new Error(`Unknown icon theme: ${iconTheme}`);
+      // Get the theme module loader
+      const themeLoader = themeImports[iconTheme];
+      if (!themeLoader) {
+        console.warn(`Icon theme not configured: ${iconTheme}`);
+        return null;
       }
-      const module = await moduleLoader();
-      return module[iconName];
+
+      // Load the entire theme module
+      const themeModule = await themeLoader();
+      
+      // Get the specific icon from the theme
+      if (!(iconName in themeModule)) {
+        console.warn(`Icon not found: ${iconName} in theme: ${iconTheme}`);
+        return null;
+      }
+      
+      return themeModule[iconName];
     } catch (error) {
       console.error(`Failed to load icon: ${iconName} from theme: ${iconTheme}`, error);
       return null;
