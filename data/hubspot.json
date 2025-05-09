@@ -489,6 +489,20 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-05-09T09:32:29.404Z"
+    },
+    {
+      "createdAt": "2025-05-09T17:48:47.939Z",
+      "archived": false,
+      "id": "36989563671",
+      "properties": {
+        "amount": "2.00",
+        "createdate": "2025-05-09T17:48:47.939Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-05-09T17:48:59.147Z",
+        "hs_object_id": "36989563671",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-05-09T17:48:59.147Z"
     }
   ],
   "monthlyDeals": [
@@ -983,10 +997,24 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-05-09T09:32:29.404Z"
+    },
+    {
+      "createdAt": "2025-05-09T17:48:47.939Z",
+      "archived": false,
+      "id": "36989563671",
+      "properties": {
+        "amount": "2.00",
+        "createdate": "2025-05-09T17:48:47.939Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-05-09T17:48:59.147Z",
+        "hs_object_id": "36989563671",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-05-09T17:48:59.147Z"
     }
   ],
-  "totalDonations": 1142,
+  "totalDonations": 1144,
   "totalMonthlyDonations": 360,
-  "totalOneTimeDonations": 782,
-  "lastUpdated": "2025-05-09T17:08:12.942Z"
+  "totalOneTimeDonations": 784,
+  "lastUpdated": "2025-05-09T18:01:45.713Z"
 }
