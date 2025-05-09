@@ -1,0 +1,78 @@
+page:
+  title: Apóyanos
+  monthly: Mensual
+  oneTime: Una sola vez
+  back: Volver a la lista
+  supporters: Total de colaboradores
+  intro: |
+    Nuestra misión es crear y mantener **el mejor IDE de Python de código abierto** para científicos, ingenieros y analistas de datos que sea tanto **potente como fácil de usar**. Tus donaciones sostienen este esfuerzo y financian las características que más te interesa ver en futuras versiones. ¿Te gustaría contribuir hoy?
+
+    * Todas las donaciones son administradas por [NumFOCUS](https://numfocus.org/), una organización benéfica sin fines de lucro registrada.
+    * Spyder es un proyecto independiente, desarrollado por la comunidad, sin afiliación con Anaconda u otras empresas comerciales.
+
+projects:
+  - id: 0
+    title: Apoyar a Spyder
+    collected: Balance disponible
+    separator: de
+    intro: >-
+      ¿Quieres apoyar el proyecto Spyder en su conjunto, con el dinero utilizado donde más se necesita? ¡Dona aquí!
+    content: |
+      El desarrollo y mantenimiento continuo de Spyder es posible gracias a ti, nuestra comunidad de usuarios\! Tus contribuciones a Spyder en general nos han ayudado a financiar desarrolladores, estudiantes y pasantes para contribuir con mejoras críticas, apoyar a miembros clave del equipo como nuestro diseñador de interfaces y web, pagar la infraestructura web crítica, y financiar esfuerzos de divulgación y comunidad para asegurarnos de que estamos haciendo lo mejor posible para servir a todos ustedes!
+    button:
+      text: Apoyar a Spyder
+
+  - id: 1
+    title: Autocompletado de código más inteligente
+    collected: Recaudado hasta ahora
+    separator: de
+    intro: >-
+      El autocompletado de código en el Editor de Spyder tiene mucho margen de mejora, y tenemos un camino claro para mejorarlos significativamente. ¡Ayúdanos a hacerlos de clase mundial!
+    content: |
+      El Editor de Spyder se beneficiaría enormemente de una muy necesaria revisión para proporcionar mejores autocompletados de código. Con tu apoyo podremos:
+
+      * Mejorar nuestro [servidor de lenguaje actual](https://github.com/python-lsp/python-lsp-server/) y/o usar uno [más potente](https://github.com/DetachHead/basedpyright) (similar al usado por VSCode) para autocompletados.
+      * Conectar el Editor a la consola IPython para obtener autocompletados y documentación en caso de que no estén disponibles a través del servidor de lenguaje.
+    button:
+      text: Apoyar este proyecto
+
+  - id: 2
+    title: Nuevo panel de visualización
+    collected: Recaudado hasta ahora
+    separator: de
+    intro: >-
+      Las bibliotecas de visualización populares como Bokeh, Plotly o Altair actualmente solo funcionan en un entorno de notebook. Un nuevo panel de visualización permitiría interactuar con ellas directamente dentro de Spyder, sin necesidad de notebook.
+    content: |
+      Las bibliotecas de visualización como Bokeh, Plotly o Altair e interfaces como IPywidgets, Panel o Dash actualmente están diseñadas para funcionar solo en un entorno de notebook. Un nuevo panel de visualización abordaría esto empaquetando las bibliotecas Javascript necesarias para mostrar e interactuar con estos tipos de contenido desde Spyder.
+
+      Esto mejoraría enormemente la experiencia de desarrollo y análisis de datos para los usuarios de Spyder, y también permitiría una adopción más amplia de estas herramientas de visualización fuera de los límites de los notebooks de Jupyter.
+    button:
+      text: Apoyar este proyecto
+
+  - id: 3
+    title: Potenciar el resaltado de sintaxis
+    collected: Recaudado hasta ahora
+    separator: de
+    intro: >-
+      Ayúdanos a implementar un resaltado de sintaxis semántico mejorado en el Editor, permitiendo que los argumentos de funciones, nombres de clases y funciones, y otros fragmentos especiales de código sean detectados y estilizados. Esto también conduciría a mejoras importantes en el panel Esquema de Spyder.
+    content: |
+      El resaltado de sintaxis semántico completo, la capacidad de colorear el código según su rol semántico, es una característica que nos han solicitado desde hace mucho tiempo. Agregar soporte para esto permitiría resaltar los argumentos de funciones, nombres de clases/funciones y otras construcciones en colores únicos, lo que mejoraría enormemente la legibilidad del código.
+
+      Además, permitiría que el panel Esquema pueda mostrar contenidos mucho más ricos y apropiados para cada archivo, facilitando la navegación.
+
+      Ha sido un desafío implementar esto ya que las bibliotecas en las que Spyder se ha basado para la detección y resaltado de sintaxis no se han mantenido al día con las utilizadas por muchos otros editores. Tu apoyo nos permitiría migrar a un marco moderno y en desarrollo activo que proporcione las mismas características que esperas en los IDE más populares.
+    button:
+      text: Apoyar este proyecto
+
+  - id: 4
+    title: Mejorar el explorador de variables
+    collected: Recaudado hasta ahora
+    separator: de
+    intro: >-
+      Nos gustaría agregar soporte para ver objetos/tipos de datos personalizados en el Explorador de Variables sin necesidad de instalar todas sus bibliotecas correspondientes en el entorno de aplicación de Spyder, así como hacer que guardar y cargar sesiones sea mucho más robusto.
+    content: |
+      El Explorador de Variables es uno de los paneles más queridos en Spyder. Sin embargo, para inspeccionar cualquier objeto de una clase o tipo de datos personalizado, necesita tener las bibliotecas utilizadas para crearlo instaladas en el propio entorno de aplicación de Spyder. Esto es poco práctico, podría romper Spyder y está impedido por diseño con nuestros instaladores independientes recomendados.
+
+      Nos gustaría abordar esto mediante el soporte de un método portátil y simplificado de representación de objetos que no esté limitado por tal restricción. Junto con eso, también nos gustaría hacer que guardar y cargar archivos spydata para restaurar tu sesión actual más tarde sea más confiable y funcione en una variedad más amplia de tipos de datos utilizando una biblioteca más robusta para esa tarea.
+    button:
+      text: Apoyar este proyecto 
