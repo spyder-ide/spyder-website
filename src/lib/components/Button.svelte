@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   import DynamicIcon from "./DynamicIcon.svelte";
 
   export let button = true;
@@ -37,6 +38,7 @@
   let translatedIcon = icons[icon] || "";
   let iconTheme = iconThemes[icon] || "bs";
   let hasIcon = translatedIcon !== "";
+  let visible = false;
 
   switch (textSize) {
     case "xs":
@@ -52,6 +54,13 @@
       iconSize *= 1.3;
       break;
   }
+
+  onMount(() => {
+    // Small delay to ensure everything is loaded before showing
+    setTimeout(() => {
+      visible = true;
+    }, 50);
+  });
 </script>
 
 {#if isLink}
@@ -71,7 +80,9 @@
     class:text-md={textSize === "md"}
     class:text-lg={textSize === "lg"}
     class:text-xl={textSize === "xl"}
-    class="flex items-center justify-between gap-3 font-medium"
+    class:fade-in={visible}
+    class="flex items-center justify-between gap-3 font-medium transition-opacity duration-300"
+    class:opacity-0={!visible}
     {rel}
     {href}
     {title}
@@ -155,5 +166,9 @@
 
   .button.regular {
     @apply from-mine-shaft-50 to-mine-shaft-100 text-neutral-700 border border-mine-shaft-300;
+  }
+
+  .fade-in {
+    @apply opacity-100;
   }
 </style>

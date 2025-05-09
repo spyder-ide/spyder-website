@@ -1,14 +1,14 @@
 <script>
-  import { _, json, isLoading } from "svelte-i18n";
   import { onMount } from "svelte";
+  import { _, isLoading, json } from "svelte-i18n";
 
-  import { osStore } from "$lib/store";
   import { config } from "$lib/config";
+  import { osStore } from "$lib/store";
 
-  import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
-  import ImageCompare from "$lib/components/ImageCompare.svelte";
   import Divider from "$lib/components/Divider.svelte";
+  import ImageCompare from "$lib/components/ImageCompare.svelte";
+  import Vanta from "$lib/components/Vanta.svelte";
 
   export let id = "";
   export let classes = "";
@@ -18,6 +18,7 @@
   export let buttons = [];
 
   let heroContent, heroImages, githubButton, githubButtonTranslation, translatedGithubButton, unsubscribeOs;
+  let isOsLoading = true;
 
   $: {
     heroContent = $json("config.site.heroContent") || "";
@@ -28,6 +29,7 @@
 
     // Subscribe to osStore
     unsubscribeOs = osStore.subscribe((data) => {
+      isOsLoading = data.loading;
       if (!data.loading && !$isLoading) {
         const translatedOsButtons = data.osButtons.map((button) => ({
           ...button,
@@ -73,11 +75,16 @@
     <p class="text-center font-light md:text-lg xl:text-xl">
       {heroContent.description}
     </p>
-    {#if buttons.length > 0}
+    {#if buttons.length > 0 && !isOsLoading && !$isLoading}
       <div class="grid grid-flow-row items-center gap-4 md:grid-flow-col">
         {#each buttons as button}
           <Button highlight={button.highlight} icon={button.icon} text={button.text} href={button.href} />
         {/each}
+      </div>
+    {:else if heroContent.description}
+      <div class="grid grid-flow-row items-center gap-4 md:grid-flow-col h-12 opacity-0">
+        <!-- Placeholder to reserve space -->
+        <div class="py-4 px-5 rounded min-h-12 w-32"></div>
       </div>
     {/if}
   </div>
