@@ -21,11 +21,13 @@ projects:
   - guid: 'python-lsp'
     name: 'Python LSP Server'
     description: 'The python-language-server project, maintained by the Spyder IDE team and the community'
-    repositoryUrl:
+    webpageUrl:
       url: 'https://github.com/python-lsp'
+    repositoryUrl:
+      url: 'https://github.com/python-lsp/python-lsp-server'
       wellKnown: ''
     licenses: ['spdx:MIT']
-    tags: ['python', 'language-server-protocol', 'lsp', 'ide' 'spyder']
+    tags: ['python', 'language-server-protocol', 'lsp', 'ide', 'spyder']
 funding:
   channels:
     - guid: 'hubspot'
