@@ -8,7 +8,7 @@ page:
     Our mission is to create and maintain **the best open source Python IDE** for scientists, engineers and data analysts that is both **powerful and easy to use**. Your donations sustain this effort and fund the features you're most interested in seeing in future versions. Would you give today?
 
     * All donations are stewarded by [NumFOCUS](https://numfocus.org/), a registered non-profit charitable organization.    
-    * Spyder is a fully independent, community-developed project, unaffiliated with Anaconda or other commercial companies.
+    * Spyder is a community-developed project unaffiliated with Anaconda or commercial companies.
 
 projects:
   - id: 0
@@ -20,7 +20,9 @@ projects:
     content: |
       Spyder’s continued development and maintenance is made possible by you, our user community\! Your contributions to Spyder as a whole have helped us fund developers, students and interns to contribute critical improvements, support key members of the team such as our web and interface designer, pay for critical web infrastructure, and fund outreach and community efforts to make sure we are doing the best we can to serve all of you!
     button:
-      text: Support Spyder
+      text: Donate now
+    secondaryButton:
+      text: Read more
 
   - id: 1
     title: Smarter code completion

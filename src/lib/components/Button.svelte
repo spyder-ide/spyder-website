@@ -29,6 +29,8 @@
     unknown: "BsQuestionCircleFill",
     windows: "BsWindows",
     donate: "BsHeartFill",
+    more: "BsArrowRightCircleFill",
+    info: "BsInfoCircleFill"
   };
 
   let iconThemes = {

@@ -1,7 +1,6 @@
 <script>
   import { browser } from "$app/environment";
   import Button from "$lib/components/Button.svelte";
-  import DynamicBg from "$lib/components/DynamicBg.svelte";
   import Loader from "$lib/components/Loader.svelte";
   import ProgressBar from "$lib/components/ProgressBar.svelte";
   import { colourScheme } from "$lib/store";
@@ -161,20 +160,6 @@
           </a>
         {:else if project.image}
           <img class="project-image" src={project.image} alt={project.title} />
-        {:else}
-          <div class="dynamic-bg-container">
-            {#key redrawKey}
-              <DynamicBg
-                width={canvasWidth}
-                height={canvasHeight}
-                backgroundColor={$colourScheme === "dark" ? bgColors.dark : bgColors.light}
-                strokeColor={$colourScheme === "dark" ? fgColors.dark : fgColors.light}
-                stroke={effectParams.stroke}
-                strokeAlpha={effectParams.strokeAlpha}
-                effectType={effectParams.effectType}
-              />
-            {/key}
-          </div>
         {/if}
       {/await}
       <h4 class="card-title">
@@ -232,10 +217,6 @@
 
   .project-image {
     @apply rounded-t-2xl aspect-square w-full md:aspect-video;
-  }
-
-  .dynamic-bg-container {
-    @apply rounded-t-2xl aspect-square w-full md:aspect-video overflow-hidden;
   }
 
   .card-content {

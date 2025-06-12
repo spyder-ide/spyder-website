@@ -19,7 +19,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 14491
+    "contributions": 14512
   },
   {
     "login": "dalthviz",
@@ -41,7 +41,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 2500
+    "contributions": 2511
   },
   {
     "login": "PierreRaybaut",
@@ -242,6 +242,28 @@
     "contributions": 385
   },
   {
+    "login": "jitseniesen",
+    "id": 7941918,
+    "node_id": "MDQ6VXNlcjc5NDE5MTg=",
+    "avatar_url": "https://avatars.githubusercontent.com/u/7941918?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/jitseniesen",
+    "html_url": "https://github.com/jitseniesen",
+    "followers_url": "https://api.github.com/users/jitseniesen/followers",
+    "following_url": "https://api.github.com/users/jitseniesen/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jitseniesen/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/jitseniesen/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jitseniesen/subscriptions",
+    "organizations_url": "https://api.github.com/users/jitseniesen/orgs",
+    "repos_url": "https://api.github.com/users/jitseniesen/repos",
+    "events_url": "https://api.github.com/users/jitseniesen/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/jitseniesen/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false,
+    "contributions": 311
+  },
+  {
     "login": "juanis2112",
     "id": 18587879,
     "node_id": "MDQ6VXNlcjE4NTg3ODc5",
@@ -286,28 +308,6 @@
     "contributions": 304
   },
   {
-    "login": "jitseniesen",
-    "id": 7941918,
-    "node_id": "MDQ6VXNlcjc5NDE5MTg=",
-    "avatar_url": "https://avatars.githubusercontent.com/u/7941918?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/jitseniesen",
-    "html_url": "https://github.com/jitseniesen",
-    "followers_url": "https://api.github.com/users/jitseniesen/followers",
-    "following_url": "https://api.github.com/users/jitseniesen/following{/other_user}",
-    "gists_url": "https://api.github.com/users/jitseniesen/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/jitseniesen/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/jitseniesen/subscriptions",
-    "organizations_url": "https://api.github.com/users/jitseniesen/orgs",
-    "repos_url": "https://api.github.com/users/jitseniesen/repos",
-    "events_url": "https://api.github.com/users/jitseniesen/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/jitseniesen/received_events",
-    "type": "User",
-    "user_view_type": "public",
-    "site_admin": false,
-    "contributions": 302
-  },
-  {
     "login": "hlouzada",
     "id": 5204788,
     "node_id": "MDQ6VXNlcjUyMDQ3ODg=",
@@ -327,7 +327,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 242
+    "contributions": 247
   },
   {
     "login": "SylvainCorlay",
@@ -371,7 +371,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 176
+    "contributions": 177
   },
   {
     "login": "bcolsen",
@@ -481,7 +481,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 105
+    "contributions": 107
   },
   {
     "login": "ok97465",
