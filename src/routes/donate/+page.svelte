@@ -135,28 +135,29 @@
               {#if spyderProject.intro}
                 <div class="card-content-large">{spyderProject.intro}</div>
               {/if}
-              {#if spyderProject.secondaryButton}
-                <div class="button-container">
-                  <Button
-                    text={spyderProject.secondaryButton.text}
-                    icon="more"
-                    textSize="sm"
-                    href={`/donate/${spyderProject.slug.toLowerCase()}`}
-                  />
-                </div>
-              {/if}
               {#if spyderProject.button}
-                <div class="button-container">
-                  <Button
-                    text={spyderProject.button.text}
-                    highlight={true}
-                    icon="donate"
-                    iconSize={24}
-                    textSize="lg"
-                    isLink={false}
-                    fullwidth={true}
-                    on:click={() => openDonationModal(spyderProject.donationLinkID)}
-                  />
+                <div class="button-container flex flex-col gap-4 md:flex-row">
+                  {#if spyderProject.button && spyderProject.button.text && spyderProject.donationLinkID}
+                    <Button
+                      text={spyderProject.button.text}
+                      highlight={true}
+                      icon="donate"
+                      iconSize={24}
+                      textSize="lg"
+                      isLink={false}
+                      fullwidth={true}
+                      on:click={() => openDonationModal(spyderProject.donationLinkID)}
+                    />
+                  {/if}
+                  {#if spyderProject.secondaryButton && spyderProject.secondaryButton.text}
+                    <Button
+                      text={spyderProject.secondaryButton.text}
+                      icon="more"
+                      textSize="lg"
+                      fullwidth={true}
+                      href={`/donate/${spyderProject.slug.toLowerCase()}`}
+                    />
+                  {/if}
                 </div>
               {/if}
             </div>
