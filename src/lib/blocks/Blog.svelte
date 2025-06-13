@@ -1,10 +1,10 @@
 <script>
-  import { _, waitLocale, locale } from "svelte-i18n";
+  import { _, locale, waitLocale } from "svelte-i18n";
 
   import { browser } from "$app/environment";
   import { base } from "$app/paths";
 
-  import { formattedPubDate, fetchAuthorsMetadata } from "$lib/utils";
+  import { fetchAuthorsMetadata, formattedPubDate } from "$lib/utils";
 
   import Loader from "$lib/components/Loader.svelte";
   import Pagination from "$lib/components/Pagination.svelte";
@@ -62,7 +62,7 @@
         font-extralight
         text-mine-shaft-600
         dark:text-mine-shaft-200
-        my-16 md:my-32"
+        my-16 xl:my-32"
     >
       {$_("config.blog.title")}
     </h1>
@@ -71,7 +71,7 @@
       {#await postsWithAuthor}
         <Loader classes="fill-black dark:fill-white" />
       {:then loadedPosts}
-        <div class="grid grid-flow-row gap-24">
+        <div class="grid grid-flow-row gap-16 xl:gap-24">
           {#each loadedPosts as post}
             <article>
               <h2

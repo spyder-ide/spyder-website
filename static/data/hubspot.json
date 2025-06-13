@@ -965,6 +965,34 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-06-11T23:51:02.628Z"
+    },
+    {
+      "createdAt": "2025-06-12T22:03:20.494Z",
+      "archived": false,
+      "id": "38825619778",
+      "properties": {
+        "amount": "35.00",
+        "createdate": "2025-06-12T22:03:20.494Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-12T22:09:02.364Z",
+        "hs_object_id": "38825619778",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-12T22:09:02.364Z"
+    },
+    {
+      "createdAt": "2025-06-13T03:32:18.747Z",
+      "archived": false,
+      "id": "38829177434",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-13T03:32:18.747Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-13T03:37:46.170Z",
+        "hs_object_id": "38829177434",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-13T03:37:46.170Z"
     }
   ],
   "monthlyDeals": [
@@ -1935,10 +1963,38 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-06-11T23:51:02.628Z"
+    },
+    {
+      "createdAt": "2025-06-12T22:03:20.494Z",
+      "archived": false,
+      "id": "38825619778",
+      "properties": {
+        "amount": "35.00",
+        "createdate": "2025-06-12T22:03:20.494Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-12T22:09:02.364Z",
+        "hs_object_id": "38825619778",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-12T22:09:02.364Z"
+    },
+    {
+      "createdAt": "2025-06-13T03:32:18.747Z",
+      "archived": false,
+      "id": "38829177434",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-13T03:32:18.747Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-13T03:37:46.170Z",
+        "hs_object_id": "38829177434",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-13T03:37:46.170Z"
     }
   ],
-  "totalDonations": 2306.5,
+  "totalDonations": 2391.5,
   "totalMonthlyDonations": 360,
-  "totalOneTimeDonations": 1946.5,
-  "lastUpdated": "2025-06-12T20:27:57.031Z"
+  "totalOneTimeDonations": 2031.5,
+  "lastUpdated": "2025-06-13T20:34:04.243Z"
 }

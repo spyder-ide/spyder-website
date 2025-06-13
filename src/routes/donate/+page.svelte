@@ -19,6 +19,7 @@
   // Modal state
   let showModal = false;
   let selectedProjectDonationLinkID = null;
+  let currencyOptions = { style: "currency", currency: "USD", maximumFractionDigits: 0 };
 
   $: keywords = config.site?.keywords ?? [];
   $: lastUpdated = data?.lastUpdated ? new Date(data.lastUpdated).toLocaleDateString($locale) : null;
@@ -64,9 +65,9 @@
 
 <Metadata />
 
-<div class="download container mt-32">
+<div class="download container mt-16 xl:mt-32">
   <h1
-    class="mb-16
+    class="mb-16 xl:mb-32
       text-center
       text-4xl
       font-extralight
@@ -121,15 +122,11 @@
             </div>
             <div class="card-container-large">
               {#if spyderProject.donations}
-                <div class="donations-large">
+                <div class="donations-large flex flex-col">
                   {spyderProject.collected}:
-                  <br /><span class="font-semibold text-6xl"
-                    >{spyderProject.donations.total.toLocaleString($locale, {
-                      style: "currency",
-                      currency: "USD",
-                      maximumFractionDigits: 0,
-                    })}</span
-                  >
+                  <span class="font-semibold text-6xl">
+                    {spyderProject.donations.total.toLocaleString($locale, currencyOptions)}
+                  </span>
                 </div>
               {/if}
               {#if spyderProject.intro}
@@ -169,9 +166,12 @@
 
   <!-- Other Projects -->
   {#if otherProjects.length > 0}
+    <h2 class="text-3xl xl:text-4xl font-extralight xl:font-light text-center text-red-berry-900 dark:text-neutral-400 my-16 xl:mt-32">
+      {$_("donate.page.otherProjects.title")}
+    </h2>
     <div class="mt-16 flex flex-wrap justify-center">
       {#each otherProjects as project}
-        <ProjectCard {project} href={`/donate/${project.slug.toLowerCase()}`} />
+        <ProjectCard {project} href={`/donate/${project.slug.toLowerCase()}`} onDonate={openDonationModal} />
       {/each}
     </div>
   {/if}

@@ -7,10 +7,11 @@
 
   export let project;
   export let href;
+  export let onDonate = null; // Callback function for donation
 
   let currencyOptions = { style: "currency", currency: "USD", maximumFractionDigits: 0 };
 
-  const imageExists = async () => await checkImageExists(project.image) ? true : false;
+  const imageExists = async () => ((await checkImageExists(project.image)) ? true : false);
 
   $: progress = Math.min(project.donations?.progress || 0, 100);
 </script>
@@ -35,17 +36,41 @@
     </div>
     <div class="card-container">
       {#if project.donations}
-        <div class="donations">
-          {project.collected}:
-          {#if !project.donationGoal}
-            <br/><span class="font-semibold text-6xl">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
-          {/if}
-          {#if project.donationGoal}
-            <span class="font-semibold">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
-            {project.separator}
-            <span class="font-bold">{project.donationGoal.toLocaleString($locale, currencyOptions)}</span>
-            <ProgressBar {progress} />
-          {/if}
+        <div class="donations-container">
+          <div class="donations flex flex-row gap-4 items-center justify-between">
+            <div class="goals-container w-full">
+              <div class="data-container">
+                <span>{project.collected}:</span>
+                {#if project.donationGoal}
+                  <!-- We show the goal for the projects that have one -->
+                  <span class="font-semibold">{project.donations.total.toLocaleString($locale, currencyOptions)}</span>
+                  {project.separator}
+                  <span class="font-semibold">{project.donationGoal.toLocaleString($locale, currencyOptions)}</span>
+                {:else}
+                  <!-- We don´t show the goal for the projects that don´t have one -->
+                  <span class="font-semibold text-6xl">
+                    {project.donations.total.toLocaleString($locale, currencyOptions)}
+                  </span>
+                {/if}
+              </div>
+              {#if project.donationGoal}
+                <!-- We show the progress bar for the projects that have a goal -->
+                <div class="progress-container">
+                  <ProgressBar {progress} mt={1} />
+                </div>
+              {/if}
+            </div>
+            {#if project.donationLinkID && onDonate}
+              <Button
+                highlight={true}
+                icon="donate"
+                iconSize={16}
+                textSize="lg"
+                isLink={false}
+                on:click={() => onDonate(project.donationLinkID)}
+              />
+            {/if}
+          </div>
         </div>
       {/if}
       {#if project.intro}
@@ -53,7 +78,7 @@
       {/if}
       {#if project.button && href}
         <div class="button-container">
-          <Button text={project.button.text} highlight={true} icon="info" iconSize={20} textSize="md" {href} />
+          <Button text={project.button.text} highlight={false} icon="info" iconSize={20} textSize="md" {href} />
         </div>
       {/if}
     </div>
@@ -64,6 +89,7 @@
   .group {
     @apply w-full flex-shrink-0 py-4 md:w-1/2 md:px-4 xl:w-1/3;
   }
+
   .card {
     @apply grid h-full grid-cols-1 rounded-2xl border border-neutral-300 shadow-2xl dark:border-neutral-700 dark:shadow-neutral-900;
     grid-template-rows: auto 1fr;
@@ -71,7 +97,7 @@
 
   .card-container {
     @apply grid grid-cols-1 gap-8 p-8;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto 1fr;
   }
 
   .card-title {
@@ -79,7 +105,7 @@
   }
 
   .card-image {
-    @apply relative overflow-hidden;
+    @apply relative overflow-hidden border-b-4 border-red-berry-900 dark:border-neutral-700;
   }
 
   .project-image {
