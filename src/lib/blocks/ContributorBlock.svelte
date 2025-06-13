@@ -30,7 +30,7 @@
   class="flex flex-col items-center mx-auto {containerSizeClass[size]}"
 >
   {#if title}
-    <h2 class="text-4xl text-center text-red-berry-900 dark:text-neutral-400 mt-32 mb-16">
+    <h2 class="text-3xl xl:text-4xl font-extralight xl:font-light text-center text-red-berry-900 dark:text-neutral-400 my-16 xl:mt-32">
       {title}
     </h2>
   {/if}
