@@ -149,7 +149,7 @@
                   {#if spyderProject.secondaryButton && spyderProject.secondaryButton.text}
                     <Button
                       text={spyderProject.secondaryButton.text}
-                      icon="more"
+                      icon="info"
                       textSize="lg"
                       fullwidth={true}
                       href={`/donate/${spyderProject.slug.toLowerCase()}`}

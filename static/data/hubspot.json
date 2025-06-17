@@ -993,6 +993,34 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-06-13T03:37:46.170Z"
+    },
+    {
+      "createdAt": "2025-06-15T12:21:32.605Z",
+      "archived": false,
+      "id": "38898539399",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-06-15T12:21:32.605Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-15T12:21:42.995Z",
+        "hs_object_id": "38898539399",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-15T12:21:42.995Z"
+    },
+    {
+      "createdAt": "2025-06-17T00:59:25.566Z",
+      "archived": false,
+      "id": "38953988654",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-17T00:59:25.566Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-17T01:04:55.716Z",
+        "hs_object_id": "38953988654",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-17T01:04:55.716Z"
     }
   ],
   "monthlyDeals": [
@@ -1991,10 +2019,38 @@
         "pipeline": "691999256"
       },
       "updatedAt": "2025-06-13T03:37:46.170Z"
+    },
+    {
+      "createdAt": "2025-06-15T12:21:32.605Z",
+      "archived": false,
+      "id": "38898539399",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-06-15T12:21:32.605Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-15T12:21:42.995Z",
+        "hs_object_id": "38898539399",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-15T12:21:42.995Z"
+    },
+    {
+      "createdAt": "2025-06-17T00:59:25.566Z",
+      "archived": false,
+      "id": "38953988654",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-17T00:59:25.566Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-06-17T01:04:55.716Z",
+        "hs_object_id": "38953988654",
+        "pipeline": "691999256"
+      },
+      "updatedAt": "2025-06-17T01:04:55.716Z"
     }
   ],
-  "totalDonations": 2391.5,
+  "totalDonations": 2461.5,
   "totalMonthlyDonations": 360,
-  "totalOneTimeDonations": 2031.5,
-  "lastUpdated": "2025-06-13T20:34:04.243Z"
+  "totalOneTimeDonations": 2101.5,
+  "lastUpdated": "2025-06-17T21:54:48.880Z"
 }

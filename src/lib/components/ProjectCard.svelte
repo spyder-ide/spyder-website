@@ -76,9 +76,9 @@
       {#if project.intro}
         <div class="card-content">{project.intro}</div>
       {/if}
-      {#if project.button && href}
+      {#if project.secondaryButton && href}
         <div class="button-container">
-          <Button text={project.button.text} highlight={false} icon="info" iconSize={20} textSize="md" {href} />
+          <Button text={project.secondaryButton.text} highlight={false} icon="info" iconSize={20} textSize="md" {href} />
         </div>
       {/if}
     </div>
