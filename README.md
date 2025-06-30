@@ -2,6 +2,7 @@
 
 Minimal static [SvelteKit](https://kit.svelte.dev/) set-up made deployable to [GitHub Pages](https://metonym.github.io/sveltekit-gh-pages/). Based on [sveltekit-gh-pages](https://metonym.github.io/sveltekit-gh-pages/)
 
+- Made with Svelte 4
 - PostCSS framework provided by [TailwindCSS](https://tailwindcss.com/)
 - Icons from the [Svelte Icons Pack](https://leshak.github.io/svelte-icons-pack/)
 - Markdown files processed with [mdsvex](https://mdsvex.pngwn.io/)
@@ -35,3 +36,7 @@ npm run preview
 ```
 
 And preview your built site at [https://localhost:5174](https://localhost:5174)
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
