@@ -5,10 +5,14 @@ page:
   back: Back to list
   supporters: Total Supporters
   intro: |
-    Our mission is to create and maintain **the best open source Python IDE** for scientists, engineers and data analysts that is both **powerful and easy to use**. Your donations sustain this effort and fund the features you're most interested in seeing in future versions. Would you give today?
+    Our mission is to develop the **best scientific Python IDE** that is **powerful and easy to use**.  
+    Your donations are vital to sustaining this effort and funding the features you need. Will you give today?
 
-    * All donations are stewarded by [NumFOCUS](https://numfocus.org/), a registered non-profit charitable organization.    
-    * Spyder is a fully independent, community-developed project, unaffiliated with Anaconda or other commercial companies.
+    * All donations are stewarded by [NumFOCUS](https://numfocus.org/), a registered non-profit charitable organization.
+    * Spyder is a community-developed project unaffiliated with Anaconda or commercial companies.
+
+  otherProjects:
+    title: Other Projects
 
 projects:
   - id: 0
@@ -20,7 +24,9 @@ projects:
     content: |
       Spyder’s continued development and maintenance is made possible by you, our user community\! Your contributions to Spyder as a whole have helped us fund developers, students and interns to contribute critical improvements, support key members of the team such as our web and interface designer, pay for critical web infrastructure, and fund outreach and community efforts to make sure we are doing the best we can to serve all of you!
     button:
-      text: Support Spyder
+      text: Donate now
+    secondaryButton:
+      text: Read more
 
   - id: 1
     title: Smarter code completion
@@ -34,7 +40,9 @@ projects:
       * Enhance our [current language server](https://github.com/python-lsp/python-lsp-server/) and/or use a more [powerful one](https://github.com/DetachHead/basedpyright) (similar to that used by VSCode) for completions.  
       * Connect the Editor to the IPython console to get completions and documentation from it in case they are not available through the language server.
     button:
-      text: Support This Project
+      text: Donate now
+    secondaryButton:
+      text: Read more
 
   - id: 2
     title: New Viewer pane
@@ -47,7 +55,9 @@ projects:
 
       This would both greatly improve the development and data analysis experience for Spyder users, and also enable wider adoption of these visualization tools outside of the confines of Jupyter notebooks.
     button:
-      text: Support This Project
+      text: Donate now
+    secondaryButton:
+      text: Read more
 
   - id: 3
     title: Supercharge syntax highlighting
@@ -62,7 +72,9 @@ projects:
 
       It has been challenging to implement this as the libraries Spyder has relied on for syntax detection and highlighting have not kept up with those used by many other editors. Your support would allow us to migrate to a modern, actively developed framework providing the same features you’ve come to expect in the most popular IDEs.
     button:
-      text: Support This Project
+      text: Donate now
+    secondaryButton:
+      text: Read more
 
   - id: 4
     title: Level-up the Variable Explorer
@@ -75,4 +87,6 @@ projects:
 
       We'd like to address that by supporting a portable, streamlined method of object representation that is not limited by such a restriction. Alongside that, we’d also like to make saving and loading spydata files to restore your current session later more reliable and work on a wider variety of data types by using a more robust library for that task.
     button:
-      text: Support This Project
+      text: Donate now
+    secondaryButton:
+      text: Read more
