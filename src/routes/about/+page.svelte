@@ -111,7 +111,7 @@
         tracking-tight
         font-extralight
         text-mine-shaft-600
-        dark:text-mine-shaft-200 my-16 md:my-32"
+        dark:text-mine-shaft-200 my-16 xl:my-32"
     >
       {pageTitle}
     </h1>
