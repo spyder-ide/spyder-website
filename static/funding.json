@@ -20,21 +20,22 @@
       },
       "repositoryUrl": {
         "url": "https://github.com/spyder-ide",
-        "wellKnown": ""
+        "wellKnown": "https://github.com/spyder-ide/spyder/raw/HEAD/.well-known/funding-manifest-urls"
       },
       "licenses": [
         "spdx:MIT"
       ],
       "tags": [
-        "python",
-        "qt",
-        "anaconda",
-        "pyqt5",
-        "ide",
-        "language-server-protocol",
-        "spyder",
-        "anaconda-distribution",
-        "winpython"
+        "data",
+        "data-science",
+        "data-visualization",
+        "developer-tools",
+        "development",
+        "programming",
+        "science",
+        "scientific-computing",
+        "software-engineering",
+        "python"
       ]
     },
     {
@@ -42,21 +43,26 @@
       "name": "Python LSP Server",
       "description": "The python-language-server project, maintained by the Spyder IDE team and the community",
       "webpageUrl": {
-        "url": "https://github.com/python-lsp"
+        "url": "https://github.com/python-lsp",
+        "wellKnown": "https://github.com/python-lsp/python-lsp-server/raw/HEAD/.well-known/funding-manifest-urls"
       },
       "repositoryUrl": {
         "url": "https://github.com/python-lsp/python-lsp-server",
-        "wellKnown": ""
+        "wellKnown": "https://github.com/python-lsp/python-lsp-server/raw/HEAD/.well-known/funding-manifest-urls"
       },
       "licenses": [
         "spdx:MIT"
       ],
       "tags": [
-        "python",
+        "developer-tools",
+        "development",
+        "programming",
+        "software-engineering",
+        "ide",
         "language-server-protocol",
         "lsp",
-        "ide",
-        "spyder"
+        "lsp-server",
+        "python"
       ]
     }
   ],
@@ -66,7 +72,7 @@
         "guid": "hubspot",
         "type": "payment-provider",
         "address": "https://numfocus.org/donate-for-spyder",
-        "description": "Spyder HubSpot donation page with NumFOCUS"
+        "description": "Spyder Hubspot donation page with NumFOCUS"
       },
       {
         "guid": "numfocus",
@@ -79,7 +85,7 @@
       {
         "guid": "general-fund-onetime",
         "status": "active",
-        "name": "Support Spyder",
+        "name": "Support Spyder one-time",
         "description": "Support the Spyder project as a whole, with the money used where it is needed most.",
         "amount": 0,
         "currency": "USD",
@@ -91,7 +97,7 @@
       {
         "guid": "general-fund-monthly",
         "status": "active",
-        "name": "Support Spyder",
+        "name": "Support Spyder monthly",
         "description": "Support the Spyder project as a whole with a monthly donation, with the money used where it is needed most.",
         "amount": 0,
         "currency": "USD",
@@ -103,7 +109,7 @@
       {
         "guid": "individual",
         "status": "active",
-        "name": "Individual Donation",
+        "name": "Individual Donor",
         "description": "Support us with a monthly donation and help us continue our activities.",
         "amount": 5,
         "currency": "USD",
@@ -134,6 +140,18 @@
         "frequency": "monthly",
         "channels": [
           "hubspot"
+        ]
+      },
+      {
+        "guid": "baseline-maintenance",
+        "status": "active",
+        "name": "Baseline Development and Maintenance",
+        "description": "Help fund critical baseline development and maintenance for our worldwide community of hundreds of thousands of users.",
+        "amount": 50000,
+        "currency": "USD",
+        "frequency": "yearly",
+        "channels": [
+          "numfocus"
         ]
       }
     ],
