@@ -1,37 +1,41 @@
 <script>
-  import { _, json } from "svelte-i18n"
-  import { metadata } from "$lib/store";
-  import { siteUrl, ogImageBlog, config } from "$lib/config";
+  import { page } from "$app/stores";
   import Blog from "$lib/blocks/Blog.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
+  import { config, ogImage } from "$lib/config";
+  import { metadata } from "$lib/store";
+  import { _ } from "svelte-i18n";
 
   /** @type {import('./$types').PageData} */
   export let data;
 
   // Page metadata
-  let pageNum, totalPages, title, subtitle, description, keywords, author;
+  let pageNum, totalPages;
+  let title, subtitle, description, keywords;
 
   $: {
     // Extract page data
     pageNum = data.props.pageNum;
     totalPages = data.props.totalPages;
-
-    // Load page metadata
-    title = $_('config.site.title');
-    subtitle = $_('config.site.subtitle');
-    description = $_('config.site.description');
-    keywords = config.site.keywords;
-    author = $_('config.site.author');
-
-    // Update metadata
+    
+    // Set blog-specific metadata
+    title = $_("config.site.title");
+    subtitle = "Blog";
+    description = $_("config.site.description");
+    keywords = config.site?.keywords ?? [];
+    
+    // Set complete metadata
     metadata.setMetadata({
+      ...data.metadata,
       title: `${title} | ${subtitle}`,
-      description,
+      description: description,
       keywords: keywords.join(", "),
-      author,
-      url: siteUrl,
-      image: ogImageBlog,
+      url: $page.url.href,
+      image: ogImage,
     });
   }
 </script>
+
+<Metadata />
 
 <Blog {data} {pageNum} {totalPages} />

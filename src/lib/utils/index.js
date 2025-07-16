@@ -1,14 +1,6 @@
 import { browser } from "$app/environment";
 import { blogPageSize, blogPageStart, releases } from "$lib/config";
 
-const dataURL =
-  "https://api.github.com/repos/spyder-ide/spyder/contributors?per_page=100";
-let githubToken;
-
-if (import.meta.env.VITE_GITHUB_TOKEN) {
-  githubToken = import.meta.env.VITE_GITHUB_TOKEN;
-}
-
 /**
  * Determines if a variable has a value (even `false` or `0`)
  * @param {*} variable - The value to check
@@ -85,8 +77,9 @@ export function formattedPubDate(date, i18n = "en-US") {
  */
 export async function fetchAuthorMetadata(author, customFetch) {
   try {
+    // In the browser, use fetch
     const response = await (customFetch || fetch)(
-      `/assets/authors/${author}/metadata.json`,
+      `/assets/authors/${author}/metadata.json`
     );
     if (!response.ok) {
       throw new Error("Failed to load author metadata");
@@ -114,9 +107,9 @@ export async function fetchAuthorsMetadata(authors) {
   }
 
   const metadataList = await Promise.all(
-    authors.map((author) => fetchAuthorMetadata(author)),
+    authors.map((author) => fetchAuthorMetadata(author))
   );
-  return metadataList;
+  return metadataList.filter(Boolean); // Remove null entries
 }
 
 /**
@@ -190,21 +183,6 @@ export const getOSButtons = (base, os) => {
 };
 
 /**
- * Dynamically loads an icon from svelte-icons-pack
- * @param {string} iconName - Name of the icon to load
- * @returns {Promise<object|null>} Icon component or null if loading fails
- */
-export async function getIcon(iconName) {
-  try {
-    const module = await import("svelte-icons-pack/bs");
-    return module[iconName];
-  } catch (error) {
-    console.error(`Failed to load icon: ${iconName}`, error);
-    return null;
-  }
-}
-
-/**
  * Processes and merges different contributor lists
  * @param {Array<{id: string|number}>} current - Current contributors
  * @param {Array<{id: string|number}>} past - Past contributors
@@ -229,7 +207,7 @@ export const processContributors = (current, past, all) => {
   const remainingContributors = all.filter(
     (contributor) =>
       !current.some((c) => c.id === contributor.id) &&
-      !past.some((p) => p.id === contributor.id),
+      !past.some((p) => p.id === contributor.id)
   );
 
   return {
@@ -237,64 +215,6 @@ export const processContributors = (current, past, all) => {
     updatedPast,
     remainingContributors,
   };
-};
-
-/**
- * Fetches contributors data from GitHub API
- * @param {Function} [customFetch] - Optional custom fetch function
- * @param {string} [dataSrc] - GitHub API URL
- * @param {string} [token] - GitHub authentication token
- * @param {number} [startPage=1] - Starting page number
- * @param {number} [maxPages=3] - Maximum number of pages to fetch
- * @returns {Promise<{contributors: Array<object>, loading?: boolean, error: string|null}>}
- */
-export const getContributors = async (
-  customFetch = undefined,
-  dataSrc = dataURL || "",
-  token = githubToken || undefined,
-  startPage = 1,
-  maxPages = 3,
-) => {
-  let headers, response;
-  let contributors = [];
-
-  if (token) {
-    headers = {
-      Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-  }
-
-  try {
-    // Fetch the contributors data with authentication
-    for (let n = startPage; n <= maxPages; n++) {
-      if (!dataSrc) throw new Error(`There is no data source to fetch!`);
-      if (headers) {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`, {
-          headers,
-        });
-      } else {
-        response = await (customFetch || fetch)(`${dataSrc}&page=${n}`);
-      }
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      contributors.push(...data);
-    }
-
-    return {
-      contributors,
-      loading: false,
-      error: null,
-    };
-  } catch (error) {
-    console.error("Failed to fetch contributors:", error);
-    return {
-      contributors: [],
-      error: error.message,
-    };
-  }
 };
 
 /**
@@ -345,8 +265,49 @@ export async function loadBlogPage(page = blogPageStart) {
  */
 export async function generateBlogEntries() {
   const { _, totalPages } = await fetchMarkdownPosts(1, blogPageSize);
-  return Array.from(
-    { length: totalPages },
-    (_, i) => ({ page: `${i + 1}` }),
-  );
+  return Array.from({ length: totalPages }, (_, i) => ({ page: `${i + 1}` }));
+}
+
+/**
+ * Gets the correct image URL for a blog post image regardless of trailing slash configuration
+ * @param {string} slug - The blog post slug
+ * @param {string} imagePath - The relative image path (e.g., "./image.png" or "image.png")
+ * @returns {string} The properly formatted image URL
+ */
+export function getBlogImageUrl(slug, imagePath) {
+  if (!slug || !imagePath) return "";
+
+  // Handle absolute URLs (http://, https://, etc.)
+  if (imagePath.startsWith("http")) {
+    return imagePath;
+  }
+
+  // Handle absolute paths
+  if (imagePath.startsWith("/")) {
+    return imagePath;
+  }
+
+  // Handle relative paths with or without leading ./
+  const cleanPath = imagePath.startsWith("./") ? imagePath.slice(2) : imagePath;
+
+  // Create an absolute path that works with trailingSlash 'never'
+  return `/blog/${slug}/${cleanPath}`;
+}
+
+/**
+ * Checks if a given URL resolves to a valid image by making a HEAD request
+ * @param {string} url - The URL to check
+ * @returns {Promise<boolean>} True if URL resolves to a valid image, false otherwise
+ */
+export async function checkImageExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    if (!response.ok) return false;
+    
+    const contentType = response.headers.get('content-type');
+    return contentType && contentType.startsWith('image/');
+  } catch (error) {
+    console.error('Error checking image:', error);
+    return false;
+  }
 }

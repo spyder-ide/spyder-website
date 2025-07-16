@@ -1,0 +1,169 @@
+{
+  "version": "v1.0.0",
+  "entity": {
+    "type": "organisation",
+    "role": "other",
+    "name": "Spyder",
+    "email": "spyder.python@gmail.com",
+    "description": "The Spyder organization, a project of the NumFOCUS nonprofit",
+    "webpageUrl": {
+      "url": "https://www.spyder-ide.org"
+    }
+  },
+  "projects": [
+    {
+      "guid": "spyder-ide",
+      "name": "Spyder",
+      "description": "The scientific Python development environment",
+      "webpageUrl": {
+        "url": "https://www.spyder-ide.org"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/spyder-ide",
+        "wellKnown": "https://github.com/spyder-ide/spyder/raw/HEAD/.well-known/funding-manifest-urls"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "data",
+        "data-science",
+        "data-visualization",
+        "developer-tools",
+        "development",
+        "programming",
+        "science",
+        "scientific-computing",
+        "software-engineering",
+        "python"
+      ]
+    },
+    {
+      "guid": "python-lsp",
+      "name": "Python LSP Server",
+      "description": "The python-language-server project, maintained by the Spyder IDE team and the community",
+      "webpageUrl": {
+        "url": "https://github.com/python-lsp",
+        "wellKnown": "https://github.com/python-lsp/python-lsp-server/raw/HEAD/.well-known/funding-manifest-urls"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/python-lsp/python-lsp-server",
+        "wellKnown": "https://github.com/python-lsp/python-lsp-server/raw/HEAD/.well-known/funding-manifest-urls"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "developer-tools",
+        "development",
+        "programming",
+        "software-engineering",
+        "ide",
+        "language-server-protocol",
+        "lsp",
+        "lsp-server",
+        "python"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "hubspot",
+        "type": "payment-provider",
+        "address": "https://numfocus.org/donate-for-spyder",
+        "description": "Spyder Hubspot donation page with NumFOCUS"
+      },
+      {
+        "guid": "numfocus",
+        "type": "other",
+        "address": "info@numfocus.org",
+        "description": "Contact NumFOCUS to coordinate a direct donation"
+      }
+    ],
+    "plans": [
+      {
+        "guid": "general-fund-onetime",
+        "status": "active",
+        "name": "Support Spyder one-time",
+        "description": "Support the Spyder project as a whole, with the money used where it is needed most.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": [
+          "hubspot"
+        ]
+      },
+      {
+        "guid": "general-fund-monthly",
+        "status": "active",
+        "name": "Support Spyder monthly",
+        "description": "Support the Spyder project as a whole with a monthly donation, with the money used where it is needed most.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "hubspot"
+        ]
+      },
+      {
+        "guid": "individual",
+        "status": "active",
+        "name": "Individual Donor",
+        "description": "Support us with a monthly donation and help us continue our activities.",
+        "amount": 5,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "hubspot"
+        ]
+      },
+      {
+        "guid": "company",
+        "status": "active",
+        "name": "Company Sponsor",
+        "description": "Become a sponsor and get your logo on our README on Github with a link to your site.",
+        "amount": 100,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "hubspot"
+        ]
+      },
+      {
+        "guid": "junior-dev",
+        "status": "active",
+        "name": "Part Time Junior Developer",
+        "description": "Help pay a Junior Developer to work part time on the Spyder IDE.",
+        "amount": 500,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "hubspot"
+        ]
+      },
+      {
+        "guid": "baseline-maintenance",
+        "status": "active",
+        "name": "Baseline Development and Maintenance",
+        "description": "Help fund critical baseline development and maintenance for our worldwide community of hundreds of thousands of users.",
+        "amount": 50000,
+        "currency": "USD",
+        "frequency": "yearly",
+        "channels": [
+          "numfocus"
+        ]
+      }
+    ],
+    "history": [
+      {
+        "year": 2024,
+        "income": 150000,
+        "expenses": 150000,
+        "taxes": 0,
+        "currency": "USD",
+        "description": ""
+      }
+    ]
+  }
+}

@@ -1,25 +1,20 @@
 <script>
   import { _, json, waitLocale } from "svelte-i18n";
 
-  import { page } from "$app/stores";
-  import { metadata } from "$lib/store";
-
-  import Loader from "$lib/components/Loader.svelte";
   import ContributorBlock from "$lib/blocks/ContributorBlock.svelte";
+  import Loader from "$lib/components/Loader.svelte";
   import Metadata from "$lib/components/Metadata.svelte";
 
-  import { ogImage as image, config, contributors } from "$lib/config";
+  import { contributors } from "$lib/config";
+  import { metadata } from "$lib/store";
   import {
-    processContributors,
-    createContributorsMap,
-    mergeContributorData,
+      createContributorsMap,
+      mergeContributorData,
+      processContributors,
   } from "$lib/utils";
 
   /** @type {import('./$types').PageData} */
   export let data;
-
-  // Page metadata
-  let title, author, description, keywords;
 
   // Page content
   let pageIntro,
@@ -37,18 +32,12 @@
   let updatedCurrent, updatedPast;
 
   // State
-  let loading = false;
+  let contributorsLoading = true;
   let error = null;
 
   const allContributors = data.contributors;
 
   $: {
-    // Load page metadata
-    title = $_("config.site.title");
-    author = $_("config.site.author");
-    description = $_("config.site.description");
-    keywords = config.site.keywords;
-
     // Load page content
     pageIntro = $_("about.pageIntro");
     pageTitle = $_("about.pageTitle");
@@ -92,24 +81,27 @@
       updatedCurrent = processedContributors.updatedCurrent;
       updatedPast = processedContributors.updatedPast;
       remainingContributors = processedContributors.remainingContributors;
+      
+      // Set loading to false once data is processed
+      contributorsLoading = false;
     }
 
-    // Update metadata
+    // Set page metadata
     metadata.setMetadata({
-      title: `${title} | ${pageTitle}`,
-      description,
-      keywords: keywords.join(", "),
-      author,
-      image,
-      url: $page.url.href,
+      ...data.metadata,
+      description: pageIntro
     });
   }
 </script>
 
+<Metadata />
+
 {#await waitLocale()}
-  <Loader />
+  <div class="flex justify-center items-center min-h-screen">
+    <Loader />
+    <p class="ml-4 text-gray-600 dark:text-gray-300">Loading translations...</p>
+  </div>
 {:then}
-  <Metadata />
   <div class="container">
     <h1
       class="text-4xl
@@ -119,7 +111,7 @@
         tracking-tight
         font-extralight
         text-mine-shaft-600
-        dark:text-mine-shaft-200 my-16 md:my-32"
+        dark:text-mine-shaft-200 my-16 xl:my-32"
     >
       {pageTitle}
     </h1>
@@ -129,9 +121,12 @@
       {@html pageIntro}
     </h2>
     {#if error}
-      <p>Error: {error}</p>
-    {:else if loading}
-      <Loader />
+      <p class="text-center text-red-500 my-8">Error: {error}</p>
+    {:else if contributorsLoading}
+      <div class="flex justify-center items-center my-16">
+        <Loader />
+        <p class="ml-4 text-gray-600 dark:text-gray-300">Loading contributor data...</p>
+      </div>
     {:else}
       {#if updatedCurrent && updatedCurrent.length > 0}
         <ContributorBlock
@@ -139,8 +134,6 @@
           contributors={updatedCurrent}
           size={"large"}
         />
-      {:else}
-        <Loader />
       {/if}
       {#if updatedPast && updatedPast.length > 0}
         <ContributorBlock
@@ -148,8 +141,6 @@
           contributors={updatedPast}
           size={"medium"}
         />
-      {:else}
-        <Loader />
       {/if}
       {#if remainingContributors && remainingContributors.length > 0}
         <ContributorBlock
@@ -158,8 +149,6 @@
           contributors={remainingContributors}
           size={"small"}
         />
-      {:else}
-        <Loader />
       {/if}
     {/if}
   </div>

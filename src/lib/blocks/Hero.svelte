@@ -1,14 +1,14 @@
 <script>
-  import { _, json, isLoading } from "svelte-i18n";
   import { onMount } from "svelte";
+  import { _, isLoading, json } from "svelte-i18n";
 
-  import { osStore } from "$lib/store";
   import { config } from "$lib/config";
+  import { osStore } from "$lib/store";
 
-  import Vanta from "$lib/components/Vanta.svelte";
   import Button from "$lib/components/Button.svelte";
-  import ImageCompare from "$lib/components/ImageCompare.svelte";
   import Divider from "$lib/components/Divider.svelte";
+  import ImageCompare from "$lib/components/ImageCompare.svelte";
+  import Vanta from "$lib/components/Vanta.svelte";
 
   export let id = "";
   export let classes = "";
@@ -17,12 +17,8 @@
   // Hero section buttons
   export let buttons = [];
 
-  let heroContent,
-    heroImages,
-    githubButton,
-    githubButtonTranslation,
-    translatedGithubButton,
-    unsubscribeOs;
+  let heroContent, heroImages, githubButton, githubButtonTranslation, translatedGithubButton, unsubscribeOs;
+  let isOsLoading = true;
 
   $: {
     heroContent = $json("config.site.heroContent") || "";
@@ -33,6 +29,7 @@
 
     // Subscribe to osStore
     unsubscribeOs = osStore.subscribe((data) => {
+      isOsLoading = data.loading;
       if (!data.loading && !$isLoading) {
         const translatedOsButtons = data.osButtons.map((button) => ({
           ...button,
@@ -53,51 +50,48 @@
 <section {id} class="mt-20 {classes}">
   <Vanta />
   <div
-    class="relative
+    class="hero-content-container
+    relative
+    mx-auto
     flex
     flex-col
     items-center
     gap-8
     px-8
-    xl:max-w-6xl
-    mx-auto
-    hero-content-container"
+    xl:max-w-6xl"
   >
     <h1
-      class="tracking-tight
+      class="text-center
       text-4xl
-      md:text-5xl
-      xl:text-7xl
       font-extralight
+      tracking-tight
       text-gray-500
       dark:text-mine-shaft-300
-      text-center"
+      md:text-5xl
+      xl:text-7xl"
     >
       {heroContent.title}
     </h1>
-    <p class="font-light md:text-lg xl:text-xl text-center">
+    <p class="text-center font-light md:text-lg xl:text-xl">
       {heroContent.description}
     </p>
-    {#if buttons.length > 0}
-      <div class="grid grid-flow-row md:grid-flow-col gap-4 items-center">
+    {#if buttons.length > 0 && !isOsLoading && !$isLoading}
+      <div class="grid grid-flow-row items-center gap-4 md:grid-flow-col">
         {#each buttons as button}
-          <Button
-            highlight={button.highlight}
-            icon={button.icon}
-            text={button.text}
-            href={button.href}
-          />
+          <Button highlight={button.highlight} icon={button.icon} text={button.text} href={button.href} />
         {/each}
+      </div>
+    {:else if heroContent.description}
+      <div class="grid grid-flow-row items-center gap-4 md:grid-flow-col h-12 opacity-0">
+        <!-- Placeholder to reserve space -->
+        <div class="py-4 px-5 rounded min-h-12 w-32"></div>
       </div>
     {/if}
   </div>
 
-  <div class="container aspect-video py-5 mt-16">
-    <ImageCompare before={heroImages.dark} after={heroImages.light} />
-  </div>
+  <ImageCompare before={heroImages.dark} after={heroImages.light} />
 
   {#if divider}
     <Divider stroke={true} />
   {/if}
 </section>
-

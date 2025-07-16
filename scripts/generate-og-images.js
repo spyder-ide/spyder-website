@@ -1,43 +1,15 @@
-import sharp from 'sharp';
-import path from 'path';
-import fs from 'fs';
-import { promisify } from 'util';
+import sharp from "sharp";
+import path from "path";
+import { promises as fs } from "fs";
 import {
-  fetchMarkdownPostsMetadata,
+  exists,
   fetchAuthorsMetadata,
-} from './utils.js';
-
-const writeFile = promisify(fs.writeFile);
-const mkdir = promisify(fs.mkdir);
-const access = promisify(fs.access);
-const readFile = promisify(fs.readFile);
+  fetchMarkdownPostsMetadata,
+  testLength,
+} from "./utils.js";
 
 const maxLineLength = 27;
 const maxTextLength = 100;
-
-/**
- * Determines if a given string's length is less than or equal to a specified quantity.
- * @param {string} text - The string to evaluate.
- * @param {number} qty - The length to compare against.
- * @returns {boolean} - Returns true if the string's length is less than or equal to the specified quantity, otherwise false.
- */
-function testLength(text, qty) {
-  return text.length <= qty;
-}
-
-/**
- * Checks if a given path exists.
- * @param {string} pathToCheck - Path to verify.
- * @returns {Promise<boolean>} - True if exists, false otherwise.
- */
-async function exists(pathToCheck) {
-  try {
-    await access(pathToCheck, fs.constants.F_OK);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Splits a title into multiple lines if it exceeds a maximum length.
@@ -46,16 +18,16 @@ async function exists(pathToCheck) {
  * @returns {Array<string>} - Array of title lines.
  */
 function splitText(title, lineLenght = maxLineLength) {
-  const words = title.split(' ');
+  const words = title.split(" ");
   const lines = [];
-  let currentLine = '';
+  let currentLine = "";
 
   for (const word of words) {
     if ((currentLine + word).length > lineLenght) {
       lines.push(currentLine.trim());
-      currentLine = word + ' ';
+      currentLine = word + " ";
     } else {
-      currentLine += word + ' ';
+      currentLine += word + " ";
     }
   }
 
@@ -64,7 +36,9 @@ function splitText(title, lineLenght = maxLineLength) {
   }
 
   if (lines.length > 4) {
-    throw new Error(`Processing the text produces too many lines (${lines.length} lines total, must be lees than 4). Edit your title and try again.`)
+    throw new Error(
+      `Processing the text produces too many lines (${lines.length} lines total, must be lees than 4). Edit your title and try again.`,
+    );
   }
 
   return lines;
@@ -82,29 +56,38 @@ async function generateOgImage(data, slug) {
   const bylineY = height - 100;
 
   // Read the SVG template
-  const templatePath = path.join(process.cwd(), 'scripts', 'templates', 'og-template.svg');
-  const templateContent = await readFile(templatePath, 'utf-8');
+  const templatePath = path.join(
+    process.cwd(),
+    "scripts",
+    "templates",
+    "og-template.svg",
+  );
+  const templateContent = await fs.readFile(templatePath, "utf-8");
 
   // Generate multiple <text> elements for each title line
   const titleTexts = titleLines
-    .map((line, index) => `<text x="120" y="${150 + index * 72}" class="title">${line}</text>`)
-    .join('\n  ');
+    .map((line, index) =>
+      `<text x="120" y="${150 + index * 72}" class="title">${line}</text>`
+    )
+    .join("\n  ");
 
   // If we have multiple authors, create a string with their names
-  let authors = '';
+  let authors = "";
   if (Array.isArray(data.author) && data.author.length > 1) {
-    authors = [data.author.slice(0, -1).join(', ') + ' &amp; ' + data.author.slice(-1)];
+    authors = [
+      data.author.slice(0, -1).join(", ") + " &amp; " + data.author.slice(-1),
+    ];
   } else {
     authors = data.author;
   }
 
   // Replace placeholders with actual data
   const svg = templateContent
-    .replaceAll('${width}', width)
-    .replaceAll('${height}', height)
-    .replaceAll('${titleTexts}', titleTexts)
-    .replaceAll('${bylineY}', bylineY)
-    .replaceAll('${author}', authors)
+    .replaceAll("${width}", width)
+    .replaceAll("${height}", height)
+    .replaceAll("${titleTexts}", titleTexts)
+    .replaceAll("${bylineY}", bylineY)
+    .replaceAll("${author}", authors);
 
   try {
     // Create SVG buffer
@@ -130,19 +113,19 @@ async function generateOgImage(data, slug) {
       .toBuffer();
 
     // Output directory and path
-    const outputDir = path.join(process.cwd(), 'static', 'assets', 'og');
+    const outputDir = path.join(process.cwd(), "static", "assets", "og");
     const outputPath = path.join(outputDir, `${slug}.png`);
 
     // Ensure output directory exists
     if (!(await exists(outputDir))) {
-      await mkdir(outputDir, { recursive: true });
+      await fs.mkdir(outputDir, { recursive: true });
     }
 
     // Save the image to the filesystem
-    await writeFile(outputPath, image);
+    await fs.writeFile(outputPath, image);
     console.log(`OG image generated for post: ${slug}`);
   } catch (error) {
-    console.error('Error generating OG image:', error);
+    console.error("Error generating OG image:", error);
   }
 }
 
@@ -156,7 +139,7 @@ async function generateAllOgImages() {
     for (const post of posts) {
       const { meta, path: postPath } = post;
       const slug = path.basename(postPath);
-      const imagePath = path.join('static', 'assets', 'og', `${slug}.png`);
+      const imagePath = path.join("static", "assets", "og", `${slug}.png`);
 
       // Check if the image already exists
       if (await exists(imagePath)) {
@@ -165,12 +148,14 @@ async function generateAllOgImages() {
       }
 
       // Fetch author metadata\
-      const authorsArray = Array.isArray(meta.author) ? meta.author : [meta.author];
+      const authorsArray = Array.isArray(meta.author)
+        ? meta.author
+        : [meta.author];
       const authorMetadata = await fetchAuthorsMetadata(authorsArray);
 
       if (!authorMetadata) {
         console.warn(
-          `Could not fetch metadata for author "${meta.author}". Skipping image generation for post "${slug}".`
+          `Could not fetch metadata for author "${meta.author}". Skipping image generation for post "${slug}".`,
         );
         continue;
       }
@@ -178,20 +163,22 @@ async function generateAllOgImages() {
       // Prepare data for the SVG
       const svgData = {
         title: meta.title,
-        author: authorMetadata.map(a => a.name),
+        author: authorMetadata.map((a) => a.name),
       };
 
       if (!testLength(svgData.title, maxTextLength)) {
-        throw new Error(`The title of the post "${svgData.title}" is too long (${svgData.title.length} characters)! Use titles of ${maxTextLength} characters or less.`);
+        throw new Error(
+          `The title of the post "${svgData.title}" is too long (${svgData.title.length} characters)! Use titles of ${maxTextLength} characters or less.`,
+        );
       }
 
       // Generate the OG image
       await generateOgImage(svgData, slug);
     }
 
-    console.log('All Open Graph images have been successfully generated.');
+    console.log("All Open Graph images have been successfully generated.");
   } catch (error) {
-    console.error('Error during Open Graph image generation:', error);
+    console.error("Error during Open Graph image generation:", error);
     process.exit(1); // Exit with failure
   }
 }

@@ -1,0 +1,4 @@
+# Handle social media crawlers with increased timeout
+/* 200! User-Agent=Twitterbot
+/* 200! User-Agent=facebookexternalhit
+/* 200! User-Agent=LinkedInBot 

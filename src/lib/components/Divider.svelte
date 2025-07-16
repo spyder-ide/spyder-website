@@ -24,7 +24,7 @@
   </svg>
 </div>
 
-<style>
+<style lang="postcss">
   svg {
     @apply block h-14;
     width: calc(100% + 1.3px);

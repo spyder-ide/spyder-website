@@ -1,9 +1,9 @@
-import { writable } from "svelte/store";
 import { browser } from "$app/environment";
 import { base } from "$app/paths";
 import { getOS, getOSButtons } from "$lib/utils";
+import { writable } from "svelte/store";
 
-// Colour scheme
+// Color scheme store
 const storedColourScheme = browser
   ? localStorage.getItem("colourScheme") || "light"
   : "light";
@@ -17,37 +17,42 @@ if (browser) {
   });
 }
 
-// Metadata
-function createMetadata() {
-  const { subscribe, set, update } = writable({
+// Metadata store for SEO and social sharing
+const createMetadataStore = () => {
+  const defaultMetadata = {
     title: "",
     description: "",
     keywords: "",
-    author: "",
     url: "",
-    image: "",
-    site: ""
-  });
-
+    image: ""
+  };
+  
+  const { subscribe, set, update } = writable(defaultMetadata);
+  
   return {
     subscribe,
-    setMetadata: (metadata) => set(metadata),
-    reset: () =>
-      set({
-        title: "",
-        description: "",
-        keywords: "",
-        author: "",
-        url: "",
-        image: "",
-        site: ""
-      }),
+    setMetadata: ({ title, description, keywords, url, image }) => {
+      update(state => ({
+        ...state,
+        title,
+        description,
+        keywords,
+        url,
+        image
+      }));
+    },
+    getMetadata: () => {
+      let currentValue;
+      subscribe(value => {
+        currentValue = value;
+      })();
+      return currentValue;
+    }
   };
-}
+};
 
-export const metadata = createMetadata();
+export const metadata = createMetadataStore();
 
-// Operating system
 export const osStore = writable({ loading: true });
 
 if (browser) {

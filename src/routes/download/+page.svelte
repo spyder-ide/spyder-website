@@ -1,21 +1,18 @@
 <script>
-  import { _, json } from "svelte-i18n";
   import { onMount } from "svelte";
+  import { _, json } from "svelte-i18n";
 
   import { browser } from "$app/environment";
-  import { page } from "$app/stores";
+  import { releases } from "$lib/config";
+  import { getOS } from "$lib/utils";
+
+  import Button from "$lib/components/Button.svelte";
+  import Loader from "$lib/components/Loader.svelte";
+  import Metadata from "$lib/components/Metadata.svelte";
 
   import { metadata } from "$lib/store";
-  import { getOS } from "$lib/utils";
-  import {
-    ogImage as image,
-    config,
-    releases
-   } from "$lib/config";
 
-  import Loader from "$lib/components/Loader.svelte";
-  import Button from "$lib/components/Button.svelte";
-  import Metadata from "$lib/components/Metadata.svelte";
+  export let data;
 
   /** @typedef {{ name: string, link: string }} ReleaseInfo */
   /** @typedef {Record<string, Record<string, ReleaseInfo>>} Releases */
@@ -28,9 +25,8 @@
   let downloadUrl = "";
   let osButtons = [];
   let result;
-
+  let metadataStore;
   // Page content
-  let title, description, author, keywords;
   let pageTitle, pageSubtitle, pageSubtitleAlt;
   let download, buttonText;
 
@@ -69,7 +65,7 @@
     const os = params.get("os");
     const arch = params.get("arch");
 
-    return (os && arch) ? { os, arch } : false;
+    return os && arch ? { os, arch } : false;
   };
 
   /**
@@ -112,29 +108,20 @@
 
     // Load translations
     buttonText = $_("download.button.message");
-    title = $_("config.site.title");
-    description = $_("config.site.description");
-    author = $_("config.site.author");
-    keywords = config.site.keywords;
     pageTitle = $_("download.title");
     pageSubtitle = $_("download.subtitle");
     pageSubtitleAlt = $_("download.alternative");
     download = $json("download.action");
 
-    // Update metadata
-    metadata.setMetadata({
-      title: `${title} | ${download.name}`,
-      description,
-      keywords: keywords.join(", "),
-      author,
-      image,
-      url: $page.url.href,
-    });
-
     // Update Mac-specific data
     if (releases?.mac) {
       macs = Object.entries(releases.mac);
     }
+
+    metadata.setMetadata({ 
+      ...data.metadata, 
+      title: `${data.metadata.title} | ${data.metadata.subtitle}` 
+    });
   }
 </script>
 
@@ -164,7 +151,7 @@
       {@html result ? pageSubtitle : pageSubtitleAlt}
     </p>
     {#if os !== "mac"}
-      <div class="block mt-8 mb-16 text-center w-[250px] mx-auto">
+      <div class="block mt-8 mb-16 text-center max-w-[250px] mx-auto">
         <Button
           href={downloadUrl}
           highlight
@@ -175,7 +162,7 @@
         />
       </div>
     {:else}
-      <div class="mt-8 mb-16 text-center w-[550px] flex gap-4 mx-auto">
+      <div class="mt-8 mb-16 text-center max-w-[550px] flex flex-col sm:flex-row gap-4 mx-auto">
         {#each macs as [_, release]}
           <Button
             highlight
@@ -196,7 +183,9 @@
   {/if}
 
   {#if osButtons?.length}
-    <div class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4">
+    <div
+      class="mb-5 mx-auto grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-4"
+    >
       {#each osButtons as button}
         <Button {...button} />
       {/each}

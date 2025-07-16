@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        // Get the current path
+        const path = window.location.pathname;
+        
+        // Remove trailing slash if present
+        if (path.endsWith('/')) {
+            const newPath = path.slice(0, -1);
+            window.location.replace(newPath);
+        } else {
+            // If no trailing slash, try to load the SPA
+            window.location.replace('/');
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting...</p>
+</body>
+</html>

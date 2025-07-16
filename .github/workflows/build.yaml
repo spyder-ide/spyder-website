@@ -14,6 +14,9 @@ on:  # yamllint disable-line rule:truthy
     - main
     - '*.*'
     - 'staging*'
+  schedule:
+    - cron: '0 12 * * 0'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -43,6 +46,7 @@ jobs:
       run: ./ci/build.sh
       env:
         VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
+        VITE_HUBSPOT_TOKEN: ${{ secrets.VITE_HUBSPOT_TOKEN }}
     - name: Deploy to GitHub Pages
       if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'push'
       uses: JamesIves/github-pages-deploy-action@v4
