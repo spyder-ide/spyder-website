@@ -19,7 +19,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 14515
+    "contributions": 14558
   },
   {
     "login": "dalthviz",
@@ -41,7 +41,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 2511
+    "contributions": 2551
   },
   {
     "login": "PierreRaybaut",
@@ -129,7 +129,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 999
+    "contributions": 1007
   },
   {
     "login": "jnsebgosselin",
@@ -239,7 +239,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 386
+    "contributions": 399
   },
   {
     "login": "jitseniesen",
@@ -327,7 +327,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 256
+    "contributions": 269
   },
   {
     "login": "SylvainCorlay",
@@ -371,7 +371,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 177
+    "contributions": 178
   },
   {
     "login": "bcolsen",
@@ -418,6 +418,28 @@
     "contributions": 119
   },
   {
+    "login": "jsbautista",
+    "id": 42411448,
+    "node_id": "MDQ6VXNlcjQyNDExNDQ4",
+    "avatar_url": "https://avatars.githubusercontent.com/u/42411448?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/jsbautista",
+    "html_url": "https://github.com/jsbautista",
+    "followers_url": "https://api.github.com/users/jsbautista/followers",
+    "following_url": "https://api.github.com/users/jsbautista/following{/other_user}",
+    "gists_url": "https://api.github.com/users/jsbautista/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/jsbautista/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/jsbautista/subscriptions",
+    "organizations_url": "https://api.github.com/users/jsbautista/orgs",
+    "repos_url": "https://api.github.com/users/jsbautista/repos",
+    "events_url": "https://api.github.com/users/jsbautista/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/jsbautista/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false,
+    "contributions": 113
+  },
+  {
     "login": "mariacamilarg",
     "id": 3608776,
     "node_id": "MDQ6VXNlcjM2MDg3NzY=",
@@ -456,28 +478,6 @@
     "repos_url": "https://api.github.com/users/rear1019/repos",
     "events_url": "https://api.github.com/users/rear1019/events{/privacy}",
     "received_events_url": "https://api.github.com/users/rear1019/received_events",
-    "type": "User",
-    "user_view_type": "public",
-    "site_admin": false,
-    "contributions": 109
-  },
-  {
-    "login": "jsbautista",
-    "id": 42411448,
-    "node_id": "MDQ6VXNlcjQyNDExNDQ4",
-    "avatar_url": "https://avatars.githubusercontent.com/u/42411448?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/jsbautista",
-    "html_url": "https://github.com/jsbautista",
-    "followers_url": "https://api.github.com/users/jsbautista/followers",
-    "following_url": "https://api.github.com/users/jsbautista/following{/other_user}",
-    "gists_url": "https://api.github.com/users/jsbautista/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/jsbautista/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/jsbautista/subscriptions",
-    "organizations_url": "https://api.github.com/users/jsbautista/orgs",
-    "repos_url": "https://api.github.com/users/jsbautista/repos",
-    "events_url": "https://api.github.com/users/jsbautista/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/jsbautista/received_events",
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
