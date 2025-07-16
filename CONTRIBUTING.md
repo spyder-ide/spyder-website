@@ -60,8 +60,6 @@ We welcome various types of contributions:
 - **Bug fixes** - Fix issues in the website functionality
 - **Feature enhancements** - Improve existing features or add new ones
 - **Documentation** - Improve clarity and completeness of documentation
-- **Design improvements** - Enhance UI/UX elements
-- **Performance optimizations** - Make the site faster and more efficient
 
 ## Creating Blog Posts
 
