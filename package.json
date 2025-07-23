@@ -9,6 +9,7 @@
     "generate-funding-schema": "node scripts/generate-funding-schema.js",
     "prebuild": "npm run generate-og-images && npm run generate-contrib-data && npm run generate-hubspot-data && npm run generate-funding-schema",
     "dev": "npm run prebuild && npx vite dev",
+    "build:web": "npx vite build",
     "build": "npm run prebuild && npx vite build",
     "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
