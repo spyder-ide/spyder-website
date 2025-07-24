@@ -69,10 +69,10 @@ async function fetchHubSpotData() {
     limit: 100,
   };
 
-  console.log("🔍 Search filter configuration:");
-  console.log("  - Pipeline ID:", SPYDER_PIPELINE_ID);
-  console.log("  - Properties requested:", pipelineDealsFilter.properties);
-  console.log("  - Filters:", JSON.stringify(pipelineDealsFilter.filterGroups, null, 2));
+  //console.log("🔍 Search filter configuration:");
+  //console.log("  - Pipeline ID:", SPYDER_PIPELINE_ID);
+  //console.log("  - Properties requested:", pipelineDealsFilter.properties);
+  //console.log("  - Filters:", JSON.stringify(pipelineDealsFilter.filterGroups, null, 2));
 
   let pipelineDeals = [];
   let monthlyDeals = [];
@@ -93,13 +93,6 @@ async function fetchHubSpotData() {
       );
       
       console.log(`  ✅ Page ${pageCount} results:`, res.results.length, "deals");
-      
-      if (res.results.length > 0) {
-        console.log("  📋 Sample deal names:");
-        res.results.slice(0, 3).forEach((deal, index) => {
-          console.log(`    ${index + 1}. "${deal.properties.dealname}" (Amount: ${deal.properties.amount})`);
-        });
-      }
       
       pipelineDeals = pipelineDeals.concat(res.results);
 
