@@ -43,6 +43,20 @@
       "updatedAt": "2025-07-24T00:49:47.949Z"
     },
     {
+      "createdAt": "2025-03-30T21:19:04.375Z",
+      "archived": false,
+      "id": "35240642058",
+      "properties": {
+        "amount": "5.00",
+        "createdate": "2025-03-30T21:19:04.375Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.680Z",
+        "hs_object_id": "35240642058",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.680Z"
+    },
+    {
       "createdAt": "2025-04-09T15:18:48.599Z",
       "archived": false,
       "id": "35594316619",
@@ -127,6 +141,34 @@
       "updatedAt": "2025-07-24T00:49:46.062Z"
     },
     {
+      "createdAt": "2025-04-18T09:54:45.965Z",
+      "archived": false,
+      "id": "35891295603",
+      "properties": {
+        "amount": "240.00",
+        "createdate": "2025-04-18T09:54:45.965Z",
+        "dealname": "Level-up the Variable Explorer: Monthly via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.264Z",
+        "hs_object_id": "35891295603",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.264Z"
+    },
+    {
+      "createdAt": "2025-04-18T12:37:06.036Z",
+      "archived": false,
+      "id": "35895389081",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-04-18T12:37:06.036Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:46.504Z",
+        "hs_object_id": "35895389081",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:46.504Z"
+    },
+    {
       "createdAt": "2025-04-18T12:55:14.989Z",
       "archived": false,
       "id": "35880854290",
@@ -181,6 +223,34 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.982Z"
+    },
+    {
+      "createdAt": "2025-04-21T02:57:49.957Z",
+      "archived": false,
+      "id": "35995991825",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-04-21T02:57:49.957Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.233Z",
+        "hs_object_id": "35995991825",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.233Z"
+    },
+    {
+      "createdAt": "2025-04-22T05:24:45.122Z",
+      "archived": false,
+      "id": "36051856705",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-04-22T05:24:45.122Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.491Z",
+        "hs_object_id": "36051856705",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.491Z"
     },
     {
       "createdAt": "2025-04-23T12:01:37.506Z",
@@ -295,6 +365,20 @@
       "updatedAt": "2025-07-24T00:49:47.901Z"
     },
     {
+      "createdAt": "2025-05-03T09:46:35.819Z",
+      "archived": false,
+      "id": "36669741836",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-05-03T09:46:35.819Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.659Z",
+        "hs_object_id": "36669741836",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.659Z"
+    },
+    {
       "createdAt": "2025-05-03T11:31:49.309Z",
       "archived": false,
       "id": "36669445015",
@@ -323,6 +407,20 @@
       "updatedAt": "2025-07-24T00:49:47.889Z"
     },
     {
+      "createdAt": "2025-05-04T12:45:20.458Z",
+      "archived": false,
+      "id": "36680225375",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-04T12:45:20.458Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.512Z",
+        "hs_object_id": "36680225375",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.512Z"
+    },
+    {
       "createdAt": "2025-05-04T18:50:16.137Z",
       "archived": false,
       "id": "36672569189",
@@ -335,6 +433,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.901Z"
+    },
+    {
+      "createdAt": "2025-05-04T21:55:20.178Z",
+      "archived": false,
+      "id": "36687533695",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-04T21:55:20.178Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.471Z",
+        "hs_object_id": "36687533695",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.471Z"
     },
     {
       "createdAt": "2025-05-06T20:46:16.006Z",
@@ -435,6 +547,20 @@
       "updatedAt": "2025-07-24T00:49:46.539Z"
     },
     {
+      "createdAt": "2025-05-12T19:58:11.880Z",
+      "archived": false,
+      "id": "37127637853",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-05-12T19:58:11.880Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.698Z",
+        "hs_object_id": "37127637853",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.698Z"
+    },
+    {
       "createdAt": "2025-05-13T13:02:04.415Z",
       "archived": false,
       "id": "37143810663",
@@ -463,6 +589,20 @@
       "updatedAt": "2025-07-24T00:49:48.028Z"
     },
     {
+      "createdAt": "2025-05-13T18:02:30.876Z",
+      "archived": false,
+      "id": "37131599656",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-13T18:02:30.876Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.926Z",
+        "hs_object_id": "37131599656",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.926Z"
+    },
+    {
       "createdAt": "2025-05-18T20:50:32.354Z",
       "archived": false,
       "id": "37395734026",
@@ -475,6 +615,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:48.021Z"
+    },
+    {
+      "createdAt": "2025-05-19T01:50:44.429Z",
+      "archived": false,
+      "id": "37406526815",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-19T01:50:44.429Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:19.473Z",
+        "hs_object_id": "37406526815",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:19.473Z"
     },
     {
       "createdAt": "2025-05-20T13:36:54.271Z",
@@ -491,6 +645,20 @@
       "updatedAt": "2025-07-24T00:49:46.124Z"
     },
     {
+      "createdAt": "2025-05-23T03:37:00.394Z",
+      "archived": false,
+      "id": "37765132904",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-23T03:37:00.394Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:46.643Z",
+        "hs_object_id": "37765132904",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:46.643Z"
+    },
+    {
       "createdAt": "2025-05-24T15:35:23.080Z",
       "archived": false,
       "id": "37885719047",
@@ -503,6 +671,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.949Z"
+    },
+    {
+      "createdAt": "2025-05-24T17:37:55.015Z",
+      "archived": false,
+      "id": "37931379865",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-24T17:37:55.015Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.406Z",
+        "hs_object_id": "37931379865",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.406Z"
     },
     {
       "createdAt": "2025-05-27T06:41:32.116Z",
@@ -575,6 +757,20 @@
       "updatedAt": "2025-07-24T00:49:48.172Z"
     },
     {
+      "createdAt": "2025-05-30T14:58:43.205Z",
+      "archived": false,
+      "id": "38249483330",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-30T14:58:43.205Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:46.401Z",
+        "hs_object_id": "38249483330",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:46.401Z"
+    },
+    {
       "createdAt": "2025-05-30T17:58:06.202Z",
       "archived": false,
       "id": "38268635719",
@@ -601,6 +797,62 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:46.094Z"
+    },
+    {
+      "createdAt": "2025-06-02T08:54:26.976Z",
+      "archived": false,
+      "id": "38311479139",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T08:54:26.976Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.844Z",
+        "hs_object_id": "38311479139",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.844Z"
+    },
+    {
+      "createdAt": "2025-06-02T08:56:26.660Z",
+      "archived": false,
+      "id": "38311673672",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T08:56:26.660Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:14.338Z",
+        "hs_object_id": "38311673672",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:14.338Z"
+    },
+    {
+      "createdAt": "2025-06-02T22:08:40.929Z",
+      "archived": false,
+      "id": "38329891970",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T22:08:40.929Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.260Z",
+        "hs_object_id": "38329891970",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.260Z"
+    },
+    {
+      "createdAt": "2025-06-03T11:35:05.893Z",
+      "archived": false,
+      "id": "38346856226",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-03T11:35:05.893Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.589Z",
+        "hs_object_id": "38346856226",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.589Z"
     },
     {
       "createdAt": "2025-06-03T12:04:56.187Z",
@@ -673,6 +925,20 @@
       "updatedAt": "2025-07-24T00:49:48.021Z"
     },
     {
+      "createdAt": "2025-06-09T17:44:07.802Z",
+      "archived": false,
+      "id": "38665140076",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-06-09T17:44:07.802Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.215Z",
+        "hs_object_id": "38665140076",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.215Z"
+    },
+    {
       "createdAt": "2025-06-10T16:55:51.897Z",
       "archived": false,
       "id": "38729804081",
@@ -743,6 +1009,20 @@
       "updatedAt": "2025-07-24T00:49:48.015Z"
     },
     {
+      "createdAt": "2025-06-17T00:59:25.566Z",
+      "archived": false,
+      "id": "38953988654",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-17T00:59:25.566Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.564Z",
+        "hs_object_id": "38953988654",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.564Z"
+    },
+    {
       "createdAt": "2025-06-19T06:50:29.250Z",
       "archived": false,
       "id": "39058692022",
@@ -783,6 +1063,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.927Z"
+    },
+    {
+      "createdAt": "2025-06-23T19:29:48.687Z",
+      "archived": false,
+      "id": "39239432817",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-06-23T19:29:48.687Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.967Z",
+        "hs_object_id": "39239432817",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.967Z"
     },
     {
       "createdAt": "2025-06-24T16:56:48.203Z",
@@ -1305,6 +1599,20 @@
   ],
   "monthlyDeals": [
     {
+      "createdAt": "2025-04-18T09:54:45.965Z",
+      "archived": false,
+      "id": "35891295603",
+      "properties": {
+        "amount": "240.00",
+        "createdate": "2025-04-18T09:54:45.965Z",
+        "dealname": "Level-up the Variable Explorer: Monthly via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.264Z",
+        "hs_object_id": "35891295603",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.264Z"
+    },
+    {
       "createdAt": "2025-04-27T19:47:18.244Z",
       "archived": false,
       "id": "36356682525",
@@ -1419,6 +1727,20 @@
       "updatedAt": "2025-07-24T00:49:47.949Z"
     },
     {
+      "createdAt": "2025-03-30T21:19:04.375Z",
+      "archived": false,
+      "id": "35240642058",
+      "properties": {
+        "amount": "5.00",
+        "createdate": "2025-03-30T21:19:04.375Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.680Z",
+        "hs_object_id": "35240642058",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.680Z"
+    },
+    {
       "createdAt": "2025-04-09T15:18:48.599Z",
       "archived": false,
       "id": "35594316619",
@@ -1503,6 +1825,20 @@
       "updatedAt": "2025-07-24T00:49:46.062Z"
     },
     {
+      "createdAt": "2025-04-18T12:37:06.036Z",
+      "archived": false,
+      "id": "35895389081",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-04-18T12:37:06.036Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:46.504Z",
+        "hs_object_id": "35895389081",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:46.504Z"
+    },
+    {
       "createdAt": "2025-04-18T12:55:14.989Z",
       "archived": false,
       "id": "35880854290",
@@ -1557,6 +1893,34 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.982Z"
+    },
+    {
+      "createdAt": "2025-04-21T02:57:49.957Z",
+      "archived": false,
+      "id": "35995991825",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-04-21T02:57:49.957Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.233Z",
+        "hs_object_id": "35995991825",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.233Z"
+    },
+    {
+      "createdAt": "2025-04-22T05:24:45.122Z",
+      "archived": false,
+      "id": "36051856705",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-04-22T05:24:45.122Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.491Z",
+        "hs_object_id": "36051856705",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.491Z"
     },
     {
       "createdAt": "2025-04-23T12:01:37.506Z",
@@ -1657,6 +2021,20 @@
       "updatedAt": "2025-07-24T00:49:47.901Z"
     },
     {
+      "createdAt": "2025-05-03T09:46:35.819Z",
+      "archived": false,
+      "id": "36669741836",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-05-03T09:46:35.819Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.659Z",
+        "hs_object_id": "36669741836",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.659Z"
+    },
+    {
       "createdAt": "2025-05-03T11:31:49.309Z",
       "archived": false,
       "id": "36669445015",
@@ -1685,6 +2063,20 @@
       "updatedAt": "2025-07-24T00:49:47.889Z"
     },
     {
+      "createdAt": "2025-05-04T12:45:20.458Z",
+      "archived": false,
+      "id": "36680225375",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-04T12:45:20.458Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.512Z",
+        "hs_object_id": "36680225375",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.512Z"
+    },
+    {
       "createdAt": "2025-05-04T18:50:16.137Z",
       "archived": false,
       "id": "36672569189",
@@ -1697,6 +2089,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.901Z"
+    },
+    {
+      "createdAt": "2025-05-04T21:55:20.178Z",
+      "archived": false,
+      "id": "36687533695",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-04T21:55:20.178Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.471Z",
+        "hs_object_id": "36687533695",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.471Z"
     },
     {
       "createdAt": "2025-05-06T20:46:16.006Z",
@@ -1797,6 +2203,20 @@
       "updatedAt": "2025-07-24T00:49:46.539Z"
     },
     {
+      "createdAt": "2025-05-12T19:58:11.880Z",
+      "archived": false,
+      "id": "37127637853",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-05-12T19:58:11.880Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.698Z",
+        "hs_object_id": "37127637853",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.698Z"
+    },
+    {
       "createdAt": "2025-05-13T13:02:04.415Z",
       "archived": false,
       "id": "37143810663",
@@ -1825,6 +2245,20 @@
       "updatedAt": "2025-07-24T00:49:48.028Z"
     },
     {
+      "createdAt": "2025-05-13T18:02:30.876Z",
+      "archived": false,
+      "id": "37131599656",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-13T18:02:30.876Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.926Z",
+        "hs_object_id": "37131599656",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.926Z"
+    },
+    {
       "createdAt": "2025-05-18T20:50:32.354Z",
       "archived": false,
       "id": "37395734026",
@@ -1837,6 +2271,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:48.021Z"
+    },
+    {
+      "createdAt": "2025-05-19T01:50:44.429Z",
+      "archived": false,
+      "id": "37406526815",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-19T01:50:44.429Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:19.473Z",
+        "hs_object_id": "37406526815",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:19.473Z"
     },
     {
       "createdAt": "2025-05-20T13:36:54.271Z",
@@ -1853,6 +2301,20 @@
       "updatedAt": "2025-07-24T00:49:46.124Z"
     },
     {
+      "createdAt": "2025-05-23T03:37:00.394Z",
+      "archived": false,
+      "id": "37765132904",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-05-23T03:37:00.394Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:46.643Z",
+        "hs_object_id": "37765132904",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:46.643Z"
+    },
+    {
       "createdAt": "2025-05-24T15:35:23.080Z",
       "archived": false,
       "id": "37885719047",
@@ -1865,6 +2327,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.949Z"
+    },
+    {
+      "createdAt": "2025-05-24T17:37:55.015Z",
+      "archived": false,
+      "id": "37931379865",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-24T17:37:55.015Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.406Z",
+        "hs_object_id": "37931379865",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.406Z"
     },
     {
       "createdAt": "2025-05-27T06:41:32.116Z",
@@ -1937,6 +2413,20 @@
       "updatedAt": "2025-07-24T00:49:48.172Z"
     },
     {
+      "createdAt": "2025-05-30T14:58:43.205Z",
+      "archived": false,
+      "id": "38249483330",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-05-30T14:58:43.205Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:46.401Z",
+        "hs_object_id": "38249483330",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:46.401Z"
+    },
+    {
       "createdAt": "2025-05-30T17:58:06.202Z",
       "archived": false,
       "id": "38268635719",
@@ -1963,6 +2453,62 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:46.094Z"
+    },
+    {
+      "createdAt": "2025-06-02T08:54:26.976Z",
+      "archived": false,
+      "id": "38311479139",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T08:54:26.976Z",
+        "dealname": "New Viewer pane: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:23.844Z",
+        "hs_object_id": "38311479139",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:23.844Z"
+    },
+    {
+      "createdAt": "2025-06-02T08:56:26.660Z",
+      "archived": false,
+      "id": "38311673672",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T08:56:26.660Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:14.338Z",
+        "hs_object_id": "38311673672",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:14.338Z"
+    },
+    {
+      "createdAt": "2025-06-02T22:08:40.929Z",
+      "archived": false,
+      "id": "38329891970",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-02T22:08:40.929Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.260Z",
+        "hs_object_id": "38329891970",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.260Z"
+    },
+    {
+      "createdAt": "2025-06-03T11:35:05.893Z",
+      "archived": false,
+      "id": "38346856226",
+      "properties": {
+        "amount": "10.00",
+        "createdate": "2025-06-03T11:35:05.893Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.589Z",
+        "hs_object_id": "38346856226",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.589Z"
     },
     {
       "createdAt": "2025-06-03T12:04:56.187Z",
@@ -2035,6 +2581,20 @@
       "updatedAt": "2025-07-24T00:49:48.021Z"
     },
     {
+      "createdAt": "2025-06-09T17:44:07.802Z",
+      "archived": false,
+      "id": "38665140076",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-06-09T17:44:07.802Z",
+        "dealname": "Level-up the Variable Explorer: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:12:11.215Z",
+        "hs_object_id": "38665140076",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:12:11.215Z"
+    },
+    {
       "createdAt": "2025-06-10T16:55:51.897Z",
       "archived": false,
       "id": "38729804081",
@@ -2105,6 +2665,20 @@
       "updatedAt": "2025-07-24T00:49:48.015Z"
     },
     {
+      "createdAt": "2025-06-17T00:59:25.566Z",
+      "archived": false,
+      "id": "38953988654",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-06-17T00:59:25.566Z",
+        "dealname": "Supercharge syntax highlighting: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:11:42.564Z",
+        "hs_object_id": "38953988654",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:11:42.564Z"
+    },
+    {
       "createdAt": "2025-06-19T06:50:29.250Z",
       "archived": false,
       "id": "39058692022",
@@ -2131,6 +2705,20 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-07-24T00:49:47.927Z"
+    },
+    {
+      "createdAt": "2025-06-23T19:29:48.687Z",
+      "archived": false,
+      "id": "39239432817",
+      "properties": {
+        "amount": "15.00",
+        "createdate": "2025-06-23T19:29:48.687Z",
+        "dealname": "Smarter code completion: One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-07-24T01:10:48.967Z",
+        "hs_object_id": "39239432817",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-07-24T01:10:48.967Z"
     },
     {
       "createdAt": "2025-06-24T16:56:48.203Z",
@@ -2609,8 +3197,8 @@
       "updatedAt": "2025-07-24T00:49:47.965Z"
     }
   ],
-  "totalDonations": 3320.72,
-  "totalMonthlyDonations": 420,
-  "totalOneTimeDonations": 2900.72,
-  "lastUpdated": "2025-07-24T01:03:08.561Z"
+  "totalDonations": 3950.72,
+  "totalMonthlyDonations": 660,
+  "totalOneTimeDonations": 3290.72,
+  "lastUpdated": "2025-07-24T01:12:21.546Z"
 }
