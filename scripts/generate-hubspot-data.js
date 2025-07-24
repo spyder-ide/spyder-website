@@ -6,7 +6,7 @@ import { exists } from "./utils.js";
 
 dotenv.config();
 
-const SPYDER_PIPELINE_ID = "691999256";
+const SPYDER_PIPELINE_ID = "768998503";
 
 async function getLastAvailableData() {
   try {
@@ -33,6 +33,10 @@ function reduceDeals(deals) {
 async function fetchHubSpotData() {
   const token = process.env.VITE_HUBSPOT_TOKEN;
 
+  console.log("🔍 Starting HubSpot data fetch...");
+  console.log("📋 Token available:", !!token);
+  console.log("🔑 Token length:", token ? token.length : 0);
+
   // First check if we have a token
   if (!token) {
     // Check for existing data
@@ -45,6 +49,7 @@ async function fetchHubSpotData() {
   }
 
   // If we have a token, proceed with fetching new data
+  console.log("🚀 Creating HubSpot client...");
   const hubspotClient = new Client({ accessToken: token });
 
   let pipelineDealsFilter = {
@@ -64,37 +69,63 @@ async function fetchHubSpotData() {
     limit: 100,
   };
 
+  //console.log("🔍 Search filter configuration:");
+  //console.log("  - Pipeline ID:", SPYDER_PIPELINE_ID);
+  //console.log("  - Properties requested:", pipelineDealsFilter.properties);
+  //console.log("  - Filters:", JSON.stringify(pipelineDealsFilter.filterGroups, null, 2));
+
   let pipelineDeals = [];
   let monthlyDeals = [];
   let oneTimeDeals = [];
   let after = undefined;
+  let pageCount = 0;
 
   try {
+    console.log("📡 Starting API calls to HubSpot...");
+    
     do {
+      pageCount++;
+      console.log(`📄 Fetching page ${pageCount}...`);
+      
       pipelineDealsFilter.after = after;
       const res = await hubspotClient.crm.deals.searchApi.doSearch(
         pipelineDealsFilter,
       );
+      
+      console.log(`  ✅ Page ${pageCount} results:`, res.results.length, "deals");
+      
       pipelineDeals = pipelineDeals.concat(res.results);
 
-      monthlyDeals = monthlyDeals.concat(
-        res.results.filter((deal) =>
-          deal.properties.dealname.toLowerCase().includes("monthly")
-        ),
+      const pageMonthlyDeals = res.results.filter((deal) =>
+        deal.properties.dealname.toLowerCase().includes("monthly")
       );
+      const pageOneTimeDeals = res.results.filter((deal) =>
+        deal.properties.dealname.toLowerCase().includes("one-time")
+      );
+      
+      console.log(`  💰 Monthly deals on this page:`, pageMonthlyDeals.length);
+      console.log(`  💰 One-time deals on this page:`, pageOneTimeDeals.length);
 
-      oneTimeDeals = oneTimeDeals.concat(
-        res.results.filter((deal) =>
-          deal.properties.dealname.toLowerCase().includes("one-time")
-        ),
-      );
+      monthlyDeals = monthlyDeals.concat(pageMonthlyDeals);
+      oneTimeDeals = oneTimeDeals.concat(pageOneTimeDeals);
 
       after = res.paging?.next?.after;
+      console.log(`  🔄 Next page available:`, !!after);
+      
     } while (after);
+
+    console.log("\n📊 Final results:");
+    console.log(`  - Total pipeline deals: ${pipelineDeals.length}`);
+    console.log(`  - Monthly deals: ${monthlyDeals.length}`);
+    console.log(`  - One-time deals: ${oneTimeDeals.length}`);
 
     const totalDonations = reduceDeals(pipelineDeals);
     const totalMonthlyDonations = reduceDeals(monthlyDeals);
     const totalOneTimeDonations = reduceDeals(oneTimeDeals);
+
+    console.log(`  - Total donations: $${totalDonations}`);
+    console.log(`  - Total monthly donations: $${totalMonthlyDonations}`);
+    console.log(`  - Total one-time donations: $${totalOneTimeDonations}`);
 
     return {
       pipelineDeals,
@@ -106,7 +137,11 @@ async function fetchHubSpotData() {
       lastUpdated: new Date().toISOString(),
     };
   } catch (error) {
-    console.error("Error fetching HubSpot data:", error);
+    console.error("❌ Error fetching HubSpot data:", error);
+    console.error("Error details:", error.message);
+    if (error.body) {
+      console.error("API Error body:", error.body);
+    }
     throw error;
   }
 }
