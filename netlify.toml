@@ -41,6 +41,38 @@
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
+# Add headers for video files to ensure proper MIME types
+[[headers]]
+  for = "/blog/*/*.mp4"
+  [headers.values]
+    Content-Type = "video/mp4"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/blog/*/*.webm"
+  [headers.values]
+    Content-Type = "video/webm"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/blog/*/*.ogv"
+  [headers.values]
+    Content-Type = "video/ogg"
+    Cache-Control = "public, max-age=86400"
+
+# Add headers for audio files
+[[headers]]
+  for = "/blog/*/*.mp3"
+  [headers.values]
+    Content-Type = "audio/mpeg"
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/blog/*/*.ogg"
+  [headers.values]
+    Content-Type = "audio/ogg"
+    Cache-Control = "public, max-age=86400"
+
 # Add JS MIME type headers to ensure JS files load correctly
 [[headers]]
   for = "/_app/immutable/**/*.js"
