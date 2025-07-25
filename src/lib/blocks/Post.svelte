@@ -76,12 +76,12 @@
   }
 </script>
 
-<article class="container">
-  <div class="my-20 xl:mt-32 xl:mb-20 mx-auto max-w-6xl">
+<article class="mx-auto max-w-6xl">
+  <div class="my-20 xl:mt-32 xl:mb-20">
     <a 
       href={backToBlogUrl} 
       on:click={handleBackClick}
-      class="flex items-center justify-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400"
+      class="flex items-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400 border-b border-spring-wood-300 pb-2 mb-4"
     >
       <Icon src={BsChevronLeft} />
       Back to blog
