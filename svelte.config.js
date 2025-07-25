@@ -71,13 +71,13 @@ const blogImages = () => {
         }
       });
 
-      // Then handle raw HTML to catch any embedded <img> tags
+      // Then handle raw HTML to catch any embedded <img>, <video>, and <source> tags
       visit(tree, "html", (node) => {
-        if (node.value && node.value.includes("<img")) {
+        if (node.value && (node.value.includes("<img") || node.value.includes("<video") || node.value.includes("<source"))) {
+          debugLog(`[BlogImages] Processing HTML node: ${node.value.substring(0, 100)}...`);
           const originalHtml = node.value;
 
-          // Simple regex to transform image src attributes
-          // This is a basic approach - for a production system you'd want to use a proper HTML parser
+          // Transform image src attributes
           node.value = node.value.replace(/src="([^"]+)"/g, (match, src) => {
             // Skip external URLs and absolute paths
             if (
@@ -93,8 +93,28 @@ const blogImages = () => {
             // Create the new src with blog slug
             const newSrc = `/blog/${slug}/${cleanPath}`;
 
-            debugLog(`[BlogImages] Transformed HTML img: ${src} -> ${newSrc}`);
+            debugLog(`[BlogImages] Transformed HTML src: ${src} -> ${newSrc}`);
             return `src="${newSrc}"`;
+          });
+
+          // Transform video href attributes (for download links)
+          node.value = node.value.replace(/href="([^"]+)"/g, (match, href) => {
+            // Skip external URLs and absolute paths
+            if (
+              href.startsWith("http") ||
+              (href.startsWith("/") && !href.startsWith("/blog/"))
+            ) {
+              return match;
+            }
+
+            // Clean the path
+            const cleanPath = href.startsWith("./") ? href.slice(2) : href;
+
+            // Create the new href with blog slug
+            const newHref = `/blog/${slug}/${cleanPath}`;
+
+            debugLog(`[BlogImages] Transformed HTML href: ${href} -> ${newHref}`);
+            return `href="${newHref}"`;
           });
 
           if (originalHtml !== node.value) {

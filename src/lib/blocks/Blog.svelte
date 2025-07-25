@@ -79,7 +79,7 @@
               >
                 <a
                   class="post-link"
-                  href="{base}/blog/{post.path}"
+                  href="{base}/blog/{post.path}?from={pageNum === 1 ? 'blog' : `blog/${pageNum}`}"
                   title={post.meta.title}
                 >
                   {post.meta.title}
@@ -112,7 +112,7 @@
               </p>
               <a
                 class="block text-right mt-4"
-                href="{base}/blog/{post.path}"
+                href="{base}/blog/{post.path}?from={pageNum === 1 ? 'blog' : `blog/${pageNum}`}"
                 title={post.meta.title}
               >
                 {$_("config.blog.readMore")}&hellip;
