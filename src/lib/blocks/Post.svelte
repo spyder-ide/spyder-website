@@ -19,24 +19,24 @@
     if (browser) {
       // Method 1: Check URL parameters first (most reliable)
       const urlParams = new URLSearchParams(window.location.search);
-      const fromPage = urlParams.get('from');
-            
+      const fromPage = urlParams.get("from");
+
       if (fromPage) {
         // Validate that it's a valid blog page
-        if (fromPage === 'blog' || /^blog\/\d+$/.test(fromPage)) {
+        if (fromPage === "blog" || /^blog\/\d+$/.test(fromPage)) {
           backToBlogUrl = `/${fromPage}`;
         }
       } else {
         // Method 2: Check referrer
         const referrer = document.referrer;
-        
+
         if (referrer) {
           try {
             const referrerUrl = new URL(referrer);
             const referrerPath = referrerUrl.pathname;
-            
+
             // Check if referrer is from a blog page
-            if (referrerPath.startsWith('/blog')) {
+            if (referrerPath.startsWith("/blog")) {
               // If it's a paginated blog page (e.g., /blog/2, /blog/3)
               const blogPageMatch = referrerPath.match(/^\/blog\/(\d+)$/);
               if (blogPageMatch) {
@@ -66,7 +66,7 @@
         // Let the normal link behavior work
         return;
       }
-      
+
       // Otherwise, try to go back in history
       if (window.history.length > 1) {
         window.history.back();
@@ -76,18 +76,18 @@
   }
 </script>
 
-<article class="mx-auto max-w-6xl">
+<article class="container mx-auto max-w-6xl">
   <div class="my-20 xl:mt-32 xl:mb-20">
-    <a 
-      href={backToBlogUrl} 
+    <a
+      href={backToBlogUrl}
       on:click={handleBackClick}
-      class="flex items-center gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400 border-b border-spring-wood-300 pb-2 mb-4"
+      class="flex items-center justify-center md:justify-start gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400 border-b border-spring-wood-300 pb-2 mb-4"
     >
       <Icon src={BsChevronLeft} />
       Back to blog
     </a>
     <h1
-      class="text-2xl
+      class="text-3xl
       md:text-4xl
       lg:tracking-tight
       xl:text-6xl
