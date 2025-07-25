@@ -27,10 +27,10 @@ Values which have changed with the most recent debugger step are shown with a bo
 A picture is worth a thousand words, as they say, so here is a whole screencast of the Watchlist plugin in action:
 
 <video controls>
-  <source src="screencast.webm" type="video/webm">
-  <source src="screencast.mp4" type="video/mp4">
+  <source src="/blog/introducing-watchlist-plugin/screencast.webm" type="video/webm">
+  <source src="/blog/introducing-watchlist-plugin/screencast.mp4" type="video/mp4">
   <track kind="captions">
-  Sorry, your browser doesn’t support HTML5 video. Download the <a href="screencast.mp4">MP4 file</a>
+  Sorry, your browser doesn't support HTML5 video. Download the <a href="/blog/introducing-watchlist-plugin/screencast.mp4">MP4 file</a>
 </video>
 
 ## Installation and going forwards
