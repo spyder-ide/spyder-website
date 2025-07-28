@@ -384,10 +384,11 @@ async function transformHtml(request, response, url) {
     let transformedHtml = html;
 
     // Only transform image URLs in development mode
-    if (!building) {
-      debugLog("🛠️ Development mode: transforming relative image URLs");
-      transformedHtml = transformImageUrls(transformedHtml, url);
-    }
+    // DISABLED: This was causing double path transformations on Netlify
+    // if (!building) {
+    //   debugLog("🛠️ Development mode: transforming relative image URLs");
+    //   transformedHtml = transformImageUrls(transformedHtml, url);
+    // }
 
     // Only inject meta tags during build or for social media crawlers
     if (building || isSocialMediaCrawler) {
