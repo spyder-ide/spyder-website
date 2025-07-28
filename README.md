@@ -29,7 +29,7 @@ This website is built with modern web technologies:
 - **Content**: [mdsvex](https://mdsvex.pngwn.io/) - Markdown processor for Svelte
 - **Icons**: [Svelte Icons Pack](https://leshak.github.io/svelte-icons-pack/) - Icon library
 - **Deployment**: [GitHub Pages](https://pages.github.com/) - Static site hosting
-- **CI/CD**: GitHub Actions - Automated deployment
+- **CI/CD**: [GitHub Actions](https://github.com/features/actions) - Automated deployment
 
 ## Features
 
@@ -49,21 +49,21 @@ This website is built with modern web technologies:
 - [Node.js](https://nodejs.org/) (version 18 or higher)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 
-### Development Setup
+### Build locally
 
 1. **Clone the repository**:
-   ```bash
+   ```shell
    git clone https://github.com/spyder-ide/spyder-website.git
    cd spyder-website
    ```
 
 2. **Install dependencies**:
-   ```bash
+   ```shell
    npm install
    ```
 
 3. **Start development server**:
-   ```bash
+   ```shell
    npm run dev
    ```
    
@@ -83,10 +83,10 @@ This website is built with modern web technologies:
 
 ## Project Structure
 
-```
+```text
 spyder-website/
 ├── src/
-│   ├── routes/                 # Page routes and content
+│   ├── routes/                # Page routes and content
 │   │   ├── +page.svelte       # Homepage
 │   │   ├── about/             # About page
 │   │   ├── blog/              # Blog posts and pages
@@ -133,33 +133,33 @@ The built site will be available at [http://localhost:5174](http://localhost:517
 
 We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTING.md) for details on:
 
+- Reporting issues
 - Setting up the development environment
 - Creating blog posts
 - Making code contributions
 - Submitting pull requests
-- Reporting issues
 
 ### Quick Contribution Steps
 
-1. Fork this repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+1. Fork and clone this repository
+2. Create a topic branch (`git switch -c topic-branch-name-here`)
 3. Make your changes
 4. Test locally (`npm run dev`)
 5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to your branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+6. Push your branch to your fork (`git push -u origin topic-branch-name-here`)
+7. Open a [Pull Request](https://github.com/spyder-ide/spyder-website/pull/new)
 
 ## Community
 
 - 🐍 **Main Project**: [Spyder IDE](https://github.com/spyder-ide/spyder)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/spyder-ide/spyder/discussions)
-- 🐛 **Issues**: [Bug Reports](https://github.com/spyder-ide/spyder/issues)
+- 🐛 **Issues**: [Bug Reports](https://github.com/spyder-ide/spyder-website/issues)
 - 📧 **Mailing List**: [Google Groups](https://groups.google.com/group/spyderlib)
 - 🐦 **Twitter**: [@Spyder_IDE](https://twitter.com/Spyder_IDE)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is released under the MIT License - see the [LICENSE.md](./LICENSE.md) file for details.
 
 ## Acknowledgments
 
@@ -168,6 +168,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Powered by [SvelteKit](https://kit.svelte.dev/) and [TailwindCSS](https://tailwindcss.com/)
 - Hosted on [GitHub Pages](https://pages.github.com/)
 
----
-
-*Made with love for the Python community*

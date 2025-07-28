@@ -37,20 +37,20 @@ Thank you for your interest in contributing to the Spyder website! This guide wi
 ## Development Setup
 
 1. **Install dependencies**:
-   ```bash
+   ```shell
    npm install
    ```
 
 2. **Start the development server**:
-   ```bash
+   ```shell
    npm run dev
    ```
-   The site will be available at `http://localhost:5173`
 
-3. **Available scripts**:
-   - `npm run dev` - Start development server
-   - `npm run build` - Build for production
-   - `npm run preview` - Preview production build
+3. View the site at [http://localhost:5173](http://localhost:5173)
+**Available scripts**:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
 
 ## Types of Contributions
 
@@ -94,7 +94,7 @@ If the blog post author(s) haven't been added yet:
    ---
    ```
 
-3. **Write content** using mdsvex Markdown:
+3. **Write content** using [mdsvex](https://mdsvex.pngwn.io/) Markdown:
    - [Never indent code blocks](https://mdsvex.pngwn.io/docs#limitations)
    - Use standard Markdown syntax for formatting
    - Follow our [style guide](#style-guidelines) for consistency
@@ -108,7 +108,7 @@ If the blog post author(s) haven't been added yet:
    - Prefer WEBP format for better performance
 
 5. **Preview your post**:
-   ```bash
+   ```shell
    npm run dev
    ```
    - Verify post appears at `/blog/your-post-name`
@@ -135,8 +135,8 @@ If the blog post author(s) haven't been added yet:
 
 Before creating an issue:
 
-1. **Search existing issues** to avoid duplicates
-2. **Use the issue template** (if available)
+1. **Search [existing issues](https://github.com/spyder-ide/spyder-website/issues)** to avoid duplicates
+2. **Complete all relevant fields of the issue template**
 3. **Include relevant details**:
    - Clear description of the problem
    - Steps to reproduce
@@ -147,7 +147,7 @@ Before creating an issue:
 ## Pull Request Process
 
 1. **Ensure your changes work locally**:
-   ```bash
+   ```shell
    npm run dev
    # Test your changes thoroughly
    ```
@@ -193,7 +193,7 @@ Before creating an issue:
 
 If you have questions or need help:
 
-- Check existing [documentation](README.md)
+- Check the [documentation](./README.md)
 - Search [existing issues](https://github.com/spyder-ide/spyder-website/issues)
 - Create a new issue with the "question" label
 
