@@ -81,7 +81,7 @@
     <a
       href={backToBlogUrl}
       on:click={handleBackClick}
-      class="flex items-center justify-center md:justify-start gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400 border-b border-spring-wood-300 pb-2 mb-4"
+      class="flex items-center justify-center md:justify-start gap-1 button py-1 text-red-berry-900 dark:text-spring-wood-400 hover:text-red-berry-800 dark:hover:text-spring-wood-200 border-b border-spring-wood-300 pb-2 mb-8"
     >
       <Icon src={BsChevronLeft} />
       Back to blog
@@ -109,7 +109,7 @@
         {#each authorsMetadata as authorMeta}
           <div class="flex flex-col items-center gap-2">
             {#if authorMeta.src}
-              <img class="w-24 h-24 rounded-full object-cover" src={authorMeta.src} alt={authorMeta.name} />
+              <img class="w-24 h-24 rounded-full object-cover bg-spring-wood-50" src={authorMeta.src} alt={authorMeta.name} />
             {/if}
             <div class="font-light text-center w-36">
               {authorMeta.name}
