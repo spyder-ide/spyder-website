@@ -21,6 +21,7 @@
     facebook: "BsFacebook",
     github: "BsGithub",
     instagram: "BsInstagram",
+    youtube: "BsYoutube",
     linux: "VscTerminalLinux",
     mac: "BsApple",
     mastodon: "BsMastodon",
