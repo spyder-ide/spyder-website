@@ -652,11 +652,11 @@
         "amount": "50.00",
         "createdate": "2025-05-23T03:37:00.394Z",
         "dealname": "Smarter code completion: One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-24T01:10:46.643Z",
+        "hs_lastmodifieddate": "2025-08-08T22:16:06.626Z",
         "hs_object_id": "37765132904",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-24T01:10:46.643Z"
+      "updatedAt": "2025-08-08T22:16:06.626Z"
     },
     {
       "createdAt": "2025-05-24T15:35:23.080Z",
@@ -778,11 +778,11 @@
         "amount": "20.00",
         "createdate": "2025-05-30T17:58:06.202Z",
         "dealname": "Spyder One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-31T20:08:03.468Z",
+        "hs_lastmodifieddate": "2025-08-08T20:06:55.080Z",
         "hs_object_id": "38268635719",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-31T20:08:03.468Z"
+      "updatedAt": "2025-08-08T20:06:55.080Z"
     },
     {
       "createdAt": "2025-06-02T08:47:45.421Z",
@@ -1044,11 +1044,11 @@
         "amount": "120.00",
         "createdate": "2025-06-19T17:18:48.724Z",
         "dealname": "Spyder Monthly via Payment Link",
-        "hs_lastmodifieddate": "2025-07-31T20:08:04.307Z",
+        "hs_lastmodifieddate": "2025-08-08T20:06:55.329Z",
         "hs_object_id": "39066297134",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-31T20:08:04.307Z"
+      "updatedAt": "2025-08-08T20:06:55.329Z"
     },
     {
       "createdAt": "2025-06-21T12:43:48.468Z",
@@ -1394,11 +1394,11 @@
         "amount": "20.00",
         "createdate": "2025-07-12T12:21:04.666Z",
         "dealname": "Spyder One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-24T00:49:46.094Z",
+        "hs_lastmodifieddate": "2025-08-08T21:11:34.568Z",
         "hs_object_id": "40086290944",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-24T00:49:46.094Z"
+      "updatedAt": "2025-08-08T21:11:34.568Z"
     },
     {
       "createdAt": "2025-07-12T16:14:21.272Z",
@@ -1819,6 +1819,34 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-08-05T17:01:56.435Z"
+    },
+    {
+      "createdAt": "2025-08-07T09:21:23.756Z",
+      "archived": false,
+      "id": "41527070984",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-08-07T09:21:23.756Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-08-07T09:37:40.633Z",
+        "hs_object_id": "41527070984",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-08-07T09:37:40.633Z"
+    },
+    {
+      "createdAt": "2025-08-08T06:39:07.779Z",
+      "archived": false,
+      "id": "41564803453",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-08-08T06:39:07.779Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-08-08T06:40:17.889Z",
+        "hs_object_id": "41564803453",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-08-08T06:40:17.889Z"
     }
   ],
   "monthlyDeals": [
@@ -1858,11 +1886,11 @@
         "amount": "120.00",
         "createdate": "2025-06-19T17:18:48.724Z",
         "dealname": "Spyder Monthly via Payment Link",
-        "hs_lastmodifieddate": "2025-07-31T20:08:04.307Z",
+        "hs_lastmodifieddate": "2025-08-08T20:06:55.329Z",
         "hs_object_id": "39066297134",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-31T20:08:04.307Z"
+      "updatedAt": "2025-08-08T20:06:55.329Z"
     },
     {
       "createdAt": "2025-07-13T19:27:03.194Z",
@@ -2532,11 +2560,11 @@
         "amount": "50.00",
         "createdate": "2025-05-23T03:37:00.394Z",
         "dealname": "Smarter code completion: One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-24T01:10:46.643Z",
+        "hs_lastmodifieddate": "2025-08-08T22:16:06.626Z",
         "hs_object_id": "37765132904",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-24T01:10:46.643Z"
+      "updatedAt": "2025-08-08T22:16:06.626Z"
     },
     {
       "createdAt": "2025-05-24T15:35:23.080Z",
@@ -2658,11 +2686,11 @@
         "amount": "20.00",
         "createdate": "2025-05-30T17:58:06.202Z",
         "dealname": "Spyder One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-31T20:08:03.468Z",
+        "hs_lastmodifieddate": "2025-08-08T20:06:55.080Z",
         "hs_object_id": "38268635719",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-31T20:08:03.468Z"
+      "updatedAt": "2025-08-08T20:06:55.080Z"
     },
     {
       "createdAt": "2025-06-02T08:47:45.421Z",
@@ -3260,11 +3288,11 @@
         "amount": "20.00",
         "createdate": "2025-07-12T12:21:04.666Z",
         "dealname": "Spyder One-time via Payment Link",
-        "hs_lastmodifieddate": "2025-07-24T00:49:46.094Z",
+        "hs_lastmodifieddate": "2025-08-08T21:11:34.568Z",
         "hs_object_id": "40086290944",
         "pipeline": "768998503"
       },
-      "updatedAt": "2025-07-24T00:49:46.094Z"
+      "updatedAt": "2025-08-08T21:11:34.568Z"
     },
     {
       "createdAt": "2025-07-12T16:14:21.272Z",
@@ -3643,10 +3671,38 @@
         "pipeline": "768998503"
       },
       "updatedAt": "2025-08-05T17:01:56.435Z"
+    },
+    {
+      "createdAt": "2025-08-07T09:21:23.756Z",
+      "archived": false,
+      "id": "41527070984",
+      "properties": {
+        "amount": "50.00",
+        "createdate": "2025-08-07T09:21:23.756Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-08-07T09:37:40.633Z",
+        "hs_object_id": "41527070984",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-08-07T09:37:40.633Z"
+    },
+    {
+      "createdAt": "2025-08-08T06:39:07.779Z",
+      "archived": false,
+      "id": "41564803453",
+      "properties": {
+        "amount": "20.00",
+        "createdate": "2025-08-08T06:39:07.779Z",
+        "dealname": "Spyder One-time via Payment Link",
+        "hs_lastmodifieddate": "2025-08-08T06:40:17.889Z",
+        "hs_object_id": "41564803453",
+        "pipeline": "768998503"
+      },
+      "updatedAt": "2025-08-08T06:40:17.889Z"
     }
   ],
-  "totalDonations": 4267.219999999999,
+  "totalDonations": 4337.219999999999,
   "totalMonthlyDonations": 660,
-  "totalOneTimeDonations": 3607.22,
-  "lastUpdated": "2025-08-06T21:09:03.253Z"
+  "totalOneTimeDonations": 3677.22,
+  "lastUpdated": "2025-08-09T16:52:24.647Z"
 }
