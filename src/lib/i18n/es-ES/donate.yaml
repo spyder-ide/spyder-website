@@ -5,10 +5,14 @@ page:
   back: Volver a la lista
   supporters: Total de colaboradores
   intro: |
-    Nuestra misión es crear y mantener **el mejor IDE de Python de código abierto** para científicos, ingenieros y analistas de datos que sea tanto **potente como fácil de usar**. Tus donaciones sostienen este esfuerzo y financian las características que más te interesa ver en futuras versiones. ¿Te gustaría contribuir hoy?
+    Nuestra misión es desarrollar **el mejor IDE científico de Python** que sea **potente y fácil de usar**.  
+    Tus donaciones son vitales para sostener este esfuerzo y financiar las características que necesitas. ¿Contribuirás hoy?
 
     * Todas las donaciones son administradas por [NumFOCUS](https://numfocus.org/), una organización benéfica sin fines de lucro registrada.
-    * Spyder es un proyecto independiente, desarrollado por la comunidad, sin afiliación con Anaconda u otras empresas comerciales.
+    * Spyder es un proyecto desarrollado por la comunidad sin afiliación con Anaconda o empresas comerciales.
+
+  otherProjects:
+    title: Otros Proyectos
 
 projects:
   - id: 0
@@ -20,7 +24,9 @@ projects:
     content: |
       El desarrollo y mantenimiento continuo de Spyder es posible gracias a ti, nuestra comunidad de usuarios\! Tus contribuciones a Spyder en general nos han ayudado a financiar desarrolladores, estudiantes y pasantes para contribuir con mejoras críticas, apoyar a miembros clave del equipo como nuestro diseñador de interfaces y web, pagar la infraestructura web crítica, y financiar esfuerzos de divulgación y comunidad para asegurarnos de que estamos haciendo lo mejor posible para servir a todos ustedes!
     button:
-      text: Apoyar a Spyder
+      text: Donar ahora
+    secondaryButton:
+      text: Leer más
 
   - id: 1
     title: Autocompletado de código más inteligente
@@ -34,7 +40,9 @@ projects:
       * Mejorar nuestro [servidor de lenguaje actual](https://github.com/python-lsp/python-lsp-server/) y/o usar uno [más potente](https://github.com/DetachHead/basedpyright) (similar al usado por VSCode) para autocompletados.
       * Conectar el Editor a la consola IPython para obtener autocompletados y documentación en caso de que no estén disponibles a través del servidor de lenguaje.
     button:
-      text: Apoyar este proyecto
+      text: Donar ahora
+    secondaryButton:
+      text: Leer más
 
   - id: 2
     title: Nuevo panel de visualización
@@ -47,7 +55,9 @@ projects:
 
       Esto mejoraría enormemente la experiencia de desarrollo y análisis de datos para los usuarios de Spyder, y también permitiría una adopción más amplia de estas herramientas de visualización fuera de los límites de los notebooks de Jupyter.
     button:
-      text: Apoyar este proyecto
+      text: Donar ahora
+    secondaryButton:
+      text: Leer más
 
   - id: 3
     title: Potenciar el resaltado de sintaxis
@@ -62,7 +72,9 @@ projects:
 
       Ha sido un desafío implementar esto ya que las bibliotecas en las que Spyder se ha basado para la detección y resaltado de sintaxis no se han mantenido al día con las utilizadas por muchos otros editores. Tu apoyo nos permitiría migrar a un marco moderno y en desarrollo activo que proporcione las mismas características que esperas en los IDE más populares.
     button:
-      text: Apoyar este proyecto
+      text: Donar ahora
+    secondaryButton:
+      text: Leer más
 
   - id: 4
     title: Mejorar el explorador de variables
@@ -75,4 +87,6 @@ projects:
 
       Nos gustaría abordar esto mediante el soporte de un método portátil y simplificado de representación de objetos que no esté limitado por tal restricción. Junto con eso, también nos gustaría hacer que guardar y cargar archivos spydata para restaurar tu sesión actual más tarde sea más confiable y funcione en una variedad más amplia de tipos de datos utilizando una biblioteca más robusta para esa tarea.
     button:
-      text: Apoyar este proyecto 
+      text: Donar ahora
+    secondaryButton:
+      text: Leer más 
