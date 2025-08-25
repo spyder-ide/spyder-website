@@ -74,6 +74,7 @@
   boxed: true
   background: /assets/media/bg_more.svg
   backgroundDark: /assets/media/bg_more_dark.svg
+  extraVerticalPadding: true
   innerColumns:
     - icon: BsYoutube
       link: https://www.youtube.com/c/spyderide

@@ -9,7 +9,7 @@
 </script>
 
 <div
-  class="text-red-berry-900 dark:text-neutral-300 flex flex-col items-center justify-center text-center {aspect}"
+  class="text-red-berry-900 dark:text-neutral-300 flex flex-col items-center justify-center text-center p-8 {aspect}"
 >
   {#if innerColumn.icon}
     <DynamicIcon icon={innerColumn.icon} {size} />
