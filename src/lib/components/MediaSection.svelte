@@ -19,11 +19,13 @@
   export let tabs = undefined;
   export let innerColumns = false;
   export let aspectRatio = "4:3";
+  export let extraVerticalPadding = false;
   
   // Reactive variables for translations
   let reactiveTabs = tabs;
   let reactiveCaption = caption;
   let reactiveImgAlt = imgAlt;
+  let innerColumnClasses = `max-w-screen-md mx-auto flex flex-col gap-8 md:gap-16 mt-2 md:mt-0 md:grid md:grid-cols-2 ${extraVerticalPadding ? "py-16" : ""}`;
   
   // Helper function to check if an object or array is empty
   function isEmpty(value) {
@@ -91,9 +93,7 @@
   {:else if reactiveTabs}
     <Tabs tabs={reactiveTabs} />
   {:else if innerColumns}
-    <div
-      class="max-w-2xl mx-auto flex flex-col gap-8 md:gap-16 mt-2 md:mt-0 md:grid md:grid-cols-2"
-    >
+    <div class={innerColumnClasses}>
       {#each innerColumns as innerColumn}
         {#if innerColumn.link}
           <a

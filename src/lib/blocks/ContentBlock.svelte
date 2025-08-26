@@ -35,6 +35,7 @@
   export let extraImageAlt = "";
   export let extraImageLink = "";
   export let innerColumns = false;
+  export let extraVerticalPadding = false;
 
   let style = "";
   let mobile = false;
@@ -171,6 +172,7 @@
         {caption}
         {tabs}
         {innerColumns}
+        {extraVerticalPadding}
       />
     {/if}
   </div>
