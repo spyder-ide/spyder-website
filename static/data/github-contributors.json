@@ -19,7 +19,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 14581
+    "contributions": 14596
   },
   {
     "login": "dalthviz",
@@ -41,7 +41,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 2584
+    "contributions": 2590
   },
   {
     "login": "PierreRaybaut",
@@ -129,7 +129,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 1008
+    "contributions": 1016
   },
   {
     "login": "jnsebgosselin",
@@ -371,7 +371,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 178
+    "contributions": 179
   },
   {
     "login": "bcolsen",
@@ -415,7 +415,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 121
+    "contributions": 124
   },
   {
     "login": "techtonik",
@@ -1009,7 +1009,7 @@
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
-    "contributions": 18
+    "contributions": 19
   },
   {
     "login": "thepycoder",
@@ -3520,22 +3520,22 @@
     "contributions": 1
   },
   {
-    "login": "afvincent",
-    "id": 17270724,
-    "node_id": "MDQ6VXNlcjE3MjcwNzI0",
-    "avatar_url": "https://avatars.githubusercontent.com/u/17270724?v=4",
+    "login": "SimpleZion",
+    "id": 110653193,
+    "node_id": "U_kgDOBphvCQ",
+    "avatar_url": "https://avatars.githubusercontent.com/u/110653193?v=4",
     "gravatar_id": "",
-    "url": "https://api.github.com/users/afvincent",
-    "html_url": "https://github.com/afvincent",
-    "followers_url": "https://api.github.com/users/afvincent/followers",
-    "following_url": "https://api.github.com/users/afvincent/following{/other_user}",
-    "gists_url": "https://api.github.com/users/afvincent/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/afvincent/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/afvincent/subscriptions",
-    "organizations_url": "https://api.github.com/users/afvincent/orgs",
-    "repos_url": "https://api.github.com/users/afvincent/repos",
-    "events_url": "https://api.github.com/users/afvincent/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/afvincent/received_events",
+    "url": "https://api.github.com/users/SimpleZion",
+    "html_url": "https://github.com/SimpleZion",
+    "followers_url": "https://api.github.com/users/SimpleZion/followers",
+    "following_url": "https://api.github.com/users/SimpleZion/following{/other_user}",
+    "gists_url": "https://api.github.com/users/SimpleZion/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/SimpleZion/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/SimpleZion/subscriptions",
+    "organizations_url": "https://api.github.com/users/SimpleZion/orgs",
+    "repos_url": "https://api.github.com/users/SimpleZion/repos",
+    "events_url": "https://api.github.com/users/SimpleZion/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/SimpleZion/received_events",
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
@@ -3894,6 +3894,28 @@
     "contributions": 1
   },
   {
+    "login": "afvincent",
+    "id": 17270724,
+    "node_id": "MDQ6VXNlcjE3MjcwNzI0",
+    "avatar_url": "https://avatars.githubusercontent.com/u/17270724?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/afvincent",
+    "html_url": "https://github.com/afvincent",
+    "followers_url": "https://api.github.com/users/afvincent/followers",
+    "following_url": "https://api.github.com/users/afvincent/following{/other_user}",
+    "gists_url": "https://api.github.com/users/afvincent/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/afvincent/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/afvincent/subscriptions",
+    "organizations_url": "https://api.github.com/users/afvincent/orgs",
+    "repos_url": "https://api.github.com/users/afvincent/repos",
+    "events_url": "https://api.github.com/users/afvincent/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/afvincent/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false,
+    "contributions": 1
+  },
+  {
     "login": "Flamefire",
     "id": 309017,
     "node_id": "MDQ6VXNlcjMwOTAxNw==",
@@ -4020,6 +4042,28 @@
     "repos_url": "https://api.github.com/users/bdrung/repos",
     "events_url": "https://api.github.com/users/bdrung/events{/privacy}",
     "received_events_url": "https://api.github.com/users/bdrung/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false,
+    "contributions": 1
+  },
+  {
+    "login": "gschwind",
+    "id": 272731,
+    "node_id": "MDQ6VXNlcjI3MjczMQ==",
+    "avatar_url": "https://avatars.githubusercontent.com/u/272731?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/gschwind",
+    "html_url": "https://github.com/gschwind",
+    "followers_url": "https://api.github.com/users/gschwind/followers",
+    "following_url": "https://api.github.com/users/gschwind/following{/other_user}",
+    "gists_url": "https://api.github.com/users/gschwind/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/gschwind/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/gschwind/subscriptions",
+    "organizations_url": "https://api.github.com/users/gschwind/orgs",
+    "repos_url": "https://api.github.com/users/gschwind/repos",
+    "events_url": "https://api.github.com/users/gschwind/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/gschwind/received_events",
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
@@ -4548,28 +4592,6 @@
     "repos_url": "https://api.github.com/users/samiam2013/repos",
     "events_url": "https://api.github.com/users/samiam2013/events{/privacy}",
     "received_events_url": "https://api.github.com/users/samiam2013/received_events",
-    "type": "User",
-    "user_view_type": "public",
-    "site_admin": false,
-    "contributions": 1
-  },
-  {
-    "login": "SimpleZion",
-    "id": 110653193,
-    "node_id": "U_kgDOBphvCQ",
-    "avatar_url": "https://avatars.githubusercontent.com/u/110653193?v=4",
-    "gravatar_id": "",
-    "url": "https://api.github.com/users/SimpleZion",
-    "html_url": "https://github.com/SimpleZion",
-    "followers_url": "https://api.github.com/users/SimpleZion/followers",
-    "following_url": "https://api.github.com/users/SimpleZion/following{/other_user}",
-    "gists_url": "https://api.github.com/users/SimpleZion/gists{/gist_id}",
-    "starred_url": "https://api.github.com/users/SimpleZion/starred{/owner}{/repo}",
-    "subscriptions_url": "https://api.github.com/users/SimpleZion/subscriptions",
-    "organizations_url": "https://api.github.com/users/SimpleZion/orgs",
-    "repos_url": "https://api.github.com/users/SimpleZion/repos",
-    "events_url": "https://api.github.com/users/SimpleZion/events{/privacy}",
-    "received_events_url": "https://api.github.com/users/SimpleZion/received_events",
     "type": "User",
     "user_view_type": "public",
     "site_admin": false,
