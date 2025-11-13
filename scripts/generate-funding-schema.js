@@ -6,7 +6,7 @@ import yaml from "js-yaml";
 import path from "path";
 import { exists } from "./utils.js";
 
-const FUNDING_SCHEMA_URL = "https://fundingjson.org/schema/v1.0.0/funding.schema.json";
+const FUNDING_SCHEMA_URL = "https://fundingjson.org/schema/v1.1.0.json";
 
 /**
  * Fetch the funding.json schema from the official URL
