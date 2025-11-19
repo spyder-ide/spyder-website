@@ -2,10 +2,15 @@
 import adapter from "@sveltejs/adapter-static";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import { mdsvex } from "mdsvex";
+import path from "path";
 import classNames from "rehype-class-names";
 import rehypeTitleFigure from "rehype-title-figure";
 import smartypants from "remark-smartypants";
-import { visit } from "unist-util-visit";
+import visit from "unist-util-visit";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const classNamesOptions = {
   h2: "section",
@@ -170,7 +175,7 @@ const mdsvexOptions = {
   remarkPlugins: [smartypants, escapeQuotes, processMetadata, blogImages],
   rehypePlugins: [rehypeTitleFigure, [classNames, classNamesOptions]],
   layout: {
-    blog: "src/lib/blocks/Post.svelte",
+    blog: path.resolve(__dirname, "src/lib/blocks/Post.svelte"),
   },
 };
 
