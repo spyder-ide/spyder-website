@@ -78,13 +78,16 @@
   innerColumns:
     - icon: BsYoutube
       link: https://www.youtube.com/c/spyderide
+      target: "_blank"
       aspect: xl:aspect-square
     - icon: BsBookHalf
       link: https://docs.spyder-ide.org
+      target: "_blank"
       aspect: xl:aspect-square
     - icon: BsGithub
       link: https://github.com/spyder-ide/spyder
+      target: "_blank"
       aspect: xl:aspect-square
     - icon: BsHeartFill
-      link: https://opencollective.com/spyder
+      link: https://www.spyder-ide.org/donate
       aspect: xl:aspect-square

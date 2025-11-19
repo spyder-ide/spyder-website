@@ -98,8 +98,8 @@
         {#if innerColumn.link}
           <a
             href={innerColumn.link}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={innerColumn.target || "_self"}
+            rel={innerColumn.rel || "noopener noreferrer"}
             class="card-link md:grid w-full h-full items-center"
           >
             <Card
