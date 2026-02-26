@@ -54,6 +54,7 @@
     "vite": "^5.4.19"
   },
   "overrides": {
-    "glob": "^11.1.0"
+    "glob": "^11.1.0",
+    "@isaacs/brace-expansion": "5.0.1"
   }
 }
