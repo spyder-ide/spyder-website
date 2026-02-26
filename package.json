@@ -8,10 +8,11 @@
     "generate-hubspot-data": "node scripts/generate-hubspot-data.js",
     "generate-funding-schema": "node scripts/generate-funding-schema.js",
     "prebuild": "npm run generate-og-images && npm run generate-contrib-data && npm run generate-hubspot-data && npm run generate-funding-schema",
-    "dev": "npm run prebuild && npx vite dev",
+    "predev": "npm run prebuild",
+    "dev": "npx vite dev",
     "dev:no-prebuild": "npx vite dev",
     "build:no-prebuild": "npx vite build",
-    "build": "npm run prebuild && npx vite build",
+    "build": "npx vite build",
     "preview": "npx vite preview",
     "deploy": "gh-pages -d build -t true"
   },
@@ -56,5 +57,8 @@
   "overrides": {
     "glob": "^11.1.0",
     "@isaacs/brace-expansion": "5.0.1"
+  },
+  "devDependencies": {
+    "baseline-browser-mapping": "^2.10.0"
   }
 }
