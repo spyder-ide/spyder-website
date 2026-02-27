@@ -1,8 +1,8 @@
 - id: what-is-spyder-section
-  title: La ventaja de Spyder
+  title: Las ventajas de Spyder
   extraContent:
     title: >-
-      Obtenga la facilidad de uso de Jupyter, junto a muchas más características avanzadas
+      Obtén la facilidad de uso de Jupyter, junto a muchas más características avanzadas
       que se encuentran en PyCharm y VSCode, en un solo entorno de programación
 
 - id: interactive-section
