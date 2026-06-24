@@ -7,6 +7,14 @@
         <atom:link href="https://www.spyder-ide.org/blog/feed.xml" rel="self" type="application/rss+xml"/>
         
     <item>
+      <title>How your donations transformed Spyder in 2025</title>
+      <link>https://www.spyder-ide.org/blog/oc-progress-report-2025</link>
+      <description>Thanks to the community's financial support, Spyder has not only survived but thrived in 2025. Read on as we share the new features, releases and interface improvements from the last year that your donations directly made possible.</description>
+      <category>Announcement</category>
+      <pubDate>Wed, 24 Jun 2026 00:00:00 GMT</pubDate>
+    </item>
+  
+    <item>
       <title>Spyder 6 project lead: Remote development interface and application UI/UX improvements</title>
       <link>https://www.spyder-ide.org/blog/spyder-6-carlos</link>
       <description>Spyder's lead maintainer, Carlos Cordoba, shares his insights on the projects and features he helped develop for Spyder 6.0, particularly UI/UX and where the IDE is headed next.</description>
