@@ -31,7 +31,8 @@ function reduceDeals(deals) {
 }
 
 async function fetchHubSpotData() {
-  const token = process.env.VITE_HUBSPOT_TOKEN;
+  // Don't get data using HubSpot API because it's not working
+  const token = undefined // process.env.VITE_HUBSPOT_TOKEN;
 
   console.log("🔍 Starting HubSpot data fetch...");
   console.log("📋 Token available:", !!token);
