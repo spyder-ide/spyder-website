@@ -22,14 +22,6 @@ current:
           - Responsable de la documentación
           - "Escritor técnico, de blogs y propuestas"
           - Responsable de divulgación
-  - id: 6740194
-    name: Quentin Peter
-    role: Desarrollador principal
-    tooltip:
-      - list:
-          - Rediseñó las comunicaciones entre Spyder y Spyder-Kernels
-          - Creador del panel del Depurador
-          - Muchas mejoras a la Terminal de IPython
   - id: 9618975
     name: Ryan Clary
     role: Desarrollador principal
@@ -42,18 +34,18 @@ current:
     tooltip:
       - list:
           - Responsable de los plugins externos
+  - id: 5204788
+    name: Hendrik D. Louzada
+    role: Desarrollador principal
+    tooltip:
+      - list:
+          - Desarrolló el backend para el plugin del cliente remoto
   - id: 42411448
     name: Juan Sebastian Bautista
     role: Desarrollador junior
     tooltip:
       - list:
           - "Mejoras al instalador de Windows, QtConsole y el UI/UX de Spyder"
-  - id: 5204788
-    name: Hendrik D. Louzada
-    role: Desarrollador junior
-    tooltip:
-      - list:
-          - Desarrolló el backend para el plugin del cliente remoto
   - id: 5027583
     name: Andrés Montoya
     role: Diseñador gráfico y web
@@ -79,6 +71,14 @@ past:
           - Rediseñó el registro y la interacción entre plugins
           - Nueva arquitectura para el plugin de Run
           - "Añadió registros globales para acciones, menús y toolbars"
+  - id: 6740194
+    name: Quentin Peter
+    role: Desarrollador principal
+    tooltip:
+      - list:
+          - Rediseñó las comunicaciones entre Spyder y Spyder-Kernels
+          - Creador del panel del Depurador
+          - Muchas mejoras a la Terminal de IPython
   - id: 50221806
     name: Isabela Presedo-Floyd
     role: Diseñadora

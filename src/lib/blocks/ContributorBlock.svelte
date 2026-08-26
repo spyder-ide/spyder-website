@@ -6,6 +6,32 @@
   export let contributors;
   export let size = "medium";
 
+  const LARGE_COLUMNS = 4;
+
+  const largeGridSizeClassByColumns = {
+    3: "grid grid-cols-1 sm:grid-cols-3 sm:gap-6 lg:gap-8",
+    4: "grid grid-cols-1 sm:grid-cols-4 sm:gap-6 lg:gap-8",
+  };
+
+  const largeLastRowColSpanByColumns = {
+    3: "col-span-1 sm:col-span-3",
+    4: "col-span-1 sm:col-span-4",
+  };
+
+  $: largeGridSizeClass = largeGridSizeClassByColumns[LARGE_COLUMNS];
+  $: largeLastRowColSpanClass = largeLastRowColSpanByColumns[LARGE_COLUMNS];
+
+  $: largeRemainder =
+    size === "large" ? contributors.length % LARGE_COLUMNS : 0;
+  $: largeMainContributors =
+    size === "large" && largeRemainder > 0
+      ? contributors.slice(0, -largeRemainder)
+      : contributors;
+  $: largeLastRowContributors =
+    size === "large" && largeRemainder > 0
+      ? contributors.slice(-largeRemainder)
+      : [];
+
   // Define size-specific classes
   const containerSizeClass = {
     medium: "max-w-6xl",
@@ -18,10 +44,10 @@
     large: "max-w-6xl text-xl"
   };
 
-  const gridSizeClass = {
-    small: "grid grid-cols-1 grid-cols-8 sm:grid-cols-12 lg:grid-cols-23",
+  $: gridSizeClass = {
+    small: "grid grid-cols-8 sm:grid-cols-12 lg:grid-cols-23",
     medium: "flex flex-wrap sm:gap-6 lg:gap-8",
-    large: "grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 sm:gap-6 lg:gap-8"
+    large: largeGridSizeClass
   };
 </script>
 
@@ -46,11 +72,30 @@
   <div
     class="gap-3 justify-center justify-items-center {gridSizeClass[size]}"
   >
-    {#each contributors as contributor}
-      <div class="item" class:w-[280px]={size === "medium"}>
-        <ContributorCard {contributor} {size} />
-      </div>
-    {/each}
+    {#if size === "large"}
+      {#each largeMainContributors as contributor}
+        <div class="item">
+          <ContributorCard {contributor} {size} />
+        </div>
+      {/each}
+      {#if largeLastRowContributors.length > 0}
+        <div
+          class="{largeLastRowColSpanClass} flex flex-col sm:flex-row flex-wrap justify-center sm:gap-6 lg:gap-8 gap-3"
+        >
+          {#each largeLastRowContributors as contributor}
+            <div class="item">
+              <ContributorCard {contributor} {size} />
+            </div>
+          {/each}
+        </div>
+      {/if}
+    {:else}
+      {#each contributors as contributor}
+        <div class="item" class:w-[280px]={size === "medium"}>
+          <ContributorCard {contributor} {size} />
+        </div>
+      {/each}
+    {/if}
   </div>
 </div>
 {/if}

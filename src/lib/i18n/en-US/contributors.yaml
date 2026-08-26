@@ -18,13 +18,6 @@ current:
           - Docs maintainer
           - "Technical, grant and blog writer"
           - Outreach lead
-  - id: 6740194
-    role: Core developer
-    tooltip:
-      - list:
-          - Re-architectured communications between Spyder and Spyder-Kernels
-          - Creator of the Debugger pane
-          - Many improvements to the IPython console
   - id: 9618975
     role: Core developer
     tooltip:
@@ -35,16 +28,16 @@ current:
     tooltip:
       - list:
           - External plugins maintainer
+  - id: 5204788
+    role: Core developer
+    tooltip:
+      - list:
+          - Developed backend for the remote client plugin
   - id: 42411448
     role: Junior developer
     tooltip:
       - list:
           - "Improvements to the Windows installer, QtConsole and Spyder's UI/UX"
-  - id: 5204788
-    role: Junior developer
-    tooltip:
-      - list:
-          - Developed backend for the remote client plugin
   - id: 5027583
     role: Graphic and web designer
     tooltip:
@@ -67,6 +60,13 @@ past:
           - Re-architectured plugin registration and interactions
           - New architecture for the Run plugin
           - "Add global registries for actions, menus and toolbars"
+  - id: 6740194
+    role: Core developer
+    tooltip:
+      - list:
+          - Re-architectured communications between Spyder and Spyder-Kernels
+          - Creator of the Debugger pane
+          - Many improvements to the IPython console
   - id: 50221806
     role: Designer
     tooltip:
