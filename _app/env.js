@@ -1,1 +1,0 @@
-export const env={"PUBLIC_SITE_URL":"https://www.spyder-ide.org"}
